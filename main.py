@@ -1,47 +1,66 @@
 import os
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
-def get_todays_games():
-    today = datetime.utcnow().strftime("%Y-%m-%d")
+API_URL = "https://api.balldontlie.io/v1/games"
+API_KEY = os.getenv("BALLDONTLIE_API_KEY")
 
-    api_key = os.getenv("BALLDONTLIE_API_KEY")
+HEADERS = {
+    "Authorization": API_KEY
+}
 
-    if not api_key:
-        print("Missing API key.")
-        return []
-
-    url = "https://api.balldontlie.io/v1/games"
-    headers = {
-        "Authorization": api_key
-    }
+def fetch_games(start_date, end_date):
     params = {
-        "dates[]": today,
+        "start_date": start_date,
+        "end_date": end_date,
         "per_page": 100
     }
 
-    response = requests.get(url, headers=headers, params=params)
+    response = requests.get(API_URL, headers=HEADERS, params=params)
 
     if response.status_code != 200:
         print("API error:", response.status_code)
         print(response.text)
         return []
 
-    data = response.json()
-    return data["data"]
+    return response.json()["data"]
 
 def main():
-    games = get_todays_games()
+    today = datetime.utcnow().date()
+    today_str = today.isoformat()
 
-    if not games:
+    games_today = fetch_games(today_str, today_str)
+
+    if not games_today:
         print("No NBA games today.")
         return
 
-    print("Today's NBA games:")
-    for game in games:
-        home = game["home_team"]["full_name"]
-        away = game["visitor_team"]["full_name"]
-        print(f"- {away} @ {home}")
+    games_7d = fetch_games((today - timedelta(days=7)).isoformat(), today_str)
+    games_14d = fetch_games((today - timedelta(days=14)).isoformat(), today_str)
+
+    def count_games(team_id, games):
+        return sum(
+            1 for g in games
+            if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
+        )
+
+    print("Schedule Density (raw counts)\n")
+
+    for game in games_today:
+        home = game["home_team"]
+        away = game["visitor_team"]
+
+        print(f"{away['full_name']} @ {home['full_name']}")
+
+        away_7d = count_games(away["id"], games_7d)
+        away_14d = count_games(away["id"], games_14d)
+
+        home_7d = count_games(home["id"], games_7d)
+        home_14d = count_games(home["id"], games_14d)
+
+        print(f"  {away['full_name']}: 7d={away_7d}, 14d={away_14d}")
+        print(f"  {home['full_name']}: 7d={home_7d}, 14d={home_14d}")
+        print()
 
 if __name__ == "__main__":
     main()
