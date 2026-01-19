@@ -25,6 +25,21 @@ def fetch_games(start_date, end_date):
 
     return response.json()["data"]
 
+def count_games(team_id, games):
+    return sum(
+        1 for g in games
+        if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
+    )
+
+def list_games_for_team(team_id, games):
+    return sorted(
+        [
+            g["date"][:10]
+            for g in games
+            if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
+        ]
+    )
+
 def main():
     today = datetime.utcnow().date()
     today_str = today.isoformat()
@@ -37,12 +52,6 @@ def main():
 
     games_7d = fetch_games((today - timedelta(days=7)).isoformat(), today_str)
     games_14d = fetch_games((today - timedelta(days=14)).isoformat(), today_str)
-
-    def count_games(team_id, games):
-        return sum(
-            1 for g in games
-            if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
-        )
 
     print("Schedule Density (raw counts)\n")
 
@@ -60,6 +69,19 @@ def main():
 
         print(f"  {away['full_name']}: 7d={away_7d}, 14d={away_14d}")
         print(f"  {home['full_name']}: 7d={home_7d}, 14d={home_14d}")
+
+        # DEBUG: validate Milwaukee Bucks counts
+        if away["full_name"] == "Milwaukee Bucks" or home["full_name"] == "Milwaukee Bucks":
+            bucks_id = away["id"] if away["full_name"] == "Milwaukee Bucks" else home["id"]
+
+            print("  [DEBUG] Bucks games last 7 days:")
+            for d in list_games_for_team(bucks_id, games_7d):
+                print(f"    - {d}")
+
+            print("  [DEBUG] Bucks games last 14 days:")
+            for d in list_games_for_team(bucks_id, games_14d):
+                print(f"    - {d}")
+
         print()
 
 if __name__ == "__main__":
