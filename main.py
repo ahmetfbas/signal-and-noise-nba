@@ -42,6 +42,16 @@ def schedule_density_score(g7, g14):
     # Scale to 0–100 for readability
     return round(100 * d_raw, 1)
 
+def density_label(D):
+    if D < 35:
+        return "Light"
+    elif D < 50:
+        return "Moderate"
+    elif D < 65:
+        return "Heavy"
+    else:
+        return "Extreme"
+
 def main():
     today = datetime.utcnow().date()
     today_str = today.isoformat()
@@ -70,10 +80,20 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
-        print(f"{away['full_name']} @ {home['full_name']}")
-        print(f"  {away['full_name']}: g7={away_7d}, g14={away_14d}, D={away_D}")
-        print(f"  {home['full_name']}: g7={home_7d}, g14={home_14d}, D={home_D}")
-        print()
+print(f"{away['full_name']} @ {home['full_name']}")
+
+print(
+    f"  {away['full_name']}: "
+    f"D={away_D} → {density_label(away_D)}"
+)
+
+print(
+    f"  {home['full_name']}: "
+    f"D={home_D} → {density_label(home_D)}"
+)
+
+print()
+
 
 if __name__ == "__main__":
     main()
