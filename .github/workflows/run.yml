@@ -24,4 +24,7 @@ jobs:
           pip install requests
 
       - name: Run main script
+        env:
+          BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
         run: python main.py
+
