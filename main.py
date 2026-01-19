@@ -46,6 +46,12 @@ def density_label(D):
         return "Heavy"
     else:
         return "Extreme"
+        
+def format_tweet(games_output):
+    lines = ["Tonight’s NBA fatigue context 🧠", ""]
+    lines.extend(games_output)
+    return "\n".join(lines)
+
 
 def main():
     today = datetime.utcnow().date()
@@ -60,7 +66,7 @@ def main():
     games_7d = fetch_games((today - timedelta(days=7)).isoformat(), today_str)
     games_14d = fetch_games((today - timedelta(days=14)).isoformat(), today_str)
 
-    print("Schedule Density (D) — higher = heavier load\n")
+    tweet_lines = []
 
     for game in games_today:
         home = game["home_team"]
@@ -68,17 +74,24 @@ def main():
 
         away_7d = count_games(away["id"], games_7d)
         away_14d = count_games(away["id"], games_14d)
-
         home_7d = count_games(home["id"], games_7d)
         home_14d = count_games(home["id"], games_14d)
 
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
-        print(f"{away['full_name']} @ {home['full_name']}")
-        print(f"  {away['full_name']}: D={away_D} → {density_label(away_D)}")
-        print(f"  {home['full_name']}: D={home_D} → {density_label(home_D)}")
-        print()
+        tweet_lines.append(f"{away['full_name']} @ {home['full_name']}")
+        tweet_lines.append(
+            f"• {away['full_name']}: {density_label(away_D)} (D={away_D})"
+        )
+        tweet_lines.append(
+            f"• {home['full_name']}: {density_label(home_D)} (D={home_D})"
+        )
+        tweet_lines.append("")
+
+    tweet = format_tweet(tweet_lines)
+    print(tweet)
+
 
 if __name__ == "__main__":
     main()
