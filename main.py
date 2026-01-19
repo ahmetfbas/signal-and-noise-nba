@@ -4,14 +4,18 @@ from datetime import datetime
 def get_todays_games():
     today = datetime.utcnow().strftime("%Y-%m-%d")
 
-    url = "https://www.balldontlie.io/api/v1/games"
+    url = "https://api.balldontlie.io/v1/games"
     params = {
         "dates[]": today,
         "per_page": 100
     }
 
     response = requests.get(url, params=params)
-    response.raise_for_status()
+
+    if response.status_code != 200:
+        print("API error:", response.status_code)
+        print(response.text)
+        return []
 
     data = response.json()
     return data["data"]
