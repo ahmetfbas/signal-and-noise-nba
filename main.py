@@ -32,14 +32,9 @@ def count_games(team_id, games):
     )
 
 def schedule_density_score(g7, g14):
-    # Density per day
     d7 = g7 / 7
     d14 = g14 / 14
-
-    # Blend (more weight on recent week)
     d_raw = 0.6 * d7 + 0.4 * d14
-
-    # Scale to 0–100 for readability
     return round(100 * d_raw, 1)
 
 def density_label(D):
@@ -80,20 +75,10 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
-print(f"{away['full_name']} @ {home['full_name']}")
-
-print(
-    f"  {away['full_name']}: "
-    f"D={away_D} → {density_label(away_D)}"
-)
-
-print(
-    f"  {home['full_name']}: "
-    f"D={home_D} → {density_label(home_D)}"
-)
-
-print()
-
+        print(f"{away['full_name']} @ {home['full_name']}")
+        print(f"  {away['full_name']}: D={away_D} → {density_label(away_D)}")
+        print(f"  {home['full_name']}: D={home_D} → {density_label(home_D)}")
+        print()
 
 if __name__ == "__main__":
     main()
