@@ -157,6 +157,8 @@ def main():
 
     tweet = format_tweet(tweet_lines)
     print(tweet)
+    print(f"[DEBUG] Scheduled games found: {len(games_today)}")
+
 
 if __name__ == "__main__":
     main()
