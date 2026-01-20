@@ -50,6 +50,19 @@ def density_label(D):
     else:
         return "Extreme"
 
+cutoff_date = datetime.fromisoformat(target_date).date()
+
+def count_games_before(team_id, games, cutoff_date):
+    return sum(
+        1 for g in games
+        if (
+            (g["home_team"]["id"] == team_id
+             or g["visitor_team"]["id"] == team_id)
+            and datetime.fromisoformat(g["date"][:10]).date() < cutoff_date
+        )
+    )
+
+
 # ---------------- MAIN ----------------
 def main():
     # Explicit NBA slate date (API-defined)
@@ -77,10 +90,11 @@ def main():
         away = game["visitor_team"]
         home = game["home_team"]
 
-        away_7d = count_games(away["id"], games_7d)
-        away_14d = count_games(away["id"], games_14d)
-        home_7d = count_games(home["id"], games_7d)
-        home_14d = count_games(home["id"], games_14d)
+        away_7d = count_games_before(away["id"], games_7d, cutoff_date)
+        away_14d = count_games_before(away["id"], games_14d, cutoff_date)
+        home_7d = count_games_before(home["id"], games_7d, cutoff_date)
+        home_14d = count_games_before(home["id"], games_14d, cutoff_date)
+
 
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
