@@ -60,6 +60,37 @@ def density_label(D):
     else:
         return "Extreme"
 
+def days_since_last_game(team_id, games, cutoff_date):
+    """
+    Returns number of days since last game before cutoff_date.
+    If no prior game exists in the window, returns None.
+    """
+    past_dates = [
+        parse_game_date(g)
+        for g in games
+        if (
+            (g["home_team"]["id"] == team_id
+             or g["visitor_team"]["id"] == team_id)
+            and parse_game_date(g) < cutoff_date
+        )
+    ]
+
+    if not past_dates:
+        return None
+
+    last_game_date = max(past_dates)
+    return (cutoff_date - last_game_date).days
+
+def rest_context_label(days_since):
+    if days_since is None:
+        return "No recent games"
+    elif days_since == 1:
+        return "Back-to-Back"
+    elif days_since == 2:
+        return "1 day rest"
+    else:
+        return "3+ days rest"
+
 # ---------------- MAIN ----------------
 def main():
     # Explicit slate date (can override)
@@ -84,29 +115,35 @@ def main():
     games_14d = fetch_games(start_14d, target_date)
 
     for game in games_today:
-        away = game["visitor_team"]
-        home = game["home_team"]
+    away = game["visitor_team"]
+    home = game["home_team"]
 
-        away_7d = count_games_before(away["id"], games_7d, cutoff_date)
-        away_14d = count_games_before(away["id"], games_14d, cutoff_date)
-        home_7d = count_games_before(home["id"], games_7d, cutoff_date)
-        home_14d = count_games_before(home["id"], games_14d, cutoff_date)
+    # Density
+    away_7d = count_games_before(away["id"], games_7d, cutoff_date)
+    away_14d = count_games_before(away["id"], games_14d, cutoff_date)
+    home_7d = count_games_before(home["id"], games_7d, cutoff_date)
+    home_14d = count_games_before(home["id"], games_14d, cutoff_date)
 
-        away_D = schedule_density_score(away_7d, away_14d)
-        home_D = schedule_density_score(home_7d, home_14d)
+    away_D = schedule_density_score(away_7d, away_14d)
+    home_D = schedule_density_score(home_7d, home_14d)
 
-        print(f"{away['full_name']} @ {home['full_name']}")
-        print(
-            f"  {away['full_name']}: "
-            f"7d={away_7d}, 14d={away_14d} → "
-            f"{density_label(away_D)} (D={away_D})"
-        )
-        print(
-            f"  {home['full_name']}: "
-            f"7d={home_7d}, 14d={home_14d} → "
-            f"{density_label(home_D)} (D={home_D})"
-        )
-        print()
+    # NEW: days since last game
+    away_days_rest = days_since_last_game(away["id"], games_14d, cutoff_date)
+    home_days_rest = days_since_last_game(home["id"], games_14d, cutoff_date)
+
+    print(f"{away['full_name']} @ {home['full_name']}")
+    print(
+        f"• {away['full_name']}: "
+        f"{density_label(away_D)} (D={away_D}), "
+        f"{rest_context_label(away_days_rest)}"
+    )
+    print(
+        f"• {home['full_name']}: "
+        f"{density_label(home_D)} (D={home_D}), "
+        f"{rest_context_label(home_days_rest)}"
+    )
+    print()
+
 
 if __name__ == "__main__":
     main()
