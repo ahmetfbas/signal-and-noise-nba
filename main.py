@@ -46,7 +46,33 @@ def density_label(D):
         return "Heavy"
     else:
         return "Extreme"
-        
+
+def rest_context(team_id, games, today):
+    past_games = [
+        g for g in games
+        if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
+    ]
+
+    if not past_games:
+        return "No recent games"
+
+    last_game_date = max(
+        datetime.fromisoformat(g["date"][:10]).date()
+        for g in past_games
+    )
+
+    rest_days = (today - last_game_date).days - 1
+
+    if rest_days <= 0:
+        return "Back-to-Back"
+    elif rest_days == 1:
+        return "1 day rest"
+    elif rest_days == 2:
+        return "2 days rest"
+    else:
+        return "3+ days rest"
+
+
 def format_tweet(games_output):
     lines = ["Tonight’s NBA fatigue context 🧠", ""]
     lines.extend(games_output)
@@ -80,14 +106,18 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
+        away_rest = rest_context(away["id"], games_14d, today)
+        home_rest = rest_context(home["id"], games_14d, today)
+        
         tweet_lines.append(f"{away['full_name']} @ {home['full_name']}")
         tweet_lines.append(
-            f"• {away['full_name']}: {density_label(away_D)} (D={away_D})"
+            f"• {away['full_name']}: {density_label(away_D)} (D={away_D}), {away_rest}"
         )
         tweet_lines.append(
-            f"• {home['full_name']}: {density_label(home_D)} (D={home_D})"
+            f"• {home['full_name']}: {density_label(home_D)} (D={home_D}), {home_rest}"
         )
         tweet_lines.append("")
+
 
     tweet = format_tweet(tweet_lines)
     print(tweet)
