@@ -8,42 +8,48 @@ API_KEY = os.getenv("BALLDONTLIE_API_KEY")
 if not API_KEY:
     raise ValueError("BALLDONTLIE_API_KEY environment variable not set")
 
-HEADERS = {
-    "Authorization": API_KEY
-}
+HEADERS = {"Authorization": API_KEY}
 
-# ---------------- API ----------------
+# ---------------- API (with pagination) ----------------
 def fetch_games(start_date, end_date):
-    params = {
-        "start_date": start_date,
-        "end_date": end_date,
-        "per_page": 100
-    }
+    all_games = []
+    page = 1
 
-    response = requests.get(API_URL, headers=HEADERS, params=params)
+    while True:
+        params = {
+            "start_date": start_date,
+            "end_date": end_date,
+            "per_page": 100,
+            "page": page
+        }
 
-    if response.status_code != 200:
-        print("API error:", response.status_code)
-        print(response.text)
-        return []
+        response = requests.get(API_URL, headers=HEADERS, params=params)
 
-    return response.json()["data"]
+        if response.status_code != 200:
+            print("API error:", response.status_code)
+            print(response.text)
+            return []
 
-# ---------------- DATE NORMALIZATION ----------------
-from zoneinfo import ZoneInfo
+        payload = response.json()
+        data = payload.get("data", [])
+        all_games.extend(data)
 
-ET = ZoneInfo("America/New_York")
+        meta = payload.get("meta", {})
+        total_pages = meta.get("total_pages", 1)
+        if page >= total_pages:
+            break
 
-def parse_game_date(game):
-    """
-    Convert API UTC timestamp into US Eastern calendar date (NBA fan 'game day').
-    This avoids brittle UTC cutoff hacks and matches "today in the US".
-    """
-    dt_utc = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
-    dt_et = dt_utc.astimezone(ET)
-    return dt_et.date()
+        page += 1
+
+    return all_games
 
 # ---------------- METRICS ----------------
+def parse_game_date(game):
+    """Parse balldontlie ISO datetime safely (ROLLED BACK to original)"""
+    return datetime.fromisoformat(
+        game["date"].replace("Z", "+00:00")
+    ).date()
+
 def count_games_before(team_id, games, cutoff_date):
     return sum(
         1
@@ -112,30 +118,29 @@ def rest_context_label(days_since):
 
 # ---------------- MAIN ----------------
 def main():
-    # Slate date (NBA day)
+    # Slate date (can override)
     target_date = datetime.utcnow().date().isoformat()
-    # target_date = "2026-01-20"  # manual override if needed
+    # target_date = "2026-01-20"
 
     cutoff_date = datetime.fromisoformat(target_date).date()
 
     print(f"NBA Schedule Density — {target_date}\n")
 
-    # Games on the slate
+    # Fetch slate games
     games_today = fetch_games(target_date, target_date)
     if not games_today:
         print("No NBA games on this date.")
         return
 
-    # --------- CRITICAL FIX ----------
-    # Historical data must include the FULL previous NBA day
-    history_end = (cutoff_date + timedelta(days=1)).isoformat()
-
+    # Fetch historical windows
     start_7d = (cutoff_date - timedelta(days=7)).isoformat()
     start_14d = (cutoff_date - timedelta(days=14)).isoformat()
 
+    # IMPORTANT: history_end includes the full previous day in UTC time
+    history_end = (cutoff_date + timedelta(days=1)).isoformat()
+
     games_7d = fetch_games(start_7d, history_end)
     games_14d = fetch_games(start_14d, history_end)
-    # ---------------------------------
 
     debug_team = "Phoenix Suns"  # set None to disable debug
 
@@ -143,7 +148,7 @@ def main():
         away = game["visitor_team"]
         home = game["home_team"]
 
-        # Density
+        # Density (strictly before cutoff_date)
         away_7d = count_games_before(away["id"], games_7d, cutoff_date)
         away_14d = count_games_before(away["id"], games_14d, cutoff_date)
         home_7d = count_games_before(home["id"], games_7d, cutoff_date)
@@ -152,16 +157,15 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
-        # Days since last game (B2B logic)
+        # Days since last game (B2B detection)
         away_rest = days_since_last_game(
             away["id"], games_14d, cutoff_date,
-            debug=(away["full_name"] == debug_team),
+            debug=(debug_team is not None and away["full_name"] == debug_team),
             team_name=away["full_name"]
         )
-
         home_rest = days_since_last_game(
             home["id"], games_14d, cutoff_date,
-            debug=(home["full_name"] == debug_team),
+            debug=(debug_team is not None and home["full_name"] == debug_team),
             team_name=home["full_name"]
         )
 
