@@ -95,18 +95,27 @@ def format_tweet(games_output):
 
 
 def main():
-    today = datetime.utcnow().date()
-    today_str = today.isoformat()
+    # Use NBA (ET) date as the reference
     today_et = datetime.now(ZoneInfo("America/New_York")).date()
     
-    games_today = fetch_games(today_str, today_str)
-
-    if not games_today:
-        print("No NBA games today.")
+    # Widen fetch window to safely include late-night ET games
+    fetch_start = (today_et - timedelta(days=15)).isoformat()
+    fetch_end = (today_et + timedelta(days=1)).isoformat()
+    
+    # Fetch once, reuse everywhere
+    all_games = fetch_games(fetch_start, fetch_end)
+    
+    if not all_games:
+        print("No NBA games found.")
         return
-
-    games_7d = fetch_games((today - timedelta(days=7)).isoformat(), today_str)
-    games_14d = fetch_games((today - timedelta(days=14)).isoformat(), today_str)
+    
+    games_today = [
+        g for g in all_games
+        if game_date_et(g) == today_et
+    ]
+    
+    games_7d = all_games
+    games_14d = all_games
 
     tweet_lines = []
 
