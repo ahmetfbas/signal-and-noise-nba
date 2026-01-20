@@ -31,10 +31,20 @@ def fetch_games(start_date, end_date):
 
 # ---------------- METRICS ----------------
 def parse_game_date(game):
-    """Parse balldontlie ISO datetime safely"""
-    return datetime.fromisoformat(
+    """
+    Convert API UTC timestamp into NBA local game date.
+    Games starting before 06:00 UTC belong to the previous NBA date.
+    """
+    dt_utc = datetime.fromisoformat(
         game["date"].replace("Z", "+00:00")
-    ).date()
+    )
+
+    # NBA day rollover rule
+    if dt_utc.hour < 6:
+        return (dt_utc - timedelta(days=1)).date()
+
+    return dt_utc.date()
+
 
 def count_games_before(team_id, games, cutoff_date):
     return sum(
