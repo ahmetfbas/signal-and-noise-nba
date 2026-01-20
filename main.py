@@ -124,6 +124,82 @@ def b2b_pressure(days_since):
     """
     return 1 if days_since == 1 else 0
 
+CITY_COORDS = {
+    "Atlanta": (33.7573, -84.3963),
+    "Boston": (42.3662, -71.0621),
+    "Brooklyn": (40.6826, -73.9754),
+    "Charlotte": (35.2251, -80.8392),
+    "Chicago": (41.8807, -87.6742),
+    "Cleveland": (41.4965, -81.6882),
+    "Dallas": (32.7905, -96.8103),
+    "Denver": (39.7487, -105.0077),
+    "Detroit": (42.3411, -83.0553),
+    "Golden State": (37.7680, -122.3877),
+    "Houston": (29.7508, -95.3621),
+    "Indiana": (39.7639, -86.1555),
+    "LA Clippers": (34.0430, -118.2673),
+    "LA Lakers": (34.0430, -118.2673),
+    "Memphis": (35.1382, -90.0506),
+    "Miami": (25.7814, -80.1870),
+    "Milwaukee": (43.0451, -87.9172),
+    "Minnesota": (44.9795, -93.2760),
+    "New Orleans": (29.9490, -90.0821),
+    "New York": (40.7505, -73.9934),
+    "Oklahoma City": (35.4634, -97.5151),
+    "Orlando": (28.5392, -81.3839),
+    "Philadelphia": (39.9012, -75.1720),
+    "Phoenix": (33.4457, -112.0712),
+    "Portland": (45.5316, -122.6668),
+    "Sacramento": (38.5802, -121.4997),
+    "San Antonio": (29.4269, -98.4375),
+    "Toronto": (43.6435, -79.3791),
+    "Utah": (40.7683, -111.9011),
+    "Washington": (38.8981, -77.0209),
+}
+
+import math
+
+def haversine_miles(lat1, lon1, lat2, lon2):
+    """
+    Great-circle distance between two points (miles)
+    """
+    R = 3958.8  # Earth radius in miles
+
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlambda = math.radians(lon2 - lon1)
+
+    a = math.sin(dphi / 2)**2 + \
+        math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2)**2
+
+    return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+def travel_load_distance(last_city, current_city):
+    """
+    Returns (travel_load, distance_miles, reason)
+    """
+    if last_city is None:
+        return 0, 0, "no prior game"
+
+    if last_city == current_city:
+        return 0, 0, "same city"
+
+    if last_city not in CITY_COORDS or current_city not in CITY_COORDS:
+        return 1, None, "unknown city coords"
+
+    lat1, lon1 = CITY_COORDS[last_city]
+    lat2, lon2 = CITY_COORDS[current_city]
+
+    dist = round(haversine_miles(lat1, lon1, lat2, lon2))
+
+    # Buckets (NBA-realistic)
+    if dist < 300:
+        return 1, dist, "short travel"
+    elif dist < 800:
+        return 2, dist, "medium travel"
+    else:
+        return 3, dist, "long travel"
+
 
 # ---------------- MAIN ----------------
 def main():
@@ -180,7 +256,23 @@ def main():
 
         away_b2b = b2b_pressure(away_rest)
         home_b2b = b2b_pressure(home_rest)
-     
+
+        # Current game cities
+        away_city = game["visitor_team"]["city"]
+        home_city = game["home_team"]["city"]
+        
+        # Last game cities
+        away_last_city = last_game_location(away["id"], games_14d, cutoff_date)
+        home_last_city = last_game_location(home["id"], games_14d, cutoff_date)
+        
+        # Travel Load (distance-based)
+        away_travel, away_miles, away_reason = travel_load_distance(
+            away_last_city, away_city
+        )
+        home_travel, home_miles, home_reason = travel_load_distance(
+            home_last_city, home_city
+        )
+
         print(f"{away['full_name']} @ {home['full_name']}")
         print(
             f"• {away['full_name']}: "
@@ -195,6 +287,8 @@ def main():
             f"{rest_context_label(home_rest)}"
         )
         print(f"  → B2B Pressure: {home_b2b}")
+        print(f"  → Travel Load: {away_travel} ({away_reason}, {away_miles} mi)")
+        print(f"  → Travel Load: {home_travel} ({home_reason}, {home_miles} mi)")
         print()
 
 
