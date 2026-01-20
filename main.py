@@ -131,20 +131,32 @@ def haversine_miles(lat1, lon1, lat2, lon2):
     return round(2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)))
 
 def last_game_location(team_id, games, cutoff_date):
-    past_games = [
-        (parse_game_date(g), g)
-        for g in games
-        if (
-            (g["home_team"]["id"] == team_id
-             or g["visitor_team"]["id"] == team_id)
-            and parse_game_date(g) < cutoff_date
-        )
-    ]
+    """
+    Returns the city where the team played its most recent game
+    before the current slate game.
+    """
+    past_games = []
+
+    for g in games:
+        if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
+            gd = parse_game_date(g)
+
+            # allow <= cutoff_date to catch late-night UTC games
+            if gd <= cutoff_date:
+                past_games.append((gd, g))
+
     if not past_games:
         return None
 
+    # most recent by date
     _, g = max(past_games, key=lambda x: x[0])
-    return g["home_team"]["city"] if g["home_team"]["id"] == team_id else g["visitor_team"]["city"]
+
+    # determine city where team played
+    if g["home_team"]["id"] == team_id:
+        return g["home_team"]["city"]
+    else:
+        return g["visitor_team"]["city"]
+
 
 def travel_load_distance(last_city, current_city):
     if last_city is None or last_city == current_city:
@@ -191,7 +203,7 @@ def main():
         home_travel, home_miles, home_reason = travel_load_distance(
             home_last_city, home["city"]
         )
-
+        
         print(f"{away['full_name']} @ {home['full_name']}")
         print(f"• {away['full_name']}: {rest_context_label(away_rest)}")
         print(f"  → B2B Pressure: {b2b_pressure(away_rest)}")
@@ -199,6 +211,8 @@ def main():
         print(f"• {home['full_name']}: {rest_context_label(home_rest)}")
         print(f"  → B2B Pressure: {b2b_pressure(home_rest)}")
         print(f"  → Travel Load: {home_travel} ({home_reason}, {home_miles} mi)\n")
+        print(f"[DEBUG] {away['full_name']} last city: {away_last_city}")
+        print(f"[DEBUG] {home['full_name']} last city: {home_last_city}")
 
 if __name__ == "__main__":
     main()
