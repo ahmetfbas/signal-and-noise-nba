@@ -116,6 +116,15 @@ def rest_context_label(days_since):
     else:
         return "3+ days rest"
 
+def b2b_pressure(days_since):
+    """
+    Back-to-Back Pressure:
+    1 = second night of back-to-back
+    0 = otherwise
+    """
+    return 1 if days_since == 1 else 0
+
+
 # ---------------- MAIN ----------------
 def main():
     # Slate date (can override)
@@ -169,10 +178,25 @@ def main():
             team_name=home["full_name"]
         )
 
+        away_b2b = b2b_pressure(away_rest)
+        home_b2b = b2b_pressure(home_rest)
+     
         print(f"{away['full_name']} @ {home['full_name']}")
-        print(f"• {away['full_name']}: {density_label(away_D)} (D={away_D}), {rest_context_label(away_rest)}")
-        print(f"• {home['full_name']}: {density_label(home_D)} (D={home_D}), {rest_context_label(home_rest)}")
+        print(
+            f"• {away['full_name']}: "
+            f"{density_label(away_D)} (D={away_D}), "
+            f"{rest_context_label(away_rest)}"
+        )
+        print(f"  → B2B Pressure: {away_b2b}")
+        
+        print(
+            f"• {home['full_name']}: "
+            f"{density_label(home_D)} (D={home_D}), "
+            f"{rest_context_label(home_rest)}"
+        )
+        print(f"  → B2B Pressure: {home_b2b}")
         print()
+
 
 if __name__ == "__main__":
     main()
