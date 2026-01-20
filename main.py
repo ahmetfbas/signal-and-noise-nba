@@ -29,23 +29,22 @@ def fetch_games(start_date, end_date):
 
     return response.json()["data"]
 
-# ---------------- METRICS ----------------
+# ---------------- DATE NORMALIZATION ----------------
 def parse_game_date(game):
     """
-    Convert API UTC timestamp into NBA local game date.
-    Games starting before 06:00 UTC belong to the previous NBA date.
+    Treat API timestamps as NBA game dates.
+    Late-night UTC games belong to the previous NBA day.
     """
     dt_utc = datetime.fromisoformat(
         game["date"].replace("Z", "+00:00")
     )
 
-    # NBA day rollover rule
     if dt_utc.hour < 6:
         return (dt_utc - timedelta(days=1)).date()
 
     return dt_utc.date()
 
-
+# ---------------- METRICS ----------------
 def count_games_before(team_id, games, cutoff_date):
     return sum(
         1
@@ -73,49 +72,34 @@ def density_label(D):
     else:
         return "Extreme"
 
-def days_since_last_game(team_id, games, cutoff_date, debug=False, debug_team_name=None, window_days=21):
-    """
-    Returns number of days since last game strictly before cutoff_date.
-    Debug prints the candidate dates and chosen last game date.
-    """
-    past_dates = []
-    for g in games:
-        is_team = (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-        if not is_team:
-            continue
-
-        gd = parse_game_date(g)
-        if gd < cutoff_date:
-            past_dates.append(gd)
+def days_since_last_game(team_id, games, cutoff_date, debug=False, team_name=None):
+    past_dates = [
+        parse_game_date(g)
+        for g in games
+        if (
+            (g["home_team"]["id"] == team_id
+             or g["visitor_team"]["id"] == team_id)
+            and parse_game_date(g) < cutoff_date
+        )
+    ]
 
     if debug:
-        # show a focused window around the cutoff for readability
-        start_w = cutoff_date - timedelta(days=window_days)
-        window_dates = sorted([d for d in past_dates if start_w <= d < cutoff_date])
-
         print("\n[DEBUG days_since_last_game]")
-        if debug_team_name:
-            print(f"Team: {debug_team_name} (id={team_id})")
-        else:
-            print(f"Team id: {team_id}")
-        print(f"Cutoff (target game date): {cutoff_date}")
-        print(f"Candidate past game dates found: {len(past_dates)}")
-        print(f"Window dates (last {window_days} days before cutoff): {window_dates}")
+        print(f"Team: {team_name} (id={team_id})")
+        print(f"Cutoff date: {cutoff_date}")
+        print(f"Past dates found: {sorted(past_dates)}")
 
     if not past_dates:
-        if debug:
-            print("=> No past dates found in provided games window. Returning None.\n")
         return None
 
-    last_game_date = max(past_dates)
-    days = (cutoff_date - last_game_date).days
+    last_game = max(past_dates)
+    days = (cutoff_date - last_game).days
 
     if debug:
-        print(f"Chosen last game date: {last_game_date}")
+        print(f"Last game date: {last_game}")
         print(f"Days since last game: {days}\n")
 
     return days
-
 
 def rest_context_label(days_since):
     if days_since is None:
@@ -129,26 +113,32 @@ def rest_context_label(days_since):
 
 # ---------------- MAIN ----------------
 def main():
-    # Explicit slate date (can override)
+    # Slate date (NBA day)
     target_date = datetime.utcnow().date().isoformat()
-    # target_date = "2026-01-21"
+    # target_date = "2026-01-20"  # manual override if needed
 
     cutoff_date = datetime.fromisoformat(target_date).date()
 
     print(f"NBA Schedule Density — {target_date}\n")
 
-    # Fetch slate games
+    # Games on the slate
     games_today = fetch_games(target_date, target_date)
     if not games_today:
         print("No NBA games on this date.")
         return
 
-    # Fetch historical windows
+    # --------- CRITICAL FIX ----------
+    # Historical data must include the FULL previous NBA day
+    history_end = (cutoff_date + timedelta(days=1)).isoformat()
+
     start_7d = (cutoff_date - timedelta(days=7)).isoformat()
     start_14d = (cutoff_date - timedelta(days=14)).isoformat()
 
-    games_7d = fetch_games(start_7d, target_date)
-    games_14d = fetch_games(start_14d, target_date)
+    games_7d = fetch_games(start_7d, history_end)
+    games_14d = fetch_games(start_14d, history_end)
+    # ---------------------------------
+
+    debug_team = "Phoenix Suns"  # set None to disable debug
 
     for game in games_today:
         away = game["visitor_team"]
@@ -163,32 +153,22 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
-        debug_team = "Phoenix Suns"  # change this to any full_name you want to inspect
-        
-        # Days since last game (B2B detection)
-        away_days_rest = days_since_last_game(
+        # Days since last game (B2B logic)
+        away_rest = days_since_last_game(
             away["id"], games_14d, cutoff_date,
             debug=(away["full_name"] == debug_team),
-            debug_team_name=away["full_name"]
+            team_name=away["full_name"]
         )
-        
-        home_days_rest = days_since_last_game(
+
+        home_rest = days_since_last_game(
             home["id"], games_14d, cutoff_date,
             debug=(home["full_name"] == debug_team),
-            debug_team_name=home["full_name"]
+            team_name=home["full_name"]
         )
 
         print(f"{away['full_name']} @ {home['full_name']}")
-        print(
-            f"• {away['full_name']}: "
-            f"{density_label(away_D)} (D={away_D}), "
-            f"{rest_context_label(away_days_rest)}"
-        )
-        print(
-            f"• {home['full_name']}: "
-            f"{density_label(home_D)} (D={home_D}), "
-            f"{rest_context_label(home_days_rest)}"
-        )
+        print(f"• {away['full_name']}: {density_label(away_D)} (D={away_D}), {rest_context_label(away_rest)}")
+        print(f"• {home['full_name']}: {density_label(home_D)} (D={home_D}), {rest_context_label(home_rest)}")
         print()
 
 if __name__ == "__main__":
