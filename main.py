@@ -40,23 +40,33 @@ def schedule_density_score(g7, g14):
     d_raw = 0.6 * d7 + 0.4 * d14
     return round(100 * d_raw, 1)
 
+def density_label(D):
+    if D < 35:
+        return "Light"
+    elif D < 50:
+        return "Moderate"
+    elif D < 65:
+        return "Heavy"
+    else:
+        return "Extreme"
+
 # ---------------- MAIN ----------------
 def main():
-    # 👇 Explicit NBA slate date (change this freely)
+    # Explicit NBA slate date (API-defined)
     target_date = datetime.utcnow().date().isoformat()
     # Example override:
     # target_date = "2026-01-21"
 
     print(f"NBA Schedule Density — {target_date}\n")
 
-    # Fetch slate games (authoritative)
+    # Fetch slate games
     games_today = fetch_games(target_date, target_date)
 
     if not games_today:
         print("No NBA games on this date.")
         return
 
-    # Fetch history for density
+    # Fetch history windows
     start_7d = (datetime.fromisoformat(target_date) - timedelta(days=7)).date().isoformat()
     start_14d = (datetime.fromisoformat(target_date) - timedelta(days=14)).date().isoformat()
 
@@ -76,8 +86,16 @@ def main():
         home_D = schedule_density_score(home_7d, home_14d)
 
         print(f"{away['full_name']} @ {home['full_name']}")
-        print(f"  {away['full_name']}: D={away_D}")
-        print(f"  {home['full_name']}: D={home_D}")
+        print(
+            f"  {away['full_name']}: "
+            f"7d={away_7d}, 14d={away_14d} → "
+            f"{density_label(away_D)} (D={away_D})"
+        )
+        print(
+            f"  {home['full_name']}: "
+            f"7d={home_7d}, 14d={home_14d} → "
+            f"{density_label(home_D)} (D={home_D})"
+        )
         print()
 
 if __name__ == "__main__":
