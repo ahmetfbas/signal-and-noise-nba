@@ -27,11 +27,21 @@ def fetch_games(start_date, end_date):
     return response.json()["data"]
 
 # ---------------- METRICS ----------------
-def count_games(team_id, games):
+def parse_game_date(game):
+    """Parse balldontlie ISO datetime safely"""
+    return datetime.fromisoformat(
+        game["date"].replace("Z", "+00:00")
+    ).date()
+
+def count_games_before(team_id, games, cutoff_date):
     return sum(
-        1 for g in games
-        if g["home_team"]["id"] == team_id
-        or g["visitor_team"]["id"] == team_id
+        1
+        for g in games
+        if (
+            (g["home_team"]["id"] == team_id
+             or g["visitor_team"]["id"] == team_id)
+            and parse_game_date(g) < cutoff_date
+        )
     )
 
 def schedule_density_score(g7, g14):
@@ -50,38 +60,25 @@ def density_label(D):
     else:
         return "Extreme"
 
-cutoff_date = datetime.fromisoformat(target_date).date()
-
-def count_games_before(team_id, games, cutoff_date):
-    return sum(
-        1 for g in games
-        if (
-            (g["home_team"]["id"] == team_id
-             or g["visitor_team"]["id"] == team_id)
-            and datetime.fromisoformat(g["date"][:10]).date() < cutoff_date
-        )
-    )
-
-
 # ---------------- MAIN ----------------
 def main():
-    # Explicit NBA slate date (API-defined)
+    # Explicit slate date (can override)
     target_date = datetime.utcnow().date().isoformat()
-    # Example override:
     # target_date = "2026-01-21"
+
+    cutoff_date = datetime.fromisoformat(target_date).date()
 
     print(f"NBA Schedule Density — {target_date}\n")
 
     # Fetch slate games
     games_today = fetch_games(target_date, target_date)
-
     if not games_today:
         print("No NBA games on this date.")
         return
 
-    # Fetch history windows
-    start_7d = (datetime.fromisoformat(target_date) - timedelta(days=7)).date().isoformat()
-    start_14d = (datetime.fromisoformat(target_date) - timedelta(days=14)).date().isoformat()
+    # Fetch historical windows
+    start_7d = (cutoff_date - timedelta(days=7)).isoformat()
+    start_14d = (cutoff_date - timedelta(days=14)).isoformat()
 
     games_7d = fetch_games(start_7d, target_date)
     games_14d = fetch_games(start_14d, target_date)
@@ -94,7 +91,6 @@ def main():
         away_14d = count_games_before(away["id"], games_14d, cutoff_date)
         home_7d = count_games_before(home["id"], games_7d, cutoff_date)
         home_14d = count_games_before(home["id"], games_14d, cutoff_date)
-
 
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
