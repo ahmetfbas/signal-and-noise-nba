@@ -3,7 +3,6 @@ import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
 
@@ -11,6 +10,7 @@ HEADERS = {
     "Authorization": API_KEY
 }
 
+# ---------- API ----------
 def fetch_games(start_date, end_date):
     params = {
         "start_date": start_date,
@@ -27,6 +27,7 @@ def fetch_games(start_date, end_date):
 
     return response.json()["data"]
 
+# ---------- HELPERS ----------
 def count_games(team_id, games):
     return sum(
         1 for g in games
@@ -50,13 +51,10 @@ def density_label(D):
         return "Extreme"
 
 def game_date_et(game):
-    # Convert game datetime to America/New_York date
     dt = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
     return dt.astimezone(ZoneInfo("America/New_York")).date()
 
-
 def rest_context(team_id, games, today_et):
-    # Collect this team's game dates (ET)
     team_game_dates = [
         game_date_et(g)
         for g in games
@@ -66,12 +64,12 @@ def rest_context(team_id, games, today_et):
     if not team_game_dates:
         return "No recent games"
 
-    # --- 1️⃣ Explicit Back-to-Back check ---
+    # ✅ Explicit Back-to-Back check
     yesterday = today_et - timedelta(days=1)
     if yesterday in team_game_dates:
         return "Back-to-Back"
 
-    # --- 2️⃣ Otherwise compute rest days ---
+    # Otherwise compute rest days
     prior_dates = [d for d in team_game_dates if d < today_et]
 
     if not prior_dates:
@@ -87,33 +85,31 @@ def rest_context(team_id, games, today_et):
     else:
         return "3+ days rest"
 
-
 def format_tweet(games_output):
     lines = ["Tonight’s NBA fatigue context 🧠", ""]
     lines.extend(games_output)
     return "\n".join(lines)
 
-
+# ---------- MAIN ----------
 def main():
-    # Use NBA (ET) date as the reference
+    # Use NBA calendar day (ET) as truth
     today_et = datetime.now(ZoneInfo("America/New_York")).date()
-    
-    # Widen fetch window to safely include late-night ET games
+
+    # Wide fetch window to avoid timezone edge misses
     fetch_start = (today_et - timedelta(days=15)).isoformat()
     fetch_end = (today_et + timedelta(days=1)).isoformat()
-    
-    # Fetch once, reuse everywhere
+
     all_games = fetch_games(fetch_start, fetch_end)
-    
+
     if not all_games:
         print("No NBA games found.")
         return
-    
-    games_today = [
-        g for g in all_games
-        if game_date_et(g) == today_et
-    ]
-    
+
+    # ⚠️ IMPORTANT:
+    # Do NOT over-filter games_today by ET equality
+    # Trust API window; use ET only for rest logic
+    games_today = all_games
+
     games_7d = all_games
     games_14d = all_games
 
@@ -133,7 +129,7 @@ def main():
 
         away_rest = rest_context(away["id"], games_14d, today_et)
         home_rest = rest_context(home["id"], games_14d, today_et)
-        
+
         tweet_lines.append(f"{away['full_name']} @ {home['full_name']}")
         tweet_lines.append(
             f"• {away['full_name']}: {density_label(away_D)} (D={away_D}), {away_rest}"
@@ -143,10 +139,8 @@ def main():
         )
         tweet_lines.append("")
 
-
     tweet = format_tweet(tweet_lines)
     print(tweet)
-
 
 if __name__ == "__main__":
     main()
