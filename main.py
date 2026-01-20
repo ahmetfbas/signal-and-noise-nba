@@ -63,22 +63,49 @@ def density_label(D):
     else:
         return "Extreme"
 
-def days_since_last_game(team_id, games, cutoff_date):
-    past_dates = [
-        parse_game_date(g)
-        for g in games
-        if (
-            (g["home_team"]["id"] == team_id
-             or g["visitor_team"]["id"] == team_id)
-            and parse_game_date(g) < cutoff_date
-        )
-    ]
+def days_since_last_game(team_id, games, cutoff_date, debug=False, debug_team_name=None, window_days=21):
+    """
+    Returns number of days since last game strictly before cutoff_date.
+    Debug prints the candidate dates and chosen last game date.
+    """
+    past_dates = []
+    for g in games:
+        is_team = (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+        if not is_team:
+            continue
+
+        gd = parse_game_date(g)
+        if gd < cutoff_date:
+            past_dates.append(gd)
+
+    if debug:
+        # show a focused window around the cutoff for readability
+        start_w = cutoff_date - timedelta(days=window_days)
+        window_dates = sorted([d for d in past_dates if start_w <= d < cutoff_date])
+
+        print("\n[DEBUG days_since_last_game]")
+        if debug_team_name:
+            print(f"Team: {debug_team_name} (id={team_id})")
+        else:
+            print(f"Team id: {team_id}")
+        print(f"Cutoff (target game date): {cutoff_date}")
+        print(f"Candidate past game dates found: {len(past_dates)}")
+        print(f"Window dates (last {window_days} days before cutoff): {window_dates}")
 
     if not past_dates:
+        if debug:
+            print("=> No past dates found in provided games window. Returning None.\n")
         return None
 
     last_game_date = max(past_dates)
-    return (cutoff_date - last_game_date).days
+    days = (cutoff_date - last_game_date).days
+
+    if debug:
+        print(f"Chosen last game date: {last_game_date}")
+        print(f"Days since last game: {days}\n")
+
+    return days
+
 
 def rest_context_label(days_since):
     if days_since is None:
@@ -126,9 +153,20 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
+        debug_team = "Phoenix Suns"  # change this to any full_name you want to inspect
+        
         # Days since last game (B2B detection)
-        away_days_rest = days_since_last_game(away["id"], games_14d, cutoff_date)
-        home_days_rest = days_since_last_game(home["id"], games_14d, cutoff_date)
+        away_days_rest = days_since_last_game(
+            away["id"], games_14d, cutoff_date,
+            debug=(away["full_name"] == debug_team),
+            debug_team_name=away["full_name"]
+        )
+        
+        home_days_rest = days_since_last_game(
+            home["id"], games_14d, cutoff_date,
+            debug=(home["full_name"] == debug_team),
+            debug_team_name=home["full_name"]
+        )
 
         print(f"{away['full_name']} @ {home['full_name']}")
         print(
