@@ -3,6 +3,7 @@ import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
+
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
 
@@ -49,31 +50,37 @@ def density_label(D):
         return "Extreme"
 
 def game_date_et(game):
-    # balldontlie returns ISO timestamps; ensure timezone-aware
+    # Convert game datetime to America/New_York date
     dt = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
     return dt.astimezone(ZoneInfo("America/New_York")).date()
 
+
 def rest_context(team_id, games, today_et):
-    # collect this team's game dates in ET
+    # Collect this team's game dates (ET)
     team_game_dates = [
-        game_date_et(g) for g in games
+        game_date_et(g)
+        for g in games
         if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
     ]
 
-    # only consider games strictly before "today" (ET)
+    if not team_game_dates:
+        return "No recent games"
+
+    # --- 1️⃣ Explicit Back-to-Back check ---
+    yesterday = today_et - timedelta(days=1)
+    if yesterday in team_game_dates:
+        return "Back-to-Back"
+
+    # --- 2️⃣ Otherwise compute rest days ---
     prior_dates = [d for d in team_game_dates if d < today_et]
 
     if not prior_dates:
         return "No recent games"
 
     last_game_date = max(prior_dates)
-
-    # rest days between last game day and today (ET), excluding game days
     rest_days = (today_et - last_game_date).days - 1
 
-    if rest_days <= 0:
-        return "Back-to-Back"
-    elif rest_days == 1:
+    if rest_days <= 1:
         return "1 day rest"
     elif rest_days == 2:
         return "2 days rest"
