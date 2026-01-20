@@ -108,11 +108,10 @@ def main():
     # ⚠️ IMPORTANT:
     # Do NOT over-filter games_today by ET equality
     # Trust API window; use ET only for rest logic
-        games_today = [
+    games_today = [
         g for g in all_games
         if game_date_et(g) == today_et
-        ]
-
+    ]
 
     games_7d = all_games
     games_14d = all_games
