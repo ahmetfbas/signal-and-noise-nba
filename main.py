@@ -90,6 +90,16 @@ def format_tweet(games_output):
     lines.extend(games_output)
     return "\n".join(lines)
 
+def is_tonights_game(game, now_et):
+    dt = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
+    game_et = dt.astimezone(ZoneInfo("America/New_York"))
+
+    return (
+        game["status"] == "scheduled"
+        and now_et <= game_et < now_et + timedelta(hours=24)
+    )
+
+
 # ---------- MAIN ----------
 def main():
     # Use NBA calendar day (ET) as truth
@@ -108,10 +118,13 @@ def main():
     # ⚠️ IMPORTANT:
     # Do NOT over-filter games_today by ET equality
     # Trust API window; use ET only for rest logic
+    now_et = datetime.now(ZoneInfo("America/New_York"))
+    
     games_today = [
         g for g in all_games
-        if game_date_et(g) == today_et
+        if is_tonights_game(g, now_et)
     ]
+
 
     games_7d = all_games
     games_14d = all_games
