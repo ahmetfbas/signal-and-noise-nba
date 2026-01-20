@@ -30,19 +30,18 @@ def fetch_games(start_date, end_date):
     return response.json()["data"]
 
 # ---------------- DATE NORMALIZATION ----------------
+from zoneinfo import ZoneInfo
+
+ET = ZoneInfo("America/New_York")
+
 def parse_game_date(game):
     """
-    Treat API timestamps as NBA game dates.
-    Late-night UTC games belong to the previous NBA day.
+    Convert API UTC timestamp into US Eastern calendar date (NBA fan 'game day').
+    This avoids brittle UTC cutoff hacks and matches "today in the US".
     """
-    dt_utc = datetime.fromisoformat(
-        game["date"].replace("Z", "+00:00")
-    )
-
-    if dt_utc.hour < 6:
-        return (dt_utc - timedelta(days=1)).date()
-
-    return dt_utc.date()
+    dt_utc = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
+    dt_et = dt_utc.astimezone(ET)
+    return dt_et.date()
 
 # ---------------- METRICS ----------------
 def count_games_before(team_id, games, cutoff_date):
