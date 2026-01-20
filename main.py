@@ -1,7 +1,6 @@
 import os
 import requests
 from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
 
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
@@ -10,7 +9,7 @@ HEADERS = {
     "Authorization": API_KEY
 }
 
-# ---------- API ----------
+# ---------------- API ----------------
 def fetch_games(start_date, end_date):
     params = {
         "start_date": start_date,
@@ -27,11 +26,12 @@ def fetch_games(start_date, end_date):
 
     return response.json()["data"]
 
-# ---------- HELPERS ----------
+# ---------------- METRICS ----------------
 def count_games(team_id, games):
     return sum(
         1 for g in games
-        if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
+        if g["home_team"]["id"] == team_id
+        or g["visitor_team"]["id"] == team_id
     )
 
 def schedule_density_score(g7, g14):
@@ -40,100 +40,32 @@ def schedule_density_score(g7, g14):
     d_raw = 0.6 * d7 + 0.4 * d14
     return round(100 * d_raw, 1)
 
-def density_label(D):
-    if D < 35:
-        return "Light"
-    elif D < 50:
-        return "Moderate"
-    elif D < 65:
-        return "Heavy"
-    else:
-        return "Extreme"
-
-def game_date_et(game):
-    dt = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
-    return dt.astimezone(ZoneInfo("America/New_York")).date()
-
-def rest_context(team_id, games, today_et):
-    team_game_dates = [
-        game_date_et(g)
-        for g in games
-        if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id
-    ]
-
-    if not team_game_dates:
-        return "No recent games"
-
-    # ✅ Explicit Back-to-Back check
-    yesterday = today_et - timedelta(days=1)
-    if yesterday in team_game_dates:
-        return "Back-to-Back"
-
-    # Otherwise compute rest days
-    prior_dates = [d for d in team_game_dates if d < today_et]
-
-    if not prior_dates:
-        return "No recent games"
-
-    last_game_date = max(prior_dates)
-    rest_days = (today_et - last_game_date).days - 1
-
-    if rest_days <= 1:
-        return "1 day rest"
-    elif rest_days == 2:
-        return "2 days rest"
-    else:
-        return "3+ days rest"
-
-def format_tweet(games_output):
-    lines = ["Tonight’s NBA fatigue context 🧠", ""]
-    lines.extend(games_output)
-    return "\n".join(lines)
-
-def is_tonights_game(game, now_et):
-    dt = datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
-    game_et = dt.astimezone(ZoneInfo("America/New_York"))
-
-    return (
-        game["status"] == "scheduled"
-        and now_et <= game_et < now_et + timedelta(hours=24)
-    )
-
-
-# ---------- MAIN ----------
+# ---------------- MAIN ----------------
 def main():
-    # Use NBA calendar day (ET) as truth
-    today_et = datetime.now(ZoneInfo("America/New_York")).date()
+    # 👇 Explicit NBA slate date (change this freely)
+    target_date = datetime.utcnow().date().isoformat()
+    # Example override:
+    # target_date = "2026-01-21"
 
-    # Wide fetch window to avoid timezone edge misses
-    fetch_start = (today_et - timedelta(days=15)).isoformat()
-    fetch_end = (today_et + timedelta(days=1)).isoformat()
+    print(f"NBA Schedule Density — {target_date}\n")
 
-    all_games = fetch_games(fetch_start, fetch_end)
+    # Fetch slate games (authoritative)
+    games_today = fetch_games(target_date, target_date)
 
-    if not all_games:
-        print("No NBA games found.")
+    if not games_today:
+        print("No NBA games on this date.")
         return
 
-    # ⚠️ IMPORTANT:
-    # Do NOT over-filter games_today by ET equality
-    # Trust API window; use ET only for rest logic
-    now_et = datetime.now(ZoneInfo("America/New_York"))
-    
-    games_today = [
-        g for g in all_games
-        if is_tonights_game(g, now_et)
-    ]
+    # Fetch history for density
+    start_7d = (datetime.fromisoformat(target_date) - timedelta(days=7)).date().isoformat()
+    start_14d = (datetime.fromisoformat(target_date) - timedelta(days=14)).date().isoformat()
 
-
-    games_7d = all_games
-    games_14d = all_games
-
-    tweet_lines = []
+    games_7d = fetch_games(start_7d, target_date)
+    games_14d = fetch_games(start_14d, target_date)
 
     for game in games_today:
-        home = game["home_team"]
         away = game["visitor_team"]
+        home = game["home_team"]
 
         away_7d = count_games(away["id"], games_7d)
         away_14d = count_games(away["id"], games_14d)
@@ -143,22 +75,10 @@ def main():
         away_D = schedule_density_score(away_7d, away_14d)
         home_D = schedule_density_score(home_7d, home_14d)
 
-        away_rest = rest_context(away["id"], games_14d, today_et)
-        home_rest = rest_context(home["id"], games_14d, today_et)
-
-        tweet_lines.append(f"{away['full_name']} @ {home['full_name']}")
-        tweet_lines.append(
-            f"• {away['full_name']}: {density_label(away_D)} (D={away_D}), {away_rest}"
-        )
-        tweet_lines.append(
-            f"• {home['full_name']}: {density_label(home_D)} (D={home_D}), {home_rest}"
-        )
-        tweet_lines.append("")
-
-    tweet = format_tweet(tweet_lines)
-    print(tweet)
-    print(f"[DEBUG] Scheduled games found: {len(games_today)}")
-
+        print(f"{away['full_name']} @ {home['full_name']}")
+        print(f"  {away['full_name']}: D={away_D}")
+        print(f"  {home['full_name']}: D={home_D}")
+        print()
 
 if __name__ == "__main__":
     main()
