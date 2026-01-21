@@ -196,6 +196,39 @@ def recovery_offset(days_since_last_game):
         return 0.40
     return 0.55      # 5+ days
 
+def fatigue_load_index_v1(
+    density_score,
+    days_since_last_game,
+    travel_load,
+    recovery_offset
+):
+    # --- Phase A: baseline ---
+    base = density_score
+
+    # --- Phase B: spikes ---
+    b2b = back_to_back_pressure(days_since_last_game)
+    b2b_spike = 12 if b2b else 0
+
+    travel_spike = travel_load * 6
+
+    collision_spike = 0
+    if b2b and travel_load >= 2:
+        collision_spike = 10
+
+    raw_load = base + b2b_spike + travel_spike + collision_spike
+
+    # --- Phase C: recovery dampening ---
+    final_load = raw_load * (1 - recovery_offset)
+
+    return round(final_load, 1), {
+        "base_density": base,
+        "b2b_spike": b2b_spike,
+        "travel_spike": travel_spike,
+        "collision_spike": collision_spike,
+        "raw_load": round(raw_load, 1),
+        "recovery_offset": recovery_offset
+    }
+
 
 # ---------------- MAIN ----------------
 def main():
@@ -261,7 +294,13 @@ def main():
 
         travel_score, miles, travel_reason = travel_load_v1(last_city, target_city)
 
-        
+        final_load, breakdown = fatigue_load_index_v1(
+        density_score=D,
+        days_since_last_game=days_since,
+        travel_load=travel_load,
+        recovery_offset=recovery_offset
+        )
+            
         print(
             f"{team_name}\n"
             f"  Density:\n"
@@ -278,6 +317,13 @@ def main():
             f"    Target city    = {target_city}\n"
             f"    Distance       = {miles if miles is not None else 'N/A'} miles\n"
             f"    Travel Load    = {travel_score} ({travel_reason})\n"
+            f"  Density            : {breakdown['base_density']}\n"
+            f"  B2B spike          : +{breakdown['b2b_spike']}\n"
+            f"  Travel spike       : +{breakdown['travel_spike']}\n"
+            f"  Collision spike    : +{breakdown['collision_spike']}\n"
+            f"  Raw load           : {breakdown['raw_load']}\n"
+            f"  Recovery offset    : -{breakdown['recovery_offset']*100:.0f}%\n"
+            f"  ▶ Fatigue Index    : {final_load}\n"
         )
 
 
