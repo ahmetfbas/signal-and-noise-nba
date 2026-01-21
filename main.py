@@ -54,10 +54,6 @@ def rest_context_label(days_since):
     return "3+ off-days"
 
 def last_game_before(team_id, all_games, current_game):
-    """
-    Finds the last game this team played before current_game.
-    Returns (date, city)
-    """
     current_dt = game_datetime(current_game)
     current_game_id = current_game["id"]
 
@@ -72,10 +68,7 @@ def last_game_before(team_id, all_games, current_game):
         return None, None
 
     last_game = max(team_games, key=game_datetime)
-    last_date = game_datetime(last_game).date()
-    last_city = last_game["home_team"]["city"]  # game location
-
-    return last_date, last_city
+    return game_datetime(last_game).date(), last_game["home_team"]["city"]
 
 # ---------------- TRAVEL LOAD v1 ----------------
 CITY_COORDS = {
@@ -120,28 +113,79 @@ def haversine_miles(lat1, lon1, lat2, lon2):
 
 def travel_load_v1(last_city, target_city):
     if last_city is None or target_city is None:
-        return 1, None, "unknown (missing city)"
+        return 1, None, "unknown"
 
     if last_city == target_city:
-        return 0, 0, "no travel / same city"
+        return 0, 0, "same city"
 
     if last_city not in CITY_COORDS or target_city not in CITY_COORDS:
-        return 1, None, "unknown (no coords)"
+        return 1, None, "unknown coords"
 
-    miles = round(
-        haversine_miles(*CITY_COORDS[last_city], *CITY_COORDS[target_city])
-    )
+    miles = round(haversine_miles(*CITY_COORDS[last_city], *CITY_COORDS[target_city]))
 
     if miles < 300:
-        return 1, miles, "short travel"
+        return 1, miles, "short"
     if miles < 800:
-        return 2, miles, "medium travel"
-    return 3, miles, "long travel"
+        return 2, miles, "medium"
+    return 3, miles, "long"
+
+# ---------------- FATIGUE & LOAD INDEX ----------------
+def fatigue_load_index(
+    D,
+    days_since,
+    travel_score,
+    minutes_fragility,
+    off_days
+):
+    density_norm = min(D / 100, 1.0)
+    b2b = 1 if days_since == 1 else 0
+    travel_norm = travel_score / 3
+
+    if off_days == 0:
+        recovery_offset = 0.0
+    elif off_days == 1:
+        recovery_offset = 0.1
+    elif off_days == 2:
+        recovery_offset = 0.2
+    else:
+        recovery_offset = 0.3
+
+    base_load = density_norm
+
+    collision_multiplier = 1.0
+    if b2b:
+        collision_multiplier += 0.35
+    collision_multiplier += 0.25 * travel_norm
+
+    fragility_multiplier = 1 + (minutes_fragility * base_load)
+
+    raw_fatigue = base_load * collision_multiplier * fragility_multiplier
+    fatigue = raw_fatigue * (1 - recovery_offset)
+    fatigue = min(max(fatigue, 0), 1.0)
+
+    zone = "Low" if fatigue < 0.35 else "Moderate" if fatigue < 0.65 else "High"
+
+    drivers = []
+    if b2b:
+        drivers.append("back-to-back")
+    if travel_norm >= 0.66:
+        drivers.append("long travel")
+    elif travel_norm >= 0.33:
+        drivers.append("moderate travel")
+    if minutes_fragility >= 0.7 and base_load >= 0.5:
+        drivers.append("minutes fragility")
+    if recovery_offset >= 0.2:
+        drivers.append("recovery offset")
+
+    if not drivers:
+        drivers.append("baseline load")
+
+    return fatigue, zone, drivers, density_norm, travel_norm, recovery_offset
 
 # ---------------- MAIN ----------------
 def main():
     target_date = datetime.utcnow().date().isoformat()
-    print(f"NBA Schedule Debug — {target_date}\n")
+    print(f"\nNBA Fatigue & Load Debug — {target_date}\n")
 
     games_today = fetch_games(target_date, target_date)
     if not games_today:
@@ -149,37 +193,42 @@ def main():
 
     history_start = (datetime.fromisoformat(target_date) - timedelta(days=15)).date().isoformat()
     history_end = (datetime.fromisoformat(target_date) + timedelta(days=1)).date().isoformat()
-
     all_recent_games = fetch_games(history_start, history_end)
 
     for game in games_today:
-        away = game["visitor_team"]
-        home = game["home_team"]
-
+        away, home = game["visitor_team"], game["home_team"]
         target_city = home["city"]
         target_game_date = game_datetime(game).date()
 
-        away_last_date, away_last_city = last_game_before(away["id"], all_recent_games, game)
-        home_last_date, home_last_city = last_game_before(home["id"], all_recent_games, game)
+        for team, side in [(away, "Away"), (home, "Home")]:
+            last_date, last_city = last_game_before(team["id"], all_recent_games, game)
+            days_since = None if last_date is None else (target_game_date - last_date).days
+            off_days = None if days_since is None else max(days_since - 1, 0)
 
-        away_days_rest = None if away_last_date is None else (target_game_date - away_last_date).days
-        home_days_rest = None if home_last_date is None else (target_game_date - home_last_date).days
+            travel_score, miles, travel_reason = travel_load_v1(last_city, target_city)
 
-        away_travel, away_miles, away_reason = travel_load_v1(away_last_city, target_city)
-        home_travel, home_miles, home_reason = travel_load_v1(home_last_city, target_city)
+            # 🔧 PLACEHOLDERS (explicit)
+            D = 55.0  # TODO: replace with real Schedule Density
+            minutes_fragility = 0.5  # TODO: replace with real minutes concentration
 
-        print(f"{away['full_name']} @ {home['full_name']}")
-        print(
-            f"• {away['full_name']}\n"
-            f"  Rest context : {rest_context_label(away_days_rest)}\n"
-            f"  Travel load  : {away_travel} ({away_reason}, {away_miles} mi)"
-        )
-        print(
-            f"• {home['full_name']}\n"
-            f"  Rest context : {rest_context_label(home_days_rest)}\n"
-            f"  Travel load  : {home_travel} ({home_reason}, {home_miles} mi)"
-        )
-        print()
+            fatigue, zone, drivers, d_norm, t_norm, rec = fatigue_load_index(
+                D, days_since, travel_score, minutes_fragility, off_days
+            )
+
+            print(f"{away['full_name']} @ {home['full_name']}")
+            print(f"{side} — {team['full_name']}")
+            print(f"  Last game       : {last_date} in {last_city}")
+            print(f"  Off-days        : {off_days} ({rest_context_label(days_since)})")
+            print(f"  Travel          : {travel_score} ({travel_reason}, {miles} mi)")
+            print(f"  Density D       : {D} → {round(d_norm,2)}")
+            print(f"  B2B flag        : {1 if days_since == 1 else 0}")
+            print(f"  Travel norm     : {round(t_norm,2)}")
+            print(f"  Minutes frag.   : {minutes_fragility}")
+            print(f"  Recovery offset : {rec}")
+            print(f"  → Fatigue score : {round(fatigue,3)}")
+            print(f"  → Zone          : {zone}")
+            print(f"  → Drivers       : {', '.join(drivers)}")
+            print("-" * 50)
 
 if __name__ == "__main__":
     main()
