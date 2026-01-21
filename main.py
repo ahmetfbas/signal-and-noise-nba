@@ -70,23 +70,14 @@ def print_games_by_day(games, title):
 def main():
     today = datetime.utcnow().date()
 
-    past_start = (today - timedelta(days=7)).isoformat()
-    past_end = (today - timedelta(days=1)).isoformat()
+    start_date = (today - timedelta(days=3)).isoformat()
+    end_date = (today + timedelta(days=3)).isoformat()
 
-    future_start = (today + timedelta(days=1)).isoformat()
-    future_end = (today + timedelta(days=7)).isoformat()
-
-    past_games = fetch_games(past_start, past_end)
-    future_games = fetch_games(future_start, future_end)
+    games = fetch_games(start_date, end_date)
 
     print_games_by_day(
-        past_games,
-        f"NBA API — Games from LAST 7 days ({past_start} → {past_end})"
-    )
-
-    print_games_by_day(
-        future_games,
-        f"NBA API — Games from NEXT 7 days ({future_start} → {future_end})"
+        games,
+        f"NBA API — Games from LAST 3 days, TODAY, NEXT 3 days ({start_date} → {end_date})"
     )
 
 if __name__ == "__main__":
