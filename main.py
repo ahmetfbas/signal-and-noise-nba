@@ -182,6 +182,19 @@ def travel_load_v1(last_city, target_city):
         return 2, miles, "medium travel"
     return 3, miles, "long travel"
 
+def recovery_offset(days_since_last_game):
+    if days_since_last_game is None:
+        return 0.30  # neutral fallback
+
+    if days_since_last_game == 0:
+        return 0.00
+    if days_since_last_game == 1:
+        return 0.10
+    if days_since_last_game == 2:
+        return 0.25
+    if days_since_last_game == 3:
+        return 0.40
+    return 0.55
 
 
 # ---------------- MAIN ----------------
@@ -235,6 +248,7 @@ def main():
         last_game_date = last_game_before(team_id, games_last_14, today)
         days_since = (today - last_game_date).days if last_game_date else None
         b2b = back_to_back_pressure(last_game_date, today)
+        rec_offset = recovery_offset(days_since)
 
         # --- Travel Load ---
         last_city = last_game_city(team_id, games_last_14, today)
@@ -257,6 +271,7 @@ def main():
             f"  Back-to-Back:\n"
             f"    Last game date = {last_game_date}\n"
             f"    Days since     = {days_since if days_since is not None else 'N/A'}\n"
+            f"  Recovery Offset: {rec_offset}\n"
             f"    B2B Pressure   = {b2b}\n"
             f"  Travel:\n"
             f"    Last game city = {last_city}\n"
