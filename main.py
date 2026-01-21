@@ -184,17 +184,17 @@ def travel_load_v1(last_city, target_city):
 
 def recovery_offset(days_since_last_game):
     if days_since_last_game is None:
-        return 0.30  # neutral fallback
+        return 0.30  # neutral fallback, very rare
 
-    if days_since_last_game == 0:
-        return 0.00
     if days_since_last_game == 1:
-        return 0.10
+        return 0.00   # back-to-back
     if days_since_last_game == 2:
-        return 0.25
+        return 0.10
     if days_since_last_game == 3:
+        return 0.25
+    if days_since_last_game == 4:
         return 0.40
-    return 0.55
+    return 0.55      # 5+ days
 
 
 # ---------------- MAIN ----------------
