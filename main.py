@@ -47,172 +47,98 @@ def parse_game_date(game):
         game["date"].replace("Z", "+00:00")
     ).date()
 
-# ---------------- METRICS ----------------
-def count_games_before(team_id, games, cutoff_date):
-    return sum(
-        1 for g in games
-        if (
-            (g["home_team"]["id"] == team_id
-             or g["visitor_team"]["id"] == team_id)
-            and parse_game_date(g) < cutoff_date
-        )
-    )
-
-def schedule_density_score(g7, g14):
-    return round(100 * (0.6 * g7 / 7 + 0.4 * g14 / 14), 1)
-
-def density_label(D):
-    if D < 35: return "Light"
-    if D < 50: return "Moderate"
-    if D < 65: return "Heavy"
-    return "Extreme"
-
-def days_since_last_game(team_id, games, cutoff_date):
-    past_dates = [
-        parse_game_date(g)
-        for g in games
-        if (
-            (g["home_team"]["id"] == team_id
-             or g["visitor_team"]["id"] == team_id)
-            and parse_game_date(g) < cutoff_date
-        )
-    ]
-    return None if not past_dates else (cutoff_date - max(past_dates)).days
-
-def rest_context_label(days_since):
-    if days_since == 1: return "Back-to-Back"
-    if days_since == 2: return "1 day rest"
-    if days_since is None: return "No recent games"
-    return "3+ days rest"
-
-def b2b_pressure(days_since):
-    return 1 if days_since == 1 else 0
-
-# ---------------- TRAVEL (DISTANCE) ----------------
-
-CITY_COORDS = {
-    "Atlanta": (33.7573, -84.3963),
-    "Boston": (42.3662, -71.0621),
-    "Brooklyn": (40.6826, -73.9754),
-    "Charlotte": (35.2251, -80.8392),
-    "Chicago": (41.8807, -87.6742),
-    "Cleveland": (41.4965, -81.6882),
-    "Dallas": (32.7905, -96.8103),
-    "Denver": (39.7487, -105.0077),
-    "Detroit": (42.3411, -83.0553),
-    "Houston": (29.7508, -95.3621),
-    "Indianapolis": (39.7639, -86.1555),
-    "Los Angeles": (34.0430, -118.2673),
-    "Memphis": (35.1382, -90.0506),
-    "Miami": (25.7814, -80.1870),
-    "Milwaukee": (43.0451, -87.9172),
-    "Minneapolis": (44.9795, -93.2760),
-    "New Orleans": (29.9490, -90.0821),
-    "New York": (40.7505, -73.9934),
-    "Oklahoma City": (35.4634, -97.5151),
-    "Orlando": (28.5392, -81.3839),
-    "Philadelphia": (39.9012, -75.1720),
-    "Phoenix": (33.4457, -112.0712),
-    "Portland": (45.5316, -122.6668),
-    "Sacramento": (38.5802, -121.4997),
-    "San Antonio": (29.4269, -98.4375),
-    "San Francisco": (37.7680, -122.3877),
-    "Toronto": (43.6435, -79.3791),
-    "Salt Lake City": (40.7683, -111.9011),
-    "Washington": (38.8981, -77.0209),
-}
-
-def haversine_miles(lat1, lon1, lat2, lon2):
-    R = 3958.8
-    phi1, phi2 = math.radians(lat1), math.radians(lat2)
-    dphi = math.radians(lat2 - lat1)
-    dlambda = math.radians(lon2 - lon1)
-    a = math.sin(dphi / 2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2)**2
-    return round(2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)))
-
-def last_game_location(team_id, games, cutoff_date):
+# ---------------- SCHEDULE HELPERS ----------------
+def last_game_info(team_id, games, cutoff_date):
     """
-    Returns the city where the team played its most recent game
-    before the current slate game.
+    Returns (last_game_date, last_game_city)
+    strictly before cutoff_date.
     """
     past_games = []
 
     for g in games:
         if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
             gd = parse_game_date(g)
-
-            # allow <= cutoff_date to catch late-night UTC games
-            if gd <= cutoff_date:
+            if gd < cutoff_date:
                 past_games.append((gd, g))
 
     if not past_games:
-        return None
+        return None, None
 
-    # most recent by date
-    _, g = max(past_games, key=lambda x: x[0])
+    last_date, g = max(past_games, key=lambda x: x[0])
 
-    # determine city where team played
     if g["home_team"]["id"] == team_id:
-        return g["home_team"]["city"]
+        city = g["home_team"]["city"]
     else:
-        return g["visitor_team"]["city"]
+        city = g["visitor_team"]["city"]
 
+    return last_date, city
 
-def travel_load_distance(last_city, current_city):
-    if last_city is None or last_city == current_city:
-        return 0, 0, "no / same-city travel"
+def days_since_last_game(last_game_date, cutoff_date):
+    if last_game_date is None:
+        return None
+    return (cutoff_date - last_game_date).days
 
-    if last_city not in CITY_COORDS or current_city not in CITY_COORDS:
-        return 1, None, "unknown city coords"
-
-    lat1, lon1 = CITY_COORDS[last_city]
-    lat2, lon2 = CITY_COORDS[current_city]
-    dist = haversine_miles(lat1, lon1, lat2, lon2)
-
-    if dist < 300: return 1, dist, "short travel"
-    if dist < 800: return 2, dist, "medium travel"
-    return 3, dist, "long travel"
+def rest_context_label(days_since):
+    if days_since == 1:
+        return "Back-to-Back"
+    if days_since == 2:
+        return "1 day rest"
+    if days_since is None:
+        return "No recent games"
+    return "3+ days rest"
 
 # ---------------- MAIN ----------------
 def main():
     target_date = datetime.utcnow().date().isoformat()
     cutoff_date = datetime.fromisoformat(target_date).date()
 
-    print(f"NBA Schedule Density — {target_date}\n")
+    print(f"NBA Schedule Debug — {target_date}\n")
 
     games_today = fetch_games(target_date, target_date)
     if not games_today:
         return
 
-    history_end = (cutoff_date + timedelta(days=1)).isoformat()
-    games_7d = fetch_games((cutoff_date - timedelta(days=7)).isoformat(), history_end)
-    games_14d = fetch_games((cutoff_date - timedelta(days=14)).isoformat(), history_end)
+    games_14d = fetch_games(
+        (cutoff_date - timedelta(days=14)).isoformat(),
+        target_date
+    )
 
     for game in games_today:
-        away, home = game["visitor_team"], game["home_team"]
+        away = game["visitor_team"]
+        home = game["home_team"]
 
-        away_rest = days_since_last_game(away["id"], games_14d, cutoff_date)
-        home_rest = days_since_last_game(home["id"], games_14d, cutoff_date)
-
-        away_last_city = last_game_location(away["id"], games_14d, cutoff_date)
-        home_last_city = last_game_location(home["id"], games_14d, cutoff_date)
-
-        away_travel, away_miles, away_reason = travel_load_distance(
-            away_last_city, away["city"]
+        # Last game info
+        away_last_date, away_last_city = last_game_info(
+            away["id"], games_14d, cutoff_date
         )
-        home_travel, home_miles, home_reason = travel_load_distance(
-            home_last_city, home["city"]
+        home_last_date, home_last_city = last_game_info(
+            home["id"], games_14d, cutoff_date
         )
-        
+
+        away_days_rest = days_since_last_game(away_last_date, cutoff_date)
+        home_days_rest = days_since_last_game(home_last_date, cutoff_date)
+
         print(f"{away['full_name']} @ {home['full_name']}")
-        print(f"• {away['full_name']}: {rest_context_label(away_rest)}")
-        print(f"  → B2B Pressure: {b2b_pressure(away_rest)}")
-        print(f"  → Travel Load: {away_travel} ({away_reason}, {away_miles} mi)")
-        print(f"• {home['full_name']}: {rest_context_label(home_rest)}")
-        print(f"  → B2B Pressure: {b2b_pressure(home_rest)}")
-        print(f"  → Travel Load: {home_travel} ({home_reason}, {home_miles} mi)\n")
-        print(f"[DEBUG] {away['full_name']} last city: {away_last_city}")
-        print(f"[DEBUG] {home['full_name']} last city: {home_last_city}")
+
+        print(
+            f"• {away['full_name']}\n"
+            f"  Target game date : {cutoff_date}\n"
+            f"  Last game date   : {away_last_date}\n"
+            f"  Target city      : {away['city']}\n"
+            f"  Last game city   : {away_last_city}\n"
+            f"  Rest context     : {rest_context_label(away_days_rest)}"
+        )
+
+        print(
+            f"• {home['full_name']}\n"
+            f"  Target game date : {cutoff_date}\n"
+            f"  Last game date   : {home_last_date}\n"
+            f"  Target city      : {home['city']}\n"
+            f"  Last game city   : {home_last_city}\n"
+            f"  Rest context     : {rest_context_label(home_days_rest)}"
+        )
+
+        print()
 
 if __name__ == "__main__":
     main()
