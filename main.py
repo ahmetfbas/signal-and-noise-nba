@@ -74,7 +74,11 @@ def main():
     end_date = (today + timedelta(days=3)).isoformat()
 
     games = fetch_games(start_date, end_date)
-
+    today = datetime.utcnow().date()
+    yesterday = today - timedelta(days=1)
+    
+    print(f"Yesterday : {yesterday}")
+    print(f"Today     : {today}")
     print_games_by_day(
         games,
         f"NBA API — Games from LAST 3 days, TODAY, NEXT 3 days ({start_date} → {end_date})"
