@@ -42,13 +42,16 @@ def game_datetime(game):
     return datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
 
 def rest_context_label(days_since):
+    if days_since is None:
+        return "No recent games"
     if days_since == 1:
         return "Back-to-Back"
     if days_since == 2:
-        return "1 day rest"
-    if days_since is None:
-        return "No recent games"
-    return "3+ days rest"
+        return "1 off-day"
+    if days_since == 3:
+        return "2 off-days"
+    return "3+ off-days"
+
 
 def last_game_before(team_id, all_games, current_game):
     """
