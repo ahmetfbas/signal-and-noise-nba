@@ -38,32 +38,23 @@ def fetch_games(start_date, end_date):
 
     return all_games
 
-# ---------------- HELPERS ----------------
 def game_datetime(game):
     return datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
 
-def game_day_str(game):
-    """
-    Day label as the API effectively exposes it.
-    """
-    return game_datetime(game).date().isoformat()
+# ---------------- PRINT ----------------
+def print_games_by_day(games, title):
+    print(f"\n{title}")
+    print("=" * len(title))
 
-# ---------------- MAIN DEBUG ----------------
-def main():
-    target_date = datetime.utcnow().date().isoformat()
-    start_date = (datetime.fromisoformat(target_date) - timedelta(days=14)).date().isoformat()
+    if not games:
+        print("No games.\n")
+        return
 
-    print(f"\nNBA API DEBUG — Games grouped by day")
-    print(f"Range: {start_date} → {target_date}\n")
-
-    games = fetch_games(start_date, target_date)
-
-    # Group games by API-derived day
     games_by_day = defaultdict(list)
     for g in games:
-        games_by_day[game_day_str(g)].append(g)
+        day = game_datetime(g).date().isoformat()
+        games_by_day[day].append(g)
 
-    # Print days in order
     for day in sorted(games_by_day.keys()):
         print(f"📅 {day} — {len(games_by_day[day])} games")
 
@@ -71,10 +62,32 @@ def main():
             away = g["visitor_team"]["full_name"]
             home = g["home_team"]["full_name"]
             tip = game_datetime(g).strftime("%Y-%m-%d %H:%M UTC")
-
-            print(f"  {away} @ {home}  | tipoff: {tip}")
+            print(f"  {away} @ {home} | tipoff: {tip}")
 
         print("-" * 60)
+
+# ---------------- MAIN ----------------
+def main():
+    today = datetime.utcnow().date()
+
+    past_start = (today - timedelta(days=7)).isoformat()
+    past_end = (today - timedelta(days=1)).isoformat()
+
+    future_start = (today + timedelta(days=1)).isoformat()
+    future_end = (today + timedelta(days=7)).isoformat()
+
+    past_games = fetch_games(past_start, past_end)
+    future_games = fetch_games(future_start, future_end)
+
+    print_games_by_day(
+        past_games,
+        f"NBA API — Games from LAST 7 days ({past_start} → {past_end})"
+    )
+
+    print_games_by_day(
+        future_games,
+        f"NBA API — Games from NEXT 7 days ({future_start} → {future_end})"
+    )
 
 if __name__ == "__main__":
     main()
