@@ -40,11 +40,6 @@ def fetch_games(start_date, end_date):
     return all_games
 
 # ---------------- DATE ----------------
-def parse_game_date(game):
-    return datetime.fromisoformat(
-        game["date"].replace("Z", "+00:00")
-    ).date()
-
 def parse_game_datetime(game):
     return datetime.fromisoformat(
         game["date"].replace("Z", "+00:00")
@@ -52,6 +47,10 @@ def parse_game_datetime(game):
 
 # ---------------- LAST GAME ----------------
 def last_game_info(team_id, games, target_game_datetime, exclude_game_id):
+    """
+    Returns (last_game_date, last_game_city)
+    strictly before target_game_datetime
+    """
     past_games = []
 
     for g in games:
@@ -68,10 +67,9 @@ def last_game_info(team_id, games, target_game_datetime, exclude_game_id):
         return None, None
 
     last_dt, g = max(past_games, key=lambda x: x[0])
-    city = g["home_team"]["city"]
+    city = g["home_team"]["city"]  # game location
 
     return last_dt.date(), city
-
 
 def rest_context_label(days_since):
     if days_since == 1:
@@ -81,15 +79,12 @@ def rest_context_label(days_since):
     if days_since is None:
         return "No recent games"
     return "3+ days rest"
-    
-
 
 # ---------------- MAIN ----------------
 def main():
     target_date = datetime.utcnow().date().isoformat()
     cutoff_date = datetime.fromisoformat(target_date).date()
-    target_game_datetime = parse_game_datetime(game)
-    
+
     print(f"NBA Schedule Debug — {target_date}\n")
 
     games_today = fetch_games(target_date, target_date)
@@ -97,28 +92,28 @@ def main():
         return
 
     history_end = (cutoff_date + timedelta(days=1)).isoformat()
-    
+
     games_14d = fetch_games(
         (cutoff_date - timedelta(days=14)).isoformat(),
         history_end
     )
-
 
     for game in games_today:
         away = game["visitor_team"]
         home = game["home_team"]
 
         game_id = game["id"]
+        target_game_datetime = parse_game_datetime(game)
 
-        # Target game city
+        # Target game city (ALWAYS home team city)
         target_city = home["city"]
 
         # Last game info
         away_last_date, away_last_city = last_game_info(
-            away["id"], games_14d, cutoff_date, game_id
+            away["id"], games_14d, target_game_datetime, game_id
         )
         home_last_date, home_last_city = last_game_info(
-            home["id"], games_14d, cutoff_date, game_id
+            home["id"], games_14d, target_game_datetime, game_id
         )
 
         away_days_rest = (
