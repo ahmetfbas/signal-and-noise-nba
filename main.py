@@ -1,7 +1,6 @@
 import os
 import requests
 from datetime import datetime, timedelta
-from collections import defaultdict
 
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
@@ -39,35 +38,46 @@ def fetch_games(start_date: str, end_date: str):
     return all_games
 
 
+# ---------------- DATE HELPERS ----------------
 def game_datetime(game):
     return datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
 
 
-def game_day(game):
-    return game_datetime(game).date().isoformat()
-
-
-# ---------------- PRINT ----------------
-def print_games_grouped_by_day(games, title):
-    print(f"\n{title}")
-    print("=" * len(title))
-
-    if not games:
-        print("No games.")
-        return
-
-    by_day = defaultdict(list)
+# ---------------- DENSITY HELPERS ----------------
+def count_games_in_window(team_id, games, start_date, end_date):
+    """
+    Counts games where:
+    start_date <= game_date < end_date
+    """
+    count = 0
     for g in games:
-        by_day[game_day(g)].append(g)
+        gd = game_datetime(g).date()
+        if start_date <= gd < end_date:
+            if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
+                count += 1
+    return count
 
-    for day in sorted(by_day.keys()):
-        print(f"📅 {day} — {len(by_day[day])} games")
-        for g in by_day[day]:
-            away = g["visitor_team"]["full_name"]
-            home = g["home_team"]["full_name"]
-            tip = game_datetime(g).strftime("%Y-%m-%d %H:%M UTC")
-            print(f"  {away} @ {home} | tipoff: {tip}")
-        print("-" * 60)
+
+def density_7d_score(g7):
+    if g7 <= 2:
+        return 10
+    if g7 == 3:
+        return 40
+    if g7 == 4:
+        return 75
+    return 95
+
+
+def density_14d_score(g14):
+    if g14 <= 4:
+        return 10
+    if g14 == 5:
+        return 35
+    if g14 == 6:
+        return 55
+    if g14 == 7:
+        return 75
+    return 95
 
 
 # ---------------- MAIN ----------------
@@ -75,25 +85,18 @@ def main():
     today = datetime.utcnow().date()
     yesterday = today - timedelta(days=1)
 
-    start_date = (today - timedelta(days=6)).isoformat()  # last 7 days total
-    end_date = today.isoformat()
-
     print(f"Yesterday : {yesterday.isoformat()}")
     print(f"Today     : {today.isoformat()}")
 
-    games_last_7 = fetch_games(start_date, end_date)
-    # Extra history for 14-day density (same date logic style)
-    start_14 = (today - timedelta(days=13)).isoformat()  # last 14 calendar days incl today
-    games_last_14 = fetch_games(start_14, today.isoformat())
+    # --- Fetch windows ---
+    start_7 = (today - timedelta(days=6)).isoformat()
+    start_14 = (today - timedelta(days=13)).isoformat()
+    end_date = today.isoformat()
 
-    print_games_grouped_by_day(
-        games_last_7,
-        f"NBA API — Games from LAST 7 days ({start_date} → {end_date})"
-    )
-    # ---------------- DENSITY (ONLY TEAMS PLAYING TODAY) ----------------
-    print("\nDENSITY — Teams playing today (G7 + G14 → D7 + D14 → blended D)\n")
+    games_last_7 = fetch_games(start_7, end_date)
+    games_last_14 = fetch_games(start_14, end_date)
 
-    # Collect teams playing today from games_last_7 (already fetched)
+    # --- Teams playing today ---
     teams_today = {}
     for g in games_last_7:
         if game_datetime(g).date() == today:
@@ -102,9 +105,10 @@ def main():
             teams_today[home["id"]] = home["full_name"]
             teams_today[away["id"]] = away["full_name"]
 
-    # Compute density for those teams
+    print("\nDENSITY — Teams playing today\n")
+
+    # --- Density calculation ---
     for team_id, team_name in teams_today.items():
-        # Counts are STRICTLY BEFORE today
         g7 = count_games_in_window(
             team_id,
             games_last_7,
@@ -125,11 +129,10 @@ def main():
 
         print(
             f"{team_name}\n"
-            f"  G7  (last 7, before today):  {g7}  → D7={d7}\n"
-            f"  G14 (last 14, before today): {g14} → D14={d14}\n"
-            f"  Blended Density D = 0.65*D7 + 0.35*D14 = {D}\n"
+            f"  G7  = {g7} → D7 = {d7}\n"
+            f"  G14 = {g14} → D14 = {d14}\n"
+            f"  Blended Density D = {D}\n"
         )
-
 
 
 if __name__ == "__main__":
