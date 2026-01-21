@@ -39,37 +39,32 @@ def fetch_games(start_date, end_date):
 
     return all_games
 
-# ---------------- DATE ----------------
-def parse_game_datetime(game):
-    return datetime.fromisoformat(
-        game["date"].replace("Z", "+00:00")
-    )
-
-# ---------------- LAST GAME ----------------
-def last_game_info(team_id, games, target_game_datetime, exclude_game_id):
-    """
-    Returns (last_game_date, last_game_city)
-    strictly before target_game_datetime
-    """
-    past_games = []
-
+# ---------------- HELPERS ----------------
+def team_played_in_games(team_id, games):
     for g in games:
-        if g["id"] == exclude_game_id:
-            continue
-
         if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
-            gdt = parse_game_datetime(g)
+            return True, g
+    return False, None
 
-            if gdt < target_game_datetime:
-                past_games.append((gdt, g))
+def last_game_info_by_day(team_id, target_date_obj, lookback_days=14):
+    """
+    Finds last game by walking back day-by-day using the API date filter
+    (most stable across timezone quirks).
+    Returns: (last_game_date_obj, last_game_city)
+    """
+    for delta in range(1, lookback_days + 1):
+        day = target_date_obj - timedelta(days=delta)
+        day_str = day.isoformat()
 
-    if not past_games:
-        return None, None
+        games_that_day = fetch_games(day_str, day_str)
+        played, game_obj = team_played_in_games(team_id, games_that_day)
 
-    last_dt, g = max(past_games, key=lambda x: x[0])
-    city = g["home_team"]["city"]  # game location
+        if played:
+            # City where the game was played is always the HOME team's city
+            last_city = game_obj["home_team"]["city"]
+            return day, last_city
 
-    return last_dt.date(), city
+    return None, None
 
 def rest_context_label(days_since):
     if days_since == 1:
@@ -82,54 +77,35 @@ def rest_context_label(days_since):
 
 # ---------------- MAIN ----------------
 def main():
-    target_date = datetime.utcnow().date().isoformat()
-    cutoff_date = datetime.fromisoformat(target_date).date()
+    # Slate day (API-driven daily run)
+    target_date_str = datetime.utcnow().date().isoformat()
+    target_date_obj = datetime.fromisoformat(target_date_str).date()
 
-    print(f"NBA Schedule Debug — {target_date}\n")
+    print(f"NBA Schedule Debug — {target_date_str}\n")
 
-    games_today = fetch_games(target_date, target_date)
+    games_today = fetch_games(target_date_str, target_date_str)
     if not games_today:
         return
-
-    history_end = (cutoff_date + timedelta(days=1)).isoformat()
-
-    games_14d = fetch_games(
-        (cutoff_date - timedelta(days=14)).isoformat(),
-        history_end
-    )
 
     for game in games_today:
         away = game["visitor_team"]
         home = game["home_team"]
 
-        game_id = game["id"]
-        target_game_datetime = parse_game_datetime(game)
-
-        # Target game city (ALWAYS home team city)
+        # Target city is ALWAYS home team city (game location)
         target_city = home["city"]
 
-        # Last game info
-        away_last_date, away_last_city = last_game_info(
-            away["id"], games_14d, target_game_datetime, game_id
-        )
-        home_last_date, home_last_city = last_game_info(
-            home["id"], games_14d, target_game_datetime, game_id
-        )
+        # Find last game (date + city) using day-by-day API lookback
+        away_last_date, away_last_city = last_game_info_by_day(away["id"], target_date_obj, lookback_days=14)
+        home_last_date, home_last_city = last_game_info_by_day(home["id"], target_date_obj, lookback_days=14)
 
-        away_days_rest = (
-            None if away_last_date is None
-            else (cutoff_date - away_last_date).days
-        )
-        home_days_rest = (
-            None if home_last_date is None
-            else (cutoff_date - home_last_date).days
-        )
+        away_days_rest = None if away_last_date is None else (target_date_obj - away_last_date).days
+        home_days_rest = None if home_last_date is None else (target_date_obj - home_last_date).days
 
         print(f"{away['full_name']} @ {home['full_name']}")
 
         print(
             f"• {away['full_name']}\n"
-            f"  Target game date : {cutoff_date}\n"
+            f"  Target game date : {target_date_obj}\n"
             f"  Last game date   : {away_last_date}\n"
             f"  Target city      : {target_city}\n"
             f"  Last game city   : {away_last_city}\n"
@@ -138,7 +114,7 @@ def main():
 
         print(
             f"• {home['full_name']}\n"
-            f"  Target game date : {cutoff_date}\n"
+            f"  Target game date : {target_date_obj}\n"
             f"  Last game date   : {home_last_date}\n"
             f"  Target city      : {target_city}\n"
             f"  Last game city   : {home_last_city}\n"
