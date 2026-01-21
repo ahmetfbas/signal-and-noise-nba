@@ -1,6 +1,5 @@
 import os
 import requests
-import math
 from datetime import datetime, timedelta
 
 API_URL = "https://api.balldontlie.io/v1/games"
@@ -11,7 +10,7 @@ if not API_KEY:
 
 HEADERS = {"Authorization": API_KEY}
 
-# ---------------- API (with pagination) ----------------
+# ---------------- API (pagination) ----------------
 def fetch_games(start_date, end_date):
     all_games = []
     page = 1
@@ -33,8 +32,7 @@ def fetch_games(start_date, end_date):
         payload = response.json()
         all_games.extend(payload.get("data", []))
 
-        meta = payload.get("meta", {})
-        if page >= meta.get("total_pages", 1):
+        if page >= payload.get("meta", {}).get("total_pages", 1):
             break
 
         page += 1
@@ -47,15 +45,18 @@ def parse_game_date(game):
         game["date"].replace("Z", "+00:00")
     ).date()
 
-# ---------------- SCHEDULE HELPERS ----------------
-def last_game_info(team_id, games, cutoff_date):
+# ---------------- LAST GAME ----------------
+def last_game_info(team_id, games, cutoff_date, exclude_game_id):
     """
     Returns (last_game_date, last_game_city)
-    strictly before cutoff_date.
+    strictly before cutoff_date and excluding current game.
     """
     past_games = []
 
     for g in games:
+        if g["id"] == exclude_game_id:
+            continue
+
         if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
             gd = parse_game_date(g)
             if gd < cutoff_date:
@@ -66,17 +67,10 @@ def last_game_info(team_id, games, cutoff_date):
 
     last_date, g = max(past_games, key=lambda x: x[0])
 
-    if g["home_team"]["id"] == team_id:
-        city = g["home_team"]["city"]
-    else:
-        city = g["visitor_team"]["city"]
+    # City where the game was played
+    city = g["home_team"]["city"]
 
     return last_date, city
-
-def days_since_last_game(last_game_date, cutoff_date):
-    if last_game_date is None:
-        return None
-    return (cutoff_date - last_game_date).days
 
 def rest_context_label(days_since):
     if days_since == 1:
@@ -107,16 +101,27 @@ def main():
         away = game["visitor_team"]
         home = game["home_team"]
 
+        game_id = game["id"]
+
+        # Target game city
+        target_city = home["city"]
+
         # Last game info
         away_last_date, away_last_city = last_game_info(
-            away["id"], games_14d, cutoff_date
+            away["id"], games_14d, cutoff_date, game_id
         )
         home_last_date, home_last_city = last_game_info(
-            home["id"], games_14d, cutoff_date
+            home["id"], games_14d, cutoff_date, game_id
         )
 
-        away_days_rest = days_since_last_game(away_last_date, cutoff_date)
-        home_days_rest = days_since_last_game(home_last_date, cutoff_date)
+        away_days_rest = (
+            None if away_last_date is None
+            else (cutoff_date - away_last_date).days
+        )
+        home_days_rest = (
+            None if home_last_date is None
+            else (cutoff_date - home_last_date).days
+        )
 
         print(f"{away['full_name']} @ {home['full_name']}")
 
@@ -124,7 +129,7 @@ def main():
             f"• {away['full_name']}\n"
             f"  Target game date : {cutoff_date}\n"
             f"  Last game date   : {away_last_date}\n"
-            f"  Target city      : {away['city']}\n"
+            f"  Target city      : {target_city}\n"
             f"  Last game city   : {away_last_city}\n"
             f"  Rest context     : {rest_context_label(away_days_rest)}"
         )
@@ -133,7 +138,7 @@ def main():
             f"• {home['full_name']}\n"
             f"  Target game date : {cutoff_date}\n"
             f"  Last game date   : {home_last_date}\n"
-            f"  Target city      : {home['city']}\n"
+            f"  Target city      : {target_city}\n"
             f"  Last game city   : {home_last_city}\n"
             f"  Rest context     : {rest_context_label(home_days_rest)}"
         )
