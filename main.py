@@ -79,38 +79,41 @@ def density_14d_score(g14):
         return 75
     return 95
 
+def back_to_back_pressure(last_game_date, today):
+    """
+    Returns 1 if team played yesterday, else 0
+    """
+    if last_game_date is None:
+        return 0
+    return 1 if (today - last_game_date).days == 1 else 0
+
+def last_game_before(team_id, games, today):
+    """
+    Returns the most recent game date strictly before today
+    """
+    past_games = [
+        game_datetime(g).date()
+        for g in games
+        if (
+            (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+            and game_datetime(g).date() < today
+        )
+    ]
+    return max(past_games) if past_games else None
 
 # ---------------- MAIN ----------------
 def main():
     today = datetime.utcnow().date()
-    yesterday = today - timedelta(days=1)
 
-    print(f"Yesterday : {yesterday.isoformat()}")
-    print(f"Today     : {today.isoformat()}")
+    print(f"Today : {today.isoformat()}")
 
-    # --- Fetch windows ---
+    # --- Fetch windows (date logic unchanged) ---
     start_7 = (today - timedelta(days=6)).isoformat()
     start_14 = (today - timedelta(days=13)).isoformat()
     end_date = today.isoformat()
 
     games_last_7 = fetch_games(start_7, end_date)
     games_last_14 = fetch_games(start_14, end_date)
-    
-    # ---------------- DEBUG: TORONTO RAPTORS LAST 14 DAYS ----------------
-    TORONTO_ID = 28  # Toronto Raptors team ID in balldontlie
-
-    toronto_dates = sorted(
-        {
-            game_datetime(g).date().isoformat()
-            for g in games_last_14
-            if g["home_team"]["id"] == TORONTO_ID
-            or g["visitor_team"]["id"] == TORONTO_ID
-        }
-    )
-
-    print("\nDEBUG — Toronto Raptors games in last 14 days:")
-    for d in toronto_dates:
-        print(f"  {d}")
 
     # --- Teams playing today ---
     teams_today = {}
@@ -121,10 +124,11 @@ def main():
             teams_today[home["id"]] = home["full_name"]
             teams_today[away["id"]] = away["full_name"]
 
-    print("\nDENSITY — Teams playing today\n")
+    print("\nDENSITY + B2B — Teams playing today\n")
 
-    # --- Density calculation ---
+    # --- Metrics per team ---
     for team_id, team_name in teams_today.items():
+        # Density counts (strictly before today)
         g7 = count_games_in_window(
             team_id,
             games_last_7,
@@ -139,15 +143,26 @@ def main():
             today
         )
 
+        # Density scores
         d7 = density_7d_score(g7)
         d14 = density_14d_score(g14)
-        D = round(0.65 * d7 + 0.35 * d14, 1)
+        density = round(0.65 * d7 + 0.35 * d14, 1)
+
+        # Back-to-back
+        last_game_date = last_game_before(team_id, games_last_14, today)
+        days_since = (today - last_game_date).days if last_game_date else None
+        b2b = back_to_back_pressure(last_game_date, today)
 
         print(
             f"{team_name}\n"
-            f"  G7  = {g7} → D7 = {d7}\n"
-            f"  G14 = {g14} → D14 = {d14}\n"
-            f"  Blended Density D = {D}\n"
+            f"  Density:\n"
+            f"    G7  = {g7}  → D7  = {d7}\n"
+            f"    G14 = {g14} → D14 = {d14}\n"
+            f"    Blended D = {density}\n"
+            f"  Back-to-Back:\n"
+            f"    Last game date = {last_game_date}\n"
+            f"    Days since     = {days_since if days_since is not None else 'N/A'}\n"
+            f"    B2B Pressure   = {b2b}\n"
         )
 
 
