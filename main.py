@@ -81,13 +81,12 @@ def density_14d_score(g14):
         return 75
     return 95
 
-def back_to_back_pressure(last_game_date, today):
+def back_to_back_pressure(days_since_last_game):
     """
     Returns 1 if team played yesterday, else 0
     """
-    if last_game_date is None:
-        return 0
-    return 1 if (today - last_game_date).days == 1 else 0
+    return 1 if days_since_last_game == 1 else 0
+
 
 def last_game_before(team_id, games, today):
     """
@@ -280,7 +279,7 @@ def main():
         # Back-to-back
         last_game_date = last_game_before(team_id, games_last_14, today)
         days_since = (today - last_game_date).days if last_game_date else None
-        b2b = back_to_back_pressure(last_game_date, today)
+        b2b = back_to_back_pressure(days_since)
         rec_offset = recovery_offset(days_since)
 
         # --- Travel Load ---
@@ -295,12 +294,12 @@ def main():
         travel_score, miles, travel_reason = travel_load_v1(last_city, target_city)
 
         final_load, breakdown = fatigue_load_index_v1(
-        density_score=D,
-        days_since_last_game=days_since,
-        travel_load=travel_load,
-        recovery_offset=recovery_offset
+            density_score=density,
+            days_since_last_game=days_since,
+            travel_load=travel_score,
+            recovery_offset=rec_offset
         )
-            
+
         print(
             f"{team_name}\n"
             f"  Density:\n"
