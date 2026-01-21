@@ -82,11 +82,54 @@ def main():
     print(f"Today     : {today.isoformat()}")
 
     games_last_7 = fetch_games(start_date, end_date)
+    # Extra history for 14-day density (same date logic style)
+    start_14 = (today - timedelta(days=13)).isoformat()  # last 14 calendar days incl today
+    games_last_14 = fetch_games(start_14, today.isoformat())
 
     print_games_grouped_by_day(
         games_last_7,
         f"NBA API — Games from LAST 7 days ({start_date} → {end_date})"
     )
+    # ---------------- DENSITY (ONLY TEAMS PLAYING TODAY) ----------------
+    print("\nDENSITY — Teams playing today (G7 + G14 → D7 + D14 → blended D)\n")
+
+    # Collect teams playing today from games_last_7 (already fetched)
+    teams_today = {}
+    for g in games_last_7:
+        if game_datetime(g).date() == today:
+            home = g["home_team"]
+            away = g["visitor_team"]
+            teams_today[home["id"]] = home["full_name"]
+            teams_today[away["id"]] = away["full_name"]
+
+    # Compute density for those teams
+    for team_id, team_name in teams_today.items():
+        # Counts are STRICTLY BEFORE today
+        g7 = count_games_in_window(
+            team_id,
+            games_last_7,
+            today - timedelta(days=7),
+            today
+        )
+
+        g14 = count_games_in_window(
+            team_id,
+            games_last_14,
+            today - timedelta(days=14),
+            today
+        )
+
+        d7 = density_7d_score(g7)
+        d14 = density_14d_score(g14)
+        D = round(0.65 * d7 + 0.35 * d14, 1)
+
+        print(
+            f"{team_name}\n"
+            f"  G7  (last 7, before today):  {g7}  → D7={d7}\n"
+            f"  G14 (last 14, before today): {g14} → D14={d14}\n"
+            f"  Blended Density D = 0.65*D7 + 0.35*D14 = {D}\n"
+        )
+
 
 
 if __name__ == "__main__":
