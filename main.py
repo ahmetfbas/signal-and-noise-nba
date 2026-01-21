@@ -45,12 +45,13 @@ def parse_game_date(game):
         game["date"].replace("Z", "+00:00")
     ).date()
 
+def parse_game_datetime(game):
+    return datetime.fromisoformat(
+        game["date"].replace("Z", "+00:00")
+    )
+
 # ---------------- LAST GAME ----------------
-def last_game_info(team_id, games, cutoff_date, exclude_game_id):
-    """
-    Returns (last_game_date, last_game_city)
-    strictly before cutoff_date and excluding current game.
-    """
+def last_game_info(team_id, games, target_game_datetime, exclude_game_id):
     past_games = []
 
     for g in games:
@@ -58,19 +59,19 @@ def last_game_info(team_id, games, cutoff_date, exclude_game_id):
             continue
 
         if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
-            gd = parse_game_date(g)
-            if gd < cutoff_date:
-                past_games.append((gd, g))
+            gdt = parse_game_datetime(g)
+
+            if gdt < target_game_datetime:
+                past_games.append((gdt, g))
 
     if not past_games:
         return None, None
 
-    last_date, g = max(past_games, key=lambda x: x[0])
-
-    # City where the game was played
+    last_dt, g = max(past_games, key=lambda x: x[0])
     city = g["home_team"]["city"]
 
-    return last_date, city
+    return last_dt.date(), city
+
 
 def rest_context_label(days_since):
     if days_since == 1:
@@ -80,22 +81,28 @@ def rest_context_label(days_since):
     if days_since is None:
         return "No recent games"
     return "3+ days rest"
+    
+
 
 # ---------------- MAIN ----------------
 def main():
     target_date = datetime.utcnow().date().isoformat()
     cutoff_date = datetime.fromisoformat(target_date).date()
-
+    target_game_datetime = parse_game_datetime(game)
+    
     print(f"NBA Schedule Debug — {target_date}\n")
 
     games_today = fetch_games(target_date, target_date)
     if not games_today:
         return
 
+    history_end = (cutoff_date + timedelta(days=1)).isoformat()
+    
     games_14d = fetch_games(
         (cutoff_date - timedelta(days=14)).isoformat(),
-        target_date
+        history_end
     )
+
 
     for game in games_today:
         away = game["visitor_team"]
