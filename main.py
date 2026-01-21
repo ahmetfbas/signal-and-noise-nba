@@ -95,6 +95,22 @@ def main():
 
     games_last_7 = fetch_games(start_7, end_date)
     games_last_14 = fetch_games(start_14, end_date)
+    
+    # ---------------- DEBUG: TORONTO RAPTORS LAST 14 DAYS ----------------
+    TORONTO_ID = 28  # Toronto Raptors team ID in balldontlie
+
+    toronto_dates = sorted(
+        {
+            game_datetime(g).date().isoformat()
+            for g in games_last_14
+            if g["home_team"]["id"] == TORONTO_ID
+            or g["visitor_team"]["id"] == TORONTO_ID
+        }
+    )
+
+    print("\nDEBUG — Toronto Raptors games in last 14 days:")
+    for d in toronto_dates:
+        print(f"  {d}")
 
     # --- Teams playing today ---
     teams_today = {}
