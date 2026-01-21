@@ -3,7 +3,6 @@ import requests
 from datetime import datetime, timedelta
 import math
 
-
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
 
@@ -39,18 +38,12 @@ def fetch_games(start_date: str, end_date: str):
 
     return all_games
 
-
 # ---------------- DATE HELPERS ----------------
 def game_datetime(game):
     return datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
 
-
 # ---------------- DENSITY HELPERS ----------------
 def count_games_in_window(team_id, games, start_date, end_date):
-    """
-    Counts games where:
-    start_date <= game_date < end_date
-    """
     count = 0
     for g in games:
         gd = game_datetime(g).date()
@@ -59,49 +52,32 @@ def count_games_in_window(team_id, games, start_date, end_date):
                 count += 1
     return count
 
-
 def density_7d_score(g7):
-    if g7 <= 2:
-        return 10
-    if g7 == 3:
-        return 40
-    if g7 == 4:
-        return 75
+    if g7 <= 2: return 10
+    if g7 == 3: return 40
+    if g7 == 4: return 75
     return 95
 
-
 def density_14d_score(g14):
-    if g14 <= 4:
-        return 10
-    if g14 == 5:
-        return 35
-    if g14 == 6:
-        return 55
-    if g14 == 7:
-        return 75
+    if g14 <= 4: return 10
+    if g14 == 5: return 35
+    if g14 == 6: return 55
+    if g14 == 7: return 75
     return 95
 
 def back_to_back_pressure(days_since_last_game):
-    """
-    Returns 1 if team played yesterday, else 0
-    """
     return 1 if days_since_last_game == 1 else 0
 
-
 def last_game_before(team_id, games, today):
-    """
-    Returns the most recent game date strictly before today
-    """
-    past_games = [
+    past = [
         game_datetime(g).date()
         for g in games
-        if (
-            (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-            and game_datetime(g).date() < today
-        )
+        if (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+        and game_datetime(g).date() < today
     ]
-    return max(past_games) if past_games else None
+    return max(past) if past else None
 
+# ---------------- TRAVEL ----------------
 CITY_COORDS = {
     "Atlanta": (33.7573, -84.3963),
     "Boston": (42.3662, -71.0621),
@@ -139,192 +115,114 @@ def haversine_miles(lat1, lon1, lat2, lon2):
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
     dlambda = math.radians(lon2 - lon1)
-    a = math.sin(dphi / 2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2)**2
+    a = math.sin(dphi/2)**2 + math.cos(phi1)*math.cos(phi2)*math.sin(dlambda/2)**2
     return round(2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)))
 
 def last_game_city(team_id, games, today):
-    """
-    Returns the city where the team played its most recent game before today
-    """
-    past_games = [
+    past = [
         g for g in games
-        if (
-            (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-            and game_datetime(g).date() < today
-        )
+        if (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+        and game_datetime(g).date() < today
     ]
-
-    if not past_games:
+    if not past:
         return None
-
-    last_game = max(past_games, key=game_datetime)
-    return last_game["home_team"]["city"]  # game location
+    return max(past, key=game_datetime)["home_team"]["city"]
 
 def travel_load_v1(last_city, target_city):
     if last_city is None or target_city is None:
-        return 1, None, "unknown (missing city)"
-
+        return 1, None, "unknown"
     if last_city == target_city:
-        return 0, 0, "no travel / same city"
-
+        return 0, 0, "same city"
     if last_city not in CITY_COORDS or target_city not in CITY_COORDS:
-        return 1, None, "unknown (no coords)"
+        return 1, None, "unknown"
+    miles = haversine_miles(*CITY_COORDS[last_city], *CITY_COORDS[target_city])
+    if miles < 300: return 1, miles, "short"
+    if miles < 800: return 2, miles, "medium"
+    return 3, miles, "long"
 
-    miles = haversine_miles(
-        *CITY_COORDS[last_city],
-        *CITY_COORDS[target_city]
-    )
+def recovery_offset(days):
+    if days == 1: return 0.00
+    if days == 2: return 0.10
+    if days == 3: return 0.25
+    if days == 4: return 0.40
+    return 0.55
 
-    if miles < 300:
-        return 1, miles, "short travel"
-    if miles < 800:
-        return 2, miles, "medium travel"
-    return 3, miles, "long travel"
+def fatigue_load_index_v1(density, days_since, travel):
+    b2b = back_to_back_pressure(days_since)
+    raw = density + (12 if b2b else 0) + travel*6 + (10 if b2b and travel >= 2 else 0)
+    final = raw * (1 - recovery_offset(days_since))
+    return round(final, 1)
 
-def recovery_offset(days_since_last_game):
-    if days_since_last_game is None:
-        return 0.30  # neutral fallback, very rare
-
-    if days_since_last_game == 1:
-        return 0.00   # back-to-back
-    if days_since_last_game == 2:
-        return 0.10
-    if days_since_last_game == 3:
-        return 0.25
-    if days_since_last_game == 4:
-        return 0.40
-    return 0.55      # 5+ days
-
-def fatigue_load_index_v1(
-    density_score,
-    days_since_last_game,
-    travel_load,
-    recovery_offset
-):
-    # --- Phase A: baseline ---
-    base = density_score
-
-    # --- Phase B: spikes ---
-    b2b = back_to_back_pressure(days_since_last_game)
-    b2b_spike = 12 if b2b else 0
-
-    travel_spike = travel_load * 6
-
-    collision_spike = 0
-    if b2b and travel_load >= 2:
-        collision_spike = 10
-
-    raw_load = base + b2b_spike + travel_spike + collision_spike
-
-    # --- Phase C: recovery dampening ---
-    final_load = raw_load * (1 - recovery_offset)
-
-    return round(final_load, 1), {
-        "base_density": base,
-        "b2b_spike": b2b_spike,
-        "travel_spike": travel_spike,
-        "collision_spike": collision_spike,
-        "raw_load": round(raw_load, 1),
-        "recovery_offset": recovery_offset
-    }
-
+def fatigue_risk_tier(score):
+    if score < 30: return "Low"
+    if score < 50: return "Elevated"
+    if score < 70: return "High"
+    return "Critical"
 
 # ---------------- MAIN ----------------
 def main():
     today = datetime.utcnow().date()
 
-    print(f"Today : {today.isoformat()}")
-
-    # --- Fetch windows (date logic unchanged) ---
     start_7 = (today - timedelta(days=6)).isoformat()
     start_14 = (today - timedelta(days=13)).isoformat()
-    end_date = today.isoformat()
 
-    games_last_7 = fetch_games(start_7, end_date)
-    games_last_14 = fetch_games(start_14, end_date)
+    games_last_7 = fetch_games(start_7, today.isoformat())
+    games_last_14 = fetch_games(start_14, today.isoformat())
 
-    # --- Teams playing today ---
-    teams_today = {}
+    team_results = {}
+
     for g in games_last_7:
-        if game_datetime(g).date() == today:
-            home = g["home_team"]
-            away = g["visitor_team"]
-            teams_today[home["id"]] = home["full_name"]
-            teams_today[away["id"]] = away["full_name"]
+        if game_datetime(g).date() != today:
+            continue
 
-    print("\nDENSITY + B2B — Teams playing today\n")
+        for team in [g["home_team"], g["visitor_team"]]:
+            tid = team["id"]
+            if tid in team_results:
+                continue
 
-    # --- Metrics per team ---
-    for team_id, team_name in teams_today.items():
-        # Density counts (strictly before today)
-        g7 = count_games_in_window(
-            team_id,
-            games_last_7,
-            today - timedelta(days=7),
-            today
-        )
+            g7 = count_games_in_window(tid, games_last_7, today - timedelta(days=7), today)
+            g14 = count_games_in_window(tid, games_last_14, today - timedelta(days=14), today)
 
-        g14 = count_games_in_window(
-            team_id,
-            games_last_14,
-            today - timedelta(days=14),
-            today
-        )
+            density = round(
+                0.65 * density_7d_score(g7) + 0.35 * density_14d_score(g14),
+                1
+            )
 
-        # Density scores
-        d7 = density_7d_score(g7)
-        d14 = density_14d_score(g14)
-        density = round(0.65 * d7 + 0.35 * d14, 1)
+            last_date = last_game_before(tid, games_last_14, today)
+            days_since = (today - last_date).days if last_date else None
 
-        # Back-to-back
-        last_game_date = last_game_before(team_id, games_last_14, today)
-        days_since = (today - last_game_date).days if last_game_date else None
-        b2b = back_to_back_pressure(days_since)
-        rec_offset = recovery_offset(days_since)
+            last_city = last_game_city(tid, games_last_14, today)
+            target_city = g["home_team"]["city"]
 
-        # --- Travel Load ---
-        last_city = last_game_city(team_id, games_last_14, today)
-        target_city = next(
-            g["home_team"]["city"]
-            for g in games_last_7
-            if game_datetime(g).date() == today
-            and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-        )
+            travel, _, _ = travel_load_v1(last_city, target_city)
 
-        travel_score, miles, travel_reason = travel_load_v1(last_city, target_city)
+            fatigue = fatigue_load_index_v1(density, days_since, travel)
 
-        final_load, breakdown = fatigue_load_index_v1(
-            density_score=density,
-            days_since_last_game=days_since,
-            travel_load=travel_score,
-            recovery_offset=rec_offset
-        )
+            team_results[tid] = {
+                "name": team["full_name"],
+                "fatigue": fatigue,
+                "tier": fatigue_risk_tier(fatigue)
+            }
+
+    print("\n🏀 NBA Fatigue Index — Today\n")
+
+    for g in games_last_7:
+        if game_datetime(g).date() != today:
+            continue
+
+        away = g["visitor_team"]
+        home = g["home_team"]
+
+        a = team_results[away["id"]]
+        h = team_results[home["id"]]
+
+        emoji = {"Low":"🟢","Elevated":"🟡","High":"🟠","Critical":"🔴"}
 
         print(
-            f"{team_name}\n"
-            f"  Density:\n"
-            f"    G7  = {g7}  → D7  = {d7}\n"
-            f"    G14 = {g14} → D14 = {d14}\n"
-            f"    Blended D = {density}\n"
-            f"  Back-to-Back:\n"
-            f"    Last game date = {last_game_date}\n"
-            f"    Days since     = {days_since if days_since is not None else 'N/A'}\n"
-            f"  Recovery Offset: {rec_offset}\n"
-            f"    B2B Pressure   = {b2b}\n"
-            f"  Travel:\n"
-            f"    Last game city = {last_city}\n"
-            f"    Target city    = {target_city}\n"
-            f"    Distance       = {miles if miles is not None else 'N/A'} miles\n"
-            f"    Travel Load    = {travel_score} ({travel_reason})\n"
-            f"  Density            : {breakdown['base_density']}\n"
-            f"  B2B spike          : +{breakdown['b2b_spike']}\n"
-            f"  Travel spike       : +{breakdown['travel_spike']}\n"
-            f"  Collision spike    : +{breakdown['collision_spike']}\n"
-            f"  Raw load           : {breakdown['raw_load']}\n"
-            f"  Recovery offset    : -{breakdown['recovery_offset']*100:.0f}%\n"
-            f"  ▶ Fatigue Index    : {final_load}\n"
+            f"{away['full_name']} @ {home['full_name']}\n"
+            f"{emoji[a['tier']]} {away['full_name']} — {a['tier']} ({a['fatigue']})\n"
+            f"{emoji[h['tier']]} {home['full_name']} — {h['tier']} ({h['fatigue']})\n"
         )
-
 
 if __name__ == "__main__":
     main()
