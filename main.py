@@ -199,7 +199,64 @@ def print_scores_last_30_days(run_date):
 def main():
     RUN_DATE = datetime.utcnow().date()
 
-    print_scores_last_30_days(RUN_DATE)
+    def print_scores_last_30_days(run_date):
+    collected = []
+    page = 1
+
+    while True:
+        params = {
+            "end_date": run_date.isoformat(),
+            "per_page": 100,
+            "page": page
+        }
+
+        resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
+        if resp.status_code != 200:
+            raise RuntimeError(resp.text)
+
+        payload = resp.json()
+        data = payload.get("data", [])
+
+        if not data:
+            break
+
+        completed = [
+            g for g in data
+            if g.get("home_team_score") is not None
+            and g.get("visitor_team_score") is not None
+        ]
+
+        collected.extend(completed)
+
+        unique_dates = {game_date(g) for g in collected}
+        if len(unique_dates) >= 30:
+            break
+
+        if page >= payload.get("meta", {}).get("total_pages", 1):
+            break
+
+        page += 1
+
+    collected.sort(key=game_datetime)
+
+    print(f"\n🏀 NBA Game Scores — Last 30 Game Days (ending {run_date})\n")
+
+    current_day = None
+    days_printed = set()
+
+    for g in collected:
+        gd = game_date(g)
+        if gd not in days_printed:
+            days_printed.add(gd)
+            if len(days_printed) > 30:
+                break
+            print(f"\n📅 {gd}")
+
+        away = g["visitor_team"]["full_name"]
+        home = g["home_team"]["full_name"]
+
+        print(f"{away} {g['visitor_team_score']} @ {home} {g['home_team_score']}")
+
     
     start_7 = (RUN_DATE - timedelta(days=6)).isoformat()
     start_14 = (RUN_DATE - timedelta(days=13)).isoformat()
