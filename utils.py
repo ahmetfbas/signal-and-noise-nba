@@ -1,8 +1,8 @@
 import os
 import time
-import requests
-from datetime import datetime, timedelta
 import math
+import requests
+from datetime import datetime
 
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
@@ -13,15 +13,20 @@ if not API_KEY:
 HEADERS = {"Authorization": API_KEY}
 
 
-def api_get(params, sleep=0.15):
-    resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
-    if resp.status_code != 200:
+def api_get(params, timeout=30, retries=3, base_sleep=0.2):
+    for i in range(retries):
+        resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=timeout)
+        if resp.status_code == 200:
+            time.sleep(base_sleep)
+            return resp.json()
+        if resp.status_code == 429 and i < retries - 1:
+            time.sleep(base_sleep * (i + 1))
+            continue
         raise RuntimeError(f"{resp.status_code}: {resp.text}")
-    time.sleep(sleep)
-    return resp.json()
+    raise RuntimeError("API failed after retries")
 
 
-def fetch_games_range(start_date, end_date):
+def fetch_games_range(start_date, end_date, sort="-date"):
     out = []
     page = 1
     while True:
@@ -30,7 +35,7 @@ def fetch_games_range(start_date, end_date):
             "end_date": end_date,
             "per_page": 100,
             "page": page,
-            "sort": "-date"
+            "sort": sort
         })
         data = payload.get("data", [])
         if not data:
@@ -52,7 +57,7 @@ def game_date(g):
 
 
 def is_completed(g):
-    return g["home_team_score"] is not None and g["visitor_team_score"] is not None
+    return g.get("home_team_score") is not None and g.get("visitor_team_score") is not None
 
 
 def team_in_game(g, team_id):
@@ -60,9 +65,9 @@ def team_in_game(g, team_id):
 
 
 def margin_for_team(g, team_id):
-    home = g["home_team"]["id"] == team_id
-    ts = g["home_team_score"] if home else g["visitor_team_score"]
-    os = g["visitor_team_score"] if home else g["home_team_score"]
+    is_home = g["home_team"]["id"] == team_id
+    ts = g["home_team_score"] if is_home else g["visitor_team_score"]
+    os = g["visitor_team_score"] if is_home else g["home_team_score"]
     return ts - os
 
 
@@ -104,7 +109,7 @@ def haversine_miles(lat1, lon1, lat2, lon2):
     p1, p2 = math.radians(lat1), math.radians(lat2)
     dp = math.radians(lat2 - lat1)
     dl = math.radians(lon2 - lon1)
-    a = math.sin(dp/2)**2 + math.cos(p1)*math.cos(p2)*math.sin(dl/2)**2
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
     return round(2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)), 1)
 
 
