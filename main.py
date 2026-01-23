@@ -204,25 +204,33 @@ def main():
                 "tier": fatigue_risk_tier(fatigue)
             }
 
-    print("\n🏀 NBA Fatigue Index — Today\n")
+    print("\n🏀 NBA Fatigue Index — Today (Debug View)\n")
 
     for g in games_last_7:
         if game_datetime(g).date() != today:
             continue
 
-        away = g["visitor_team"]
-        home = g["home_team"]
+        for team in [g["home_team"], g["visitor_team"]]:
+            tid = team["id"]
+            r = team_results[tid]
 
-        a = team_results[away["id"]]
-        h = team_results[home["id"]]
+            g7 = count_games_in_window(tid, games_last_7, today - timedelta(days=7), today)
+            g14 = count_games_in_window(tid, games_last_14, today - timedelta(days=14), today)
 
-        emoji = {"Low":"🟢","Elevated":"🟡","High":"🟠","Critical":"🔴"}
+            last_date = last_game_before(tid, games_last_14, today)
+            days_since = (today - last_date).days if last_date else None
+            days_since_eff = days_since if days_since is not None else 5
 
-        print(
-            f"{away['full_name']} @ {home['full_name']}\n"
-            f"{emoji[a['tier']]} {away['full_name']} — {a['tier']} ({a['fatigue']})\n"
-            f"{emoji[h['tier']]} {home['full_name']} — {h['tier']} ({h['fatigue']})\n"
-        )
+            b2b = back_to_back_pressure(days_since_eff)
+            recovery = recovery_offset(days_since_eff)
+
+            last_city = last_game_city(tid, games_last_14, today)
+            target_city = g["home_team"]["city"]
+            travel, miles, travel_band = travel_load_v1(last_city, target_city)
+
+            density = round(
+                0.65 * density_7d_score(g7) + 0.*
+
 
 if __name__ == "__main__":
     main()
