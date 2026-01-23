@@ -6,7 +6,7 @@ on:
     - cron: '0 9 * * *'
 
 jobs:
-  run-script:
+  run-signal-noise:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,8 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run main script
+      - name: Run Fatigue & Load
         env:
           BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
-        run: python main.py
+        run: python fal.py
 
+      - name: Run PvE
+        env:
+          BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
+        run: python pve.py
