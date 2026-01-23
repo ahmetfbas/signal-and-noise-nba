@@ -1,3 +1,5 @@
+# fal.py
+
 from datetime import datetime, timedelta
 from utils import (
     fetch_games_range,
@@ -45,24 +47,26 @@ def fatigue_tier(score):
     return "Critical"
 
 def last_game_info(team_id, games, today):
-    past = [
-        g for g in games
-        if team_in_game(g, team_id)
-        and is_completed(g)
-        and game_date(g) < today
-    ]
+    past = [g for g in games if team_in_game(g, team_id) and game_date(g) < today]
     if not past:
         return None, None
-    last = max(past, key=lambda g: game_date(g))
+    last = max(past, key=game_date)
     return game_date(last), last["home_team"]["city"]
 
 def count_games(team_id, games, start, end):
     return sum(
         1 for g in games
-        if is_completed(g)
-        and team_in_game(g, team_id)
+        if team_in_game(g, team_id)
+        and is_completed(g)
         and start <= game_date(g) < end
     )
+
+def pick_games_today(run_date):
+    games = fetch_games_range(
+        (run_date - timedelta(days=1)).isoformat(),
+        (run_date + timedelta(days=1)).isoformat()
+    )
+    return [g for g in games if game_date(g) == run_date]
 
 def main():
     today = datetime.utcnow().date()
@@ -71,18 +75,22 @@ def main():
     g14_start = today - timedelta(days=14)
 
     games_14 = fetch_games_range(g14_start.isoformat(), today.isoformat())
-    games_today = [g for g in games_14 if game_date(g) == today]
-
-    processed = set()
+    games_today = pick_games_today(today)
 
     print("\n🏀 Fatigue & Load — Today\n")
 
+    if not games_today:
+        print("No games today.")
+        return
+
     for g in games_today:
-        for team in [g["visitor_team"], g["home_team"]]:
+        away = g["visitor_team"]
+        home = g["home_team"]
+
+        print(f"🎯 {away['full_name']} @ {home['full_name']}\n")
+
+        for team in [away, home]:
             tid = team["id"]
-            if tid in processed:
-                continue
-            processed.add(tid)
 
             g7 = count_games(tid, games_14, g7_start, today)
             g14 = count_games(tid, games_14, g14_start, today)
