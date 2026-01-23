@@ -162,10 +162,45 @@ def fatigue_risk_tier(score):
     if score < 70: return "High"
     return "Critical"
 
+def print_scores_last_30_days(run_date):
+    start_date = (run_date - timedelta(days=29)).isoformat()
+    end_date = run_date.isoformat()
+
+    games = fetch_games(start_date, end_date)
+
+    # Only completed games
+    completed = [
+        g for g in games
+        if g.get("home_team_score") is not None
+        and g.get("visitor_team_score") is not None
+    ]
+
+    # Sort by date, oldest → newest
+    completed.sort(key=game_datetime)
+
+    print(f"\n🏀 NBA Game Scores — Last 30 Days (ending {run_date})\n")
+
+    current_day = None
+    for g in completed:
+        gd = game_date(g)
+        if gd != current_day:
+            current_day = gd
+            print(f"\n📅 {gd}")
+
+        away = g["visitor_team"]["full_name"]
+        home = g["home_team"]["full_name"]
+        away_score = g["visitor_team_score"]
+        home_score = g["home_team_score"]
+
+        print(f"{away} {away_score} @ {home} {home_score}")
+
+
 # ---------------- MAIN ----------------
 def main():
     RUN_DATE = datetime(2026, 1, 22).date()
 
+    print_scores_last_30_days(RUN_DATE)
+    
     start_7 = (RUN_DATE - timedelta(days=6)).isoformat()
     start_14 = (RUN_DATE - timedelta(days=13)).isoformat()
 
