@@ -159,10 +159,77 @@ def fatigue_risk_tier(score):
     if score < 70: return "High"
     return "Critical"
 
+def team_margin(game, team_id):
+    """
+    Returns point margin for team_id in this game.
+    Positive = team outscored opponent.
+    """
+    if game["home_team"]["id"] == team_id:
+        return game["home_team_score"] - game["visitor_team_score"]
+    else:
+        return game["visitor_team_score"] - game["home_team_score"]
+
+def average_margin_before(team_id, games, target_date, window=10):
+    """
+    Average point margin over the last `window` games
+    before target_date.
+    """
+    past_games = [
+        g for g in games
+        if (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+        and game_datetime(g).date() < target_date
+    ]
+
+    past_games = sorted(past_games, key=game_datetime, reverse=True)[:window]
+
+    if not past_games:
+        return 0.0
+
+    margins = [team_margin(g, team_id) for g in past_games]
+    return round(sum(margins) / len(margins), 2)
+
+
 # ---------------- MAIN ----------------
 def main():
     today = datetime.utcnow().date()
+    start_date = today - timedelta(days=6)
 
+    games_lookback = fetch_games(
+        (start_date - timedelta(days=30)).isoformat(),
+        today.isoformat()
+    )
+
+    print("\n🏀 PvE — Team Strength (Past Week)\n")
+
+    current_day = start_date
+    while current_day <= today:
+        print(f"\n📅 {current_day}\n")
+    
+        daily_games = [
+            g for g in games_lookback
+            if game_datetime(g).date() == current_day
+        ]
+    
+        for g in daily_games:
+            home = g["home_team"]
+            away = g["visitor_team"]
+    
+            home_strength = average_margin_before(
+                home["id"], games_lookback, current_day
+            )
+            away_strength = average_margin_before(
+                away["id"], games_lookback, current_day
+            )
+    
+            print(
+                f"{away['full_name']} @ {home['full_name']}\n"
+                f"  {away['full_name']} strength: {away_strength}\n"
+                f"  {home['full_name']} strength: {home_strength}\n"
+            )
+    
+        current_day += timedelta(days=1)
+
+    
     start_7 = (today - timedelta(days=6)).isoformat()
     start_14 = (today - timedelta(days=13)).isoformat()
 
