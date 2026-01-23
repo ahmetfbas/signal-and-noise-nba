@@ -13,6 +13,10 @@ HEADERS = {"Authorization": API_KEY}
 
 # ---------------- API ----------------
 def fetch_games(start_date: str, end_date: str):
+    """
+    Fetch games in [start_date, end_date] (API behavior is effectively inclusive).
+    Dates must be YYYY-MM-DD.
+    """
     all_games = []
     page = 1
 
@@ -24,7 +28,7 @@ def fetch_games(start_date: str, end_date: str):
             "page": page
         }
 
-        resp = requests.get(API_URL, headers=HEADERS, params=params)
+        resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
         if resp.status_code != 200:
             raise RuntimeError(f"API error {resp.status_code}: {resp.text}")
 
@@ -40,13 +44,39 @@ def fetch_games(start_date: str, end_date: str):
 
 # ---------------- DATE HELPERS ----------------
 def game_datetime(game):
+    # Example: "2025-01-12T00:00:00.000Z"
     return datetime.fromisoformat(game["date"].replace("Z", "+00:00"))
+
+def game_date(game):
+    return game_datetime(game).date()
+
+def find_latest_available_game_date(lookback_days=120):
+    """
+    Finds the most recent game date available from the API.
+    This prevents empty results when your machine clock is in the future (e.g., 2026).
+    """
+    system_today = datetime.utcnow().date()
+    start = (system_today - timedelta(days=lookback_days)).isoformat()
+    end = system_today.isoformat()
+
+    games = fetch_games(start, end)
+    if not games:
+        raise RuntimeError(
+            f"No games returned from API in the last {lookback_days} days. "
+            "Either it's offseason with no data in range, API issue, or wrong key."
+        )
+
+    # Use max date in returned games
+    return max(game_date(g) for g in games)
 
 # ---------------- DENSITY HELPERS ----------------
 def count_games_in_window(team_id, games, start_date, end_date):
+    """
+    Count games for team_id where start_date <= game_date < end_date (end exclusive).
+    """
     count = 0
     for g in games:
-        gd = game_datetime(g).date()
+        gd = game_date(g)
         if start_date <= gd < end_date:
             if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id:
                 count += 1
@@ -70,10 +100,10 @@ def back_to_back_pressure(days_since_last_game):
 
 def last_game_before(team_id, games, today):
     past = [
-        game_datetime(g).date()
+        game_date(g)
         for g in games
         if (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-        and game_datetime(g).date() < today
+        and game_date(g) < today
     ]
     return max(past) if past else None
 
@@ -122,10 +152,12 @@ def last_game_city(team_id, games, today):
     past = [
         g for g in games
         if (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-        and game_datetime(g).date() < today
+        and game_date(g) < today
     ]
     if not past:
         return None
+    # Your approach: use the *home team city* of that last game object.
+    # Not perfect, but fine for v1.
     return max(past, key=game_datetime)["home_team"]["city"]
 
 def travel_load_v1(last_city, target_city):
@@ -148,8 +180,15 @@ def recovery_offset(days):
     return 0.55
 
 def fatigue_load_index_v1(density, days_since, travel):
+    """
+    Fix: days_since can be None early in season / missing history.
+    We treat None as 5 (full recovery bucket).
+    """
+    if days_since is None:
+        days_since = 5
+
     b2b = back_to_back_pressure(days_since)
-    raw = density + (12 if b2b else 0) + travel*6 + (10 if b2b and travel >= 2 else 0)
+    raw = density + (12 if b2b else 0) + travel * 6 + (10 if b2b and travel >= 2 else 0)
     final = raw * (1 - recovery_offset(days_since))
     return round(final, 1)
 
@@ -159,6 +198,7 @@ def fatigue_risk_tier(score):
     if score < 70: return "High"
     return "Critical"
 
+# ---------------- PvE STEP 1 HELPERS ----------------
 def team_margin(game, team_id):
     """
     Returns point margin for team_id in this game.
@@ -171,13 +211,14 @@ def team_margin(game, team_id):
 
 def average_margin_before(team_id, games, target_date, window=10):
     """
-    Average point margin over the last `window` games
-    before target_date.
+    Average point margin over the last `window` games BEFORE target_date.
     """
     past_games = [
         g for g in games
         if (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-        and game_datetime(g).date() < target_date
+        and game_date(g) < target_date
+        and g.get("home_team_score") is not None
+        and g.get("visitor_team_score") is not None
     ]
 
     past_games = sorted(past_games, key=game_datetime, reverse=True)[:window]
@@ -188,79 +229,72 @@ def average_margin_before(team_id, games, target_date, window=10):
     margins = [team_margin(g, team_id) for g in past_games]
     return round(sum(margins) / len(margins), 2)
 
-
 # ---------------- MAIN ----------------
 def main():
-    today = datetime.utcnow().date()
-    start_date = today - timedelta(days=6)
+    # 1) Use last available game date from API as run_date
+    run_date = find_latest_available_game_date(lookback_days=120)
 
-    games_lookback = fetch_games(
-        (start_date - timedelta(days=30)).isoformat(),
-        today.isoformat()
-    )
+    # 2) PvE Step 1 range (past week) and strength lookback range
+    start_week = run_date - timedelta(days=6)
+    lookback_start = start_week - timedelta(days=30)
 
-    print("\n🏀 PvE — Team Strength (Past Week)\n")
+    games_lookback = fetch_games(lookback_start.isoformat(), run_date.isoformat())
 
-    current_day = start_date
-    while current_day <= today:
-        print(f"\n📅 {current_day}\n")
-    
-        daily_games = [
-            g for g in games_lookback
-            if game_datetime(g).date() == current_day
-        ]
-    
+    print(f"\n🏀 PvE — Team Strength (Past Week) | Run date: {run_date}\n")
+
+    current_day = start_week
+    while current_day <= run_date:
+        daily_games = [g for g in games_lookback if game_date(g) == current_day]
+
+        print(f"\n📅 {current_day}")
+        if not daily_games:
+            print("  (no games)")
+            current_day += timedelta(days=1)
+            continue
+
         for g in daily_games:
             home = g["home_team"]
             away = g["visitor_team"]
-    
-            home_strength = average_margin_before(
-                home["id"], games_lookback, current_day
-            )
-            away_strength = average_margin_before(
-                away["id"], games_lookback, current_day
-            )
-    
+
+            home_strength = average_margin_before(home["id"], games_lookback, current_day, window=10)
+            away_strength = average_margin_before(away["id"], games_lookback, current_day, window=10)
+
             print(
-                f"{away['full_name']} @ {home['full_name']}\n"
-                f"  {away['full_name']} strength: {away_strength}\n"
-                f"  {home['full_name']} strength: {home_strength}\n"
+                f"\n{away['full_name']} @ {home['full_name']}\n"
+                f"  {away['full_name']} strength (avg margin, last 10): {away_strength}\n"
+                f"  {home['full_name']} strength (avg margin, last 10): {home_strength}"
             )
-    
+
         current_day += timedelta(days=1)
 
-    
-    start_7 = (today - timedelta(days=6)).isoformat()
-    start_14 = (today - timedelta(days=13)).isoformat()
+    # 3) Fatigue Index for the same run_date (consistent)
+    start_7 = (run_date - timedelta(days=6)).isoformat()
+    start_14 = (run_date - timedelta(days=13)).isoformat()
 
-    games_last_7 = fetch_games(start_7, today.isoformat())
-    games_last_14 = fetch_games(start_14, today.isoformat())
+    games_last_7 = fetch_games(start_7, run_date.isoformat())
+    games_last_14 = fetch_games(start_14, run_date.isoformat())
+
+    # Only games ON run_date
+    games_today = [g for g in games_last_7 if game_date(g) == run_date]
 
     team_results = {}
 
-    for g in games_last_7:
-        if game_datetime(g).date() != today:
-            continue
-
+    for g in games_today:
         for team in [g["home_team"], g["visitor_team"]]:
             tid = team["id"]
             if tid in team_results:
                 continue
 
-            g7 = count_games_in_window(tid, games_last_7, today - timedelta(days=7), today)
-            g14 = count_games_in_window(tid, games_last_14, today - timedelta(days=14), today)
+            g7 = count_games_in_window(tid, games_last_7, run_date - timedelta(days=7), run_date)
+            g14 = count_games_in_window(tid, games_last_14, run_date - timedelta(days=14), run_date)
 
-            density = round(
-                0.65 * density_7d_score(g7) + 0.35 * density_14d_score(g14),
-                1
-            )
+            density = round(0.65 * density_7d_score(g7) + 0.35 * density_14d_score(g14), 1)
 
-            last_date = last_game_before(tid, games_last_14, today)
-            days_since = (today - last_date).days if last_date else None
+            last_date = last_game_before(tid, games_last_14, run_date)
+            days_since = (run_date - last_date).days if last_date else None
 
-            last_city = last_game_city(tid, games_last_14, today)
+            last_city = last_game_city(tid, games_last_14, run_date)
             target_city = g["home_team"]["city"]
-
             travel, _, _ = travel_load_v1(last_city, target_city)
 
             fatigue = fatigue_load_index_v1(density, days_since, travel)
@@ -271,19 +305,20 @@ def main():
                 "tier": fatigue_risk_tier(fatigue)
             }
 
-    print("\n🏀 NBA Fatigue Index — Today\n")
+    print(f"\n🏀 NBA Fatigue Index — {run_date}\n")
 
-    for g in games_last_7:
-        if game_datetime(g).date() != today:
-            continue
+    if not games_today:
+        print("(no games on run_date)")
+        return
 
+    emoji = {"Low": "🟢", "Elevated": "🟡", "High": "🟠", "Critical": "🔴"}
+
+    for g in games_today:
         away = g["visitor_team"]
         home = g["home_team"]
 
         a = team_results[away["id"]]
         h = team_results[home["id"]]
-
-        emoji = {"Low":"🟢","Elevated":"🟡","High":"🟠","Critical":"🔴"}
 
         print(
             f"{away['full_name']} @ {home['full_name']}\n"
