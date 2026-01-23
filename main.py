@@ -14,12 +14,13 @@ HEADERS = {"Authorization": API_KEY}
 def fetch_games(start_date, end_date):
     all_games = []
     page = 1
+    PER_PAGE = 100
 
     while True:
         params = {
             "start_date": start_date,
             "end_date": end_date,
-            "per_page": 100,
+            "per_page": PER_PAGE,
             "page": page
         }
 
@@ -28,13 +29,18 @@ def fetch_games(start_date, end_date):
             raise RuntimeError(r.text)
 
         payload = r.json()
-        all_games.extend(payload["data"])
+        data = payload.get("data", [])
 
-        if page >= payload["meta"]["total_pages"]:
+        all_games.extend(data)
+
+        # ✅ SAFE STOP CONDITION
+        if len(data) < PER_PAGE:
             break
+
         page += 1
 
     return all_games
+
 
 
 def game_datetime(game):
