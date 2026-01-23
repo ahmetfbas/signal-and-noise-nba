@@ -121,7 +121,7 @@ def print_team_window(team, slate_date, window_days):
 
 def main():
     RUN_DATE = datetime.utcnow().date()
-    WINDOW_DAYS = 30
+    WINDOW_DAYS = 25
 
     slate_date, game = pick_slate_game(RUN_DATE)
     if not game:
