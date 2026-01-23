@@ -37,7 +37,7 @@ def fetch_games_range(start_date, end_date):
             break
 
         page += 1
-        time.sleep(0.15)
+        time.sleep(0.2)
 
     return all_games
 
@@ -82,24 +82,25 @@ def pick_slate_games(run_date):
     return slate_date, by_date[slate_date]
 
 
-def team_games_last_days(team_id, end_date, window_days):
-    start = (end_date - timedelta(days=window_days - 1)).isoformat()
-    end = end_date.isoformat()
+def build_team_history_cache(slate_date, window_days):
+    start = (slate_date - timedelta(days=window_days - 1)).isoformat()
+    end = slate_date.isoformat()
 
     games = fetch_games_range(start, end)
 
-    out = [
-        g for g in games
-        if is_completed(g)
-        and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
-    ]
+    completed = [g for g in games if is_completed(g)]
+    completed.sort(key=game_datetime)
 
-    out.sort(key=game_datetime)
-    return out
+    cache = {}
+    for g in completed:
+        for team in (g["home_team"], g["visitor_team"]):
+            cache.setdefault(team["id"], []).append(g)
+
+    return cache
 
 
-def print_team_window(team, slate_date, window_days):
-    games = team_games_last_days(team["id"], slate_date, window_days)
+def print_team_window(team, slate_date, window_days, cache):
+    games = cache.get(team["id"], [])
 
     print(f"\n📌 {team['full_name']} — completed games in last {window_days} days (ending {slate_date})")
 
@@ -122,6 +123,8 @@ def main():
         print("No games scheduled.")
         return
 
+    cache = build_team_history_cache(slate_date, WINDOW_DAYS)
+
     print(f"\n🏀 Games on {slate_date}\n")
 
     for g in games_today:
@@ -130,8 +133,8 @@ def main():
 
         print(f"\n🎯 {away['full_name']} @ {home['full_name']}")
 
-        print_team_window(away, slate_date, WINDOW_DAYS)
-        print_team_window(home, slate_date, WINDOW_DAYS)
+        print_team_window(away, slate_date, WINDOW_DAYS, cache)
+        print_team_window(home, slate_date, WINDOW_DAYS, cache)
 
 
 if __name__ == "__main__":
