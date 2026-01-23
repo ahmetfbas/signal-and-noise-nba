@@ -12,16 +12,10 @@ if not API_KEY:
 HEADERS = {"Authorization": API_KEY}
 
 
-def _get(params, timeout=30):
-    resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=timeout)
-    if resp.status_code != 200:
-        raise RuntimeError(f"API error {resp.status_code}: {resp.text}")
-    return resp
-
-
 def fetch_games_range(start_date, end_date):
     all_games = []
     page = 1
+
     while True:
         params = {
             "start_date": start_date,
@@ -30,7 +24,11 @@ def fetch_games_range(start_date, end_date):
             "page": page,
             "sort": "-date"
         }
-        resp = _get(params)
+
+        resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
+        if resp.status_code != 200:
+            raise RuntimeError(f"API error {resp.status_code}: {resp.text}")
+
         payload = resp.json()
         data = payload.get("data", [])
         all_games.extend(data)
@@ -56,10 +54,6 @@ def is_completed(game):
     return game["home_team_score"] is not None and game["visitor_team_score"] is not None
 
 
-def team_played(game, team_id):
-    return game["home_team"]["id"] == team_id or game["visitor_team"]["id"] == team_id
-
-
 def format_line(game, team_id):
     gd = game_date(game)
     is_home = game["home_team"]["id"] == team_id
@@ -71,33 +65,33 @@ def format_line(game, team_id):
     return f"  {gd} | {loc} vs {opponent} | {team_score}-{opp_score} | margin: {margin:+}"
 
 
-def pick_slate_game(run_date):
+def pick_slate_games(run_date):
     games = fetch_games_range(
         (run_date - timedelta(days=1)).isoformat(),
         (run_date + timedelta(days=1)).isoformat()
     )
 
-    games_by_date = {}
+    by_date = {}
     for g in games:
-        games_by_date.setdefault(game_date(g), []).append(g)
+        by_date.setdefault(game_date(g), []).append(g)
 
-    if not games_by_date:
-        return None, None
+    if not by_date:
+        return None, []
 
-    slate_date = max(games_by_date.keys())
-    game = sorted(games_by_date[slate_date], key=game_datetime)[0]
-    return slate_date, game
+    slate_date = max(by_date.keys())
+    return slate_date, by_date[slate_date]
 
 
-def team_games_last_days(team, end_date, window_days):
-    start_date = (end_date - timedelta(days=window_days - 1)).isoformat()
-    end_date = end_date.isoformat()
+def team_games_last_days(team_id, end_date, window_days):
+    start = (end_date - timedelta(days=window_days - 1)).isoformat()
+    end = end_date.isoformat()
 
-    games = fetch_games_range(start_date, end_date)
+    games = fetch_games_range(start, end)
 
     out = [
         g for g in games
-        if is_completed(g) and team_played(g, team["id"])
+        if is_completed(g)
+        and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
     ]
 
     out.sort(key=game_datetime)
@@ -105,7 +99,7 @@ def team_games_last_days(team, end_date, window_days):
 
 
 def print_team_window(team, slate_date, window_days):
-    games = team_games_last_days(team, slate_date, window_days)
+    games = team_games_last_days(team["id"], slate_date, window_days)
 
     print(f"\n📌 {team['full_name']} — completed games in last {window_days} days (ending {slate_date})")
 
@@ -121,20 +115,23 @@ def print_team_window(team, slate_date, window_days):
 
 def main():
     RUN_DATE = datetime.utcnow().date()
-    WINDOW_DAYS = 18
+    WINDOW_DAYS = 15
 
-    slate_date, game = pick_slate_game(RUN_DATE)
-    if not game:
-        print("No slate found.")
+    slate_date, games_today = pick_slate_games(RUN_DATE)
+    if not games_today:
+        print("No games scheduled.")
         return
 
-    away = game["visitor_team"]
-    home = game["home_team"]
+    print(f"\n🏀 Games on {slate_date}\n")
 
-    print(f"\n🎯 Selected matchup on {slate_date}: {away['full_name']} @ {home['full_name']}\n")
+    for g in games_today:
+        away = g["visitor_team"]
+        home = g["home_team"]
 
-    print_team_window(away, slate_date, WINDOW_DAYS)
-    print_team_window(home, slate_date, WINDOW_DAYS)
+        print(f"\n🎯 {away['full_name']} @ {home['full_name']}")
+
+        print_team_window(away, slate_date, WINDOW_DAYS)
+        print_team_window(home, slate_date, WINDOW_DAYS)
 
 
 if __name__ == "__main__":
