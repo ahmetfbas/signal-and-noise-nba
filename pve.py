@@ -17,7 +17,7 @@ def _get(params, timeout=30):
     resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=timeout)
     if resp.status_code != 200:
         raise RuntimeError(f"API error {resp.status_code}: {resp.text}")
-    return resp
+    return resp.json()
 
 
 def fetch_games_range(start_date, end_date):
@@ -31,7 +31,7 @@ def fetch_games_range(start_date, end_date):
             "page": page,
             "sort": "-date"
         }
-        payload = _get(params).json()
+        payload = _get(params)
         data = payload.get("data", [])
         all_games.extend(data)
 
@@ -39,7 +39,7 @@ def fetch_games_range(start_date, end_date):
             break
 
         page += 1
-        time.sleep(0.15)
+        time.sleep(0.2)
 
     return all_games
 
@@ -60,30 +60,6 @@ def team_played(game, team_id):
     return game["home_team"]["id"] == team_id or game["visitor_team"]["id"] == team_id
 
 
-def team_margin(game, team_id):
-    if game["home_team"]["id"] == team_id:
-        return game["home_team_score"] - game["visitor_team_score"]
-    return game["visitor_team_score"] - game["home_team_score"]
-
-
-def pick_slate_games(run_date):
-    games = fetch_games_range(
-        (run_date - timedelta(days=1)).isoformat(),
-        (run_date + timedelta(days=1)).isoformat()
-    )
-
-    games_by_date = {}
-    for g in games:
-        games_by_date.setdefault(game_date(g), []).append(g)
-
-    if not games_by_date:
-        return None, []
-
-    slate_date = max(games_by_date.keys())
-    slate_games = sorted(games_by_date[slate_date], key=game_datetime)
-    return slate_date, slate_games
-
-
 def team_games_last_days(team_id, end_date, window_days):
     start_date = (end_date - timedelta(days=window_days - 1)).isoformat()
     end_date = end_date.isoformat()
@@ -99,58 +75,65 @@ def team_games_last_days(team_id, end_date, window_days):
     return out
 
 
+def average_margin(team_id, games):
+    if not games:
+        return 0.0
+
+    margins = []
+    for g in games:
+        is_home = g["home_team"]["id"] == team_id
+        team_score = g["home_team_score"] if is_home else g["visitor_team_score"]
+        opp_score = g["visitor_team_score"] if is_home else g["home_team_score"]
+        margins.append(team_score - opp_score)
+
+    return round(sum(margins) / len(margins), 2)
+
+
+def pick_slate_games(run_date):
+    games = fetch_games_range(
+        (run_date - timedelta(days=1)).isoformat(),
+        (run_date + timedelta(days=1)).isoformat()
+    )
+
+    by_date = {}
+    for g in games:
+        by_date.setdefault(game_date(g), []).append(g)
+
+    if not by_date:
+        return None, []
+
+    slate_date = max(by_date.keys())
+    return slate_date, by_date[slate_date]
+
+
 def print_team_pve(team, slate_date, window_days):
     games = team_games_last_days(team["id"], slate_date, window_days)
+    avg = average_margin(team["id"], games)
 
     print(f"\n🧪 {team['full_name']}")
     print(f"  window_days = {window_days}")
     print(f"  games_in_window = {len(games)}")
-
-    if not games:
-        print("  (no completed games)")
-        return
-
-    margins = []
-    for g in games:
-        margin = team_margin(g, team["id"])
-        margins.append(margin)
-
-        opp = (
-            g["visitor_team"]["full_name"]
-            if g["home_team"]["id"] == team["id"]
-            else g["home_team"]["full_name"]
-        )
-
-        print(
-            f"  {game_date(g)} vs {opp} | "
-            f"{g['home_team_score']}-{g['visitor_team_score']} | "
-            f"margin: {margin:+}"
-        )
-
-    avg_margin = round(sum(margins) / len(margins), 2)
-    print(f"  avg_margin = {avg_margin}")
-    print(f"  last_game_date = {game_date(games[-1])}")
+    print(f"  avg_margin = {avg}")
 
 
 def main():
     RUN_DATE = datetime.utcnow().date()
     WINDOW_DAYS = 15
 
-    slate_date, slate_games = pick_slate_games(RUN_DATE)
-    if not slate_games:
-        print("No slate found.")
+    slate_date, games = pick_slate_games(RUN_DATE)
+    if not games:
+        print("No games found.")
         return
 
-    print(f"\n🏀 PvE — Performance vs Expectation")
+    print("\n🏀 PvE — Performance vs Expectation")
     print(f"📅 Slate date: {slate_date}")
     print(f"🗓 Window: last {WINDOW_DAYS} days\n")
 
-    for g in slate_games:
+    for g in games:
         away = g["visitor_team"]
         home = g["home_team"]
 
         print(f"\n🎯 {away['full_name']} @ {home['full_name']}")
-
         print_team_pve(away, slate_date, WINDOW_DAYS)
         print_team_pve(home, slate_date, WINDOW_DAYS)
 
