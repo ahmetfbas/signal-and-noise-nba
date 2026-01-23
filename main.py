@@ -20,7 +20,7 @@ def fetch_games(start_date: str, end_date: str):
         params = {
             "start_date": start_date,
             "end_date": end_date,
-            "per_page": 100,
+            "per_page": 1000,
             "page": page
         }
 
