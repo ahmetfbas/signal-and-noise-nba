@@ -44,27 +44,34 @@ CITY_COORDS = {
     "Washington": (38.8981, -77.0209),
 }
 
-def _get(params):
+def api_get(params):
     r = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
     if r.status_code != 200:
         raise RuntimeError(f"API error {r.status_code}: {r.text}")
     return r.json()
 
 def fetch_games(start_date, end_date):
-    out, page = [], 1
+    out = []
+    page = 1
     while True:
-        payload = _get({
+        payload = api_get({
             "start_date": start_date,
             "end_date": end_date,
             "per_page": 100,
             "page": page,
             "sort": "-date"
         })
-        out.extend(payload["data"])
-        if page >= payload["meta"]["total_pages"]:
+        data = payload.get("data", [])
+        out.extend(data)
+
+        meta = payload.get("meta", {})
+        total_pages = meta.get("total_pages")
+        if not total_pages or page >= total_pages:
             break
+
         page += 1
         time.sleep(0.15)
+
     return out
 
 def game_dt(g):
@@ -84,10 +91,10 @@ def haversine(a, b):
     x = math.sin(dphi/2)**2 + math.cos(p1)*math.cos(p2)*math.sin(dl/2)**2
     return round(2 * R * math.atan2(math.sqrt(x), math.sqrt(1-x)))
 
-def density_score_7(g):
+def density_7(g):
     return 10 if g <= 2 else 40 if g == 3 else 75 if g == 4 else 95
 
-def density_score_14(g):
+def density_14(g):
     return 10 if g <= 4 else 35 if g == 5 else 55 if g == 6 else 75 if g == 7 else 95
 
 def recovery(days):
@@ -95,25 +102,8 @@ def recovery(days):
 
 def fatigue_index(density, days_since, travel):
     b2b = 1 if days_since == 1 else 0
-    raw = density + (12 if b2b else 0) + travel*6 + (10 if b2b and travel >= 2 else 0)
+    raw = density + (12 if b2b else 0) + travel * 6 + (10 if b2b and travel >= 2 else 0)
     return round(raw * (1 - recovery(days_since)), 1)
-
-def pick_games_today(run_date):
-    games = fetch_games((run_date - timedelta(days=1)).isoformat(),
-                        (run_date + timedelta(days=1)).isoformat())
-    return [g for g in games if game_dt(g).date() == run_date]
-
-def team_games(team_id, games):
-    return [g for g in games if g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id]
-
-def last_city(team_id, games):
-    past = sorted(
-        [g for g in games if team_id in (g["home_team"]["id"], g["visitor_team"]["id"])],
-        key=game_dt
-    )
-    if not past:
-        return None
-    return past[-1]["home_team"]["city"]
 
 def travel_load(prev_city, cur_city):
     if not prev_city or prev_city == cur_city:
@@ -123,63 +113,74 @@ def travel_load(prev_city, cur_city):
     m = haversine(CITY_COORDS[prev_city], CITY_COORDS[cur_city])
     return 1 if m < 300 else 2 if m < 800 else 3
 
-def print_team_analysis(team, slate_date, all_games):
-    team_id = team["id"]
+def pick_games_today(run_date):
+    games = fetch_games(
+        (run_date - timedelta(days=1)).isoformat(),
+        (run_date + timedelta(days=1)).isoformat()
+    )
+    return [g for g in games if game_dt(g).date() == run_date]
+
+def print_team_analysis(team, slate_date, games):
+    tid = team["id"]
     name = team["full_name"]
 
-    g7 = sum(1 for g in all_games if is_completed(g)
-             and team_id in (g["home_team"]["id"], g["visitor_team"]["id"])
-             and slate_date - timedelta(days=7) <= game_dt(g).date() < slate_date)
+    g7 = sum(
+        1 for g in games if is_completed(g)
+        and tid in (g["home_team"]["id"], g["visitor_team"]["id"])
+        and slate_date - timedelta(days=7) <= game_dt(g).date() < slate_date
+    )
 
-    g14 = sum(1 for g in all_games if is_completed(g)
-              and team_id in (g["home_team"]["id"], g["visitor_team"]["id"])
-              and slate_date - timedelta(days=14) <= game_dt(g).date() < slate_date)
+    g14 = sum(
+        1 for g in games if is_completed(g)
+        and tid in (g["home_team"]["id"], g["visitor_team"]["id"])
+        and slate_date - timedelta(days=14) <= game_dt(g).date() < slate_date
+    )
 
-    density = round(0.65*density_score_7(g7) + 0.35*density_score_14(g14), 1)
+    density = round(0.65 * density_7(g7) + 0.35 * density_14(g14), 1)
 
-    past_games = sorted(
-        [g for g in all_games if is_completed(g)
-         and team_id in (g["home_team"]["id"], g["visitor_team"]["id"])
+    past = sorted(
+        [g for g in games if is_completed(g)
+         and tid in (g["home_team"]["id"], g["visitor_team"]["id"])
          and game_dt(g).date() < slate_date],
         key=game_dt
     )
 
-    last_game_date = game_dt(past_games[-1]).date() if past_games else None
-    days_since = (slate_date - last_game_date).days if last_game_date else 5
-
-    prev_city = last_city(team_id, past_games)
+    last_date = game_dt(past[-1]).date() if past else None
+    days_since = (slate_date - last_date).days if last_date else 5
+    prev_city = past[-1]["home_team"]["city"] if past else None
     travel = travel_load(prev_city, team["city"])
     fatigue = fatigue_index(density, days_since, travel)
 
     print(f"\n🧪 {name}")
-    print(f"  games_7d={g7} games_14d={g14}")
+    print(f"  games_7d={g7}")
+    print(f"  games_14d={g14}")
     print(f"  density={density}")
     print(f"  days_since_last={days_since}")
     print(f"  travel_load={travel}")
     print(f"  fatigue_index={fatigue}")
-
-    window_games = [
-        g for g in past_games
-        if slate_date - timedelta(days=15) <= game_dt(g).date() < slate_date
-    ]
-
     print("  margins_last_15d:")
-    for g in window_games:
-        is_home = g["home_team"]["id"] == team_id
-        opp = g["visitor_team"]["full_name"] if is_home else g["home_team"]["full_name"]
-        ts = g["home_team_score"] if is_home else g["visitor_team_score"]
-        os = g["visitor_team_score"] if is_home else g["home_team_score"]
-        print(f"    {game_dt(g).date()} vs {opp}: {ts-os:+}")
+
+    for g in past:
+        gd = game_dt(g).date()
+        if slate_date - timedelta(days=15) <= gd < slate_date:
+            is_home = g["home_team"]["id"] == tid
+            opp = g["visitor_team"]["full_name"] if is_home else g["home_team"]["full_name"]
+            ts = g["home_team_score"] if is_home else g["visitor_team_score"]
+            os = g["visitor_team_score"] if is_home else g["home_team_score"]
+            print(f"    {gd} vs {opp}: {ts - os:+}")
 
 def main():
     RUN_DATE = datetime.utcnow().date()
+
     games_today = pick_games_today(RUN_DATE)
     if not games_today:
         print("No games today")
         return
 
-    all_games = fetch_games((RUN_DATE - timedelta(days=20)).isoformat(),
-                            RUN_DATE.isoformat())
+    all_games = fetch_games(
+        (RUN_DATE - timedelta(days=20)).isoformat(),
+        RUN_DATE.isoformat()
+    )
 
     for g in games_today:
         away = g["visitor_team"]
