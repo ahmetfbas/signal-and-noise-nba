@@ -19,10 +19,10 @@ def fetch_games(start_date: str, end_date: str):
     while True:
         params = {
             "start_date": start_date,
-            "end_date": run_date.isoformat(),
+            "end_date": end_date,     
             "per_page": 100,
             "page": page,
-            "sort": "-date"   # IMPORTANT: newest → oldest
+            "sort": "-date"          
         }
 
         resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
