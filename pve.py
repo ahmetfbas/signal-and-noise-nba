@@ -1,3 +1,5 @@
+# pve.py
+
 from datetime import datetime, timedelta
 from utils import (
     fetch_games_range,
@@ -10,24 +12,6 @@ from utils import (
 WINDOW_DAYS = 15
 
 
-def team_pve_from_games(team_id, games, end_date, window_days):
-    start_date = end_date - timedelta(days=window_days)
-
-    margins = [
-        margin_for_team(g, team_id)
-        for g in games
-        if is_completed(g)
-        and team_in_game(g, team_id)
-        and start_date <= game_date(g) < end_date
-    ]
-
-    if not margins:
-        return 0, None
-
-    avg_margin = round(sum(margins) / len(margins), 2)
-    return len(margins), avg_margin
-
-
 def pick_games_today(run_date):
     games = fetch_games_range(
         (run_date - timedelta(days=1)).isoformat(),
@@ -36,38 +20,50 @@ def pick_games_today(run_date):
     return [g for g in games if game_date(g) == run_date]
 
 
+def team_margins_last_days(team_id, end_date, window_days):
+    start_date = end_date - timedelta(days=window_days)
+    games = fetch_games_range(start_date.isoformat(), end_date.isoformat())
+
+    margins = [
+        margin_for_team(g, team_id)
+        for g in games
+        if is_completed(g) and team_in_game(g, team_id)
+    ]
+
+    return margins
+
+
 def main():
     run_date = datetime.utcnow().date()
+
+    games_today = pick_games_today(run_date)
 
     print("\n🏀 PvE — Performance vs Expectation")
     print(f"📅 Slate date: {run_date}")
     print(f"🗓 Window: last {WINDOW_DAYS} days\n")
 
-    games_today = pick_games_today(run_date)
     if not games_today:
-        print("No games found.")
+        print("No games today.")
         return
-
-    lookback_games = fetch_games_range(
-        (run_date - timedelta(days=WINDOW_DAYS)).isoformat(),
-        run_date.isoformat()
-    )
 
     for g in games_today:
         away = g["visitor_team"]
         home = g["home_team"]
 
-        print(f"\n🎯 {away['full_name']} @ {home['full_name']}")
+        print(f"\n🎯 {away['full_name']} @ {home['full_name']}\n")
 
         for team in [away, home]:
-            count, avg = team_pve_from_games(
-                team["id"],
-                lookback_games,
-                run_date,
-                WINDOW_DAYS
-            )
+            tid = team["id"]
+            margins = team_margins_last_days(tid, run_date, WINDOW_DAYS)
 
-            print(f"\n🧪 {team['full_name']}")
+            games_count = len(margins)
+            avg_margin = round(sum(margins) / games_count, 2) if games_count else 0.0
+
+            print(f"🧪 {team['full_name']}")
             print(f"  window_days = {WINDOW_DAYS}")
-            print(f"  games_in_window = {count}")
-            print(f"  avg_margin = {_
+            print(f"  games_in_window = {games_count}")
+            print(f"  avg_margin = {avg_margin}\n")
+
+
+if __name__ == "__main__":
+    main()
