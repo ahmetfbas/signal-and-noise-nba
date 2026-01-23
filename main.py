@@ -194,12 +194,80 @@ def print_scores_last_30_days(run_date):
 
         print(f"{away} {away_score} @ {home} {home_score}")
 
+def is_completed(game):
+    return (
+        game.get("home_team_score") is not None
+        and game.get("visitor_team_score") is not None
+    )
+
+def team_played_in_game(game, team_id):
+    return game["home_team"]["id"] == team_id or game["visitor_team"]["id"] == team_id
+
+def format_game_line_for_team(game, team_id):
+    gd = game_date(game)
+    is_home = game["home_team"]["id"] == team_id
+
+    team_name = game["home_team"]["full_name"] if is_home else game["visitor_team"]["full_name"]
+    opp_name = game["visitor_team"]["full_name"] if is_home else game["home_team"]["full_name"]
+
+    team_score = game["home_team_score"] if is_home else game["visitor_team_score"]
+    opp_score = game["visitor_team_score"] if is_home else game["home_team_score"]
+
+    loc = "HOME" if is_home else "AWAY"
+    margin = team_score - opp_score
+
+    return f"{gd} | {loc} vs {opp_name} | {team_score}-{opp_score} | margin: {margin:+}"
+
+def print_team_scores_last_30_days(team, run_date, window_days=30):
+    start_date = (run_date - timedelta(days=window_days - 1)).isoformat()
+    end_date = run_date.isoformat()
+
+    games = fetch_games(start_date, end_date)
+    team_id = team["id"]
+    team_name = team["full_name"]
+
+    team_games = [
+        g for g in games
+        if is_completed(g) and team_played_in_game(g, team_id)
+    ]
+
+    team_games.sort(key=game_datetime)  # oldest → newest
+
+    print(f"\n📌 {team_name} — completed games in last {window_days} days (ending {run_date})")
+    if not team_games:
+        print("  (no completed games found in this window)")
+        return
+
+    for g in team_games:
+        print("  " + format_game_line_for_team(g, team_id))
+
+    # sanity check (helps diagnose “cut”)
+    print(f"  -> printed {len(team_games)} games | last game date: {game_date(team_games[-1])}")
+
+def pick_one_game_today_and_print_histories(run_date):
+    today_games = fetch_games(run_date.isoformat(), run_date.isoformat())
+
+    if not today_games:
+        print(f"\nNo games scheduled on {run_date}.")
+        return
+
+    # Pick the first listed game (simple + deterministic)
+    g = today_games[0]
+    away = g["visitor_team"]
+    home = g["home_team"]
+
+    print(f"\n🎯 Selected matchup on {run_date}: {away['full_name']} @ {home['full_name']}\n")
+
+    # Print BOTH teams' last 30 days of completed scores
+    print_team_scores_last_30_days(away, run_date, window_days=30)
+    print_team_scores_last_30_days(home, run_date, window_days=30)
+
 
 # ---------------- MAIN ----------------
 def main():
     RUN_DATE = datetime.utcnow().date()
 
-    print_scores_last_30_days(RUN_DATE)
+    pick_one_game_today_and_print_histories(RUN_DATE)
     
     start_7 = (RUN_DATE - timedelta(days=6)).isoformat()
     start_14 = (RUN_DATE - timedelta(days=13)).isoformat()
