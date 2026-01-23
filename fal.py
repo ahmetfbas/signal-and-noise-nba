@@ -45,19 +45,23 @@ def fatigue_tier(score):
     return "Critical"
 
 def last_game_info(team_id, games, today):
-    past = [g for g in games if team_in_game(g, team_id) and game_date(g) < today]
+    past = [
+        g for g in games
+        if team_in_game(g, team_id)
+        and is_completed(g)
+        and game_date(g) < today
+    ]
     if not past:
         return None, None
     last = max(past, key=lambda g: game_date(g))
-    city = last["home_team"]["city"]
-    return game_date(last), city
+    return game_date(last), last["home_team"]["city"]
 
 def count_games(team_id, games, start, end):
     return sum(
         1 for g in games
-        if team_in_game(g, team_id)
+        if is_completed(g)
+        and team_in_game(g, team_id)
         and start <= game_date(g) < end
-        and is_completed(g)
     )
 
 def main():
@@ -69,11 +73,16 @@ def main():
     games_14 = fetch_games_range(g14_start.isoformat(), today.isoformat())
     games_today = [g for g in games_14 if game_date(g) == today]
 
+    processed = set()
+
     print("\n🏀 Fatigue & Load — Today\n")
 
     for g in games_today:
-        for team in [g["away_team"] if "away_team" in g else g["visitor_team"], g["home_team"]]:
+        for team in [g["visitor_team"], g["home_team"]]:
             tid = team["id"]
+            if tid in processed:
+                continue
+            processed.add(tid)
 
             g7 = count_games(tid, games_14, g7_start, today)
             g14 = count_games(tid, games_14, g14_start, today)
