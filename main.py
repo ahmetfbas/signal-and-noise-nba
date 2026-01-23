@@ -232,7 +232,7 @@ def average_margin_before(team_id, games, target_date, window=10):
 # ---------------- MAIN ----------------
 def main():
     # 1) Use last available game date from API as run_date
-    run_date = find_latest_available_game_date(lookback_days=120)
+    run_date = find_latest_available_game_date(lookback_days=10)
 
     # 2) PvE Step 1 range (past week) and strength lookback range
     start_week = run_date - timedelta(days=6)
