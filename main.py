@@ -1,12 +1,13 @@
 import os
 import time
 import math
+import json
 import requests
 from datetime import datetime, timedelta
+from pathlib import Path
 
 API_URL = "https://api.balldontlie.io/v1/games"
 API_KEY = os.getenv("BALLDONTLIE_API_KEY")
-
 if not API_KEY:
     raise ValueError("BALLDONTLIE_API_KEY environment variable not set")
 
@@ -44,22 +45,96 @@ CITY_COORDS = {
     "Washington": (38.8981, -77.0209),
 }
 
-def api_get(params):
-    r = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
-    if r.status_code != 200:
-        raise RuntimeError(f"API error {r.status_code}: {r.text}")
-    return r.json()
+# ---------------- helpers ----------------
+def game_dt(g):
+    return datetime.fromisoformat(g["date"].replace("Z", "+00:00"))
 
-def fetch_games(start_date, end_date):
+def game_date(g):
+    return game_dt(g).date()
+
+def is_completed(g):
+    return g.get("home_team_score") is not None and g.get("visitor_team_score") is not None
+
+def haversine_miles(a, b):
+    R = 3958.8
+    lat1, lon1 = a
+    lat2, lon2 = b
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    x = math.sin(dphi/2)**2 + math.cos(phi1)*math.cos(phi2)*math.sin(dl/2)**2
+    return round(2 * R * math.atan2(math.sqrt(x), math.sqrt(1 - x)))
+
+def density_7d_score(g7):
+    if g7 <= 2: return 10
+    if g7 == 3: return 40
+    if g7 == 4: return 75
+    return 95
+
+def density_14d_score(g14):
+    if g14 <= 4: return 10
+    if g14 == 5: return 35
+    if g14 == 6: return 55
+    if g14 == 7: return 75
+    return 95
+
+def recovery_offset(days):
+    if days <= 1: return 0.00
+    if days == 2: return 0.10
+    if days == 3: return 0.25
+    if days == 4: return 0.40
+    return 0.55
+
+def fatigue_load_index_v1(density, days_since, travel):
+    if days_since is None:
+        days_since = 5
+    b2b = 1 if days_since == 1 else 0
+    raw = density + (12 if b2b else 0) + travel * 6 + (10 if b2b and travel >= 2 else 0)
+    return round(raw * (1 - recovery_offset(days_since)), 1)
+
+def travel_load_v1(last_city, target_city):
+    if last_city is None or target_city is None:
+        return 1, None
+    if last_city == target_city:
+        return 0, 0
+    if last_city not in CITY_COORDS or target_city not in CITY_COORDS:
+        return 1, None
+    miles = haversine_miles(CITY_COORDS[last_city], CITY_COORDS[target_city])
+    if miles < 300: return 1, miles
+    if miles < 800: return 2, miles
+    return 3, miles
+
+# ---------------- API with cache + backoff ----------------
+def _request(params, timeout=30, max_retries=8):
+    delay = 0.35
+    for attempt in range(max_retries):
+        r = requests.get(API_URL, headers=HEADERS, params=params, timeout=timeout)
+        if r.status_code == 200:
+            return r.json()
+        if r.status_code == 429:
+            ra = r.headers.get("Retry-After")
+            if ra:
+                try:
+                    time.sleep(float(ra))
+                except:
+                    time.sleep(delay)
+            else:
+                time.sleep(delay)
+                delay = min(delay * 1.8, 6.0)
+            continue
+        raise RuntimeError(f"API error {r.status_code}: {r.text}")
+    raise RuntimeError("API error 429: retries exhausted")
+
+def fetch_games_range(start_date, end_date):
     out = []
     page = 1
     while True:
-        payload = api_get({
+        payload = _request({
             "start_date": start_date,
             "end_date": end_date,
             "per_page": 100,
             "page": page,
-            "sort": "-date"
+            "sort": "-date",
         })
         data = payload.get("data", [])
         out.extend(data)
@@ -70,124 +145,110 @@ def fetch_games(start_date, end_date):
             break
 
         page += 1
-        time.sleep(0.15)
-
+        time.sleep(0.12)
     return out
 
-def game_dt(g):
-    return datetime.fromisoformat(g["date"].replace("Z", "+00:00"))
+def cached_games(start_date, end_date, cache_dir=".cache"):
+    Path(cache_dir).mkdir(parents=True, exist_ok=True)
+    key = f"games_{start_date}_{end_date}.json"
+    p = Path(cache_dir) / key
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
+    data = fetch_games_range(start_date, end_date)
+    p.write_text(json.dumps(data), encoding="utf-8")
+    return data
 
-def is_completed(g):
-    return g["home_team_score"] is not None and g["visitor_team_score"] is not None
-
-def haversine(a, b):
-    R = 3958.8
-    lat1, lon1 = a
-    lat2, lon2 = b
-    dphi = math.radians(lat2 - lat1)
-    dl = math.radians(lon2 - lon1)
-    p1 = math.radians(lat1)
-    p2 = math.radians(lat2)
-    x = math.sin(dphi/2)**2 + math.cos(p1)*math.cos(p2)*math.sin(dl/2)**2
-    return round(2 * R * math.atan2(math.sqrt(x), math.sqrt(1-x)))
-
-def density_7(g):
-    return 10 if g <= 2 else 40 if g == 3 else 75 if g == 4 else 95
-
-def density_14(g):
-    return 10 if g <= 4 else 35 if g == 5 else 55 if g == 6 else 75 if g == 7 else 95
-
-def recovery(days):
-    return 0.00 if days <= 1 else 0.10 if days == 2 else 0.25 if days == 3 else 0.40 if days == 4 else 0.55
-
-def fatigue_index(density, days_since, travel):
-    b2b = 1 if days_since == 1 else 0
-    raw = density + (12 if b2b else 0) + travel * 6 + (10 if b2b and travel >= 2 else 0)
-    return round(raw * (1 - recovery(days_since)), 1)
-
-def travel_load(prev_city, cur_city):
-    if not prev_city or prev_city == cur_city:
-        return 0
-    if prev_city not in CITY_COORDS or cur_city not in CITY_COORDS:
-        return 1
-    m = haversine(CITY_COORDS[prev_city], CITY_COORDS[cur_city])
-    return 1 if m < 300 else 2 if m < 800 else 3
-
+# ---------------- slate + outputs ----------------
 def pick_games_today(run_date):
-    games = fetch_games(
+    games = cached_games(
         (run_date - timedelta(days=1)).isoformat(),
         (run_date + timedelta(days=1)).isoformat()
     )
-    return [g for g in games if game_dt(g).date() == run_date]
+    return [g for g in games if game_date(g) == run_date]
 
-def print_team_analysis(team, slate_date, games):
+def count_team_games(team_id, games, start_d, end_d_exclusive):
+    return sum(
+        1 for g in games
+        if is_completed(g)
+        and start_d <= game_date(g) < end_d_exclusive
+        and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+    )
+
+def last_game_before(team_id, games, today):
+    past = [
+        g for g in games
+        if is_completed(g)
+        and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+        and game_date(g) < today
+    ]
+    if not past:
+        return None
+    return max(past, key=game_dt)
+
+def team_margin(game, team_id):
+    if game["home_team"]["id"] == team_id:
+        return game["home_team_score"] - game["visitor_team_score"]
+    return game["visitor_team_score"] - game["home_team_score"]
+
+def avg_margin_last_15d(team_id, games, end_date, window_days=15):
+    start = end_date - timedelta(days=window_days)
+    gs = [
+        g for g in games
+        if is_completed(g)
+        and start <= game_date(g) < end_date
+        and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+    ]
+    if not gs:
+        return None, 0
+    ms = [team_margin(g, team_id) for g in gs]
+    return round(sum(ms) / len(ms), 2), len(ms)
+
+def print_team_calc(team, slate_date, games_pool):
     tid = team["id"]
     name = team["full_name"]
 
-    g7 = sum(
-        1 for g in games if is_completed(g)
-        and tid in (g["home_team"]["id"], g["visitor_team"]["id"])
-        and slate_date - timedelta(days=7) <= game_dt(g).date() < slate_date
-    )
+    g7 = count_team_games(tid, games_pool, slate_date - timedelta(days=7), slate_date)
+    g14 = count_team_games(tid, games_pool, slate_date - timedelta(days=14), slate_date)
 
-    g14 = sum(
-        1 for g in games if is_completed(g)
-        and tid in (g["home_team"]["id"], g["visitor_team"]["id"])
-        and slate_date - timedelta(days=14) <= game_dt(g).date() < slate_date
-    )
+    density = round(0.65 * density_7d_score(g7) + 0.35 * density_14d_score(g14), 1)
 
-    density = round(0.65 * density_7(g7) + 0.35 * density_14(g14), 1)
+    last_g = last_game_before(tid, games_pool, slate_date)
+    last_date = game_date(last_g) if last_g else None
+    days_since = (slate_date - last_date).days if last_date else None
 
-    past = sorted(
-        [g for g in games if is_completed(g)
-         and tid in (g["home_team"]["id"], g["visitor_team"]["id"])
-         and game_dt(g).date() < slate_date],
-        key=game_dt
-    )
+    last_city = last_g["home_team"]["city"] if last_g else None
+    target_city = team.get("city")
+    travel, miles = travel_load_v1(last_city, target_city)
 
-    last_date = game_dt(past[-1]).date() if past else None
-    days_since = (slate_date - last_date).days if last_date else 5
-    prev_city = past[-1]["home_team"]["city"] if past else None
-    travel = travel_load(prev_city, team["city"])
-    fatigue = fatigue_index(density, days_since, travel)
+    fatigue = fatigue_load_index_v1(density, days_since, travel)
 
-    print(f"\n🧪 {name}")
-    print(f"  games_7d={g7}")
-    print(f"  games_14d={g14}")
-    print(f"  density={density}")
-    print(f"  days_since_last={days_since}")
-    print(f"  travel_load={travel}")
-    print(f"  fatigue_index={fatigue}")
-    print("  margins_last_15d:")
+    avg15, n15 = avg_margin_last_15d(tid, games_pool, slate_date, window_days=15)
 
-    for g in past:
-        gd = game_dt(g).date()
-        if slate_date - timedelta(days=15) <= gd < slate_date:
-            is_home = g["home_team"]["id"] == tid
-            opp = g["visitor_team"]["full_name"] if is_home else g["home_team"]["full_name"]
-            ts = g["home_team_score"] if is_home else g["visitor_team_score"]
-            os = g["visitor_team_score"] if is_home else g["home_team_score"]
-            print(f"    {gd} vs {opp}: {ts - os:+}")
+    print(f"\n{name}")
+    print(f"g7={g7} g14={g14} density={density}")
+    print(f"last_date={last_date} days_since={days_since}")
+    print(f"last_city={last_city} target_city={target_city} miles={miles} travel_load={travel}")
+    print(f"fatigue={fatigue}")
+    print(f"avg_margin_15d={avg15} games_in_15d={n15}")
 
 def main():
     RUN_DATE = datetime.utcnow().date()
 
     games_today = pick_games_today(RUN_DATE)
     if not games_today:
-        print("No games today")
+        print(f"No games scheduled on {RUN_DATE}.")
         return
 
-    all_games = fetch_games(
-        (RUN_DATE - timedelta(days=20)).isoformat(),
-        RUN_DATE.isoformat()
-    )
+    pool_start = (RUN_DATE - timedelta(days=40)).isoformat()
+    pool_end = RUN_DATE.isoformat()
+    games_pool = cached_games(pool_start, pool_end)
 
-    for g in games_today:
+    for g in sorted(games_today, key=game_dt):
         away = g["visitor_team"]
         home = g["home_team"]
         print(f"\n🎯 {away['full_name']} @ {home['full_name']}")
-        print_team_analysis(away, RUN_DATE, all_games)
-        print_team_analysis(home, RUN_DATE, all_games)
+        print_team_calc(away, RUN_DATE, games_pool)
+        print_team_calc(home, RUN_DATE, games_pool)
 
 if __name__ == "__main__":
     main()
