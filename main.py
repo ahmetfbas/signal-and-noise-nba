@@ -197,7 +197,7 @@ def print_scores_last_30_days(run_date):
 
 # ---------------- MAIN ----------------
 def main():
-    RUN_DATE = datetime(2026, 1, 22).date()
+    RUN_DATE = datetime.utcnow().date()
 
     print_scores_last_30_days(RUN_DATE)
     
