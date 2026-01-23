@@ -20,7 +20,7 @@ def fetch_games(start_date: str, end_date: str):
         params = {
             "start_date": start_date,
             "end_date": end_date,
-            "per_page": 1000,
+            "per_page": 100,
             "page": page
         }
 
@@ -219,30 +219,81 @@ def format_game_line_for_team(game, team_id):
     return f"{gd} | {loc} vs {opp_name} | {team_score}-{opp_score} | margin: {margin:+}"
 
 def print_team_scores_last_30_days(team, run_date, window_days=30):
-    start_date = (run_date - timedelta(days=window_days - 1)).isoformat()
-    end_date = run_date.isoformat()
-
-    games = fetch_games(start_date, end_date)
     team_id = team["id"]
     team_name = team["full_name"]
 
-    team_games = [
-        g for g in games
-        if is_completed(g) and team_played_in_game(g, team_id)
-    ]
+    cutoff_date = run_date - timedelta(days=window_days)
 
-    team_games.sort(key=game_datetime)  # oldest → newest
+    collected = []
+    page = 1
+
+    while True:
+        params = {
+            "end_date": run_date.isoformat(),
+            "per_page": 100,
+            "page": page
+        }
+
+        resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=30)
+        if resp.status_code != 200:
+            raise RuntimeError(resp.text)
+
+        payload = resp.json()
+        data = payload.get("data", [])
+
+        if not data:
+            break
+
+        for g in data:
+            gd = game_date(g)
+
+            # stop condition: we’ve gone past the window
+            if gd < cutoff_date:
+                break
+
+            if (
+                g.get("home_team_score") is not None
+                and g.get("visitor_team_score") is not None
+                and (g["home_team"]["id"] == team_id or g["visitor_team"]["id"] == team_id)
+            ):
+                collected.append(g)
+
+        # if oldest game on this page is already before cutoff, stop paging
+        if game_date(data[-1]) < cutoff_date:
+            break
+
+        if page >= payload.get("meta", {}).get("total_pages", 1):
+            break
+
+        page += 1
+
+    collected.sort(key=game_datetime)
 
     print(f"\n📌 {team_name} — completed games in last {window_days} days (ending {run_date})")
-    if not team_games:
-        print("  (no completed games found in this window)")
+
+    if not collected:
+        print("  (no games found)")
         return
 
-    for g in team_games:
-        print("  " + format_game_line_for_team(g, team_id))
+    for g in collected:
+        gd = game_date(g)
+        is_home = g["home_team"]["id"] == team_id
 
-    # sanity check (helps diagnose “cut”)
-    print(f"  -> printed {len(team_games)} games | last game date: {game_date(team_games[-1])}")
+        opponent = (
+            g["visitor_team"]["full_name"]
+            if is_home
+            else g["home_team"]["full_name"]
+        )
+
+        team_score = g["home_team_score"] if is_home else g["visitor_team_score"]
+        opp_score = g["visitor_team_score"] if is_home else g["home_team_score"]
+        margin = team_score - opp_score
+        loc = "HOME" if is_home else "AWAY"
+
+        print(f"  {gd} | {loc} vs {opponent} | {team_score}-{opp_score} | margin: {margin:+}")
+
+    print(f"  -> printed {len(collected)} games | last game date: {game_date(collected[-1])}")
+
 
 def pick_one_game_today_and_print_histories(run_date):
     today_games = fetch_games(run_date.isoformat(), run_date.isoformat())
