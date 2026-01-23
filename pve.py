@@ -12,22 +12,19 @@ from utils import (
 WINDOW_DAYS = 15
 
 
-def pick_games_today(run_date):
-    games = fetch_games_range(
-        (run_date - timedelta(days=1)).isoformat(),
-        (run_date + timedelta(days=1)).isoformat()
-    )
-    return [g for g in games if game_date(g) == run_date]
+def pick_games_today(all_games, run_date):
+    return [g for g in all_games if game_date(g) == run_date]
 
 
-def team_margins_last_days(team_id, end_date, window_days):
+def team_margins_last_days(team_id, all_games, end_date, window_days):
     start_date = end_date - timedelta(days=window_days)
-    games = fetch_games_range(start_date.isoformat(), end_date.isoformat())
 
     margins = [
         margin_for_team(g, team_id)
-        for g in games
-        if is_completed(g) and team_in_game(g, team_id)
+        for g in all_games
+        if is_completed(g)
+        and team_in_game(g, team_id)
+        and start_date <= game_date(g) < end_date
     ]
 
     return margins
@@ -36,7 +33,12 @@ def team_margins_last_days(team_id, end_date, window_days):
 def main():
     run_date = datetime.utcnow().date()
 
-    games_today = pick_games_today(run_date)
+    all_games = fetch_games_range(
+        (run_date - timedelta(days=WINDOW_DAYS)).isoformat(),
+        run_date.isoformat()
+    )
+
+    games_today = pick_games_today(all_games, run_date)
 
     print("\n🏀 PvE — Performance vs Expectation")
     print(f"📅 Slate date: {run_date}")
@@ -54,7 +56,13 @@ def main():
 
         for team in [away, home]:
             tid = team["id"]
-            margins = team_margins_last_days(tid, run_date, WINDOW_DAYS)
+
+            margins = team_margins_last_days(
+                tid,
+                all_games,
+                run_date,
+                WINDOW_DAYS
+            )
 
             games_count = len(margins)
             avg_margin = round(sum(margins) / games_count, 2) if games_count else 0.0
