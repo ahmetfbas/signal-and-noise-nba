@@ -54,15 +54,10 @@ def is_completed(game):
     return game["home_team_score"] is not None and game["visitor_team_score"] is not None
 
 
-def format_line(game, team_id):
-    gd = game_date(game)
-    is_home = game["home_team"]["id"] == team_id
-    opponent = game["visitor_team"]["full_name"] if is_home else game["home_team"]["full_name"]
-    team_score = game["home_team_score"] if is_home else game["visitor_team_score"]
-    opp_score = game["visitor_team_score"] if is_home else game["home_team_score"]
-    loc = "HOME" if is_home else "AWAY"
-    margin = team_score - opp_score
-    return f"  {gd} | {loc} vs {opponent} | {team_score}-{opp_score} | margin: {margin:+}"
+def calc_margin(game, team_id):
+    if game["home_team"]["id"] == team_id:
+        return game["home_team_score"] - game["visitor_team_score"]
+    return game["visitor_team_score"] - game["home_team_score"]
 
 
 def pick_slate_games(run_date):
@@ -82,12 +77,11 @@ def pick_slate_games(run_date):
     return slate_date, by_date[slate_date]
 
 
-def build_team_history_cache(slate_date, window_days):
+def build_team_margin_cache(slate_date, window_days):
     start = (slate_date - timedelta(days=window_days - 1)).isoformat()
     end = slate_date.isoformat()
 
     games = fetch_games_range(start, end)
-
     completed = [g for g in games if is_completed(g)]
     completed.sort(key=game_datetime)
 
@@ -99,19 +93,20 @@ def build_team_history_cache(slate_date, window_days):
     return cache
 
 
-def print_team_window(team, slate_date, window_days, cache):
+def print_team_margins(team, slate_date, window_days, cache):
     games = cache.get(team["id"], [])
 
-    print(f"\n📌 {team['full_name']} — completed games in last {window_days} days (ending {slate_date})")
+    print(f"\n📌 {team['full_name']} — margins (last {window_days} days)")
 
     if not games:
-        print("  (no games found)")
+        print("  (no data)")
         return
 
     for g in games:
-        print(format_line(g, team["id"]))
+        margin = calc_margin(g, team["id"])
+        print(f"  {game_date(g)} | margin: {margin:+}")
 
-    print(f"  -> printed {len(games)} games | last game date: {game_date(games[-1])}")
+    print(f"  -> {len(games)} games | last: {game_date(games[-1])}")
 
 
 def main():
@@ -123,7 +118,7 @@ def main():
         print("No games scheduled.")
         return
 
-    cache = build_team_history_cache(slate_date, WINDOW_DAYS)
+    cache = build_team_margin_cache(slate_date, WINDOW_DAYS)
 
     print(f"\n🏀 Games on {slate_date}\n")
 
@@ -133,8 +128,8 @@ def main():
 
         print(f"\n🎯 {away['full_name']} @ {home['full_name']}")
 
-        print_team_window(away, slate_date, WINDOW_DAYS, cache)
-        print_team_window(home, slate_date, WINDOW_DAYS, cache)
+        print_team_margins(away, slate_date, WINDOW_DAYS, cache)
+        print_team_margins(home, slate_date, WINDOW_DAYS, cache)
 
 
 if __name__ == "__main__":
