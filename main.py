@@ -229,7 +229,21 @@ def main():
             travel, miles, travel_band = travel_load_v1(last_city, target_city)
 
             density = round(
-                0.65 * density_7d_score(g7) + 0.*
+                0.65 * density_7d_score(g7) + 0.35 * density_14d_score(g14),
+                1
+            )
+
+            print(f"🧪 {team['full_name']}")
+            print(f"  games_7d = {g7}")
+            print(f"  games_14d = {g14}")
+            print(f"  schedule_density = {density}")
+            print(f"  days_since_last_game = {days_since_eff}")
+            print(f"  back_to_back_pressure = {b2b}")
+            print(f"  recovery_offset = {recovery}")
+            print(f"  travel_load = {travel} ({travel_band}, {miles} miles)")
+            print(f"  fatigue_index = {r['fatigue']}")
+            print()
+
 
 
 if __name__ == "__main__":
