@@ -268,62 +268,6 @@ def main():
     RUN_DATE = datetime.utcnow().date()
 
     pick_one_game_today_and_print_histories(RUN_DATE)
-    
-    start_7 = (RUN_DATE - timedelta(days=6)).isoformat()
-    start_14 = (RUN_DATE - timedelta(days=13)).isoformat()
-
-    games_last_7 = fetch_games(start_7, RUN_DATE.isoformat())
-    games_last_14 = fetch_games(start_14, RUN_DATE.isoformat())
-
-    games_today = [g for g in games_last_7 if game_date(g) == RUN_DATE]
-
-    team_results = {}
-
-    for g in games_today:
-        for team in [g["home_team"], g["visitor_team"]]:
-            tid = team["id"]
-            if tid in team_results:
-                continue
-
-            g7 = count_games_in_window(tid, games_last_7, RUN_DATE - timedelta(days=7), RUN_DATE)
-            g14 = count_games_in_window(tid, games_last_14, RUN_DATE - timedelta(days=14), RUN_DATE)
-
-            density = round(
-                0.65 * density_7d_score(g7) + 0.35 * density_14d_score(g14),
-                1
-            )
-
-            last_date = last_game_before(tid, games_last_14, RUN_DATE)
-            days_since = (RUN_DATE - last_date).days if last_date else None
-
-            last_city = last_game_city(tid, games_last_14, RUN_DATE)
-            target_city = g["home_team"]["city"]
-            travel = travel_load_v1(last_city, target_city)
-
-            fatigue = fatigue_load_index_v1(density, days_since, travel)
-
-            team_results[tid] = {
-                "name": team["full_name"],
-                "fatigue": fatigue,
-                "tier": fatigue_risk_tier(fatigue)
-            }
-
-    print(f"\n🏀 NBA Fatigue Index — {RUN_DATE}\n")
-
-    emoji = {"Low": "🟢", "Elevated": "🟡", "High": "🟠", "Critical": "🔴"}
-
-    for g in games_today:
-        away = g["visitor_team"]
-        home = g["home_team"]
-
-        a = team_results[away["id"]]
-        h = team_results[home["id"]]
-
-        print(
-            f"{away['full_name']} @ {home['full_name']}\n"
-            f"{emoji[a['tier']]} {away['full_name']} — {a['tier']} ({a['fatigue']})\n"
-            f"{emoji[h['tier']]} {home['full_name']} — {h['tier']} ({h['fatigue']})\n"
-        )
 
 if __name__ == "__main__":
     main()
