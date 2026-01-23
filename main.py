@@ -104,6 +104,12 @@ def main():
 
     print_charlotte_last_10_completed(games, latest_completed)
 
+    # show the most recent 5 completed games dates (any teams) to confirm
+    recent_completed = sorted([g for g in games if is_completed(g)], key=game_datetime, reverse=True)[:5]
+    print("Most recent completed games in dataset:")
+    for g in recent_completed:
+        print(game_date(g), "-", g["visitor_team"]["full_name"], "@", g["home_team"]["full_name"])
+
 
 if __name__ == "__main__":
     main()
