@@ -229,16 +229,68 @@ def average_margin_before(team_id, games, target_date, window=10):
     margins = [team_margin(g, team_id) for g in past_games]
     return round(sum(margins) / len(margins), 2)
 
+def print_last_10_games_for_team(team_name, games, run_date):
+    """
+    Debug helper: prints the last 10 games for a given team
+    before run_date, with scores and margins.
+    """
+    # Find team ID dynamically
+    team_games = [
+        g for g in games
+        if (
+            g["home_team"]["full_name"] == team_name
+            or g["visitor_team"]["full_name"] == team_name
+        )
+        and game_date(g) < run_date
+        and g.get("home_team_score") is not None
+        and g.get("visitor_team_score") is not None
+    ]
+
+    team_games = sorted(team_games, key=game_datetime, reverse=True)[:10]
+
+    print(f"\n🔎 Last 10 games for {team_name} (before {run_date})\n")
+
+    for g in reversed(team_games):
+        is_home = g["home_team"]["full_name"] == team_name
+        opponent = (
+            g["visitor_team"]["full_name"]
+            if is_home
+            else g["home_team"]["full_name"]
+        )
+
+        team_score = (
+            g["home_team_score"] if is_home else g["visitor_team_score"]
+        )
+        opp_score = (
+            g["visitor_team_score"] if is_home else g["home_team_score"]
+        )
+
+        margin = team_score - opp_score
+        loc = "HOME" if is_home else "AWAY"
+
+        print(
+            f"{game_date(g)} | {loc} vs {opponent} | "
+            f"{team_score}-{opp_score} | margin: {margin:+}"
+        )
+
+
 # ---------------- MAIN ----------------
 def main():
     # 1) Use last available game date from API as run_date
-    run_date = find_latest_available_game_date(lookback_days=10)
+    run_date = find_latest_available_game_date(lookback_days=120)
 
     # 2) PvE Step 1 range (past week) and strength lookback range
     start_week = run_date - timedelta(days=6)
     lookback_start = start_week - timedelta(days=30)
 
     games_lookback = fetch_games(lookback_start.isoformat(), run_date.isoformat())
+
+    # DEBUG: inspect Charlotte Hornets last 10 games
+    print_last_10_games_for_team(
+        "Charlotte Hornets",
+        games_lookback,
+        run_date
+    )
 
     print(f"\n🏀 PvE — Team Strength (Past Week) | Run date: {run_date}\n")
 
