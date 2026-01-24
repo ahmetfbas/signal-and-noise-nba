@@ -70,12 +70,7 @@ def margin_for_team(g, team_id):
     os = g["visitor_team_score"] if is_home else g["home_team_score"]
     return ts - os
 
-def recent_average_margin(team_id, end_date, window_days=15):
-    from datetime import timedelta
-
-    start_date = end_date - timedelta(days=window_days)
-    games = fetch_games_range(start_date.isoformat(), end_date.isoformat())
-
+def recent_average_margin_from_games(team_id, games):
     margins = [
         margin_for_team(g, team_id)
         for g in games
@@ -87,16 +82,18 @@ def recent_average_margin(team_id, end_date, window_days=15):
 
     return sum(margins) / len(margins)
 
-def expected_margin_base(game, team_id, run_date, window_days=15):
+
+def expected_margin_base(game, team_id, recent_games):
     home_id = game["home_team"]["id"]
     away_id = game["visitor_team"]["id"]
 
     opponent_id = away_id if team_id == home_id else home_id
 
-    team_form = recent_average_margin(team_id, run_date, window_days)
-    opp_form = recent_average_margin(opponent_id, run_date, window_days)
+    team_form = recent_average_margin_from_games(team_id, recent_games)
+    opp_form = recent_average_margin_from_games(opponent_id, recent_games)
 
     return team_form - opp_form
+
     
 def home_away_adjustment(game, team_id):
     HOME_ADVANTAGE = 2.0  # fixed for now
@@ -106,10 +103,9 @@ def home_away_adjustment(game, team_id):
     else:
         return -HOME_ADVANTAGE
         
-def expected_margin_for_team(game, team_id, run_date):
-    base = expected_margin_base(game, team_id, run_date)
+def expected_margin_for_team(game, team_id, recent_games):
+    base = expected_margin_base(game, team_id, recent_games)
     ha = home_away_adjustment(game, team_id)
-
     return base + ha
 
 
