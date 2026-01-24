@@ -45,23 +45,39 @@ def pve_for_game(game, run_date):
 
 def main():
     run_date = datetime.utcnow().date()
-    games = pick_games_for_date(run_date)
+
+    recent_games = fetch_games_range(
+        (run_date - timedelta(days=15)).isoformat(),
+        run_date.isoformat()
+    )
+
+    games_today = pick_games_for_date(run_date)
 
     print("\n🏀 PvE — Performance vs Expectation")
     print(f"📅 Date: {run_date}")
     print("-" * 50)
 
-    for game in games:
+    for game in games_today:
         matchup = f"{game['visitor_team']['abbreviation']} @ {game['home_team']['abbreviation']}"
         print(f"\n{matchup}")
 
-        rows = pve_for_game(game, run_date)
+        rows = []
+        for side in ["home_team", "visitor_team"]:
+            team_id = game[side]["id"]
+            team_name = game[side]["full_name"]
+
+            actual = margin_for_team(game, team_id)
+            expected = expected_margin_for_team(game, team_id, recent_games)
+            pve = actual - expected
+
+            rows.append((team_name, actual, expected, pve))
+
         for r in rows:
             print(
-                f"{r['team']:25s} | "
-                f"Actual: {r['actual_margin']:>6} | "
-                f"Expected: {r['expected_margin']:>6} | "
-                f"PvE: {r['pve']:>6}"
+                f"{r[0]:25s} | "
+                f"Actual: {r[1]:>6.1f} | "
+                f"Expected: {r[2]:>6.1f} | "
+                f"PvE: {r[3]:>6.1f}"
             )
 
 
