@@ -188,36 +188,41 @@ def expected_margin_breakdown(game, team_id, games, fatigue_index=0.0):
 
 def print_team_past_games_debug(team_id, team_name, games, opponent_forms, limit=5):
     print(f"\nPast games debug — {team_name}")
-    print("-" * 60)
+    print("-" * 70)
 
-    shown = 0
-    for g in games:
-        if not is_completed(g) or not team_in_game(g, team_id):
-            continue
+    team_games = [
+        g for g in games
+        if is_completed(g) and team_in_game(g, team_id)
+    ]
 
-        opponent = (
-            g["visitor_team"]
-            if g["home_team"]["id"] == team_id
-            else g["home_team"]
-        )
+    # sort oldest → newest so form buildup makes sense
+    team_games = sorted(team_games, key=game_date)
+
+    if not team_games:
+        print("No past games found.")
+        return
+
+    for g in team_games[-limit:]:
+        is_home = g["home_team"]["id"] == team_id
+        opponent = g["visitor_team"] if is_home else g["home_team"]
 
         raw = margin_for_team(g, team_id)
         opp_form = opponent_forms.get(opponent["id"], 0.0)
 
-        factor = clamp((opp_form + 10.0) / 10.0, 0.5, 1.5)
+        K = 10.0
+        factor = clamp((opp_form + K) / K, 0.5, 1.5)
         adj = raw * factor
 
+        location = "H" if is_home else "A"
+
         print(
-            f"{game_date(g)} vs {opponent['abbreviation']:3s} | "
-            f"raw: {raw:>5.1f} | "
+            f"{game_date(g)} {location} vs {opponent['abbreviation']:3s} | "
+            f"score_margin: {raw:>6.1f} | "
             f"opp_form: {opp_form:>6.1f} | "
             f"factor: {factor:>4.2f} | "
-            f"adj: {adj:>6.1f}"
+            f"adj_margin: {adj:>6.1f}"
         )
 
-        shown += 1
-        if shown >= limit:
-            break
 
 
 # ---------------- Travel (unused for now) ----------------
