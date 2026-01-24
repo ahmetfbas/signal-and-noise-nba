@@ -153,8 +153,12 @@ def home_away_adjustment(game, team_id):
 
 
 def fatigue_adjustment(fatigue_index):
-    FATIGUE_WEIGHT = 4.0
-    return -fatigue_index * FATIGUE_WEIGHT
+    # Normalize 0–100 fatigue score into ~0–1 range
+    normalized = min(fatigue_index / 100.0, 1.0)
+
+    FATIGUE_WEIGHT = 6.0
+    return -normalized * FATIGUE_WEIGHT
+
 
 
 # ---------------- Final expectation ----------------
