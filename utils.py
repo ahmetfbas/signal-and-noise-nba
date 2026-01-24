@@ -13,6 +13,8 @@ if not API_KEY:
 HEADERS = {"Authorization": API_KEY}
 
 
+# ---------------- API ----------------
+
 def api_get(params, timeout=30, retries=3, base_sleep=0.2):
     for i in range(retries):
         resp = requests.get(API_URL, headers=HEADERS, params=params, timeout=timeout)
@@ -48,6 +50,8 @@ def fetch_games_range(start_date, end_date, sort="-date"):
     return out
 
 
+# ---------------- Game helpers ----------------
+
 def game_datetime(g):
     return datetime.fromisoformat(g["date"].replace("Z", "+00:00"))
 
@@ -70,41 +74,15 @@ def margin_for_team(g, team_id):
     os = g["visitor_team_score"] if is_home else g["home_team_score"]
     return ts - os
 
+
+# ---------------- Math helpers ----------------
+
 def clamp(x, lo, hi):
     return max(lo, min(hi, x))
 
-def recent_adjusted_margin_from_games(
-    team_id,
-    games,
-    opponent_forms
-):
-    adjusted = []
 
-    for g in games:
-        if not is_completed(g) or not team_in_game(g, team_id):
-            continue
+# ---------------- Form & opponent adjustment ----------------
 
-        raw_margin = margin_for_team(g, team_id)
-
-        opponent_id = (
-            g["visitor_team"]["id"]
-            if g["home_team"]["id"] == team_id
-            else g["home_team"]["id"]
-        )
-
-        opp_form = opponent_forms.get(opponent_id, 0.0)
-
-        K = 10.0
-        factor = clamp((opp_form + K) / K, 0.5, 1.5)
-
-        adjusted_margin = raw_margin * factor
-        adjusted.append(adjusted_margin)
-
-    if not adjusted:
-        return 0.0
-
-    return sum(adjusted) / len(adjusted)
-    
 def build_team_forms(games):
     forms = {}
 
@@ -126,6 +104,32 @@ def build_team_forms(games):
 
     return forms
 
+
+def recent_adjusted_margin_from_games(team_id, games, opponent_forms):
+    adjusted = []
+
+    for g in games:
+        if not is_completed(g) or not team_in_game(g, team_id):
+            continue
+
+        raw_margin = margin_for_team(g, team_id)
+
+        opponent_id = (
+            g["visitor_team"]["id"]
+            if g["home_team"]["id"] == team_id
+            else g["home_team"]["id"]
+        )
+
+        opp_form = opponent_forms.get(opponent_id, 0.0)
+
+        K = 10.0
+        factor = clamp((opp_form + K) / K, 0.5, 1.5)
+
+        adjusted.append(raw_margin * factor)
+
+    return sum(adjusted) / len(adjusted) if adjusted else 0.0
+
+
 def expected_margin_base(game, team_id, games):
     opponent_id = (
         game["visitor_team"]["id"]
@@ -135,60 +139,50 @@ def expected_margin_base(game, team_id, games):
 
     opponent_forms = build_team_forms(games)
 
-    team_form = recent_adjusted_margin_from_games(
-        team_id, games, opponent_forms
-    )
-    opp_form = recent_adjusted_margin_from_games(
-        opponent_id, games, opponent_forms
-    )
+    team_form = recent_adjusted_margin_from_games(team_id, games, opponent_forms)
+    opp_form = recent_adjusted_margin_from_games(opponent_id, games, opponent_forms)
 
     return team_form - opp_form
 
-        
-def expected_margin_for_team(game, team_id, games, run_date, fatigue_index=0.0):
-    base = expected_margin_base(game, team_id, games)
-    ha = home_away_adjustment(game, team_id)
-    rest = rest_adjustment(game, team_id, games, run_date)
-    fatigue = fatigue_adjustment(fatigue_index)
 
-    return base + ha + rest + fatigue
+# ---------------- Context adjustments ----------------
 
 def home_away_adjustment(game, team_id):
     HOME_ADVANTAGE = 2.0
-
-    if game["home_team"]["id"] == team_id:
-        return HOME_ADVANTAGE
-    else:
-        return -HOME_ADVANTAGE
+    return HOME_ADVANTAGE if game["home_team"]["id"] == team_id else -HOME_ADVANTAGE
 
 
-def expected_margin_breakdown(
-    game,
-    team_id,
-    games,
-    run_date,
-    fatigue_index=0.0
-):
+def fatigue_adjustment(fatigue_index):
+    FATIGUE_WEIGHT = 4.0
+    return -fatigue_index * FATIGUE_WEIGHT
+
+
+# ---------------- Final expectation ----------------
+
+def expected_margin_for_team(game, team_id, games, fatigue_index=0.0):
     base = expected_margin_base(game, team_id, games)
     ha = home_away_adjustment(game, team_id)
-    rest = rest_adjustment(game, team_id, games, run_date)
+    fatigue = fatigue_adjustment(fatigue_index)
+
+    return base + ha + fatigue
+
+
+def expected_margin_breakdown(game, team_id, games, fatigue_index=0.0):
+    base = expected_margin_base(game, team_id, games)
+    ha = home_away_adjustment(game, team_id)
     fatigue = fatigue_adjustment(fatigue_index)
 
     return {
         "base_form_diff": round(base, 2),
         "home_away": round(ha, 2),
-        "rest_adj": round(rest, 2),
         "fatigue_adj": round(fatigue, 2),
-        "expected_total": round(base + ha + rest + fatigue, 2)
+        "expected_total": round(base + ha + fatigue, 2)
     }
 
-def print_team_past_games_debug(
-    team_id,
-    team_name,
-    games,
-    opponent_forms,
-    limit=5
-):
+
+# ---------------- Debug helpers ----------------
+
+def print_team_past_games_debug(team_id, team_name, games, opponent_forms, limit=5):
     print(f"\nPast games debug — {team_name}")
     print("-" * 60)
 
@@ -221,40 +215,8 @@ def print_team_past_games_debug(
         if shown >= limit:
             break
 
-    
-def days_since_last_game(team_id, games, run_date):
-    past_games = [
-        g for g in games
-        if is_completed(g)
-        and team_in_game(g, team_id)
-        and game_date(g) < run_date
-    ]
 
-    if not past_games:
-        return None
-
-    last_game_date = max(game_date(g) for g in past_games)
-    return (run_date - last_game_date).days
-
-def rest_adjustment(game, team_id, games, run_date):
-    home_id = game["home_team"]["id"]
-    away_id = game["visitor_team"]["id"]
-    opponent_id = away_id if team_id == home_id else home_id
-
-    team_rest = days_since_last_game(team_id, games, run_date)
-    opp_rest = days_since_last_game(opponent_id, games, run_date)
-
-    if team_rest is None or opp_rest is None:
-        return 0.0
-
-    REST_WEIGHT = 1.0
-    return (team_rest - opp_rest) * REST_WEIGHT
-    
-def fatigue_adjustment(fatigue_index):
-    FATIGUE_WEIGHT = 4.0
-    return -fatigue_index * FATIGUE_WEIGHT
-
-
+# ---------------- Travel (unused for now) ----------------
 
 CITY_COORDS = {
     "Atlanta": (33.7573, -84.3963),
