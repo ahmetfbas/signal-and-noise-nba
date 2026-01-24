@@ -10,7 +10,7 @@ from utils import (
     print_team_past_games_debug,
     build_team_forms
 )
-
+from fli import fatigue_index_for_team
 
 def pick_games_for_date(run_date):
     games = fetch_games_range(
@@ -88,7 +88,7 @@ def main():
                 team_id,
                 recent_games,
                 run_date,
-                fatigue_index=0.0
+                fatigue_index = fatigue_index_for_team(team_id, run_date)
             )
 
             expected = breakdown["expected_total"]
