@@ -70,6 +70,23 @@ def margin_for_team(g, team_id):
     os = g["visitor_team_score"] if is_home else g["home_team_score"]
     return ts - os
 
+def recent_average_margin(team_id, end_date, window_days=15):
+    from datetime import timedelta
+
+    start_date = end_date - timedelta(days=window_days)
+    games = fetch_games_range(start_date.isoformat(), end_date.isoformat())
+
+    margins = [
+        margin_for_team(g, team_id)
+        for g in games
+        if is_completed(g) and team_in_game(g, team_id)
+    ]
+
+    if not margins:
+        return 0.0
+
+    return sum(margins) / len(margins)
+
 
 CITY_COORDS = {
     "Atlanta": (33.7573, -84.3963),
