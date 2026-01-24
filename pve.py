@@ -5,7 +5,8 @@ from utils import (
     is_completed,
     team_in_game,
     margin_for_team,
-    expected_margin_for_team
+    expected_margin_for_team,
+    expected_margin_breakdown
 )
 
 
@@ -55,31 +56,41 @@ def main():
 
     print("\n🏀 PvE — Performance vs Expectation")
     print(f"📅 Date: {run_date}")
-    print("-" * 50)
+    print("-" * 60)
 
     for game in games_today:
         matchup = f"{game['visitor_team']['abbreviation']} @ {game['home_team']['abbreviation']}"
         print(f"\n{matchup}")
+        print("-" * len(matchup))
 
-        rows = []
         for side in ["home_team", "visitor_team"]:
-            team_id = game[side]["id"]
-            team_name = game[side]["full_name"]
+            team = game[side]
+            team_id = team["id"]
+            team_name = team["full_name"]
 
             actual = margin_for_team(game, team_id)
-            expected = expected_margin_for_team(game, team_id, recent_games)
-            pve = actual - expected
 
-            rows.append((team_name, actual, expected, pve))
-
-        for r in rows:
-            print(
-                f"{r[0]:25s} | "
-                f"Actual: {r[1]:>6.1f} | "
-                f"Expected: {r[2]:>6.1f} | "
-                f"PvE: {r[3]:>6.1f}"
+            breakdown = expected_margin_breakdown(
+                game,
+                team_id,
+                recent_games,
+                run_date,
+                fatigue_index=0.0
             )
 
+            expected = breakdown["expected_total"]
+            pve = actual - expected
+
+            print(
+                f"{team_name:25s} | "
+                f"Actual: {actual:>6.1f} | "
+                f"Base: {breakdown['base_form_diff']:>6.1f} | "
+                f"H/A: {breakdown['home_away']:>5.1f} | "
+                f"Rest: {breakdown['rest_adj']:>5.1f} | "
+                f"Fat: {breakdown['fatigue_adj']:>5.1f} | "
+                f"Expected: {expected:>6.1f} | "
+                f"PvE: {pve:>6.1f}"
+            )
 
 if __name__ == "__main__":
     main()
