@@ -68,6 +68,38 @@ def pick_games_today(run_date):
     )
     return [g for g in games if game_date(g) == run_date]
 
+def fatigue_index_for_team(team_id, run_date):
+    g7_start = run_date - timedelta(days=7)
+    g14_start = run_date - timedelta(days=14)
+
+    games_14 = fetch_games_range(g14_start.isoformat(), run_date.isoformat())
+
+    g7 = count_games(team_id, games_14, g7_start, run_date)
+    g14 = count_games(team_id, games_14, g14_start, run_date)
+
+    density = round(
+        0.65 * density_7d_score(g7) +
+        0.35 * density_14d_score(g14),
+        1
+    )
+
+    last_date, last_city = last_game_info(team_id, games_14, run_date)
+    days_since = (run_date - last_date).days if last_date else 5
+
+    today_games = pick_games_today(run_date)
+    game_today = next(
+        (g for g in today_games if team_in_game(g, team_id)),
+        None
+    )
+
+    travel = 1
+    if game_today:
+        miles = travel_miles(last_city, game_today["home_team"]["city"])
+        travel = travel_load(miles)
+
+    return fatigue_index(density, days_since, travel)
+
+
 def main():
     today = datetime.utcnow().date()
 
