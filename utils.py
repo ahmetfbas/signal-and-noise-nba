@@ -97,6 +97,20 @@ def expected_margin_base(game, team_id, run_date, window_days=15):
     opp_form = recent_average_margin(opponent_id, run_date, window_days)
 
     return team_form - opp_form
+    
+def home_away_adjustment(game, team_id):
+    HOME_ADVANTAGE = 2.0  # fixed for now
+
+    if game["home_team"]["id"] == team_id:
+        return HOME_ADVANTAGE
+    else:
+        return -HOME_ADVANTAGE
+        
+def expected_margin_for_team(game, team_id, run_date):
+    base = expected_margin_base(game, team_id, run_date)
+    ha = home_away_adjustment(game, team_id)
+
+    return base + ha
 
 
 CITY_COORDS = {
