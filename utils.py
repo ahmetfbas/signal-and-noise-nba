@@ -103,11 +103,66 @@ def home_away_adjustment(game, team_id):
     else:
         return -HOME_ADVANTAGE
         
-def expected_margin_for_team(game, team_id, recent_games):
-    base = expected_margin_base(game, team_id, recent_games)
+def expected_margin_for_team(game, team_id, games, run_date, fatigue_index=0.0):
+    base = expected_margin_base(game, team_id, games)
     ha = home_away_adjustment(game, team_id)
-    return base + ha
+    rest = rest_adjustment(game, team_id, games, run_date)
+    fatigue = fatigue_adjustment(fatigue_index)
 
+    return base + ha + rest + fatigue
+
+def expected_margin_breakdown(
+    game,
+    team_id,
+    games,
+    run_date,
+    fatigue_index=0.0
+):
+    base = expected_margin_base(game, team_id, games)
+    ha = home_away_adjustment(game, team_id)
+    rest = rest_adjustment(game, team_id, games, run_date)
+    fatigue = fatigue_adjustment(fatigue_index)
+
+    return {
+        "base_form_diff": round(base, 2),
+        "home_away": round(ha, 2),
+        "rest_adj": round(rest, 2),
+        "fatigue_adj": round(fatigue, 2),
+        "expected_total": round(base + ha + rest + fatigue, 2)
+    }
+
+    
+def days_since_last_game(team_id, games, run_date):
+    past_games = [
+        g for g in games
+        if is_completed(g)
+        and team_in_game(g, team_id)
+        and game_date(g) < run_date
+    ]
+
+    if not past_games:
+        return None
+
+    last_game_date = max(game_date(g) for g in past_games)
+    return (run_date - last_game_date).days
+
+def rest_adjustment(game, team_id, games, run_date):
+    home_id = game["home_team"]["id"]
+    away_id = game["visitor_team"]["id"]
+    opponent_id = away_id if team_id == home_id else home_id
+
+    team_rest = days_since_last_game(team_id, games, run_date)
+    opp_rest = days_since_last_game(opponent_id, games, run_date)
+
+    if team_rest is None or opp_rest is None:
+        return 0.0
+
+    REST_WEIGHT = 1.0
+    return (team_rest - opp_rest) * REST_WEIGHT
+    
+def fatigue_adjustment(fatigue_index):
+    FATIGUE_WEIGHT = 4.0
+    return -fatigue_index * FATIGUE_WEIGHT
 
 CITY_COORDS = {
     "Atlanta": (33.7573, -84.3963),
