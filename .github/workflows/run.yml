@@ -26,7 +26,7 @@ jobs:
       - name: Run Fatigue & Load
         env:
           BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
-        run: python fal.py
+        run: python fli.py
 
       - name: Run PvE
         env:
