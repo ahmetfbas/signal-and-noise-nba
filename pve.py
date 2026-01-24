@@ -1,76 +1,68 @@
-# pve.py
-
-from datetime import datetime, timedelta
+from datetime import datetime
 from utils import (
     fetch_games_range,
     game_date,
     is_completed,
     team_in_game,
-    margin_for_team
+    margin_for_team,
+    expected_margin_for_team
 )
 
-WINDOW_DAYS = 15
 
-
-def pick_games_today(all_games, run_date):
-    return [g for g in all_games if game_date(g) == run_date]
-
-
-def team_margins_last_days(team_id, all_games, end_date, window_days):
-    start_date = end_date - timedelta(days=window_days)
-
-    margins = [
-        margin_for_team(g, team_id)
-        for g in all_games
-        if is_completed(g)
-        and team_in_game(g, team_id)
-        and start_date <= game_date(g) < end_date
+def pick_games_for_date(run_date):
+    games = fetch_games_range(
+        run_date.isoformat(),
+        run_date.isoformat()
+    )
+    return [
+        g for g in games
+        if game_date(g) == run_date and is_completed(g)
     ]
 
-    return margins
+
+def pve_for_game(game, run_date):
+    results = []
+
+    for side in ["home_team", "visitor_team"]:
+        team = game[side]
+        team_id = team["id"]
+        team_name = team["full_name"]
+
+        actual_margin = margin_for_team(game, team_id)
+        expected_margin = expected_margin_for_team(game, team_id, run_date)
+        pve = actual_margin - expected_margin
+
+        results.append({
+            "team_id": team_id,
+            "team": team_name,
+            "actual_margin": round(actual_margin, 2),
+            "expected_margin": round(expected_margin, 2),
+            "pve": round(pve, 2)
+        })
+
+    return results
 
 
 def main():
     run_date = datetime.utcnow().date()
-
-    all_games = fetch_games_range(
-        (run_date - timedelta(days=WINDOW_DAYS)).isoformat(),
-        run_date.isoformat()
-    )
-
-    games_today = pick_games_today(all_games, run_date)
+    games = pick_games_for_date(run_date)
 
     print("\n🏀 PvE — Performance vs Expectation")
-    print(f"📅 Slate date: {run_date}")
-    print(f"🗓 Window: last {WINDOW_DAYS} days\n")
+    print(f"📅 Date: {run_date}")
+    print("-" * 50)
 
-    if not games_today:
-        print("No games today.")
-        return
+    for game in games:
+        matchup = f"{game['visitor_team']['abbreviation']} @ {game['home_team']['abbreviation']}"
+        print(f"\n{matchup}")
 
-    for g in games_today:
-        away = g["visitor_team"]
-        home = g["home_team"]
-
-        print(f"\n🎯 {away['full_name']} @ {home['full_name']}\n")
-
-        for team in [away, home]:
-            tid = team["id"]
-
-            margins = team_margins_last_days(
-                tid,
-                all_games,
-                run_date,
-                WINDOW_DAYS
+        rows = pve_for_game(game, run_date)
+        for r in rows:
+            print(
+                f"{r['team']:25s} | "
+                f"Actual: {r['actual_margin']:>6} | "
+                f"Expected: {r['expected_margin']:>6} | "
+                f"PvE: {r['pve']:>6}"
             )
-
-            games_count = len(margins)
-            avg_margin = round(sum(margins) / games_count, 2) if games_count else 0.0
-
-            print(f"🧪 {team['full_name']}")
-            print(f"  window_days = {WINDOW_DAYS}")
-            print(f"  games_in_window = {games_count}")
-            print(f"  avg_margin = {avg_margin}\n")
 
 
 if __name__ == "__main__":
