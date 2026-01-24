@@ -49,14 +49,22 @@ def pve_for_game(game, run_date):
 def main():
     run_date = datetime.utcnow().date()
 
+    # Shared data fetch (ONCE)
     recent_games = fetch_games_range(
         (run_date - timedelta(days=15)).isoformat(),
         run_date.isoformat()
     )
 
+    games_14 = fetch_games_range(
+        (run_date - timedelta(days=14)).isoformat(),
+        run_date.isoformat()
+    )
+
+    games_today = pick_games_for_date(run_date)
+
     opponent_forms = build_team_forms(recent_games)
 
-    # DEBUG: sanity-check one team’s past games
+    # DEBUG: sanity-check one team’s adjusted past games
     print_team_past_games_debug(
         team_id=1610612752,  # New York Knicks
         team_name="New York Knicks",
@@ -64,8 +72,6 @@ def main():
         opponent_forms=opponent_forms,
         limit=6
     )
-
-    games_today = pick_games_for_date(run_date)
 
     print("\n🏀 PvE — Performance vs Expectation")
     print(f"📅 Date: {run_date}")
@@ -83,12 +89,18 @@ def main():
 
             actual = margin_for_team(game, team_id)
 
+            fatigue_index = fatigue_index_for_team(
+                team_id,
+                run_date,
+                games_14,
+                games_today
+            )
+
             breakdown = expected_margin_breakdown(
                 game,
                 team_id,
                 recent_games,
-                run_date,
-                fatigue_index = fatigue_index_for_team(team_id, run_date)
+                fatigue_index=fatigue_index
             )
 
             expected = breakdown["expected_total"]
@@ -99,7 +111,6 @@ def main():
                 f"Actual: {actual:>6.1f} | "
                 f"Base: {breakdown['base_form_diff']:>6.1f} | "
                 f"H/A: {breakdown['home_away']:>5.1f} | "
-                f"Rest: {breakdown['rest_adj']:>5.1f} | "
                 f"Fat: {breakdown['fatigue_adj']:>5.1f} | "
                 f"Expected: {expected:>6.1f} | "
                 f"PvE: {pve:>6.1f}"
