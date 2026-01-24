@@ -153,6 +153,15 @@ def expected_margin_for_team(game, team_id, games, run_date, fatigue_index=0.0):
 
     return base + ha + rest + fatigue
 
+def home_away_adjustment(game, team_id):
+    HOME_ADVANTAGE = 2.0
+
+    if game["home_team"]["id"] == team_id:
+        return HOME_ADVANTAGE
+    else:
+        return -HOME_ADVANTAGE
+
+
 def expected_margin_breakdown(
     game,
     team_id,
