@@ -87,6 +87,17 @@ def recent_average_margin(team_id, end_date, window_days=15):
 
     return sum(margins) / len(margins)
 
+def expected_margin_base(game, team_id, run_date, window_days=15):
+    home_id = game["home_team"]["id"]
+    away_id = game["visitor_team"]["id"]
+
+    opponent_id = away_id if team_id == home_id else home_id
+
+    team_form = recent_average_margin(team_id, run_date, window_days)
+    opp_form = recent_average_margin(opponent_id, run_date, window_days)
+
+    return team_form - opp_form
+
 
 CITY_COORDS = {
     "Atlanta": (33.7573, -84.3963),
