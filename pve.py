@@ -52,6 +52,16 @@ def main():
         run_date.isoformat()
     )
 
+    opponent_forms = build_team_forms(recent_games)
+        
+        print_team_past_games_debug(
+            team_id=1610612752,  # Knicks example
+            team_name="New York Knicks",
+            games=recent_games,
+            opponent_forms=opponent_forms,
+            limit=6
+        )
+    
     games_today = pick_games_for_date(run_date)
 
     print("\n🏀 PvE — Performance vs Expectation")
@@ -91,6 +101,8 @@ def main():
                 f"Expected: {expected:>6.1f} | "
                 f"PvE: {pve:>6.1f}"
             )
+            
+        
 
 if __name__ == "__main__":
     main()
