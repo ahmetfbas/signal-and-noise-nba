@@ -1,9 +1,11 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
 name: Signal & Noise – Daily Run
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '0 9 * * *'   # 09:00 UTC daily
 
 jobs:
   run-signal-noise:
@@ -21,13 +23,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests python-dotenv
 
       - name: Run Signal & Noise
         env:
           BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
-<<<<<<< HEAD
         run: python main.py
-=======
-        run: python main.py
->>>>>>> 3b7ef803aacadba6ccde4ea8fa625693836af820
+
