@@ -1,0 +1,3 @@
+python3 scripts/ingest/append_daily_games.py
+python3 scripts/transform/derive_team_game_metrics.py
+python3 scripts/snapshot/build_team_game_snapshots.py
