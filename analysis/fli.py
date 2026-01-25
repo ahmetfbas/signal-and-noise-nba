@@ -148,6 +148,50 @@ def fatigue_index_for_team(team_id, run_date, games_14, games_today):
 
     return fatigue_index(density, days_since, travel)
 
+def fatigue_components_for_team(team_id, run_date, games_14, games_today):
+    g7_start = run_date - timedelta(days=7)
+    g14_start = run_date - timedelta(days=14)
+
+    g7 = count_games(team_id, games_14, g7_start, run_date)
+    g14 = count_games(team_id, games_14, g14_start, run_date)
+
+    density = round(
+        0.65 * density_7d_score(g7) +
+        0.35 * density_14d_score(g14),
+        1
+    )
+
+    last_date, last_city = last_game_info(team_id, games_14, run_date)
+    days_since = (run_date - last_date).days if last_date else 5
+
+    game_today = next(
+        (g for g in games_today if team_in_game(g, team_id)),
+        None
+    )
+
+    miles = None
+    travel = 1
+    if game_today and last_city:
+        miles = travel_miles(
+            last_city,
+            game_today["home_team"]["city"]
+        )
+        travel = travel_load(miles)
+
+    recovery = recovery_offset(days_since)
+    fatigue = fatigue_index(density, days_since, travel)
+
+    return {
+        "games_last_7": g7,
+        "games_last_14": g14,
+        "density_score": density,
+        "days_since_last_game": days_since,
+        "travel_miles": miles,
+        "travel_load": travel,
+        "recovery_offset": recovery,
+        "fatigue_index": fatigue,
+        "fatigue_tier": fatigue_tier(fatigue)
+    }
 
 # --------------------------------------------------
 # CLI runner (debug / demo)
