@@ -1,13 +1,15 @@
 import pandas as pd
 
-# 1️⃣ Load your normalized team_games file
 df = pd.read_csv("team_games.csv")
 
-# 2️⃣ Convert date column to actual dates
-df["game_date"] = pd.to_datetime(df["game_date"])
+# normalize column name
+df = df.rename(columns={"gameDateTimeEst": "game_date"})
 
-# 3️⃣ Filter rows (keep 2020+)
+# parse datetime safely (handles timezone)
+df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
+
+# filter
 filtered = df[df["game_date"] >= "2020-01-01"]
 
-# 4️⃣ Save to a new file (safe)
+# save
 filtered.to_csv("team_games_2020_plus.csv", index=False)
