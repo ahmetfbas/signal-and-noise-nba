@@ -26,4 +26,8 @@ jobs:
       - name: Run Signal & Noise
         env:
           BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
+<<<<<<< HEAD
         run: python main.py
+=======
+        run: python main.py
+>>>>>>> 3b7ef803aacadba6ccde4ea8fa625693836af820
