@@ -1,18 +1,27 @@
 import pandas as pd
 import numpy as np
 
+# --------------------------------------------------
+# Configuration
+# --------------------------------------------------
+
 WINDOW = 5
-VOL_SCALE = 10  # normalization factor for PvE volatility
+
+# Typical PvE std range is ~5–20 points in NBA.
+# Scaling by 10 keeps consistency in a smooth 0–1 range.
+VOL_SCALE = 10.0
 
 
-def compute_cvv(df):
+# --------------------------------------------------
+# Core computation
+# --------------------------------------------------
+
+def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
-    # ensure correct ordering
-    df["game_date"] = pd.to_datetime(df["game_date"])
+    df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
     df = df.sort_values(["team_id", "game_date"])
 
-    # output columns
     df["pve_volatility"] = np.nan
     df["consistency"] = np.nan
     df["games_played"] = np.nan
@@ -20,45 +29,55 @@ def compute_cvv(df):
     for team_id, g in df.groupby("team_id"):
         g = g.reset_index()
 
-        for i in range(len(g)):
+        for i, row in g.iterrows():
             games_played = i + 1
-            df.loc[g.loc[i, "index"], "games_played"] = games_played
+            df.loc[row["index"], "games_played"] = games_played
 
-            # not enough data yet
+            # not enough history yet
             if i < WINDOW - 1:
                 continue
 
             window = g.loc[i - WINDOW + 1 : i, "pve"].values
 
-            # raw volatility in points
-            vol = np.std(window, ddof=0)
+            # volatility in raw points
+            vol = float(np.std(window, ddof=0))
 
-            # normalize volatility to avoid scale collapse
+            # normalized volatility
             normalized_vol = vol / VOL_SCALE
 
-            # consistency score (bounded, interpretable)
-            cons = round(1 / (1 + normalized_vol), 3)
+            # consistency score (higher = more stable)
+            cons = 1.0 / (1.0 + normalized_vol)
 
-            df.loc[g.loc[i, "index"], "pve_volatility"] = round(vol, 2)
-            df.loc[g.loc[i, "index"], "consistency"] = cons
+            df.loc[row["index"], "pve_volatility"] = round(vol, 2)
+            df.loc[row["index"], "consistency"] = cons
+
+    # ensure clean dtype
+    df["games_played"] = df["games_played"].astype("Int64")
 
     return df
 
 
-def consistency_label(cons, games_played):
-    if pd.isna(cons):
+# --------------------------------------------------
+# Labeling helpers
+# --------------------------------------------------
+
+def consistency_label(consistency, games_played):
+    if pd.isna(consistency):
         return "Insufficient"
     if games_played < 10:
         return "Forming"
-
-    if cons >= 0.65:
+    if consistency >= 0.65:
         return "Very Consistent"
-    if cons >= 0.50:
+    if consistency >= 0.50:
         return "Consistent"
-    if cons >= 0.35:
+    if consistency >= 0.35:
         return "Volatile"
     return "Very Volatile"
 
+
+# --------------------------------------------------
+# CLI
+# --------------------------------------------------
 
 if __name__ == "__main__":
     input_csv = "data/derived/team_game_metrics_with_rpmi.csv"
@@ -73,5 +92,3 @@ if __name__ == "__main__":
     )
 
     df.to_csv(output_csv, index=False)
-
-    print(f"Saved CvV-enhanced dataset to {output_csv}")
