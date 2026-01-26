@@ -1,82 +1,62 @@
-from datetime import timedelta, date
-from typing import List, Dict
+import pandas as pd
+from typing import Dict
 
-from scripts.ingest.data_provider import fetch_games_range
 from scripts.utils.utils import (
-    game_date,
-    is_completed,
-    margin_for_team,
-    expected_margin_for_team,
+    clamp,
 )
-from analysis.fli import fatigue_index_for_team
 
 
 # --------------------------------------------------
-# Helpers
+# Core helpers (row-based)
 # --------------------------------------------------
 
-def pick_games_for_date(run_date: date) -> List[Dict]:
+def expected_margin_breakdown_from_rows(
+    *,
+    team_id: int,
+    opponent_id: int,
+    is_home: bool,
+    recent_games: pd.DataFrame,
+    fatigue_index: float,
+) -> Dict[str, float]:
     """
-    Fetch and return completed games for a specific date.
+    Row-based expected margin calculation.
+    Assumes recent_games already contains only past games.
     """
-    games = fetch_games_range(
-        run_date.isoformat(),
-        run_date.isoformat()
-    )
 
-    return [
-        g for g in games
-        if game_date(g) == run_date and is_completed(g)
+    # -----------------------------
+    # Base form (adjusted margins)
+    # -----------------------------
+    team_rows = recent_games[
+        (recent_games["team_id"] == team_id)
     ]
 
+    opp_rows = recent_games[
+        (recent_games["team_id"] == opponent_id)
+    ]
 
-# --------------------------------------------------
-# PvE computation (pure, stateless)
-# --------------------------------------------------
+    team_form = team_rows["actual_margin"].mean() if not team_rows.empty else 0.0
+    opp_form = opp_rows["actual_margin"].mean() if not opp_rows.empty else 0.0
 
-def compute_pve_for_game(
-    game: Dict,
-    run_date: date,
-    recent_games: List[Dict],
-    games_14: List[Dict],
-    games_today: List[Dict],
-) -> List[Dict]:
-    """
-    Compute Performance vs Expectation (PvE) for both teams in a game.
-    Returns one row per team.
-    """
+    base_form_diff = team_form - opp_form
 
-    results = []
+    # -----------------------------
+    # Home / Away adjustment
+    # -----------------------------
+    HOME_ADVANTAGE = 2.0
+    home_away_adj = HOME_ADVANTAGE if is_home else -HOME_ADVANTAGE
 
-    for side in ["home_team", "visitor_team"]:
-        team = game[side]
-        team_id = team["id"]
+    # -----------------------------
+    # Fatigue adjustment
+    # -----------------------------
+    FATIGUE_WEIGHT = 6.0
+    fatigue_norm = min(fatigue_index / 100.0, 1.0)
+    fatigue_adj = -fatigue_norm * FATIGUE_WEIGHT
 
-        actual_margin = margin_for_team(game, team_id)
+    expected_total = base_form_diff + home_away_adj + fatigue_adj
 
-        fatigue_index = fatigue_index_for_team(
-            team_id=team_id,
-            run_date=run_date,
-            games_14=games_14,
-            games_today=games_today,
-        )
-
-        expected_margin = expected_margin_for_team(
-            game=game,
-            team_id=team_id,
-            games=recent_games,
-            fatigue_index=fatigue_index,
-        )
-
-        results.append({
-            "game_id": game["id"],
-            "game_date": run_date,
-            "team_id": team_id,
-            "team_name": team["full_name"],
-            "actual_margin": round(actual_margin, 2),
-            "expected_margin": round(expected_margin, 2),
-            "pve": round(actual_margin - expected_margin, 2),
-            "fatigue_index": fatigue_index,
-        })
-
-    return results
+    return {
+        "base_form_diff": round(base_form_diff, 2),
+        "home_away_adj": round(home_away_adj, 2),
+        "fatigue_adj": round(fatigue_adj, 2),
+        "expected_total": round(expected_total, 2),
+    }
