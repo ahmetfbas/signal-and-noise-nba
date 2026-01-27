@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from typing import Optional
 
 from analysis.fli import fatigue_components_from_row
+from scripts.utils.utils import travel_miles
 
 
 def load_team_games(path: str) -> pd.DataFrame:
@@ -42,6 +43,7 @@ def build_team_game_metrics(
 
         for _, g in games_today.iterrows():
             for is_home in (True, False):
+                # --- Team & opponent ---
                 team_id = g["hometeamId"] if is_home else g["awayteamId"]
                 team_name = g["hometeamName"] if is_home else g["awayteamName"]
 
@@ -53,6 +55,10 @@ def build_team_game_metrics(
 
                 actual_margin = team_score - opp_score
 
+                # --- Current game city ---
+                current_city = g["hometeamCity"] if is_home else g["awayteamCity"]
+
+                # --- Recent games counts ---
                 games_last_7 = (
                     (recent_7["hometeamId"] == team_id) |
                     (recent_7["awayteamId"] == team_id)
@@ -63,23 +69,35 @@ def build_team_game_metrics(
                     (recent_14["awayteamId"] == team_id)
                 ).sum()
 
+                # --- Previous game ---
                 last_game = games[
                     ((games["hometeamId"] == team_id) |
                      (games["awayteamId"] == team_id)) &
                     (games["game_date"] < current)
                 ].sort_values("game_date", ascending=False).head(1)
 
-                days_since_last_game = (
-                    (current - last_game.iloc[0]["game_date"]).days
-                    if not last_game.empty
-                    else 5
-                )
+                if not last_game.empty:
+                    prev = last_game.iloc[0]
+                    days_since_last_game = (current - prev["game_date"]).days
 
+                    # Determine previous game city
+                    if prev["hometeamId"] == team_id:
+                        previous_city = prev["hometeamCity"]
+                    else:
+                        previous_city = prev["awayteamCity"]
+
+                    travel = travel_miles(previous_city, current_city)
+                else:
+                    days_since_last_game = 5
+                    previous_city = None
+                    travel = None
+
+                # --- Fatigue ---
                 fatigue = fatigue_components_from_row(
                     games_last_7=games_last_7,
                     games_last_14=games_last_14,
                     days_since_last_game=days_since_last_game,
-                    travel_miles=None,
+                    travel_miles=travel,
                 )
 
                 rows.append({
@@ -91,6 +109,8 @@ def build_team_game_metrics(
                     "opponent_name": opp_name,
                     "home_away": "H" if is_home else "A",
                     "actual_margin": actual_margin,
+                    "current_city": current_city,
+                    "previous_city": previous_city,
                     **fatigue,
                 })
 
