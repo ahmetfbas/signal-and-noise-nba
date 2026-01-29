@@ -1,14 +1,12 @@
 # scripts/print_momentum_board.py
-
-from datetime import date
 import pandas as pd
 
 INPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
 
 
-def momentum_label(rpmi: float) -> str:
+def momentum_label(rpmi: float):
     if pd.isna(rpmi):
-        return "⚪", "Unknown"
+        return None, None
     if rpmi >= 5:
         return "🟢", "Strong"
     if rpmi >= 2:
@@ -20,29 +18,24 @@ def momentum_label(rpmi: float) -> str:
 
 def main():
     df = pd.read_csv(INPUT_CSV)
-
     df["game_date"] = pd.to_datetime(df["game_date"]).dt.date
-    today = date.today()
 
-    # only teams playing today
-    df_today = df[df["game_date"] == today]
+    # Latest record per team
+    latest = (
+        df.sort_values("game_date", ascending=False)
+        .drop_duplicates(subset=["team_id"])
+        .sort_values("rpmi", ascending=False)
+    )
 
-    if df_today.empty:
-        print("No games tonight.")
-        return
+    # Filter out teams with missing rpmi
+    latest = latest[~latest["rpmi"].isna()]
 
-    # safety: one row per team
-    df_today = df_today.drop_duplicates(subset=["team_id"])
+    print("Weekly Momentum Board 🔄\n")
 
-    # sort by momentum (highest first)
-    df_today = df_today.sort_values("rpmi", ascending=False)
-
-    print("Tonight’s momentum board 🔄\n")
-
-    for _, row in df_today.iterrows():
+    for _, row in latest.iterrows():
         emoji, label = momentum_label(row["rpmi"])
-        team = row["team_name"]
-        print(f"{emoji} {team} — {label}")
+        if emoji and label:  # skip if None
+            print(f"{emoji} {row['team_name']} — {label}")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,8 @@
-# scripts/print_fatigue_board.py
-
 from datetime import date
 import pandas as pd
 
-INPUT_CSV = "data/derived/team_game_metrics.csv"
+SCHEDULE_PATH = "data/derived/game_schedule_today.csv"
+METRICS_PATH = "data/derived/team_game_metrics.csv"
 
 
 def fatigue_emoji(tier: str) -> str:
@@ -16,27 +15,43 @@ def fatigue_emoji(tier: str) -> str:
 
 
 def main():
-    df = pd.read_csv(INPUT_CSV)
+    # Load tonight’s schedule
+    try:
+        sched = pd.read_csv(SCHEDULE_PATH)
+    except FileNotFoundError:
+        print("⚠️ No schedule file found.")
+        return
 
-    df["game_date"] = pd.to_datetime(df["game_date"]).dt.date
+    sched["game_date"] = pd.to_datetime(sched["game_date"]).dt.date
     today = date.today()
 
-    df_today = df[df["game_date"] == today]
-
-    if df_today.empty:
+    games_today = sched[sched["game_date"] == today]
+    if games_today.empty:
         print("No games tonight.")
         return
 
-    df_today = df_today.drop_duplicates(subset=["team_id"])
-    df_today = df_today.sort_values("fatigue_index", ascending=False)
+    # Load fatigue metrics
+    metrics = pd.read_csv(METRICS_PATH)
+    metrics["game_date"] = pd.to_datetime(metrics["game_date"]).dt.date
+
+    # Collect teams in tonight’s games
+    teams_playing = pd.unique(
+        games_today[["home_team_name", "away_team_name"]].values.ravel()
+    )
+
+    # Get latest fatigue data for those teams
+    latest_fatigue = (
+        metrics.sort_values("game_date", ascending=False)
+        .drop_duplicates(subset=["team_name"])
+        .query("team_name in @teams_playing")
+        .sort_values("fatigue_index", ascending=False)
+    )
 
     print("Tonight’s fatigue board 💤\n")
 
-    for _, row in df_today.iterrows():
+    for _, row in latest_fatigue.iterrows():
         emoji = fatigue_emoji(row["fatigue_tier"])
-        team = row["team_name"]
-        tier = row["fatigue_tier"]
-        print(f"{emoji} {team} — {tier}")
+        print(f"{emoji} {row['team_name']} — {row['fatigue_tier']}")
 
 
 if __name__ == "__main__":

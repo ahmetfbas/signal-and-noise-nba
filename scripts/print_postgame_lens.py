@@ -11,67 +11,12 @@ INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 def signal_dot(expected_margin_home, actual_margin_home):
     if pd.isna(expected_margin_home):
         return "🟡"
-
     aligned = expected_margin_home * actual_margin_home > 0
     if aligned:
         return "🟢"
-
     if abs(actual_margin_home) <= 4:
         return "🟡"
-
     return "🔴"
-
-
-def volatility_phrase(vol):
-    if pd.isna(vol):
-        return None
-    if vol >= 0.65:
-        return "volatility took over"
-    if vol <= 0.35:
-        return "conditions stayed controlled"
-    return None
-
-
-# --------------------------------------------------
-# Context writer
-# --------------------------------------------------
-
-def write_context(home, away):
-    actual_margin = home["team_points"] - away["team_points"]
-    expected_margin = home["expected_margin"]
-
-    winner = home if actual_margin > 0 else away
-    loser = away if actual_margin > 0 else home
-
-    lines = []
-
-    # Alignment
-    if not pd.isna(expected_margin) and actual_margin * expected_margin > 0:
-        lines.append(
-            f"The setup leaned {winner['team_name']}, and the result followed."
-        )
-    else:
-        lines.append(
-            "The pregame edge pointed elsewhere, but the game bent off script."
-        )
-
-    # Fatigue
-    if winner["fatigue_index"] < loser["fatigue_index"]:
-        lines.append(
-            f"They entered fresher and converted that edge."
-        )
-    else:
-        lines.append(
-            f"They pushed through fatigue and found enough execution."
-        )
-
-    # Volatility
-    vol = (winner["pve_volatility"] + loser["pve_volatility"]) / 2
-    v_phrase = volatility_phrase(vol)
-    if v_phrase:
-        lines.append(v_phrase.capitalize() + ".")
-
-    return "\n".join(lines)
 
 
 # --------------------------------------------------
@@ -79,20 +24,20 @@ def write_context(home, away):
 # --------------------------------------------------
 
 def format_postgame(home, away):
-    matchup = f"{away['team_name'][:3]} @ {home['team_name'][:3]}"
-
-    actual_margin_home = home["team_points"] - away["team_points"]
-    dot = signal_dot(home["expected_margin"], actual_margin_home)
+    matchup = f"{away['team_name']} @ {home['team_name']}"
+    actual_margin_home = home["actual_margin"]
+    expected_margin = home.get("expected_margin")
+    dot = signal_dot(expected_margin, actual_margin_home)
 
     winner = home if actual_margin_home > 0 else away
     loser = away if actual_margin_home > 0 else home
 
-    header = f"{matchup} {dot}"
-    score = f"{winner['team_name'][:3]} def. {loser['team_name'][:3]}, {winner['team_points']}–{loser['team_points']}"
+    score = f"{winner['team_name']} def. {loser['team_name']}, margin {abs(int(actual_margin_home))}"
 
-    context = write_context(home, away)
+    # Placeholder for AI summary
+    context = "[AI summary will be generated here]"
 
-    return f"{header}\n{score}\n\n{context}"
+    return f"{matchup} {dot}\n{score}\n\n{context}"
 
 
 # --------------------------------------------------

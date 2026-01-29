@@ -1,12 +1,10 @@
+# scripts/print_pregame_lens.py
 import pandas as pd
 from datetime import datetime
 
-INPUT_CSV = "data/derived/team_game_metrics.csv"
+SCHEDULE_CSV = "data/derived/game_schedule_today.csv"
+METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 
-
-# --------------------------------------------------
-# Emoji helpers
-# --------------------------------------------------
 
 def momentum_emoji(delta):
     if pd.isna(delta):
@@ -38,16 +36,10 @@ def consistency_emoji(c):
     return "🟡"
 
 
-# --------------------------------------------------
-# Matchup volatility (V1: label only)
-# --------------------------------------------------
-
 def matchup_volatility_label(vol_home, vol_away):
     if pd.isna(vol_home) or pd.isna(vol_away):
         return "UNKNOWN"
-
     avg_vol = (vol_home + vol_away) / 2
-
     if avg_vol >= 0.65:
         return "HIGH"
     if avg_vol <= 0.35:
@@ -55,49 +47,37 @@ def matchup_volatility_label(vol_home, vol_away):
     return "MEDIUM"
 
 
-# --------------------------------------------------
-# Formatter
-# --------------------------------------------------
-
 def format_pregame_lens(home, away):
-    matchup = f"{away['team_name'][:3]} @ {home['team_name'][:3]}"
-
-    volatility = matchup_volatility_label(
-        home["pve_volatility"],
-        away["pve_volatility"]
-    )
-
+    matchup = f"{away['team_name']} @ {home['team_name']}"
+    volatility = matchup_volatility_label(home["pve_volatility"], away["pve_volatility"])
     return (
         f"{matchup} — pregame lens\n\n"
-        f"Momentum:      {momentum_emoji(away['rpmi_delta'])} {away['team_name'][:3]} | "
-        f"{momentum_emoji(home['rpmi_delta'])} {home['team_name'][:3]}\n"
-        f"Fatigue:       {fatigue_emoji(away['fatigue_index'])} {away['team_name'][:3]} | "
-        f"{fatigue_emoji(home['fatigue_index'])} {home['team_name'][:3]}\n"
-        f"Consistency:   {consistency_emoji(away['consistency'])} {away['team_name'][:3]} | "
-        f"{consistency_emoji(home['consistency'])} {home['team_name'][:3]}\n"
+        f"Momentum:      {momentum_emoji(away['rpmi_delta'])} {away['team_name']} | "
+        f"{momentum_emoji(home['rpmi_delta'])} {home['team_name']}\n"
+        f"Fatigue:       {fatigue_emoji(away['fatigue_index'])} {away['team_name']} | "
+        f"{fatigue_emoji(home['fatigue_index'])} {home['team_name']}\n"
+        f"Consistency:   {consistency_emoji(away['consistency'])} {away['team_name']} | "
+        f"{consistency_emoji(home['consistency'])} {home['team_name']}\n"
         f"Volatility:    {volatility}"
     )
 
 
-# --------------------------------------------------
-# Main
-# --------------------------------------------------
-
 def main():
-    df = pd.read_csv(INPUT_CSV)
-    df["game_date"] = pd.to_datetime(df["game_date"]).dt.date
+    sched = pd.read_csv(SCHEDULE_CSV)
+    metrics = pd.read_csv(METRICS_CSV)
+    metrics["game_date"] = pd.to_datetime(metrics["game_date"]).dt.date
 
-    today = datetime.utcnow().date()
-    games_today = df[df["game_date"] == today]
+    for _, game in sched.iterrows():
+        home_name = game["home_team_name"]
+        away_name = game["away_team_name"]
 
-    for game_id, g in games_today.groupby("game_id"):
-        if len(g) != 2:
+        home = metrics[metrics["team_name"] == home_name].sort_values("game_date").tail(1)
+        away = metrics[metrics["team_name"] == away_name].sort_values("game_date").tail(1)
+
+        if home.empty or away.empty:
             continue
 
-        home = g[g["home_away"] == "H"].iloc[0]
-        away = g[g["home_away"] == "A"].iloc[0]
-
-        print(format_pregame_lens(home, away))
+        print(format_pregame_lens(home.iloc[0], away.iloc[0]))
         print("\n" + "-" * 40 + "\n")
 
 
