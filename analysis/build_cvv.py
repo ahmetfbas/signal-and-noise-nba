@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 WINDOW = 5
-VOL_SCALE = 10  # normalization factor for PvE volatility
+VOL_SCALE = 10  # Typical PvE std ≈ 0–10 range
 
 
 def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
@@ -25,8 +25,9 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
             if i < WINDOW - 1:
                 continue
 
-            window = g.loc[i - WINDOW + 1 : i, "pve"].values
-
+            window = g.loc[i - WINDOW + 1 : i, "pve"].dropna().values
+            if len(window) < WINDOW:
+                continue
             vol = np.std(window, ddof=0)
             normalized_vol = vol / VOL_SCALE
             consistency = round(1 / (1 + normalized_vol), 3)

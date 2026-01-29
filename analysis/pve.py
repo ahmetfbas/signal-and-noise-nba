@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import Dict
 
-from scripts.utils.utils import (
+from analysis.utils import (
     clamp,
 )
 

@@ -1,0 +1,9 @@
+game_id,game_date,home_team_id,home_team_name,away_team_id,away_team_name,matchup
+18447343,2026-01-29,5,Bulls,16,Heat,MIA @ CHI
+18447498,2026-01-29,23,76ers,26,Kings,SAC @ PHI
+18447499,2026-01-29,30,Wizards,17,Bucks,MIL @ WAS
+18447500,2026-01-29,1,Hawks,11,Rockets,HOU @ ATL
+18447501,2026-01-29,7,Mavericks,4,Hornets,CHA @ DAL
+18447502,2026-01-29,8,Nuggets,3,Nets,BKN @ DEN
+18447503,2026-01-29,24,Suns,9,Pistons,DET @ PHX
+18447504,2026-01-29,18,Timberwolves,21,Thunder,OKC @ MIN

@@ -9,7 +9,7 @@ OUTPUT_CSV = "data/derived/team_game_metrics_with_pve.csv"
 
 def build_pve(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    df["game_date"] = pd.to_datetime(df["game_date"])
+    df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
     df = df.sort_values(["team_id", "game_date"])
 
     pve_rows = []
@@ -24,9 +24,9 @@ def build_pve(df: pd.DataFrame) -> pd.DataFrame:
                 opponent_id=row["opponent_id"],
                 is_home=row["home_away"] == "H",
                 recent_games=df[
-                    (df["team_id"] == row["team_id"]) &
+                    (df["team_id"].isin([row["team_id"], row["opponent_id"]])) &
                     (df["game_date"] < row["game_date"])
-                ].tail(15),
+                ].tail(30),
                 fatigue_index=row["fatigue_index"],
             )
 

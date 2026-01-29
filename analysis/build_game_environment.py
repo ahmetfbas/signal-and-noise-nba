@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+FACTS_CSV = "data/core/team_game_facts.csv"
 OUTPUT_CSV = "data/derived/game_environment.csv"
 
 # --------------------------------------------------
@@ -11,7 +12,6 @@ OUTPUT_CSV = "data/derived/game_environment.csv"
 CLEAN_THR = 0.33
 NOISY_THR = 0.67
 MIN_GAMES_FOR_MATURE = 10
-
 
 # --------------------------------------------------
 # Normalization helpers
@@ -30,7 +30,8 @@ def norm_fatigue(f):
 def norm_volatility(vol):
     if pd.isna(vol):
         return np.nan
-    return clip01((float(vol) - 8.0) / 12.0)
+    # CVV volatility is already std-scaled → normalize directly
+    return clip01(float(vol) / 10.0)
 
 
 def norm_asym_fatigue(f_home, f_away):
@@ -94,6 +95,9 @@ def main():
     df = pd.read_csv(INPUT_CSV)
     df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
 
+    facts = pd.read_csv(FACTS_CSV)
+    facts["game_date"] = pd.to_datetime(facts["game_date"], utc=True)
+
     # enforce exactly 2 rows per game
     valid_games = df.groupby("game_id").size()
     df = df[df["game_id"].isin(valid_games[valid_games == 2].index)].copy()
@@ -104,15 +108,15 @@ def main():
         home = g[g["home_away"] == "H"].iloc[0]
         away = g[g["home_away"] == "A"].iloc[0]
 
-        # maturity = number of prior games per team
-        gp_home = df[
-            (df["team_id"] == home["team_id"]) &
-            (df["game_date"] < home["game_date"])
+        # maturity from FACTS (not derived data)
+        gp_home = facts[
+            (facts["team_id"] == home["team_id"]) &
+            (facts["game_date"] < home["game_date"])
         ].shape[0]
 
-        gp_away = df[
-            (df["team_id"] == away["team_id"]) &
-            (df["game_date"] < away["game_date"])
+        gp_away = facts[
+            (facts["team_id"] == away["team_id"]) &
+            (facts["game_date"] < away["game_date"])
         ].shape[0]
 
         maturity_ok = (

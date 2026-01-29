@@ -30,7 +30,9 @@ def compute_rpmi(df):
         g = g.reset_index()
 
         for i in range(WINDOW - 1, len(g)):
-            window = g.loc[i - WINDOW + 1 : i, "pve"].values
+            window = g.loc[i - WINDOW + 1 : i, "pve"].dropna().values
+            if len(window) < WINDOW:
+                continue
 
             w_pve = weighted_pve(window)
             cons = consistency_factor(window)
