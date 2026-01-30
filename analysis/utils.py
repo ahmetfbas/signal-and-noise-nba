@@ -1,6 +1,8 @@
 import math
-from datetime import datetime
+from datetime import datetime, date
 from typing import Dict, List
+import pandas as pd
+from pathlib import Path
 
 
 # --------------------------------------------------
@@ -276,16 +278,38 @@ def haversine_miles(lat1, lon1, lat2, lon2) -> float:
         + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
     )
 
-    return round(
-        2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)),
-        1
-    )
+    return round(2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)), 1)
 
 
 def travel_miles(city_a: str, city_b: str):
     if city_a not in CITY_COORDS or city_b not in CITY_COORDS:
         return None
-    return haversine_miles(
-        *CITY_COORDS[city_a],
-        *CITY_COORDS[city_b]
-    )
+    return haversine_miles(*CITY_COORDS[city_a], *CITY_COORDS[city_b])
+
+
+# --------------------------------------------------
+# Season record helper
+# --------------------------------------------------
+
+def season_record(df, team_identifier, cutoff):
+    # Decide whether to use ID or name
+    key = "team_id" if "team_id" in df.columns and isinstance(team_identifier, (int, float)) else "team_name"
+
+    # Normalize datetimes (avoid tz conflicts)
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.tz_localize(None)
+    cutoff = pd.to_datetime(cutoff).tz_localize(None)
+    season_start = pd.Timestamp("2025-10-22")
+
+    subset = df[
+        (df[key] == team_identifier)
+        & (df["game_date"] >= season_start)
+        & (df["game_date"] <= cutoff)
+    ]
+
+    if "actual_margin" in subset.columns:
+        wins = (subset["actual_margin"] > 0).sum()
+        losses = (subset["actual_margin"] <= 0).sum()
+    else:
+        wins = losses = 0
+
+    return int(wins), int(losses)

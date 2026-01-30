@@ -1,7 +1,13 @@
+# scripts/print_postgame_lens.py
+
 import pandas as pd
 from datetime import datetime, timedelta
 
-INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+# --------------------------------------------------
+# Paths
+# --------------------------------------------------
+METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+FACTS_CSV = "data/core/team_game_facts.csv"
 
 
 # --------------------------------------------------
@@ -9,53 +15,85 @@ INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 # --------------------------------------------------
 
 def signal_dot(expected_margin_home, actual_margin_home):
-    if pd.isna(expected_margin_home):
-        return "🟡"
+    """Compare expected vs actual performance for quick visual signal."""
+    if pd.isna(expected_margin_home) or pd.isna(actual_margin_home):
+        return "🟡"  # unknown
     aligned = expected_margin_home * actual_margin_home > 0
     if aligned:
-        return "🟢"
+        return "🟢"  # met expectation
     if abs(actual_margin_home) <= 4:
-        return "🟡"
-    return "🔴"
+        return "🟡"  # close game
+    return "🔴"  # missed expectation
 
-
-# --------------------------------------------------
-# Formatter
-# --------------------------------------------------
 
 def format_postgame(home, away):
     matchup = f"{away['team_name']} @ {home['team_name']}"
-    actual_margin_home = home["actual_margin"]
-    expected_margin = home.get("expected_margin")
-    dot = signal_dot(expected_margin, actual_margin_home)
+    dot = signal_dot(home.get("expected_margin"), home.get("actual_margin"))
 
-    winner = home if actual_margin_home > 0 else away
-    loser = away if actual_margin_home > 0 else home
+    # Use merged true scores
+    home_pts = int(home.get("team_points", 0))
+    away_pts = int(home.get("opponent_points", 0))
 
-    score = f"{winner['team_name']} def. {loser['team_name']}, margin {abs(int(actual_margin_home))}"
+    # Winner / loser detection
+    if home_pts > away_pts:
+        winner, loser = home, away
+        scoreline = f"{home['team_name']} {home_pts} – {away_pts} {away['team_name']}"
+    else:
+        winner, loser = away, home
+        scoreline = f"{away['team_name']} {away_pts} – {home_pts} {home['team_name']}"
 
-    # Placeholder for AI summary
-    context = "[AI summary will be generated here]"
+    # Volatility & momentum context
+    volatility = home.get("pve_volatility", None)
+    volatility_label = (
+        "high volatility matchup"
+        if pd.notna(volatility) and volatility >= 0.65
+        else "low volatility game" if pd.notna(volatility) and volatility <= 0.35
+        else "medium volatility"
+    )
 
-    return f"{matchup} {dot}\n{score}\n\n{context}"
+    momentum_trend = (
+        "momentum rising" if home.get("rpmi_delta", 0) > 0.5 else
+        "momentum falling" if home.get("rpmi_delta", 0) < -0.5 else
+        "stable form"
+    )
+
+    context = (
+        f"[AI summary placeholder — {winner['team_name']} maintained {momentum_trend}, "
+        f"while {loser['team_name']} faced {volatility_label}.]"
+    )
+
+    return f"{matchup} {dot}\n{scoreline}\n\n{context}"
 
 
 # --------------------------------------------------
 # Main
 # --------------------------------------------------
 
-def main():
-    df = pd.read_csv(INPUT_CSV)
-    df["game_date"] = pd.to_datetime(df["game_date"]).dt.date
+def main(target_date: str = None):
+    # Load base metrics
+    df = pd.read_csv(METRICS_CSV)
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
 
-    yesterday = datetime.utcnow().date() - timedelta(days=1)
-    games = df[df["game_date"] == yesterday]
+    # Load real scores and merge
+    facts = pd.read_csv(
+        FACTS_CSV,
+        usecols=["game_id", "team_id", "team_name", "team_points", "opponent_points"],
+    )
+    df = df.merge(facts, on=["game_id", "team_id", "team_name"], how="left")
+
+    # Determine target date
+    if target_date:
+        target = datetime.strptime(target_date, "%Y-%m-%d").date()
+    else:
+        target = datetime.utcnow().date() - timedelta(days=1)
+
+    games = df[df["game_date"] == target]
 
     if games.empty:
-        print("No games last night.")
+        print(f"No games found for {target}.")
         return
 
-    print("\n=== POST-GAME THREAD ===\n")
+    print(f"\n=== POST-GAME THREAD ({target}) ===\n")
 
     for game_id, g in games.groupby("game_id"):
         if len(g) != 2:

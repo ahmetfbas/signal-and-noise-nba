@@ -1,40 +1,46 @@
-# scripts/print_momentum_board.py
 import pandas as pd
 
-INPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
+INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 
 
-def momentum_label(rpmi: float):
-    if pd.isna(rpmi):
+def momentum_label(delta: float):
+    if pd.isna(delta):
         return None, None
-    if rpmi >= 5:
+    if delta >= 2.5:
         return "🟢", "Strong"
-    if rpmi >= 2:
+    if delta >= 1.0:
         return "🟢", "Positive"
-    if rpmi >= -2:
+    if delta > -1.0:
         return "🟠", "Flat"
-    return "🔴", "Fading"
+    if delta > -2.5:
+        return "🔴", "Fading"
+    return "🔴", "Falling"
 
 
 def main():
     df = pd.read_csv(INPUT_CSV)
-    df["game_date"] = pd.to_datetime(df["game_date"]).dt.date
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
 
-    # Latest record per team
+    # Filter out null values
+    df = df[~df["rpmi_delta"].isna()]
+
+    # Get one latest record per team
     latest = (
         df.sort_values("game_date", ascending=False)
-        .drop_duplicates(subset=["team_id"])
-        .sort_values("rpmi", ascending=False)
+        .drop_duplicates(subset=["team_name"])
+        .sort_values("rpmi_delta", ascending=False)
     )
 
-    # Filter out teams with missing rpmi
-    latest = latest[~latest["rpmi"].isna()]
+    if latest.empty:
+        print("⚠️ No valid rpmΔ data found.")
+        return
 
-    print("Weekly Momentum Board 🔄\n")
+    latest_date = df["game_date"].max()
+    print(f"Weekly Momentum Board 🔄 ({latest_date})\n")
 
     for _, row in latest.iterrows():
-        emoji, label = momentum_label(row["rpmi"])
-        if emoji and label:  # skip if None
+        emoji, label = momentum_label(row["rpmi_delta"])
+        if emoji and label:
             print(f"{emoji} {row['team_name']} — {label}")
 
 

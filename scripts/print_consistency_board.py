@@ -1,41 +1,44 @@
-# scripts/print_consistency_board.py
-
 import pandas as pd
 
 INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 
 
-def consistency_label(consistency: float):
-    if pd.isna(consistency):
+def consistency_label(value: float):
+    if pd.isna(value):
         return None, None
-    if consistency >= 0.65:
+    if value >= 0.65:
         return "🟢", "Very Consistent"
-    if consistency >= 0.50:
+    if value >= 0.50:
         return "🟢", "Consistent"
-    if consistency >= 0.35:
+    if value >= 0.35:
         return "⚠️", "Volatile"
     return "🔴", "Very Volatile"
 
 
 def main():
     df = pd.read_csv(INPUT_CSV)
-    df["game_date"] = pd.to_datetime(df["game_date"]).dt.date
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
 
-    # Latest record per team
+    # Keep only non-null consistency
+    df = df[~df["consistency"].isna()]
+
+    # One record per team (latest game)
     latest = (
         df.sort_values("game_date", ascending=False)
-        .drop_duplicates(subset=["team_id"])
+        .drop_duplicates(subset=["team_name"])
         .sort_values("consistency", ascending=False)
     )
 
-    # Filter out teams with missing consistency
-    latest = latest[~latest["consistency"].isna()]
+    if latest.empty:
+        print("⚠️ No valid consistency data available.")
+        return
 
-    print("Weekly Consistency Board 📊\n")
+    latest_date = df["game_date"].max()
+    print(f"Weekly Consistency Board 📊 ({latest_date})\n")
 
     for _, row in latest.iterrows():
         emoji, label = consistency_label(row["consistency"])
-        if emoji and label:
+        if emoji:
             print(f"{emoji} {row['team_name']} — {label}")
 
 
