@@ -1,16 +1,15 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-
 name: Signal & Noise – Daily Run
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 9 * * *'
+    # Run daily at 13:00 TR time (10:00 UTC)
+    - cron: '0 10 * * *'
 
 jobs:
   run-signal-noise:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
