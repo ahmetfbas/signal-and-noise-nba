@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from analysis.utils import season_record
 from analysis.compose_tweet import compose_tweet
+from analysis.normalization import clip01, to_minus1_plus1
 
 
 SCHEDULE_CSV = "data/derived/game_schedule_today.csv"
@@ -17,12 +18,14 @@ def safe_metric(row, key, default=0.0):
     return val if pd.notna(val) else default
 
 
+# -------------------- EMOJI MAPPERS --------------------
+
 def momentum_emoji(delta):
     if pd.isna(delta):
         return "—"
-    if delta > 0.5:
+    if delta > 0.3:
         return "⬆️"
-    if delta < -0.5:
+    if delta < -0.3:
         return "⬇️"
     return "➡️"
 
@@ -30,9 +33,9 @@ def momentum_emoji(delta):
 def fatigue_emoji(f):
     if pd.isna(f):
         return "—"
-    if f >= 65:
+    if f >= 0.7:
         return "😓"
-    if f <= 40:
+    if f <= 0.4:
         return "💪"
     return "😐"
 
@@ -60,6 +63,8 @@ def matchup_volatility_label(vol_home, vol_away):
     return "MEDIUM"
 
 
+# -------------------- HELPERS --------------------
+
 def latest_valid_row(df, team_name):
     team_df = df[df["team_name"] == team_name].copy()
     if team_df.empty:
@@ -69,15 +74,40 @@ def latest_valid_row(df, team_name):
 
 
 def format_pregame_lens(home, away, home_record, away_record):
-    header = f"🏀 {away['team_name']} ({away_record}) @ {home['team_name']} ({home_record})"
+    # normalize + attach emojis + numbers
+    away_fatigue = clip01(safe_metric(away, "fatigue_index") / 100.0)
+    home_fatigue = clip01(safe_metric(home, "fatigue_index") / 100.0)
+
+    away_momentum = to_minus1_plus1(clip01((safe_metric(away, "rpmi_delta") + 5.0) / 10.0))
+    home_momentum = to_minus1_plus1(clip01((safe_metric(home, "rpmi_delta") + 5.0) / 10.0))
+
+    away_consistency_val = safe_metric(away, "consistency")
+    home_consistency_val = safe_metric(home, "consistency")
+
+    away_consistency = clip01(away_consistency_val if pd.notna(away_consistency_val) else 0)
+    home_consistency = clip01(home_consistency_val if pd.notna(home_consistency_val) else 0)
+
+    vol_label = matchup_volatility_label(
+        safe_metric(home, "pve_volatility"),
+        safe_metric(away, "pve_volatility"),
+    )
+
+    # Ensure string team names (avoid NaN truncation)
+    home_team = str(home.get("team_name", "Unknown"))
+    away_team = str(away.get("team_name", "Unknown"))
+
+    header = f"🏀 🏀 {away_team} ({away_record}) @ {home_team} ({home_record})"
+
     lines = [
-        f"Momentum: {momentum_emoji(safe_metric(away, 'rpmi_delta'))} {away['team_name']} | {momentum_emoji(safe_metric(home, 'rpmi_delta'))} {home['team_name']}",
-        f"Fatigue: {fatigue_emoji(safe_metric(away, 'fatigue_index'))} {away['team_name']} | {fatigue_emoji(safe_metric(home, 'fatigue_index'))} {home['team_name']}",
-        f"Consistency: {consistency_emoji(safe_metric(away, 'consistency'))} {away['team_name']} | {consistency_emoji(safe_metric(home, 'consistency'))} {home['team_name']}",
-        f"Volatility: {matchup_volatility_label(safe_metric(home, 'pve_volatility'), safe_metric(away, 'pve_volatility'))}",
+        f"Momentum: {away_momentum:+.2f} {momentum_emoji(away_momentum)} {away_team} | {home_momentum:+.2f} {momentum_emoji(home_momentum)} {home_team}",
+        f"Fatigue: {away_fatigue:.2f} {fatigue_emoji(away_fatigue)} {away_team} | {home_fatigue:.2f} {fatigue_emoji(home_fatigue)} {home_team}",
+        f"Consistency: {away_consistency:.2f} {consistency_emoji(away_consistency)} {away_team} | {home_consistency:.2f} {consistency_emoji(home_consistency)} {home_team}",
+        f"Volatility: {vol_label}",
     ]
+
     return header + "\n" + "\n".join(lines)
 
+# -------------------- MAIN --------------------
 
 def main():
     sched = pd.read_csv(SCHEDULE_CSV)
