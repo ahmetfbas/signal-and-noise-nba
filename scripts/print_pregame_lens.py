@@ -4,16 +4,19 @@ from analysis.utils import season_record
 from analysis.compose_tweet import compose_tweet
 
 
-# --------------------------------------------------
-# Config
-# --------------------------------------------------
 SCHEDULE_CSV = "data/derived/game_schedule_today.csv"
 METRICS_CSV = "data/derived/team_game_metrics.csv"
 
 
-# --------------------------------------------------
-# Emoji helpers
-# --------------------------------------------------
+def safe_metric(row, key, default=0.0):
+    if row is None:
+        return default
+    if key not in row:
+        return default
+    val = row[key]
+    return val if pd.notna(val) else default
+
+
 def momentum_emoji(delta):
     if pd.isna(delta):
         return "—"
@@ -28,22 +31,22 @@ def fatigue_emoji(f):
     if pd.isna(f):
         return "—"
     if f >= 65:
-        return "😓"  # high fatigue
+        return "😓"
     if f <= 40:
-        return "💪"  # low fatigue
-    return "😐"  # medium fatigue
+        return "💪"
+    return "😐"
 
 
 def consistency_emoji(c):
     if pd.isna(c):
         return "—"
     if c >= 0.65:
-        return "🔒"  # very consistent
+        return "🔒"
     if c >= 0.50:
-        return "⚖️"  # consistent
+        return "⚖️"
     if c >= 0.35:
-        return "🌪️"  # volatile
-    return "💥"  # very volatile
+        return "🌪️"
+    return "💥"
 
 
 def matchup_volatility_label(vol_home, vol_away):
@@ -57,33 +60,25 @@ def matchup_volatility_label(vol_home, vol_away):
     return "MEDIUM"
 
 
-# --------------------------------------------------
-# Data helpers
-# --------------------------------------------------
 def latest_valid_row(df, team_name):
-    cols = ["rpmi_delta", "consistency", "pve_volatility"]
     team_df = df[df["team_name"] == team_name].copy()
-    team_df = team_df.dropna(subset=cols, how="all").sort_values("game_date")
+    if team_df.empty:
+        return team_df
+    team_df = team_df.sort_values("game_date")
     return team_df.tail(1)
 
 
-# --------------------------------------------------
-# Formatting (tweet-ready)
-# --------------------------------------------------
 def format_pregame_lens(home, away, home_record, away_record):
     header = f"🏀 {away['team_name']} ({away_record}) @ {home['team_name']} ({home_record})"
     lines = [
-        f"Momentum: {momentum_emoji(away['rpmi_delta'])} {away['team_name']} | {momentum_emoji(home['rpmi_delta'])} {home['team_name']}",
-        f"Fatigue: {fatigue_emoji(away['fatigue_index'])} {away['team_name']} | {fatigue_emoji(home['fatigue_index'])} {home['team_name']}",
-        f"Consistency: {consistency_emoji(away['consistency'])} {away['team_name']} | {consistency_emoji(home['consistency'])} {home['team_name']}",
-        f"Volatility: {matchup_volatility_label(home['pve_volatility'], away['pve_volatility'])}",
+        f"Momentum: {momentum_emoji(safe_metric(away, 'rpmi_delta'))} {away['team_name']} | {momentum_emoji(safe_metric(home, 'rpmi_delta'))} {home['team_name']}",
+        f"Fatigue: {fatigue_emoji(safe_metric(away, 'fatigue_index'))} {away['team_name']} | {fatigue_emoji(safe_metric(home, 'fatigue_index'))} {home['team_name']}",
+        f"Consistency: {consistency_emoji(safe_metric(away, 'consistency'))} {away['team_name']} | {consistency_emoji(safe_metric(home, 'consistency'))} {home['team_name']}",
+        f"Volatility: {matchup_volatility_label(safe_metric(home, 'pve_volatility'), safe_metric(away, 'pve_volatility'))}",
     ]
     return header + "\n" + "\n".join(lines)
 
 
-# --------------------------------------------------
-# Main
-# --------------------------------------------------
 def main():
     sched = pd.read_csv(SCHEDULE_CSV)
     metrics = pd.read_csv(METRICS_CSV)
@@ -123,6 +118,7 @@ def main():
         "Jazz": "Utah Jazz",
         "Wizards": "Washington Wizards",
     }
+
     sched["home_team_name"] = sched["home_team_name"].replace(name_map)
     sched["away_team_name"] = sched["away_team_name"].replace(name_map)
 
@@ -147,9 +143,13 @@ def main():
         home_w, home_l = season_record(metrics, home["team_name"], cutoff)
         away_w, away_l = season_record(metrics, away["team_name"], cutoff)
 
-        base_text = format_pregame_lens(home, away, f"{home_w}-{home_l}", f"{away_w}-{away_l}")
+        base_text = format_pregame_lens(
+            home,
+            away,
+            f"{home_w}-{home_l}",
+            f"{away_w}-{away_l}",
+        )
 
-        # Combine with AI-crafted line
         tweet_main, tweet_ai = compose_tweet(
             board_name=f"{away['team_name']} @ {home['team_name']}",
             data=pd.DataFrame([home, away]),
