@@ -61,7 +61,6 @@ def build_team_game_metrics(
         ]
 
         for _, g in games_today.iterrows():
-
             team_id = g["team_id"]
             team_name = g["team_name"]
             opp_id = g["opponent_id"]
@@ -128,7 +127,45 @@ def build_team_game_metrics(
 
         current += timedelta(days=1)
 
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+
+    # --------------------------------------------------
+    # Merge momentum (rpmi_delta) from RPMI dataset
+    # --------------------------------------------------
+    try:
+        RPMI_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
+        rpmi = pd.read_csv(RPMI_CSV)
+        if "rpmi_delta" in rpmi.columns:
+            rpmi = rpmi.sort_values(["team_name", "game_date"]).drop_duplicates("team_name", keep="last")
+            rpmi_subset = rpmi[["team_name", "rpmi_delta"]]
+            df = df.merge(rpmi_subset, on="team_name", how="left")
+            print(f"✅ Merged latest momentum data from {RPMI_CSV}")
+        else:
+            print(f"⚠️ Column 'rpmi_delta' not found in {RPMI_CSV}. Momentum not merged.")
+    except FileNotFoundError:
+        print("⚠️ RPMI file not found, skipping momentum merge.")
+
+    # --------------------------------------------------
+    # Merge consistency and volatility (CVV dataset)
+    # --------------------------------------------------
+    try:
+        CVV_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+        cvv = pd.read_csv(CVV_CSV)
+
+        # Fill early-season NaNs with nearest valid values per team
+        cvv["consistency"] = cvv.groupby("team_name")["consistency"].ffill().bfill()
+        cvv["pve_volatility"] = cvv.groupby("team_name")["pve_volatility"].ffill().bfill()
+
+        if {"team_name", "consistency", "pve_volatility"}.issubset(cvv.columns):
+            cvv_subset = cvv[["team_name", "consistency", "pve_volatility"]].drop_duplicates()
+            df = df.merge(cvv_subset, on="team_name", how="left")
+            print(f"✅ Merged CVV data from {CVV_CSV} with ffill/bfill applied")
+        else:
+            print(f"⚠️ Required columns missing in {CVV_CSV}. CVV not merged.")
+    except FileNotFoundError:
+        print("⚠️ CVV file not found, skipping consistency/volatility merge.")
+
+    return df
 
 
 # --------------------------------------------------
@@ -139,7 +176,7 @@ def main():
     games = load_team_games("data/core/team_game_facts.csv")
     df = build_team_game_metrics(games)
     df.to_csv("data/derived/team_game_metrics.csv", index=False)
-    print(f"Wrote {len(df)} rows to team_game_metrics.csv")
+    print(f"✅ Wrote {len(df)} rows → team_game_metrics.csv")
 
 
 if __name__ == "__main__":

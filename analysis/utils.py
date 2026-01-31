@@ -288,27 +288,28 @@ def travel_miles(city_a: str, city_b: str):
 # Season record helper
 # --------------------------------------------------
 
-def season_record(df, team_identifier, cutoff):
-    key = (
-        "team_id"
-        if "team_id" in df.columns and isinstance(team_identifier, (int, float))
-        else "team_name"
-    )
-
-    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
-    cutoff = pd.to_datetime(cutoff)
-    season_start = pd.Timestamp("2025-10-22")
-
-    subset = df[
-        (df[key] == team_identifier)
-        & (df["game_date"] >= season_start)
-        & (df["game_date"] <= cutoff)
-    ]
-
-    if "actual_margin" in subset.columns:
-        wins = (subset["actual_margin"] > 0).sum()
-        losses = (subset["actual_margin"] <= 0).sum()
+def season_record(df, team_name, cutoff_date):
+    """
+    Calculate current-season W-L record for a team up to cutoff_date.
+    Season assumed to start on October 1 of the same season year.
+    """
+    cutoff = pd.to_datetime(cutoff_date)
+    # NBA season usually starts around October; handle year wrap (e.g., Jan–Jun)
+    if cutoff.month < 7:
+        season_start_year = cutoff.year - 1
     else:
-        wins = losses = 0
+        season_start_year = cutoff.year
 
-    return int(wins), int(losses)
+    season_start = pd.Timestamp(year=season_start_year, month=10, day=1)
+
+    team_games = df[
+        (df["team_name"] == team_name)
+        & (pd.to_datetime(df["game_date"]) >= season_start)
+        & (pd.to_datetime(df["game_date"]) <= cutoff)
+    ].copy()
+
+    wins = (team_games["actual_margin"] > 0).sum()
+    losses = (team_games["actual_margin"] < 0).sum()
+
+    return wins, losses
+
