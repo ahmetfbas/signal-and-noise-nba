@@ -8,7 +8,7 @@ from analysis.compose_tweet import compose_tweet
 # Config
 # --------------------------------------------------
 SCHEDULE_CSV = "data/derived/game_schedule_today.csv"
-METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+METRICS_CSV = "data/derived/team_game_metrics.csv"
 
 
 # --------------------------------------------------

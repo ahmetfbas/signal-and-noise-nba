@@ -6,7 +6,7 @@ from analysis.compose_tweet import compose_tweet
 # --------------------------------------------------
 # Paths
 # --------------------------------------------------
-METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+METRICS_CSV = "data/derived/team_game_metrics_with_pve.csv"
 FACTS_CSV = "data/core/team_game_facts.csv"
 
 

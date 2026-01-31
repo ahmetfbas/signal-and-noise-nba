@@ -1,5 +1,5 @@
 import math
-from datetime import datetime, date
+from datetime import datetime
 from typing import Dict, List
 import pandas as pd
 from pathlib import Path
@@ -10,10 +10,12 @@ from pathlib import Path
 # --------------------------------------------------
 
 def game_datetime(g: Dict) -> datetime:
+    # Trust API UTC timestamp
     return datetime.fromisoformat(g["date"].replace("Z", "+00:00"))
 
 
 def game_date(g: Dict):
+    # Canonical game date = UTC calendar date from API
     return game_datetime(g).date()
 
 
@@ -135,11 +137,7 @@ def expected_margin_base(
 
 def home_away_adjustment(game: Dict, team_id: int) -> float:
     HOME_ADVANTAGE = 2.0
-    return (
-        HOME_ADVANTAGE
-        if game["home_team"]["id"] == team_id
-        else -HOME_ADVANTAGE
-    )
+    return HOME_ADVANTAGE if game["home_team"]["id"] == team_id else -HOME_ADVANTAGE
 
 
 def fatigue_adjustment(fatigue_index: float) -> float:
@@ -161,7 +159,6 @@ def expected_margin_for_team(
     base = expected_margin_base(game, team_id, games)
     ha = home_away_adjustment(game, team_id)
     fatigue = fatigue_adjustment(fatigue_index)
-
     return base + ha + fatigue
 
 
@@ -231,7 +228,7 @@ def print_team_past_games_debug(
 
 
 # --------------------------------------------------
-# Travel helpers (optional / future use)
+# Travel helpers
 # --------------------------------------------------
 
 CITY_COORDS = {
@@ -292,12 +289,14 @@ def travel_miles(city_a: str, city_b: str):
 # --------------------------------------------------
 
 def season_record(df, team_identifier, cutoff):
-    # Decide whether to use ID or name
-    key = "team_id" if "team_id" in df.columns and isinstance(team_identifier, (int, float)) else "team_name"
+    key = (
+        "team_id"
+        if "team_id" in df.columns and isinstance(team_identifier, (int, float))
+        else "team_name"
+    )
 
-    # Normalize datetimes (avoid tz conflicts)
-    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.tz_localize(None)
-    cutoff = pd.to_datetime(cutoff).tz_localize(None)
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
+    cutoff = pd.to_datetime(cutoff)
     season_start = pd.Timestamp("2025-10-22")
 
     subset = df[

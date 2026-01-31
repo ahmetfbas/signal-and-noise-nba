@@ -5,7 +5,7 @@ import pandas as pd
 from analysis.compose_tweet import compose_tweet
 
 SCHEDULE_PATH = "data/derived/game_schedule_today.csv"
-METRICS_PATH = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+METRICS_PATH = "data/derived/game_environment.csv"
 
 
 def fatigue_emoji(tier: str) -> str:

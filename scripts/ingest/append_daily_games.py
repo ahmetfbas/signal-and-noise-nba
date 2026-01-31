@@ -44,12 +44,11 @@ NAME_MAP = {
     "Trail Blazers": "Portland Trail Blazers",
     "Warriors": "Golden State Warriors",
     "Wizards": "Washington Wizards",
-    "Cavaliers": "Cleveland Cavaliers"
+    "Cavaliers": "Cleveland Cavaliers",
 }
 
 
 def normalize_team_names(df: pd.DataFrame) -> pd.DataFrame:
-    """Standardize all team names to official NBA full names."""
     for col in ["team_name", "opponent_name"]:
         if col in df.columns:
             df[col] = df[col].map(NAME_MAP).fillna(df[col])
@@ -57,30 +56,28 @@ def normalize_team_names(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def main():
-    TODAY = datetime.utcnow().date()
+    TODAY_UTC = datetime.utcnow().date()
 
     # --------------------------------------------------
-    # Load existing data
+    # Rolling UTC backfill window (authoritative)
+    # --------------------------------------------------
+    BACKFILL_DAYS = 4
+    start_date = TODAY_UTC - timedelta(days=BACKFILL_DAYS)
+    end_date = TODAY_UTC
+
+    # --------------------------------------------------
+    # Load existing facts (if any)
     # --------------------------------------------------
     if FACTS_PATH.exists():
         existing = pd.read_csv(FACTS_PATH)
         existing["game_date"] = pd.to_datetime(
-            existing["game_date"], utc=True, errors="coerce", format="mixed"
-        )
-        last_date = existing["game_date"].dt.tz_convert(None).dt.date.max()
-        start_date = last_date + timedelta(days=1)
+            existing["game_date"], errors="coerce"
+        ).dt.date
     else:
         existing = None
-        start_date = TODAY - timedelta(days=2)  # first run safety
-
-    end_date = TODAY - timedelta(days=1)
-
-    if start_date > end_date:
-        print("No new dates to fetch.")
-        return
 
     # --------------------------------------------------
-    # Fetch games
+    # Fetch games (API UTC → UTC calendar date)
     # --------------------------------------------------
     games = fetch_games_range(start_date.isoformat(), end_date.isoformat())
     games = [g for g in games if is_completed(g)]
@@ -90,11 +87,11 @@ def main():
         return
 
     # --------------------------------------------------
-    # Normalize to team-level rows
+    # Normalize to team-level rows (UTC calendar date)
     # --------------------------------------------------
     rows = []
     for g in games:
-        gd = game_date(g)
+        gd = game_date(g)  # UTC calendar date
         home = g["home_team"]
         away = g["visitor_team"]
 
@@ -120,37 +117,47 @@ def main():
                 "home_away": "A",
                 "team_points": g["visitor_team_score"],
                 "opponent_points": g["home_team_score"],
-            }
+            },
         ])
 
     new_df = pd.DataFrame(rows)
     new_df = normalize_team_names(new_df)
+    new_df["game_date"] = pd.to_datetime(
+        new_df["game_date"], errors="coerce"
+    ).dt.date
 
     # --------------------------------------------------
-    # Merge + dedupe
+    # Merge + dedupe (canonical key = game_id + team_id)
     # --------------------------------------------------
     if existing is not None:
-        combined = pd.concat([new_df, existing], ignore_index=True)
+        combined = pd.concat([existing, new_df], ignore_index=True)
     else:
         combined = new_df
 
-    combined["game_date"] = pd.to_datetime(
-        combined["game_date"], utc=True, errors="coerce", format="mixed"
+    combined = combined.drop_duplicates(
+        subset=["game_id", "team_id"], keep="last"
     )
 
-    combined = combined.drop_duplicates(subset=["game_id", "team_id"], keep="first")
-    combined = combined.sort_values(["game_date", "game_id"], ascending=[True, True])
+    combined = combined.sort_values(
+        ["game_date", "game_id"], ascending=[True, True]
+    )
 
-    # Filter only current season (safety)
-    combined = combined[combined["game_date"] >= pd.Timestamp("2025-10-01", tz="UTC")]
+    # --------------------------------------------------
+    # Season safety filter (UTC calendar)
+    # --------------------------------------------------
+    combined = combined[
+        combined["game_date"] >= pd.to_datetime("2025-10-01").date()
+    ]
 
-    # Save
+    # --------------------------------------------------
+    # Save (UTC calendar date, no timezone)
+    # --------------------------------------------------
     FACTS_PATH.parent.mkdir(parents=True, exist_ok=True)
     combined.to_csv(FACTS_PATH, index=False)
 
     print(
-        f"✅ Appended games from {start_date} to {end_date} "
-        f"({len(new_df)} rows, normalized names)"
+        f"✅ Ingested games from {start_date} → {end_date} "
+        f"({len(new_df)} team-rows, UTC canonical)"
     )
 
 

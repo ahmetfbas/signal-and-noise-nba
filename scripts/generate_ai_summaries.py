@@ -3,8 +3,8 @@ from analysis.summarize_ai import summarize_board
 
 def main():
     boards = {
-        "Fatigue Board": "data/derived/team_game_metrics.csv",
-        "Momentum Board": "data/derived/team_game_metrics_with_rpmi_cvv.csv",
+        "Fatigue Board": "data/derived/game_environment.csv",
+        "Momentum Board": "data/derived/team_game_metrics_with_rpmi.csv",
         "Consistency Board": "data/derived/team_game_metrics_with_rpmi_cvv.csv",
     }
 

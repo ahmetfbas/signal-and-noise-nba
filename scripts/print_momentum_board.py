@@ -3,7 +3,7 @@
 import pandas as pd
 from analysis.compose_tweet import compose_tweet
 
-INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+INPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
 
 
 def momentum_label(delta: float):
