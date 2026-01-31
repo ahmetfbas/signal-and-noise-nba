@@ -1,8 +1,7 @@
-# scripts/print_pregame_lens.py
-
 import pandas as pd
 from datetime import datetime, timedelta
 from analysis.utils import season_record
+from analysis.compose_tweet import compose_tweet
 
 
 # --------------------------------------------------
@@ -29,20 +28,22 @@ def fatigue_emoji(f):
     if pd.isna(f):
         return "—"
     if f >= 65:
-        return "🔴"
+        return "😓"  # high fatigue
     if f <= 40:
-        return "🟢"
-    return "🟡"
+        return "💪"  # low fatigue
+    return "😐"  # medium fatigue
 
 
 def consistency_emoji(c):
     if pd.isna(c):
         return "—"
     if c >= 0.65:
-        return "🟢"
-    if c <= 0.40:
-        return "⚠️"
-    return "🟡"
+        return "🔒"  # very consistent
+    if c >= 0.50:
+        return "⚖️"  # consistent
+    if c >= 0.35:
+        return "🌪️"  # volatile
+    return "💥"  # very volatile
 
 
 def matchup_volatility_label(vol_home, vol_away):
@@ -67,49 +68,60 @@ def latest_valid_row(df, team_name):
 
 
 # --------------------------------------------------
-# Formatting
+# Formatting (tweet-ready)
 # --------------------------------------------------
 def format_pregame_lens(home, away, home_record, away_record):
-    matchup = f"{away['team_name']} ({away_record}) @ {home['team_name']} ({home_record})"
-    volatility = matchup_volatility_label(home["pve_volatility"], away["pve_volatility"])
-    return (
-        f"{matchup} — pregame lens\n\n"
-        f"Momentum:      {momentum_emoji(away['rpmi_delta'])} {away['team_name']} | "
-        f"{momentum_emoji(home['rpmi_delta'])} {home['team_name']}\n"
-        f"Fatigue:       {fatigue_emoji(away['fatigue_index'])} {away['team_name']} | "
-        f"{fatigue_emoji(home['fatigue_index'])} {home['team_name']}\n"
-        f"Consistency:   {consistency_emoji(away['consistency'])} {away['team_name']} | "
-        f"{consistency_emoji(home['consistency'])} {home['team_name']}\n"
-        f"Volatility:    {volatility}"
-    )
+    header = f"🏀 {away['team_name']} ({away_record}) @ {home['team_name']} ({home_record})"
+    lines = [
+        f"Momentum: {momentum_emoji(away['rpmi_delta'])} {away['team_name']} | {momentum_emoji(home['rpmi_delta'])} {home['team_name']}",
+        f"Fatigue: {fatigue_emoji(away['fatigue_index'])} {away['team_name']} | {fatigue_emoji(home['fatigue_index'])} {home['team_name']}",
+        f"Consistency: {consistency_emoji(away['consistency'])} {away['team_name']} | {consistency_emoji(home['consistency'])} {home['team_name']}",
+        f"Volatility: {matchup_volatility_label(home['pve_volatility'], away['pve_volatility'])}",
+    ]
+    return header + "\n" + "\n".join(lines)
 
 
 # --------------------------------------------------
 # Main
 # --------------------------------------------------
 def main():
-    # Load data
     sched = pd.read_csv(SCHEDULE_CSV)
     metrics = pd.read_csv(METRICS_CSV)
 
-    # Normalize dates
     sched["game_date"] = pd.to_datetime(sched["game_date"], errors="coerce").dt.date
     metrics["game_date"] = pd.to_datetime(metrics["game_date"], errors="coerce").dt.date
 
-    # Normalize team names
     name_map = {
-        "Heat": "Miami Heat",
-        "Bulls": "Chicago Bulls",
-        "Hornets": "Charlotte Hornets",
-        "Spurs": "San Antonio Spurs",
-        "Pacers": "Indiana Pacers",
         "Hawks": "Atlanta Hawks",
-        "76ers": "Philadelphia 76ers",
-        "Pelicans": "New Orleans Pelicans",
-        "Grizzlies": "Memphis Grizzlies",
-        "Timberwolves": "Minnesota Timberwolves",
-        "Rockets": "Houston Rockets",
+        "Celtics": "Boston Celtics",
+        "Nets": "Brooklyn Nets",
+        "Hornets": "Charlotte Hornets",
+        "Bulls": "Chicago Bulls",
+        "Cavaliers": "Cleveland Cavaliers",
         "Mavericks": "Dallas Mavericks",
+        "Nuggets": "Denver Nuggets",
+        "Pistons": "Detroit Pistons",
+        "Warriors": "Golden State Warriors",
+        "Rockets": "Houston Rockets",
+        "Pacers": "Indiana Pacers",
+        "Clippers": "Los Angeles Clippers",
+        "Lakers": "Los Angeles Lakers",
+        "Grizzlies": "Memphis Grizzlies",
+        "Heat": "Miami Heat",
+        "Bucks": "Milwaukee Bucks",
+        "Timberwolves": "Minnesota Timberwolves",
+        "Pelicans": "New Orleans Pelicans",
+        "Knicks": "New York Knicks",
+        "Thunder": "Oklahoma City Thunder",
+        "Magic": "Orlando Magic",
+        "76ers": "Philadelphia 76ers",
+        "Suns": "Phoenix Suns",
+        "Trail Blazers": "Portland Trail Blazers",
+        "Kings": "Sacramento Kings",
+        "Spurs": "San Antonio Spurs",
+        "Raptors": "Toronto Raptors",
+        "Jazz": "Utah Jazz",
+        "Wizards": "Washington Wizards",
     }
     sched["home_team_name"] = sched["home_team_name"].replace(name_map)
     sched["away_team_name"] = sched["away_team_name"].replace(name_map)
@@ -118,7 +130,6 @@ def main():
     cutoff = run_date
     print(f"📅 Using schedule for {run_date}\n")
 
-    # Process each matchup
     for _, game in sched.iterrows():
         home_name = game["home_team_name"]
         away_name = game["away_team_name"]
@@ -136,7 +147,19 @@ def main():
         home_w, home_l = season_record(metrics, home["team_name"], cutoff)
         away_w, away_l = season_record(metrics, away["team_name"], cutoff)
 
-        print(format_pregame_lens(home, away, f"{home_w}-{home_l}", f"{away_w}-{away_l}"))
+        base_text = format_pregame_lens(home, away, f"{home_w}-{home_l}", f"{away_w}-{away_l}")
+
+        # Combine with AI-crafted line
+        tweet_main, tweet_ai = compose_tweet(
+            board_name=f"{away['team_name']} @ {home['team_name']}",
+            data=pd.DataFrame([home, away]),
+            header=base_text,
+            body_text=None,
+            mode="pregame",
+        )
+
+        print(tweet_main)
+        print("\n↳", tweet_ai)
         print("\n" + "-" * 40 + "\n")
 
 
