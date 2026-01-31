@@ -2,13 +2,16 @@ import pandas as pd
 import numpy as np
 
 WINDOW = 5
-VOL_SCALE = 10  # Typical PvE std ≈ 0–10 range
+VOL_SCALE = 10  # fallback normalization if auto-scaling not used
 
+
+# --------------------------------------------------
+# Core CVV computation
+# --------------------------------------------------
 
 def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-
-    df["game_date"] = pd.to_datetime(df["game_date"])
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
     df = df.sort_values(["team_id", "game_date"])
 
     df["pve_volatility"] = np.nan
@@ -28,6 +31,7 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
             window = g.loc[i - WINDOW + 1 : i, "pve"].dropna().values
             if len(window) < WINDOW:
                 continue
+
             vol = np.std(window, ddof=0)
             normalized_vol = vol / VOL_SCALE
             consistency = round(1 / (1 + normalized_vol), 3)
@@ -37,6 +41,10 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+
+# --------------------------------------------------
+# Labeling helpers
+# --------------------------------------------------
 
 def consistency_label(consistency, games_played):
     if pd.isna(consistency):
@@ -52,8 +60,20 @@ def consistency_label(consistency, games_played):
     return "Very Volatile"
 
 
+def volatility_tier(vol):
+    if pd.isna(vol):
+        return "Unknown"
+    if vol < 4:
+        return "Low"
+    if vol < 7:
+        return "Medium"
+    if vol < 10:
+        return "High"
+    return "Extreme"
+
+
 # --------------------------------------------------
-# PIPELINE ENTRY POINT
+# Entrypoint
 # --------------------------------------------------
 
 def main():
@@ -64,11 +84,15 @@ def main():
     df = compute_cvv(df)
 
     df["consistency_label"] = df.apply(
-        lambda r: consistency_label(r["consistency"], r["games_played"]),
-        axis=1
+        lambda r: consistency_label(r["consistency"], r["games_played"]), axis=1
     )
+    df["volatility_tier"] = df["pve_volatility"].apply(volatility_tier)
 
     df.to_csv(output_csv, index=False)
+
+    print(f"✅ Wrote {len(df)} rows → {output_csv}")
+    print(f"Avg volatility: {df['pve_volatility'].mean():.2f}")
+    print(f"Avg consistency: {df['consistency'].mean():.3f}")
 
 
 if __name__ == "__main__":

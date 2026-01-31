@@ -1,5 +1,3 @@
-# analysis/fli.py
-
 # --------------------------------------------------
 # Density scoring
 # --------------------------------------------------
@@ -31,18 +29,25 @@ def density_14d_score(g14: int) -> int:
 # --------------------------------------------------
 
 def recovery_offset(days_since_last_game: int) -> float:
+    """
+    Models recovery benefit after rest days.
+    Slightly flattened to avoid over-rewarding long rest periods.
+    """
     if days_since_last_game == 1:
         return 0.00
     if days_since_last_game == 2:
         return 0.10
     if days_since_last_game == 3:
-        return 0.25
+        return 0.22
     if days_since_last_game == 4:
-        return 0.40
-    return 0.55
+        return 0.35
+    return 0.50
 
 
 def travel_load(travel_miles):
+    """
+    Travel penalty scale – moderate sensitivity preferred.
+    """
     if travel_miles is None:
         return 1
     if travel_miles < 300:
@@ -61,19 +66,34 @@ def fatigue_index(
     days_since_last_game: int,
     travel_load_score: int
 ) -> float:
+    """
+    Combines schedule density, travel, and rest recovery into a unified fatigue index.
+    Calibrated weights (based on empirical stability test):
+      - travel_weight = 4
+      - b2b_bonus = 8
+      - combo_bonus = 6
+    """
     b2b = 1 if days_since_last_game == 1 else 0
+
+    TRAVEL_WEIGHT = 4
+    B2B_BONUS = 8
+    COMBO_BONUS = 6
 
     raw = (
         density_score
-        + (12 if b2b else 0)
-        + travel_load_score * 6
-        + (10 if b2b and travel_load_score >= 2 else 0)
+        + (B2B_BONUS if b2b else 0)
+        + travel_load_score * TRAVEL_WEIGHT
+        + (COMBO_BONUS if b2b and travel_load_score >= 2 else 0)
     )
 
+    # Adjust by recovery factor
     return round(raw * (1 - recovery_offset(days_since_last_game)), 1)
 
 
 def fatigue_tier(score: float) -> str:
+    """
+    Tier thresholds remain the same for interpretability.
+    """
     if score < 30:
         return "Low"
     if score < 50:
