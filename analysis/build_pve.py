@@ -24,8 +24,8 @@ def build_pve(df: pd.DataFrame) -> pd.DataFrame:
                 opponent_id=row["opponent_id"],
                 is_home=row["home_away"] == "H",
                 recent_games=df[
-                    (df["team_id"].isin([row["team_id"], row["opponent_id"]])) &
-                    (df["game_date"] < row["game_date"])
+                    (df["team_id"].isin([row["team_id"], row["opponent_id"]]))
+                    & (df["game_date"] < row["game_date"])
                 ].tail(30),
                 fatigue_index=row["fatigue_index"],
             )
@@ -46,7 +46,12 @@ def build_pve(df: pd.DataFrame) -> pd.DataFrame:
 def main():
     df = pd.read_csv(INPUT_CSV)
     out = build_pve(df)
+
+    if out.empty:
+        raise RuntimeError("PvE produced no rows — this is a pipeline error.")
+
     out.to_csv(OUTPUT_CSV, index=False)
+    print(f"✅ PvE written: {len(out)} rows")
 
 
 if __name__ == "__main__":

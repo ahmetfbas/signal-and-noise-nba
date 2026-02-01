@@ -6,53 +6,66 @@ from analysis.compose_tweet import compose_tweet
 # --------------------------------------------------
 # Paths
 # --------------------------------------------------
-METRICS_CSV = "data/derived/team_game_metrics_with_pve.csv"
-FACTS_CSV = "data/core/team_game_facts.csv"
+METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 
 
 # --------------------------------------------------
 # Helpers
 # --------------------------------------------------
 def signal_dot(expected_margin_home, actual_margin_home):
-    """Compare expected vs actual performance for quick visual signal."""
+    """
+    Compare expected vs actual performance for quick visual signal.
+    """
     if pd.isna(expected_margin_home) or pd.isna(actual_margin_home):
-        return "🟡"  # unknown
+        return "🟡"
+
     aligned = expected_margin_home * actual_margin_home > 0
     if aligned:
-        return "🟢"  # met expectation
+        return "🟢"
     if abs(actual_margin_home) <= 4:
-        return "🟡"  # close game
-    return "🔴"  # missed expectation
+        return "🟡"
+    return "🔴"
 
 
 def format_postgame(home, away):
     matchup = f"{away['team_name']} @ {home['team_name']}"
-    dot = signal_dot(home.get("expected_margin"), home.get("actual_margin"))
-
-    home_pts = int(home.get("team_points", 0))
-    away_pts = int(home.get("opponent_points", 0))
-
-    if home_pts > away_pts:
-        winner, loser = home, away
-        scoreline = f"{home['team_name']} {home_pts} – {away_pts} {away['team_name']}"
-    else:
-        winner, loser = away, home
-        scoreline = f"{away['team_name']} {away_pts} – {home_pts} {home['team_name']}"
-
-    volatility = home.get("pve_volatility", None)
-    volatility_label = (
-        "high volatility matchup"
-        if pd.notna(volatility) and volatility >= 0.65
-        else "low volatility game"
-        if pd.notna(volatility) and volatility <= 0.35
-        else "medium volatility"
+    dot = signal_dot(
+        home.get("expected_margin"),
+        home.get("actual_margin"),
     )
 
+    home_pts = int(home["team_points"])
+    away_pts = int(home["opponent_points"])
+
+    if home_pts > away_pts:
+        scoreline = f"{home['team_name']} {home_pts} – {away_pts} {away['team_name']}"
+    else:
+        scoreline = f"{away['team_name']} {away_pts} – {home_pts} {home['team_name']}"
+
+    # Matchup-level volatility
+    vol_home = home.get("pve_volatility")
+    vol_away = away.get("pve_volatility")
+    vol_avg = (
+        (vol_home + vol_away) / 2
+        if pd.notna(vol_home) and pd.notna(vol_away)
+        else None
+    )
+
+    volatility_label = (
+        "high volatility game"
+        if vol_avg is not None and vol_avg >= 0.65
+        else "low volatility game"
+        if vol_avg is not None and vol_avg <= 0.35
+        else "medium volatility game"
+    )
+
+    # Momentum trend (home perspective)
+    delta = home.get("rpmi_delta", 0.0)
     momentum_trend = (
         "momentum rising"
-        if home.get("rpmi_delta", 0) > 0.5
+        if delta > 0.25
         else "momentum falling"
-        if home.get("rpmi_delta", 0) < -0.5
+        if delta < -0.25
         else "stable form"
     )
 
@@ -68,12 +81,6 @@ def format_postgame(home, away):
 def main(target_date: str = None):
     df = pd.read_csv(METRICS_CSV)
     df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
-
-    facts = pd.read_csv(
-        FACTS_CSV,
-        usecols=["game_id", "team_id", "team_name", "team_points", "opponent_points"],
-    )
-    df = df.merge(facts, on=["game_id", "team_id", "team_name"], how="left")
 
     if target_date:
         target = datetime.strptime(target_date, "%Y-%m-%d").date()
@@ -97,7 +104,6 @@ def main(target_date: str = None):
 
         header, body_text = format_postgame(home, away)
 
-        # Combine into threaded tweet
         tweet_main, tweet_ai = compose_tweet(
             board_name=f"{away['team_name']} @ {home['team_name']}",
             data=pd.DataFrame([home, away]),

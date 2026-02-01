@@ -1453,15 +1453,35 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,team_poi
 18447513,2026-01-30,13,LA Clippers,8,Denver Nuggets,A,109,122
 18447514,2026-01-30,10,Golden State Warriors,9,Detroit Pistons,H,124,131
 18447514,2026-01-30,9,Detroit Pistons,10,Golden State Warriors,A,131,124
-18447510,2026-01-31,16,Miami Heat,5,Chicago Bulls,H,0,0
-18447510,2026-01-31,5,Chicago Bulls,16,Miami Heat,A,0,0
-18447515,2026-01-31,4,Charlotte Hornets,27,San Antonio Spurs,H,0,0
-18447515,2026-01-31,27,San Antonio Spurs,4,Charlotte Hornets,A,0,0
-18447516,2026-01-31,12,Indiana Pacers,1,Atlanta Hawks,H,0,0
-18447516,2026-01-31,1,Atlanta Hawks,12,Indiana Pacers,A,0,0
-18447517,2026-01-31,23,Philadelphia 76ers,19,New Orleans Pelicans,H,0,0
-18447517,2026-01-31,19,New Orleans Pelicans,23,Philadelphia 76ers,A,0,0
-18447518,2026-01-31,15,Memphis Grizzlies,18,Minnesota Timberwolves,H,0,0
-18447518,2026-01-31,18,Minnesota Timberwolves,15,Memphis Grizzlies,A,0,0
-18447519,2026-01-31,11,Houston Rockets,7,Dallas Mavericks,H,0,0
-18447519,2026-01-31,7,Dallas Mavericks,11,Houston Rockets,A,0,0
+18447510,2026-01-31,16,Miami Heat,5,Chicago Bulls,H,118,125
+18447510,2026-01-31,5,Chicago Bulls,16,Miami Heat,A,125,118
+18447515,2026-01-31,4,Charlotte Hornets,27,San Antonio Spurs,H,111,106
+18447515,2026-01-31,27,San Antonio Spurs,4,Charlotte Hornets,A,106,111
+18447516,2026-01-31,12,Indiana Pacers,1,Atlanta Hawks,H,129,124
+18447516,2026-01-31,1,Atlanta Hawks,12,Indiana Pacers,A,124,129
+18447517,2026-01-31,23,Philadelphia 76ers,19,New Orleans Pelicans,H,124,114
+18447517,2026-01-31,19,New Orleans Pelicans,23,Philadelphia 76ers,A,114,124
+18447518,2026-01-31,15,Memphis Grizzlies,18,Minnesota Timberwolves,H,114,131
+18447518,2026-01-31,18,Minnesota Timberwolves,15,Memphis Grizzlies,A,131,114
+18447519,2026-01-31,11,Houston Rockets,7,Dallas Mavericks,H,111,107
+18447519,2026-01-31,7,Dallas Mavericks,11,Houston Rockets,A,107,111
+18447520,2026-02-01,2,Boston Celtics,17,Milwaukee Bucks,H,0,0
+18447520,2026-02-01,17,Milwaukee Bucks,2,Boston Celtics,A,0,0
+18447521,2026-02-01,27,San Antonio Spurs,22,Orlando Magic,H,0,0
+18447521,2026-02-01,22,Orlando Magic,27,San Antonio Spurs,A,0,0
+18447522,2026-02-01,9,Detroit Pistons,3,Brooklyn Nets,H,0,0
+18447522,2026-02-01,3,Brooklyn Nets,9,Detroit Pistons,A,0,0
+18447523,2026-02-01,16,Miami Heat,5,Chicago Bulls,H,0,0
+18447523,2026-02-01,5,Chicago Bulls,16,Miami Heat,A,0,0
+18447524,2026-02-01,28,Toronto Raptors,29,Utah Jazz,H,0,0
+18447524,2026-02-01,29,Utah Jazz,28,Toronto Raptors,A,0,0
+18447525,2026-02-01,30,Washington Wizards,26,Sacramento Kings,H,0,0
+18447525,2026-02-01,26,Sacramento Kings,30,Washington Wizards,A,0,0
+18447526,2026-02-01,20,New York Knicks,14,Los Angeles Lakers,H,0,0
+18447526,2026-02-01,14,Los Angeles Lakers,20,New York Knicks,A,0,0
+18447527,2026-02-01,24,Phoenix Suns,13,LA Clippers,H,0,0
+18447527,2026-02-01,13,LA Clippers,24,Phoenix Suns,A,0,0
+18447528,2026-02-01,25,Portland Trail Blazers,6,Cleveland Cavaliers,H,0,0
+18447528,2026-02-01,6,Cleveland Cavaliers,25,Portland Trail Blazers,A,0,0
+18447529,2026-02-01,8,Denver Nuggets,21,Oklahoma City Thunder,H,0,0
+18447529,2026-02-01,21,Oklahoma City Thunder,8,Denver Nuggets,A,0,0

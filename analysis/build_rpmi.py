@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 # --------------------------------------------------
 # Configuration
@@ -67,7 +68,6 @@ def compute_rpmi(df: pd.DataFrame) -> pd.DataFrame:
         df.loc[g["index"], "rpmi_long"] = rpmi_l
         df.loc[g["index"], "rpmi_accel"] = rpmi_s - rpmi_l
 
-        # delta vs previous game (short-term)
         for i in range(1, len(g)):
             prev = rpmi_s.iloc[i - 1]
             curr = rpmi_s.iloc[i]
@@ -82,9 +82,16 @@ def compute_rpmi(df: pd.DataFrame) -> pd.DataFrame:
 # --------------------------------------------------
 
 def main():
+    if not os.path.exists(INPUT_CSV):
+        raise FileNotFoundError("PvE output missing — RPMI cannot run.")
+
     df = pd.read_csv(INPUT_CSV)
+    if df.empty:
+        raise RuntimeError("RPMI input is empty — PvE must run successfully first.")
+
     df = compute_rpmi(df)
     df.to_csv(OUTPUT_CSV, index=False)
+
     print(
         f"✅ Built dual-window RPMI → {OUTPUT_CSV}\n"
         f"   rpmi_short = {SHORT_WINDOW}-game window\n"

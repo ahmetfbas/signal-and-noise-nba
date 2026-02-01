@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 FACTS_CSV = "data/core/team_game_facts.csv"
@@ -30,7 +31,6 @@ def norm_fatigue(f):
 def norm_volatility(vol):
     if pd.isna(vol):
         return np.nan
-    # CVV volatility is already std-scaled → normalize directly
     return clip01(float(vol) / 10.0)
 
 
@@ -92,13 +92,23 @@ def build_drivers(fatigue_avg, vol_avg, asymmetry_score, maturity_ok):
 # --------------------------------------------------
 
 def main():
+    if not os.path.exists(INPUT_CSV):
+        raise FileNotFoundError("CVV output missing — game environment cannot run.")
+
+    if not os.path.exists(FACTS_CSV):
+        raise FileNotFoundError("Facts CSV missing — maturity check impossible.")
+
     df = pd.read_csv(INPUT_CSV)
-    df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
+    if df.empty:
+        raise RuntimeError("Game environment input is empty.")
 
     facts = pd.read_csv(FACTS_CSV)
+    if facts.empty:
+        raise RuntimeError("Facts CSV is empty.")
+
+    df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
     facts["game_date"] = pd.to_datetime(facts["game_date"], utc=True)
 
-    # enforce exactly 2 rows per game
     valid_games = df.groupby("game_id").size()
     df = df[df["game_id"].isin(valid_games[valid_games == 2].index)].copy()
 
@@ -108,23 +118,21 @@ def main():
         home = g[g["home_away"] == "H"].iloc[0]
         away = g[g["home_away"] == "A"].iloc[0]
 
-        # maturity from FACTS (not derived data)
         gp_home = facts[
-            (facts["team_id"] == home["team_id"]) &
-            (facts["game_date"] < home["game_date"])
+            (facts["team_id"] == home["team_id"])
+            & (facts["game_date"] < home["game_date"])
         ].shape[0]
 
         gp_away = facts[
-            (facts["team_id"] == away["team_id"]) &
-            (facts["game_date"] < away["game_date"])
+            (facts["team_id"] == away["team_id"])
+            & (facts["game_date"] < away["game_date"])
         ].shape[0]
 
         maturity_ok = (
-            gp_home >= MIN_GAMES_FOR_MATURE and
-            gp_away >= MIN_GAMES_FOR_MATURE
+            gp_home >= MIN_GAMES_FOR_MATURE
+            and gp_away >= MIN_GAMES_FOR_MATURE
         )
 
-        # risks
         f_home = norm_fatigue(home["fatigue_index"])
         f_away = norm_fatigue(away["fatigue_index"])
         fatigue_avg, _ = safe_weighted_avg([(f_home, 1), (f_away, 1)])
@@ -134,7 +142,9 @@ def main():
         vol_avg, _ = safe_weighted_avg([(v_home, 1), (v_away, 1)])
 
         asym_f = norm_asym_fatigue(home["fatigue_index"], away["fatigue_index"])
-        asym_c = norm_asym_consistency(home.get("consistency"), away.get("consistency"))
+        asym_c = norm_asym_consistency(
+            home.get("consistency"), away.get("consistency")
+        )
         asymmetry_score, _ = safe_weighted_avg([(asym_f, 1), (asym_c, 1)])
 
         noise_score, _ = safe_weighted_avg([
@@ -172,6 +182,7 @@ def main():
 
     out = pd.DataFrame(rows).sort_values(["game_date", "game_id"])
     out.to_csv(OUTPUT_CSV, index=False)
+    print(f"✅ Wrote {len(out)} rows → {OUTPUT_CSV}")
 
 
 if __name__ == "__main__":

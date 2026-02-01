@@ -10,6 +10,8 @@ def main():
       6. Build game environment layer (for dashboards or AI)
     """
 
+    import os
+
     # -----------------------------
     # 1️⃣  INGEST (Critical step)
     # -----------------------------
@@ -30,6 +32,10 @@ def main():
     from analysis.build_pve import main as build_pve
     print("📊 Step 3 — Calculating performance vs expectation...")
     build_pve()
+
+    # PvE must exist to continue
+    if not os.path.exists("data/derived/team_game_metrics_with_pve.csv"):
+        raise FileNotFoundError("❌ PvE output missing — aborting pipeline.")
 
     # -----------------------------
     # 4️⃣  ROLLING PERFORMANCE MOMENTUM INDEX (RPMI)

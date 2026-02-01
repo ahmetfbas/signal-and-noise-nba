@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
+import os
 
 WINDOW = 5
-VOL_SCALE = 10  # fallback normalization if auto-scaling not used
+VOL_SCALE = 10  # normalization constant
 
 
 # --------------------------------------------------
@@ -28,11 +29,11 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
             if i < WINDOW - 1:
                 continue
 
-            window = g.loc[i - WINDOW + 1 : i, "pve"].dropna().values
-            if len(window) < WINDOW:
+            window_vals = g.loc[i - WINDOW + 1 : i, "pve"].dropna().values
+            if len(window_vals) < WINDOW:
                 continue
 
-            vol = np.std(window, ddof=0)
+            vol = np.std(window_vals, ddof=0)
             normalized_vol = vol / VOL_SCALE
             consistency = round(1 / (1 + normalized_vol), 3)
 
@@ -80,11 +81,18 @@ def main():
     input_csv = "data/derived/team_game_metrics_with_rpmi.csv"
     output_csv = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 
+    if not os.path.exists(input_csv):
+        raise FileNotFoundError("RPMI output missing — CVV cannot run.")
+
     df = pd.read_csv(input_csv)
+    if df.empty:
+        raise RuntimeError("CVV input is empty — RPMI must run successfully first.")
+
     df = compute_cvv(df)
 
     df["consistency_label"] = df.apply(
-        lambda r: consistency_label(r["consistency"], r["games_played"]), axis=1
+        lambda r: consistency_label(r["consistency"], r["games_played"]),
+        axis=1,
     )
     df["volatility_tier"] = df["pve_volatility"].apply(volatility_tier)
 
