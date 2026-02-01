@@ -1,26 +1,65 @@
 # scripts/print_consistency_board.py
 
 import pandas as pd
-from analysis.compose_tweet import compose_tweet
-
 
 INPUT_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
 
+# --------------------------------------------------
+# Helper labels
+# --------------------------------------------------
+
+def consistency_band(v):
+    if pd.isna(v):
+        return "—"
+    if v >= 0.65:
+        return "High"
+    if v >= 0.50:
+        return "Medium"
+    return "Low"
+
+
+def direction_label(win_c, loss_c):
+    if pd.isna(win_c) or pd.isna(loss_c):
+        return "—"
+    if win_c > loss_c + 0.05:
+        return "Good Wins"
+    if loss_c > win_c + 0.05:
+        return "Controlled Losses"
+    return "Neutral"
+
 
 # --------------------------------------------------
-# Label helpers
+# Archetype logic (REFactored)
+# Uses avg_pve_window instead of RPMI
 # --------------------------------------------------
 
-def consistency_label(value: float):
-    if pd.isna(value):
-        return None, None
-    if value >= 0.65:
-        return "🔒", "Very Consistent"
-    if value >= 0.50:
-        return "⚖️", "Consistent"
-    if value >= 0.35:
-        return "🌪️", "Volatile"
-    return "💥", "Very Volatile"
+def archetype(row):
+    c = row["consistency"]
+    w = row["consistency_win"]
+    l = row["consistency_loss"]
+    avg_pve = row["avg_pve_window"]
+
+    if pd.isna(c) or pd.isna(avg_pve):
+        return "—"
+
+    # Stable teams
+    if c >= 0.65 and avg_pve >= 6:
+        return "Boring Contender"
+    if c >= 0.65 and avg_pve <= -6:
+        return "Consistently Bad"
+
+    # Unstable extremes
+    if c < 0.50 and avg_pve >= 6:
+        return "Fake Good Team"
+    if c < 0.50 and avg_pve <= -6:
+        return "Dangerous Underdog"
+
+    # Style-based
+    if not pd.isna(w) and not pd.isna(l):
+        if w >= 0.65 and l <= 0.45:
+            return "Boom–Bust"
+
+    return "Mixed Form"
 
 
 # --------------------------------------------------
@@ -31,14 +70,11 @@ def main():
     df = pd.read_csv(INPUT_CSV)
     df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
 
-    # Keep only valid consistency entries
     df = df[df["consistency"].notna()]
-
     if df.empty:
         print("⚠️ No valid consistency data available.")
         return
 
-    # Latest consistency snapshot per team
     latest = (
         df.sort_values("game_date", ascending=False)
         .drop_duplicates(subset=["team_name"])
@@ -48,34 +84,27 @@ def main():
     latest_date = latest["game_date"].max()
     print(f"📊 Consistency Board ({latest_date})\n")
 
-    for _, row in latest.iterrows():
-        emoji, label = consistency_label(row["consistency"])
-        if emoji:
-            print(f"{emoji} {row['team_name']:<25} — {label}")
+    for _, r in latest.iterrows():
+        win_c = r["consistency_win"]
+        loss_c = r["consistency_loss"]
 
-    # --------------------------------------------------
-    # AI commentary
-    # --------------------------------------------------
+        print(
+            f"{r['team_name']:<25} | "
+            f"avg: {r['consistency']:.2f} ({consistency_band(r['consistency'])}) | "
+            f"W: {win_c:.2f}" if not pd.isna(win_c)
+            else f"{r['team_name']:<25} | avg: {r['consistency']:.2f} | W: —",
+            end=""
+        )
 
-    print("\n" + "=" * 45 + "\n")
+        if not pd.isna(loss_c):
+            print(f" | L: {loss_c:.2f}", end="")
+        else:
+            print(" | L: —", end="")
 
-    header = f"📊 Consistency Board ({latest_date})"
-    body_text = (
-        "This board reflects how steady each team’s performance has been over "
-        "recent games. Higher consistency points to predictable outcomes, while "
-        "lower scores indicate wider performance swings."
-    )
-
-    tweet_main, tweet_ai = compose_tweet(
-        board_name="Consistency Board",
-        data=latest,
-        header=header,
-        body_text=body_text,
-        mode="board",
-    )
-
-    print(tweet_main)
-    print(f"\n↳ {tweet_ai}\n")
+        print(
+            f" | {direction_label(win_c, loss_c)} | "
+            f"{archetype(r)}"
+        )
 
 
 if __name__ == "__main__":

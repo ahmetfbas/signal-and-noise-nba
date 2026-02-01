@@ -2,8 +2,23 @@ import pandas as pd
 import numpy as np
 import os
 
-WINDOW = 5
-VOL_SCALE = 10  # normalization constant
+# --------------------------------------------------
+# Configuration
+# --------------------------------------------------
+
+WINDOW = 10
+VOL_SCALE = 15.0   # 🔧 recalibrated (was 10.0)
+
+
+# --------------------------------------------------
+# Core helpers
+# --------------------------------------------------
+
+def consistency_from_values(values: np.ndarray) -> float:
+    if len(values) < 3:
+        return np.nan
+    vol = np.std(values, ddof=0)
+    return round(1 / (1 + vol / VOL_SCALE), 3)
 
 
 # --------------------------------------------------
@@ -15,62 +30,75 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
     df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
     df = df.sort_values(["team_id", "game_date"])
 
-    df["pve_volatility"] = np.nan
-    df["consistency"] = np.nan
-    df["games_played"] = np.nan
+    df[
+        [
+            "pve_volatility",
+            "consistency",
+            "consistency_win",
+            "consistency_loss",
+            "games_played",
+            "games_in_window",
+            "avg_pve_window",
+        ]
+    ] = np.nan
 
     for team_id, g in df.groupby("team_id"):
         g = g.reset_index()
 
         for i in range(len(g)):
+            idx = g.loc[i, "index"]
             games_played = i + 1
-            df.loc[g.loc[i, "index"], "games_played"] = games_played
+            df.loc[idx, "games_played"] = games_played
 
             if i < WINDOW - 1:
                 continue
 
-            window_vals = g.loc[i - WINDOW + 1 : i, "pve"].dropna().values
-            if len(window_vals) < WINDOW:
+            window = g.loc[i - WINDOW + 1 : i]
+            window = window[window["actual_margin"] != 0]
+
+            pve_all = window["pve"].dropna().values
+            games_in_window = len(pve_all)
+
+            df.loc[idx, "games_in_window"] = games_in_window
+            df.loc[idx, "avg_pve_window"] = (
+                round(float(np.mean(pve_all)), 2) if games_in_window > 0 else np.nan
+            )
+
+            if games_in_window < WINDOW:
                 continue
 
-            vol = np.std(window_vals, ddof=0)
-            normalized_vol = vol / VOL_SCALE
-            consistency = round(1 / (1 + normalized_vol), 3)
+            # Overall
+            vol_all = np.std(pve_all, ddof=0)
+            df.loc[idx, "pve_volatility"] = round(vol_all, 2)
+            df.loc[idx, "consistency"] = consistency_from_values(pve_all)
 
-            df.loc[g.loc[i, "index"], "pve_volatility"] = round(vol, 2)
-            df.loc[g.loc[i, "index"], "consistency"] = consistency
+            # Wins only
+            pve_wins = window.loc[window["actual_margin"] > 0, "pve"].values
+            df.loc[idx, "consistency_win"] = consistency_from_values(pve_wins)
+
+            # Losses only
+            pve_losses = window.loc[window["actual_margin"] < 0, "pve"].values
+            df.loc[idx, "consistency_loss"] = consistency_from_values(pve_losses)
 
     return df
 
 
 # --------------------------------------------------
-# Labeling helpers
+# Label helpers
 # --------------------------------------------------
 
-def consistency_label(consistency, games_played):
-    if pd.isna(consistency):
+def consistency_label(value, games_played):
+    if pd.isna(value):
         return "Insufficient"
-    if games_played < 10:
+    if games_played < WINDOW * 2:
         return "Forming"
-    if consistency >= 0.65:
+    if value >= 0.65:
         return "Very Consistent"
-    if consistency >= 0.50:
+    if value >= 0.50:
         return "Consistent"
-    if consistency >= 0.35:
+    if value >= 0.40:
         return "Volatile"
     return "Very Volatile"
-
-
-def volatility_tier(vol):
-    if pd.isna(vol):
-        return "Unknown"
-    if vol < 4:
-        return "Low"
-    if vol < 7:
-        return "Medium"
-    if vol < 10:
-        return "High"
-    return "Extreme"
 
 
 # --------------------------------------------------
@@ -94,13 +122,15 @@ def main():
         lambda r: consistency_label(r["consistency"], r["games_played"]),
         axis=1,
     )
-    df["volatility_tier"] = df["pve_volatility"].apply(volatility_tier)
 
     df.to_csv(output_csv, index=False)
 
     print(f"✅ Wrote {len(df)} rows → {output_csv}")
-    print(f"Avg volatility: {df['pve_volatility'].mean():.2f}")
-    print(f"Avg consistency: {df['consistency'].mean():.3f}")
+    print(f"Window size: {WINDOW} games")
+    print(f"Vol scale: {VOL_SCALE}")
+    print(f"Avg consistency (all): {df['consistency'].mean():.3f}")
+    print(f"Avg win consistency: {df['consistency_win'].mean():.3f}")
+    print(f"Avg loss consistency: {df['consistency_loss'].mean():.3f}")
 
 
 if __name__ == "__main__":

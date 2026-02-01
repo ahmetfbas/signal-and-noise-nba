@@ -2,7 +2,6 @@
 
 from datetime import date
 import pandas as pd
-from analysis.compose_tweet import compose_tweet
 
 
 SCHEDULE_PATH = "data/derived/game_schedule_today.csv"
@@ -23,7 +22,7 @@ FATIGUE_ORDER = {
 
 def fatigue_emoji(tier: str) -> str:
     return {
-        "Critical": "😓",
+        "Critical": "🥵",
         "High": "😓",
         "Elevated": "😐",
         "Low": "💪",
@@ -52,7 +51,7 @@ def main():
         print(f"No games found for {today}.")
         return
 
-    # Load team-level fatigue metrics
+    # Load fatigue metrics
     metrics = pd.read_csv(METRICS_PATH)
     metrics["game_date"] = pd.to_datetime(
         metrics["game_date"], errors="coerce"
@@ -99,7 +98,6 @@ def main():
         sched[["home_team_name", "away_team_name"]].values.ravel()
     )
 
-    # Latest fatigue snapshot per team playing tonight
     latest_fatigue = (
         metrics[metrics["team_name"].isin(teams_playing)]
         .sort_values("game_date", ascending=False)
@@ -112,7 +110,16 @@ def main():
         .drop(columns="tier_rank")
     )
 
-    print(f"😴 Tonight’s Fatigue Board ({today})\n")
+    # --------------------------------------------------
+    # Header (human-written, stable)
+    # --------------------------------------------------
+
+    print(
+        f"📊 😴 Tonight’s Fatigue Board ({today})\n"
+        "This board highlights teams playing tonight by recent schedule density, "
+        "travel load, and recovery time, surfacing who enters the game most taxed "
+        "and who arrives relatively fresh.\n"
+    )
 
     for _, row in latest_fatigue.iterrows():
         emoji = fatigue_emoji(row["fatigue_tier"])
@@ -121,30 +128,6 @@ def main():
             f"{row['fatigue_tier']:>9} "
             f"({row['fatigue_index']:.1f})"
         )
-
-    # --------------------------------------------------
-    # AI commentary
-    # --------------------------------------------------
-
-    print("\n" + "=" * 45 + "\n")
-
-    header = f"😴 Tonight’s Fatigue Board ({today})"
-    body_text = (
-        "This board highlights teams playing tonight by recent schedule density, "
-        "travel load, and recovery time, surfacing who enters the game most taxed "
-        "and who arrives relatively fresh."
-    )
-
-    tweet_main, tweet_ai = compose_tweet(
-        board_name="Fatigue Board",
-        data=latest_fatigue,
-        header=header,
-        body_text=body_text,
-        mode="board",
-    )
-
-    print(tweet_main)
-    print(f"\n↳ {tweet_ai}\n")
 
 
 if __name__ == "__main__":

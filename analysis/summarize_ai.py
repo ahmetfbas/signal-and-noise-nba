@@ -1,8 +1,9 @@
+# analysis/summarize_ai.py
+
 import os
 import json
 import hashlib
 from datetime import datetime, timedelta
-
 import pandas as pd
 from openai import OpenAI
 
@@ -30,7 +31,8 @@ def summarize_board(board_name: str, data: pd.DataFrame) -> str:
     if data.empty:
         raise RuntimeError(f"Cannot summarize empty board: {board_name}")
 
-    if not os.getenv("OPENAI_API_KEY"):
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
         raise RuntimeError("OPENAI_API_KEY is not set")
 
     os.makedirs(CACHE_DIR, exist_ok=True)
@@ -48,19 +50,18 @@ def summarize_board(board_name: str, data: pd.DataFrame) -> str:
     now = datetime.utcnow()
 
     # --------------------------------------------------
-    # Cache hit check
+    # Cache hit
     # --------------------------------------------------
     if cache_key in cache:
         entry = cache[cache_key]
         last_ts = datetime.fromisoformat(entry["timestamp"])
         if (now - last_ts) <= timedelta(days=CACHE_EXPIRY_DAYS):
-            print(f"♻️ Using cached summary for {board_name}")
             return entry["summary"]
 
     # --------------------------------------------------
     # Generate new summary
     # --------------------------------------------------
-    client = OpenAI()
+    client = OpenAI(api_key=api_key)
 
     prompt = f"""
 You are an NBA analyst writing a short tweet-style summary for the {board_name}.
@@ -82,8 +83,6 @@ End with a complete, grammatically closed sentence.
     )
 
     summary = response.output_text.strip()
-
-    # Final safety cleanup
     summary = summary.rstrip(".… ").strip() + "."
 
     cache[cache_key] = {
@@ -96,5 +95,4 @@ End with a complete, grammatically closed sentence.
     with open(cache_path, "w") as f:
         json.dump(cache, f, indent=2)
 
-    print(f"💾 Cached summary for {board_name}")
     return summary

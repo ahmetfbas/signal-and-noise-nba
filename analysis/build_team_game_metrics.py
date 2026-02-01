@@ -1,5 +1,3 @@
-# analysis/build_team_game_metrics.py
-
 import pandas as pd
 from datetime import date, timedelta
 from typing import Optional
@@ -9,24 +7,60 @@ from analysis.utils import travel_miles
 
 
 # --------------------------------------------------
+# Team → City mapping (NBA-complete)
+# --------------------------------------------------
+
+def extract_city(team_name: str) -> str:
+    CITY_MAP = {
+        "Atlanta Hawks": "Atlanta",
+        "Boston Celtics": "Boston",
+        "Brooklyn Nets": "Brooklyn",
+        "Charlotte Hornets": "Charlotte",
+        "Chicago Bulls": "Chicago",
+        "Cleveland Cavaliers": "Cleveland",
+        "Dallas Mavericks": "Dallas",
+        "Denver Nuggets": "Denver",
+        "Detroit Pistons": "Detroit",
+        "Golden State Warriors": "San Francisco",
+        "Houston Rockets": "Houston",
+        "Indiana Pacers": "Indianapolis",
+        "LA Clippers": "Los Angeles",
+        "Los Angeles Lakers": "Los Angeles",
+        "Memphis Grizzlies": "Memphis",
+        "Miami Heat": "Miami",
+        "Milwaukee Bucks": "Milwaukee",
+        "Minnesota Timberwolves": "Minneapolis",
+        "New Orleans Pelicans": "New Orleans",
+        "New York Knicks": "New York",
+        "Oklahoma City Thunder": "Oklahoma City",
+        "Orlando Magic": "Orlando",
+        "Philadelphia 76ers": "Philadelphia",
+        "Phoenix Suns": "Phoenix",
+        "Portland Trail Blazers": "Portland",
+        "Sacramento Kings": "Sacramento",
+        "San Antonio Spurs": "San Antonio",
+        "Toronto Raptors": "Toronto",
+        "Utah Jazz": "Salt Lake City",
+        "Washington Wizards": "Washington",
+    }
+
+    return CITY_MAP[team_name]
+
+
+# --------------------------------------------------
 # Load team-level game facts
 # --------------------------------------------------
 
 def load_team_games(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
-
     df["game_date"] = pd.to_datetime(
-        df["game_date"],
-        utc=True,
-        errors="coerce",
-        format="mixed"
+        df["game_date"], utc=True, errors="coerce", format="mixed"
     ).dt.date
-
     return df
 
 
 # --------------------------------------------------
-# Core builder (BASE DATASET ONLY)
+# Core builder (FIXED)
 # --------------------------------------------------
 
 def build_team_game_metrics(
@@ -45,6 +79,10 @@ def build_team_game_metrics(
 
     rows = []
     current = start_date
+
+    # ✅ Per-team rolling state
+    last_city_by_team = {}
+    last_game_date_by_team = {}
 
     while current <= end_date:
         games_today = games[games["game_date"] == current]
@@ -78,28 +116,22 @@ def build_team_game_metrics(
             games_last_14 = (recent_14["team_id"] == team_id).sum()
 
             # -----------------------------
-            # Previous game (for travel)
+            # Days since last game
             # -----------------------------
-            last_game = games[
-                (games["team_id"] == team_id)
-                & (games["game_date"] < current)
-            ].sort_values("game_date", ascending=False).head(1)
-
-            if not last_game.empty:
-                prev = last_game.iloc[0]
-                days_since_last_game = (current - prev["game_date"]).days
-                previous_city = prev.get("current_city")
+            if team_id in last_game_date_by_team:
+                days_since_last_game = (current - last_game_date_by_team[team_id]).days
             else:
-                days_since_last_game = 5
-                previous_city = None
+                days_since_last_game = 5  # season opener fallback
 
             # -----------------------------
-            # Current city heuristic
+            # City continuity (FIX)
             # -----------------------------
+            previous_city = last_city_by_team.get(team_id)
+
             if g["home_away"] == "H":
-                current_city = team_name.split()[-1]
+                current_city = extract_city(team_name)
             else:
-                current_city = opp_name.split()[-1]
+                current_city = extract_city(opp_name)
 
             travel = (
                 travel_miles(previous_city, current_city)
@@ -127,6 +159,10 @@ def build_team_game_metrics(
                 "previous_city": previous_city,
                 **fatigue,
             })
+
+            # ✅ update rolling state
+            last_city_by_team[team_id] = current_city
+            last_game_date_by_team[team_id] = current
 
         current += timedelta(days=1)
 

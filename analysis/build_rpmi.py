@@ -6,8 +6,8 @@ import os
 # Configuration
 # --------------------------------------------------
 
-SHORT_WINDOW = 3   # best correlation, detects hot streaks
-LONG_WINDOW = 7    # smoother, represents overall form
+SHORT_WINDOW = 3   # short-term momentum (hot streaks)
+LONG_WINDOW = 7    # longer-term form
 
 INPUT_CSV = "data/derived/team_game_metrics_with_pve.csv"
 OUTPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
@@ -17,30 +17,57 @@ OUTPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
 # Core helpers
 # --------------------------------------------------
 
-def weighted_pve(values: np.ndarray) -> float:
-    """Weighted mean of PvE using linear ramp weights (1..N)."""
+def momentum_contribution(actual_margin: float, pve: float) -> float:
+    """
+    Convert a single game into a momentum contribution.
+
+    Rules:
+    - Wins matter more than losses (psychological effect)
+    - PvE modifies magnitude, not direction
+    - Loss + positive PvE is heavily compressed
+    - Blowout wins vs weak teams already limited via PvE
+    """
+
+    # Exclude draws entirely (should already be filtered, but safe)
+    if actual_margin == 0 or pd.isna(actual_margin) or pd.isna(pve):
+        return np.nan
+
+    win = actual_margin > 0
+
+    if win:
+        # Wins always positive
+        # PvE amplifies, but softly
+        return 1.0 + np.tanh(pve / 10.0)
+
+    else:
+        # Losses always negative
+        if pve > 0:
+            # "Good loss" → very small credit, close to zero
+            return -0.3 + np.tanh(pve / 20.0)
+        else:
+            # Bad loss → full penalty
+            return -1.0 + np.tanh(pve / 10.0)
+
+
+def weighted_mean(values: np.ndarray) -> float:
+    """Recency-weighted mean (linear ramp)."""
     n = len(values)
     weights = np.arange(1, n + 1)
-    return np.dot(values, weights) / weights.sum()
-
-
-def consistency_factor(values: np.ndarray) -> float:
-    """Penalize volatility — higher std → smaller multiplier."""
-    std = np.std(values, ddof=0)
-    return 1 / (1 + std / 10)
+    return float(np.dot(values, weights) / weights.sum())
 
 
 def compute_window_rpmi(g: pd.DataFrame, window: int) -> pd.Series:
-    """Compute RPMI for a given rolling window."""
-    rpmi_vals = [np.nan] * len(g)
+    """Compute RPMI over a rolling window."""
+    out = [np.nan] * len(g)
+
     for i in range(window - 1, len(g)):
-        window_vals = g.loc[i - window + 1 : i, "pve"].dropna().values
+        window_vals = g.loc[i - window + 1 : i, "momentum_unit"].dropna().values
         if len(window_vals) < window:
             continue
-        w_pve = weighted_pve(window_vals)
-        cons = consistency_factor(window_vals)
-        rpmi_vals[i] = round(w_pve * cons, 2)
-    return pd.Series(rpmi_vals, index=g.index)
+
+        out[i] = round(weighted_mean(window_vals), 2)
+
+    return pd.Series(out, index=g.index)
 
 
 # --------------------------------------------------
@@ -48,16 +75,31 @@ def compute_window_rpmi(g: pd.DataFrame, window: int) -> pd.Series:
 # --------------------------------------------------
 
 def compute_rpmi(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute short- and long-term RPMI with acceleration delta."""
     df = df.copy()
     df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
     df = df.sort_values(["team_id", "game_date"])
+
+    # --------------------------------------------------
+    # Exclusions
+    # --------------------------------------------------
+    df = df[df["actual_margin"] != 0]
+
+    # --------------------------------------------------
+    # Per-game momentum unit
+    # --------------------------------------------------
+    df["momentum_unit"] = df.apply(
+        lambda r: momentum_contribution(r["actual_margin"], r["pve"]),
+        axis=1,
+    )
 
     df["rpmi_short"] = np.nan
     df["rpmi_long"] = np.nan
     df["rpmi_accel"] = np.nan
     df["rpmi_delta"] = np.nan
 
+    # --------------------------------------------------
+    # Rolling windows per team
+    # --------------------------------------------------
     for team_id, g in df.groupby("team_id"):
         g = g.reset_index()
 
@@ -68,6 +110,7 @@ def compute_rpmi(df: pd.DataFrame) -> pd.DataFrame:
         df.loc[g["index"], "rpmi_long"] = rpmi_l
         df.loc[g["index"], "rpmi_accel"] = rpmi_s - rpmi_l
 
+        # Game-to-game momentum change (short window)
         for i in range(1, len(g)):
             prev = rpmi_s.iloc[i - 1]
             curr = rpmi_s.iloc[i]
@@ -89,14 +132,15 @@ def main():
     if df.empty:
         raise RuntimeError("RPMI input is empty — PvE must run successfully first.")
 
-    df = compute_rpmi(df)
-    df.to_csv(OUTPUT_CSV, index=False)
+    out = compute_rpmi(df)
+    out.to_csv(OUTPUT_CSV, index=False)
 
     print(
         f"✅ Built dual-window RPMI → {OUTPUT_CSV}\n"
         f"   rpmi_short = {SHORT_WINDOW}-game window\n"
         f"   rpmi_long  = {LONG_WINDOW}-game window\n"
-        f"   rpmi_accel = rpmi_short - rpmi_long"
+        f"   rpmi_accel = rpmi_short - rpmi_long\n"
+        f"   logic: win-first, PvE-modulated, no volatility penalty"
     )
 
 

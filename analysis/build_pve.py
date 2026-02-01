@@ -19,6 +19,14 @@ def build_pve(df: pd.DataFrame) -> pd.DataFrame:
             continue  # skip broken games
 
         for _, row in g.iterrows():
+            actual = row["actual_margin"]
+
+            # --------------------------------------------------
+            # ❌ EXCLUDE DRAWS (no signal)
+            # --------------------------------------------------
+            if actual == 0:
+                continue
+
             breakdown = expected_margin_breakdown_from_rows(
                 team_id=row["team_id"],
                 opponent_id=row["opponent_id"],
@@ -31,12 +39,36 @@ def build_pve(df: pd.DataFrame) -> pd.DataFrame:
             )
 
             expected = breakdown["expected_total"]
-            actual = row["actual_margin"]
+            raw_pve = actual - expected
+
+            # --------------------------------------------------
+            # PvE CORRECTIONS (loss-aware)
+            # --------------------------------------------------
+            pve = raw_pve
+
+            if actual < 0:
+                # Cap positive surprise from losses
+                pve = min(pve, 5.0)
+
+                # Blowout loss damping
+                if actual <= -15:
+                    pve *= 0.25
+
+                # Bad-team surprise suppression
+                team_rows = df[
+                    (df["team_id"] == row["team_id"])
+                    & (df["game_date"] < row["game_date"])
+                ].tail(30)
+
+                if not team_rows.empty:
+                    win_rate = (team_rows["actual_margin"] > 0).mean()
+                    if win_rate < 0.40:
+                        pve *= 0.30
 
             pve_rows.append({
                 **row.to_dict(),
                 "expected_margin": round(expected, 2),
-                "pve": round(actual - expected, 2),
+                "pve": round(pve, 2),
                 **breakdown,
             })
 

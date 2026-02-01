@@ -1,26 +1,38 @@
 # scripts/print_momentum_board.py
 
+from datetime import timedelta
 import pandas as pd
-from analysis.compose_tweet import compose_tweet
+import numpy as np
 
-
-INPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
+INPUT_CSV = "data/derived/team_game_metrics_with_pve.csv"
+WINDOW_DAYS = 7  # calendar-day window
 
 
 # --------------------------------------------------
-# Label helpers (aligned with rpmi_delta scale)
+# Helpers
 # --------------------------------------------------
 
-def momentum_label(delta: float):
-    if pd.isna(delta):
-        return None, None
-    if delta >= 0.75:
+def weighted_pve(values: np.ndarray) -> float:
+    """
+    Linearly weighted PvE (recent games matter more).
+    """
+    n = len(values)
+    if n == 0:
+        return np.nan
+    weights = np.arange(1, n + 1)
+    return float(np.dot(values, weights) / weights.sum())
+
+
+def momentum_label(score: float):
+    if pd.isna(score):
+        return "⚪", "No games"
+    if score >= 2.0:
         return "🟢", "Strong"
-    if delta >= 0.25:
+    if score >= 0.5:
         return "🟢", "Positive"
-    if delta > -0.25:
+    if score > -0.5:
         return "🟠", "Flat"
-    if delta > -0.75:
+    if score > -2.0:
         return "🔴", "Fading"
     return "🔴", "Falling"
 
@@ -31,53 +43,71 @@ def momentum_label(delta: float):
 
 def main():
     df = pd.read_csv(INPUT_CSV)
+
+    # Required columns
+    required = {"team_name", "game_date", "pve", "actual_margin", "game_id"}
+    if not required.issubset(df.columns):
+        raise RuntimeError("Missing required columns. Rebuild PvE first.")
+
     df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
 
-    # Keep only valid momentum entries
-    df = df[df["rpmi_delta"].notna()]
+    # Exclude invalid games
+    df = df[
+        df["pve"].notna()
+        & df["actual_margin"].notna()
+        & (df["actual_margin"] != 0)
+    ].copy()
 
     if df.empty:
-        print("⚠️ No valid momentum data found.")
-        return
+        raise RuntimeError("No valid PvE rows available after filtering.")
 
-    # Latest momentum snapshot per team
-    latest = (
-        df.sort_values("game_date", ascending=False)
-        .drop_duplicates(subset=["team_name"])
-        .sort_values("rpmi_delta", ascending=False)
-    )
+    latest_date = df["game_date"].max()
+    start_date = latest_date - timedelta(days=WINDOW_DAYS - 1)
 
-    latest_date = latest["game_date"].max()
-    print(f"🔄 Momentum Board ({latest_date})\n")
+    window_df = df[
+        (df["game_date"] >= start_date)
+        & (df["game_date"] <= latest_date)
+    ]
 
-    for _, row in latest.iterrows():
-        emoji, label = momentum_label(row["rpmi_delta"])
-        if emoji:
-            print(f"{emoji} {row['team_name']:<25} — {label}")
+    all_teams = sorted(df["team_name"].unique())
+
+    rows = []
+
+    for team in all_teams:
+        t = window_df[window_df["team_name"] == team].sort_values("game_date")
+
+        pve_vals = t["pve"].to_numpy()
+        score = weighted_pve(pve_vals)
+        games = int(t["game_id"].nunique())
+        emoji, label = momentum_label(score)
+
+        rows.append({
+            "team_name": team,
+            "score": score,
+            "games": games,
+            "emoji": emoji,
+            "label": label,
+        })
+
+    out = pd.DataFrame(rows)
+    out["_sort"] = out["score"].fillna(-9999)
+    out = out.sort_values(["_sort", "games"], ascending=[False, False]).drop(columns="_sort")
 
     # --------------------------------------------------
-    # AI commentary
+    # Output
     # --------------------------------------------------
 
-    print("\n" + "=" * 45 + "\n")
-
-    header = f"🔄 Momentum Board ({latest_date})"
-    body_text = (
-        "This board reflects the latest momentum shifts based on recent game-to-game "
-        "performance changes. Strong indicates accelerating form, while Falling "
-        "signals a sustained slowdown."
+    print(
+        f"🔄 Momentum Board ({start_date} → {latest_date}) — last {WINDOW_DAYS} calendar days"
     )
+    print("Score: weighted PvE vs expectation (wins matter, blowouts vs weak teams muted).\n")
 
-    tweet_main, tweet_ai = compose_tweet(
-        board_name="Momentum Board",
-        data=latest,
-        header=header,
-        body_text=body_text,
-        mode="board",
-    )
-
-    print(tweet_main)
-    print(f"\n↳ {tweet_ai}\n")
+    for _, r in out.iterrows():
+        score_txt = f"{r['score']:+.2f}" if pd.notna(r["score"]) else "—"
+        print(
+            f"{r['emoji']} {r['team_name']:<25} — {r['label']:<8} "
+            f"| score: {score_txt:>6} | games: {r['games']}"
+        )
 
 
 if __name__ == "__main__":
