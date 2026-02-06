@@ -40,7 +40,8 @@ jobs:
         env:
           BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
         run: |
-          python -m scripts.fetch_today_games
+          python -m analysis.build_today_schedule
+
 
       # -----------------------------
       # 3️⃣ (Optional, later) Auto-boards
