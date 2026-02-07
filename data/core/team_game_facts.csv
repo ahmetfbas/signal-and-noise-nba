@@ -1543,15 +1543,35 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,team_poi
 18447557,2026-02-05,10,Golden State Warriors,24,Phoenix Suns,A,101,97
 18447558,2026-02-05,14,Los Angeles Lakers,23,Philadelphia 76ers,H,119,115
 18447558,2026-02-05,23,Philadelphia 76ers,14,Los Angeles Lakers,A,115,119
-18447559,2026-02-06,2,Boston Celtics,16,Miami Heat,H,0,0
-18447559,2026-02-06,16,Miami Heat,2,Boston Celtics,A,0,0
-18447560,2026-02-06,9,Detroit Pistons,20,New York Knicks,H,0,0
-18447560,2026-02-06,20,New York Knicks,9,Detroit Pistons,A,0,0
-18447561,2026-02-06,17,Milwaukee Bucks,12,Indiana Pacers,H,0,0
-18447561,2026-02-06,12,Indiana Pacers,17,Milwaukee Bucks,A,0,0
-18447562,2026-02-06,18,Minnesota Timberwolves,19,New Orleans Pelicans,H,0,0
-18447562,2026-02-06,19,New Orleans Pelicans,18,Minnesota Timberwolves,A,0,0
-18447563,2026-02-06,25,Portland Trail Blazers,15,Memphis Grizzlies,H,0,0
-18447563,2026-02-06,15,Memphis Grizzlies,25,Portland Trail Blazers,A,0,0
-18447564,2026-02-06,26,Sacramento Kings,13,LA Clippers,H,0,0
-18447564,2026-02-06,13,LA Clippers,26,Sacramento Kings,A,0,0
+18447559,2026-02-06,2,Boston Celtics,16,Miami Heat,H,98,96
+18447559,2026-02-06,16,Miami Heat,2,Boston Celtics,A,96,98
+18447560,2026-02-06,9,Detroit Pistons,20,New York Knicks,H,118,80
+18447560,2026-02-06,20,New York Knicks,9,Detroit Pistons,A,80,118
+18447561,2026-02-06,17,Milwaukee Bucks,12,Indiana Pacers,H,105,99
+18447561,2026-02-06,12,Indiana Pacers,17,Milwaukee Bucks,A,99,105
+18447562,2026-02-06,18,Minnesota Timberwolves,19,New Orleans Pelicans,H,115,119
+18447562,2026-02-06,19,New Orleans Pelicans,18,Minnesota Timberwolves,A,119,115
+18447563,2026-02-06,25,Portland Trail Blazers,15,Memphis Grizzlies,H,135,115
+18447563,2026-02-06,15,Memphis Grizzlies,25,Portland Trail Blazers,A,115,135
+18447564,2026-02-06,26,Sacramento Kings,13,LA Clippers,H,111,114
+18447564,2026-02-06,13,LA Clippers,26,Sacramento Kings,A,114,111
+18447565,2026-02-07,3,Brooklyn Nets,30,Washington Wizards,H,0,0
+18447565,2026-02-07,30,Washington Wizards,3,Brooklyn Nets,A,0,0
+18447566,2026-02-07,21,Oklahoma City Thunder,11,Houston Rockets,H,0,0
+18447566,2026-02-07,11,Houston Rockets,21,Oklahoma City Thunder,A,0,0
+18447567,2026-02-07,27,San Antonio Spurs,7,Dallas Mavericks,H,0,0
+18447567,2026-02-07,7,Dallas Mavericks,27,San Antonio Spurs,A,0,0
+18447568,2026-02-07,22,Orlando Magic,29,Utah Jazz,H,0,0
+18447568,2026-02-07,29,Utah Jazz,22,Orlando Magic,A,0,0
+18447569,2026-02-07,1,Atlanta Hawks,4,Charlotte Hornets,H,0,0
+18447569,2026-02-07,4,Charlotte Hornets,1,Atlanta Hawks,A,0,0
+18447570,2026-02-07,5,Chicago Bulls,8,Denver Nuggets,H,0,0
+18447570,2026-02-07,8,Denver Nuggets,5,Chicago Bulls,A,0,0
+18447571,2026-02-07,14,Los Angeles Lakers,10,Golden State Warriors,H,0,0
+18447571,2026-02-07,10,Golden State Warriors,14,Los Angeles Lakers,A,0,0
+18447572,2026-02-07,24,Phoenix Suns,23,Philadelphia 76ers,H,0,0
+18447572,2026-02-07,23,Philadelphia 76ers,24,Phoenix Suns,A,0,0
+18447573,2026-02-07,25,Portland Trail Blazers,15,Memphis Grizzlies,H,0,0
+18447573,2026-02-07,15,Memphis Grizzlies,25,Portland Trail Blazers,A,0,0
+18447574,2026-02-07,26,Sacramento Kings,6,Cleveland Cavaliers,H,0,0
+18447574,2026-02-07,6,Cleveland Cavaliers,26,Sacramento Kings,A,0,0
