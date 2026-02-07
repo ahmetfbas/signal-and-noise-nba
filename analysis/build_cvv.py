@@ -1,4 +1,3 @@
-# analysis/build_cvv.py
 import pandas as pd
 import numpy as np
 import os
@@ -44,8 +43,8 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
                 continue
 
             window = g.loc[i - WINDOW + 1 : i]
+            window = window[window["actual_margin"] != 0]
 
-            # --- OUTCOME (always) ---
             wins = (window["actual_margin"] > 0).sum()
             losses = (window["actual_margin"] < 0).sum()
             total = wins + losses
@@ -54,7 +53,6 @@ def compute_cvv(df: pd.DataFrame) -> pd.DataFrame:
             df.loc[idx, "losses_window"] = losses
             df.loc[idx, "win_rate_window"] = round(wins / total, 3) if total else np.nan
 
-            # --- STYLE (PvE-based, optional) ---
             pve_vals = window["pve"].dropna().values
             df.loc[idx, "games_in_window"] = len(pve_vals)
 
@@ -86,12 +84,12 @@ def main():
     if df.empty:
         raise RuntimeError("CVV input is empty.")
 
-    df = compute_cvv(df)
-    df.to_csv(output_csv, index=False)
+    out = compute_cvv(df)
+    out.to_csv(output_csv, index=False)
 
-    print(f"✅ Wrote {len(df)} rows → {output_csv}")
+    print(f"✅ Wrote {len(out)} rows → {output_csv}")
     print(f"Window size: {WINDOW}")
-    print(f"Avg win-rate (window): {df['win_rate_window'].mean():.3f}")
+    print(f"Avg win-rate (window): {out['win_rate_window'].mean():.3f}")
 
 
 if __name__ == "__main__":

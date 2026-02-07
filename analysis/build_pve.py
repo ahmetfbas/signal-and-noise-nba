@@ -2,68 +2,57 @@ import pandas as pd
 
 from analysis.pve import expected_margin_breakdown_from_rows
 
-
 INPUT_CSV = "data/derived/team_game_metrics.csv"
 OUTPUT_CSV = "data/derived/team_game_metrics_with_pve.csv"
 
 
 def build_pve(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
+
+    # ------------------------------------------------------------------
+    # Date handling (timezone-safe)
+    # ------------------------------------------------------------------
+    df["game_date"] = pd.to_datetime(df["game_date"], utc=True, errors="coerce")
+    today = pd.Timestamp.utcnow().normalize()
+
+    # Exclude games today or in the future (not played yet)
+    df = df[df["game_date"] < today]
+
     df = df.sort_values(["team_id", "game_date"])
 
     pve_rows = []
 
+    # ------------------------------------------------------------------
+    # Process game-by-game (pairwise)
+    # ------------------------------------------------------------------
     for game_id, g in df.groupby("game_id"):
         if len(g) != 2:
-            continue  # skip broken games
+            continue  # broken game
 
         for _, row in g.iterrows():
             actual = row["actual_margin"]
 
             # --------------------------------------------------
-            # ❌ EXCLUDE DRAWS (no signal)
+            # Ignore zero-margin rows (API artifacts)
             # --------------------------------------------------
-            if actual == 0:
+            if pd.isna(actual) or actual == 0:
                 continue
+
+            recent_games = df[
+                (df["team_id"].isin([row["team_id"], row["opponent_id"]]))
+                & (df["game_date"] < row["game_date"])
+            ].tail(30)
 
             breakdown = expected_margin_breakdown_from_rows(
                 team_id=row["team_id"],
                 opponent_id=row["opponent_id"],
                 is_home=row["home_away"] == "H",
-                recent_games=df[
-                    (df["team_id"].isin([row["team_id"], row["opponent_id"]]))
-                    & (df["game_date"] < row["game_date"])
-                ].tail(30),
+                recent_games=recent_games,
                 fatigue_index=row["fatigue_index"],
             )
 
             expected = breakdown["expected_total"]
-            raw_pve = actual - expected
-
-            # --------------------------------------------------
-            # PvE CORRECTIONS (loss-aware)
-            # --------------------------------------------------
-            pve = raw_pve
-
-            if actual < 0:
-                # Cap positive surprise from losses
-                pve = min(pve, 5.0)
-
-                # Blowout loss damping
-                if actual <= -15:
-                    pve *= 0.25
-
-                # Bad-team surprise suppression
-                team_rows = df[
-                    (df["team_id"] == row["team_id"])
-                    & (df["game_date"] < row["game_date"])
-                ].tail(30)
-
-                if not team_rows.empty:
-                    win_rate = (team_rows["actual_margin"] > 0).mean()
-                    if win_rate < 0.40:
-                        pve *= 0.30
+            pve = actual - expected
 
             pve_rows.append({
                 **row.to_dict(),
@@ -77,10 +66,11 @@ def build_pve(df: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     df = pd.read_csv(INPUT_CSV)
+
     out = build_pve(df)
 
     if out.empty:
-        raise RuntimeError("PvE produced no rows — this is a pipeline error.")
+        raise RuntimeError("PvE produced no rows — pipeline error")
 
     out.to_csv(OUTPUT_CSV, index=False)
     print(f"✅ PvE written: {len(out)} rows")
