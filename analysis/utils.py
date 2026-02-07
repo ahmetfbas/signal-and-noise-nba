@@ -1,19 +1,21 @@
 import math
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional, Tuple
+
 import pandas as pd
 
+
 # --------------------------------------------------
-# Game helpers (pure logic, no I/O)
+# Game helpers (pure parsing / logic)
 # --------------------------------------------------
 
 def game_datetime(g: Dict) -> datetime:
-    # Trust API UTC timestamp
+    """Parse API UTC datetime safely."""
     return datetime.fromisoformat(g["date"].replace("Z", "+00:00"))
 
 
 def game_date(g: Dict):
-    # Canonical game date = UTC calendar date from API
+    """Canonical game date = UTC calendar date."""
     return game_datetime(g).date()
 
 
@@ -31,11 +33,16 @@ def team_in_game(g: Dict, team_id: int) -> bool:
     )
 
 
-def margin_for_team(g: Dict, team_id: int) -> float:
+def margin_for_team(g: Dict, team_id: int) -> Optional[float]:
+    """Return margin for team; None if game incomplete."""
+    if not is_completed(g):
+        return None
+
     is_home = g["home_team"]["id"] == team_id
     team_score = g["home_team_score"] if is_home else g["visitor_team_score"]
     opp_score = g["visitor_team_score"] if is_home else g["home_team_score"]
-    return team_score - opp_score
+
+    return float(team_score - opp_score)
 
 
 # --------------------------------------------------
@@ -47,186 +54,54 @@ def clamp(x: float, lo: float, hi: float) -> float:
 
 
 # --------------------------------------------------
-# Form & opponent adjustment
+# Debug helpers (NO alternative logic)
 # --------------------------------------------------
 
-def build_team_forms(games: List[Dict]) -> Dict[int, float]:
-    forms: Dict[int, float] = {}
-
-    teams = {
-        g["home_team"]["id"]
-        for g in games
-        if is_completed(g)
-    } | {
-        g["visitor_team"]["id"]
-        for g in games
-        if is_completed(g)
-    }
-
-    for team_id in teams:
-        margins = [
-            margin_for_team(g, team_id)
-            for g in games
-            if is_completed(g) and team_in_game(g, team_id)
-        ]
-        forms[team_id] = (
-            sum(margins) / len(margins)
-            if margins else 0.0
-        )
-
-    return forms
-
-
-def recent_adjusted_margin_from_games(
+def recent_team_margins(
     team_id: int,
     games: List[Dict],
-    opponent_forms: Dict[int, float]
-) -> float:
-    adjusted = []
+    limit: int = 10,
+) -> List[Tuple[datetime.date, float]]:
+    """
+    Return recent (date, margin) pairs for inspection.
+    No adjustment, no weighting.
+    """
+    rows = []
 
     for g in games:
         if not is_completed(g) or not team_in_game(g, team_id):
             continue
 
-        raw_margin = margin_for_team(g, team_id)
+        m = margin_for_team(g, team_id)
+        if m is not None:
+            rows.append((game_date(g), m))
 
-        opponent_id = (
-            g["visitor_team"]["id"]
-            if g["home_team"]["id"] == team_id
-            else g["home_team"]["id"]
-        )
-
-        opp_form = opponent_forms.get(opponent_id, 0.0)
-
-        K = 10.0
-        factor = clamp((opp_form + K) / K, 0.5, 1.5)
-
-        adjusted.append(raw_margin * factor)
-
-    return sum(adjusted) / len(adjusted) if adjusted else 0.0
+    rows.sort(key=lambda x: x[0])
+    return rows[-limit:]
 
 
-def expected_margin_base(
-    game: Dict,
-    team_id: int,
-    games: List[Dict]
-) -> float:
-    opponent_id = (
-        game["visitor_team"]["id"]
-        if game["home_team"]["id"] == team_id
-        else game["home_team"]["id"]
-    )
-
-    opponent_forms = build_team_forms(games)
-
-    team_form = recent_adjusted_margin_from_games(
-        team_id, games, opponent_forms
-    )
-    opp_form = recent_adjusted_margin_from_games(
-        opponent_id, games, opponent_forms
-    )
-
-    return team_form - opp_form
-
-
-# --------------------------------------------------
-# Context adjustments
-# --------------------------------------------------
-
-def home_away_adjustment(game: Dict, team_id: int) -> float:
-    HOME_ADVANTAGE = 2.0
-    return HOME_ADVANTAGE if game["home_team"]["id"] == team_id else -HOME_ADVANTAGE
-
-
-def fatigue_adjustment(fatigue_index: float) -> float:
-    normalized = min(fatigue_index / 100.0, 1.0)
-    FATIGUE_WEIGHT = 6.0
-    return -normalized * FATIGUE_WEIGHT
-
-
-# --------------------------------------------------
-# Final expectation
-# --------------------------------------------------
-
-def expected_margin_for_team(
-    game: Dict,
-    team_id: int,
-    games: List[Dict],
-    fatigue_index: float = 0.0
-) -> float:
-    base = expected_margin_base(game, team_id, games)
-    ha = home_away_adjustment(game, team_id)
-    fatigue = fatigue_adjustment(fatigue_index)
-    return base + ha + fatigue
-
-
-def expected_margin_breakdown(
-    game: Dict,
-    team_id: int,
-    games: List[Dict],
-    fatigue_index: float = 0.0
-) -> Dict[str, float]:
-    base = expected_margin_base(game, team_id, games)
-    ha = home_away_adjustment(game, team_id)
-    fatigue = fatigue_adjustment(fatigue_index)
-
-    return {
-        "base_form_diff": round(base, 2),
-        "home_away": round(ha, 2),
-        "fatigue_adj": round(fatigue, 2),
-        "expected_total": round(base + ha + fatigue, 2),
-    }
-
-
-# --------------------------------------------------
-# Debug helpers
-# --------------------------------------------------
-
-def print_team_past_games_debug(
+def print_recent_games_debug(
     team_id: int,
     team_name: str,
     games: List[Dict],
-    opponent_forms: Dict[int, float],
-    limit: int = 5
+    limit: int = 5,
 ) -> None:
-    print(f"\nPast games debug — {team_name}")
-    print("-" * 70)
+    """Pure debug print. No modeling."""
+    rows = recent_team_margins(team_id, games, limit)
 
-    team_games = [
-        g for g in games
-        if is_completed(g) and team_in_game(g, team_id)
-    ]
+    print(f"\nRecent games — {team_name}")
+    print("-" * 60)
 
-    team_games = sorted(team_games, key=game_date)
-
-    if not team_games:
-        print("No past games found.")
+    if not rows:
+        print("No completed games.")
         return
 
-    for g in team_games[-limit:]:
-        is_home = g["home_team"]["id"] == team_id
-        opponent = g["visitor_team"] if is_home else g["home_team"]
-
-        raw = margin_for_team(g, team_id)
-        opp_form = opponent_forms.get(opponent["id"], 0.0)
-
-        K = 10.0
-        factor = clamp((opp_form + K) / K, 0.5, 1.5)
-        adj = raw * factor
-
-        location = "H" if is_home else "A"
-
-        print(
-            f"{game_date(g)} {location} vs {opponent['abbreviation']:3s} | "
-            f"raw: {raw:>6.1f} | "
-            f"opp_form: {opp_form:>6.1f} | "
-            f"factor: {factor:>4.2f} | "
-            f"adj: {adj:>6.1f}"
-        )
+    for d, m in rows:
+        print(f"{d} | margin: {m:>6.1f}")
 
 
 # --------------------------------------------------
-# Travel helpers
+# Travel helpers (used by FLI)
 # --------------------------------------------------
 
 CITY_COORDS = {
@@ -263,6 +138,7 @@ CITY_COORDS = {
 
 
 def haversine_miles(lat1, lon1, lat2, lon2) -> float:
+    """Great-circle distance in miles."""
     R = 3958.8
     p1, p2 = math.radians(lat1), math.radians(lat2)
     dp = math.radians(lat2 - lat1)
@@ -276,23 +152,30 @@ def haversine_miles(lat1, lon1, lat2, lon2) -> float:
     return round(2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a)), 1)
 
 
-def travel_miles(city_a: str, city_b: str):
+def travel_miles(city_a: Optional[str], city_b: Optional[str]) -> Optional[float]:
+    if not city_a or not city_b:
+        return None
     if city_a not in CITY_COORDS or city_b not in CITY_COORDS:
         return None
+
     return haversine_miles(*CITY_COORDS[city_a], *CITY_COORDS[city_b])
 
 
 # --------------------------------------------------
-# Season record helper
+# Season record helper (safe, aligned)
 # --------------------------------------------------
 
-def season_record(df, team_name, cutoff_date):
+def season_record(
+    df: pd.DataFrame,
+    team_name: str,
+    cutoff_date,
+) -> Tuple[int, int]:
     """
-    Calculate current-season W-L record for a team up to cutoff_date.
-    Season assumed to start on October 1 of the same season year.
+    Season W–L record up to cutoff_date.
+    Uses actual_margin from pipeline.
     """
     cutoff = pd.to_datetime(cutoff_date)
-    # NBA season usually starts around October; handle year wrap (e.g., Jan–Jun)
+
     if cutoff.month < 7:
         season_start_year = cutoff.year - 1
     else:
@@ -304,10 +187,9 @@ def season_record(df, team_name, cutoff_date):
         (df["team_name"] == team_name)
         & (pd.to_datetime(df["game_date"]) >= season_start)
         & (pd.to_datetime(df["game_date"]) <= cutoff)
-    ].copy()
+    ]
 
-    wins = (team_games["actual_margin"] > 0).sum()
-    losses = (team_games["actual_margin"] < 0).sum()
+    wins = int((team_games["actual_margin"] > 0).sum())
+    losses = int((team_games["actual_margin"] < 0).sum())
 
     return wins, losses
-

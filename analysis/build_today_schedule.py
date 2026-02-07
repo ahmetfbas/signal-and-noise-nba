@@ -4,12 +4,13 @@ import pandas as pd
 from datetime import datetime, date
 
 API_URL = "https://api.balldontlie.io/v1/games"
-API_KEY = os.getenv("BALLDONTLIE_API_KEY")
 
 
 def fetch_today_games(run_date: date) -> pd.DataFrame:
-    if not API_KEY:
-        raise RuntimeError("BALLDONTLIE_API_KEY is not set")
+    api_key = os.getenv("BALLDONTLIE_API_KEY")
+    if not api_key:
+        # Fail soft: no schedule is better than crashing pipeline
+        return pd.DataFrame()
 
     params = {
         "dates[]": run_date.isoformat(),
@@ -18,13 +19,15 @@ def fetch_today_games(run_date: date) -> pd.DataFrame:
 
     # BallDontLie v1 auth (NO Bearer)
     headers = {
-        "Authorization": API_KEY
+        "Authorization": api_key
     }
 
-    r = requests.get(API_URL, params=params, headers=headers, timeout=30)
-    r.raise_for_status()
-
-    games = r.json().get("data", [])
+    try:
+        r = requests.get(API_URL, params=params, headers=headers, timeout=30)
+        r.raise_for_status()
+        games = r.json().get("data", [])
+    except Exception:
+        return pd.DataFrame()
 
     rows = []
     for g in games:

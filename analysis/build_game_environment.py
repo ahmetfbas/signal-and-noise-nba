@@ -7,12 +7,17 @@ FACTS_CSV = "data/core/team_game_facts.csv"
 OUTPUT_CSV = "data/derived/game_environment.csv"
 
 # --------------------------------------------------
-# Configuration
+# Configuration (aligned with CVV / FLI)
 # --------------------------------------------------
 
-CLEAN_THR = 0.33
-NOISY_THR = 0.67
+CLEAN_THR = 0.35
+NOISY_THR = 0.65
 MIN_GAMES_FOR_MATURE = 10
+
+VOL_SCALE = 15.0      # aligned with CVV
+FATIGUE_LOW = 30.0
+FATIGUE_HIGH = 80.0
+
 
 # --------------------------------------------------
 # Normalization helpers
@@ -25,64 +30,51 @@ def clip01(x):
 def norm_fatigue(f):
     if pd.isna(f):
         return np.nan
-    return clip01((float(f) - 30.0) / 50.0)
+    return clip01((float(f) - FATIGUE_LOW) / (FATIGUE_HIGH - FATIGUE_LOW))
 
 
 def norm_volatility(vol):
     if pd.isna(vol):
         return np.nan
-    return clip01(float(vol) / 10.0)
+    return clip01(float(vol) / VOL_SCALE)
 
 
-def norm_asym_fatigue(f_home, f_away):
-    if pd.isna(f_home) or pd.isna(f_away):
+def norm_asym(x, scale):
+    if pd.isna(x):
         return np.nan
-    return clip01(abs(float(f_home) - float(f_away)) / 40.0)
+    return clip01(abs(float(x)) / scale)
 
 
-def norm_asym_consistency(c_home, c_away):
-    if pd.isna(c_home) or pd.isna(c_away):
-        return np.nan
-    return clip01(abs(float(c_home) - float(c_away)) / 0.30)
-
-
-def safe_weighted_avg(pairs):
-    vals, wts = [], []
-    for v, w in pairs:
-        if pd.isna(v):
-            continue
-        vals.append(float(v))
-        wts.append(float(w))
-    if not wts:
-        return np.nan, 0.0
-    return float(np.average(vals, weights=wts)), float(sum(wts))
+def safe_avg(values):
+    vals = [v for v in values if not pd.isna(v)]
+    return np.nan if not vals else float(np.mean(vals))
 
 
 # --------------------------------------------------
 # Classification logic
 # --------------------------------------------------
 
-def classify_environment(noise_score, maturity_ok):
-    if not maturity_ok or pd.isna(noise_score):
+def classify_environment(risk_score, maturity_ok):
+    if not maturity_ok or pd.isna(risk_score):
         return "Forming"
-    if noise_score <= CLEAN_THR:
+    if risk_score <= CLEAN_THR:
         return "Clean"
-    if noise_score >= NOISY_THR:
+    if risk_score >= NOISY_THR:
         return "Noisy"
     return "Mixed"
 
 
-def build_drivers(fatigue_avg, vol_avg, asymmetry_score, maturity_ok):
+def build_drivers(load_risk, behavior_risk, matchup_risk, maturity_ok):
     if not maturity_ok:
         return "early-season/low-history"
 
     drivers = []
-    if not pd.isna(fatigue_avg) and fatigue_avg >= 0.60:
-        drivers.append("high fatigue load")
-    if not pd.isna(vol_avg) and vol_avg >= 0.60:
-        drivers.append("high volatility")
-    if not pd.isna(asymmetry_score) and asymmetry_score >= 0.60:
-        drivers.append("asymmetry mismatch")
+    if load_risk >= 0.60:
+        drivers.append("fatigue load")
+    if behavior_risk >= 0.60:
+        drivers.append("volatile teams")
+    if matchup_risk >= 0.60:
+        drivers.append("stability mismatch")
 
     return ", ".join(drivers) if drivers else "stable conditions"
 
@@ -99,12 +91,7 @@ def main():
         raise FileNotFoundError("Facts CSV missing — maturity check impossible.")
 
     df = pd.read_csv(INPUT_CSV)
-    if df.empty:
-        raise RuntimeError("Game environment input is empty.")
-
     facts = pd.read_csv(FACTS_CSV)
-    if facts.empty:
-        raise RuntimeError("Facts CSV is empty.")
 
     df["game_date"] = pd.to_datetime(df["game_date"], utc=True)
     facts["game_date"] = pd.to_datetime(facts["game_date"], utc=True)
@@ -118,6 +105,9 @@ def main():
         home = g[g["home_away"] == "H"].iloc[0]
         away = g[g["home_away"] == "A"].iloc[0]
 
+        # -----------------------------
+        # Maturity check
+        # -----------------------------
         gp_home = facts[
             (facts["team_id"] == home["team_id"])
             & (facts["game_date"] < home["game_date"])
@@ -128,29 +118,36 @@ def main():
             & (facts["game_date"] < away["game_date"])
         ].shape[0]
 
-        maturity_ok = (
-            gp_home >= MIN_GAMES_FOR_MATURE
-            and gp_away >= MIN_GAMES_FOR_MATURE
-        )
+        maturity_ok = gp_home >= MIN_GAMES_FOR_MATURE and gp_away >= MIN_GAMES_FOR_MATURE
 
+        # -----------------------------
+        # Load risk (fatigue)
+        # -----------------------------
         f_home = norm_fatigue(home["fatigue_index"])
         f_away = norm_fatigue(away["fatigue_index"])
-        fatigue_avg, _ = safe_weighted_avg([(f_home, 1), (f_away, 1)])
+        load_risk = safe_avg([f_home, f_away])
 
+        # -----------------------------
+        # Behavior risk (volatility)
+        # -----------------------------
         v_home = norm_volatility(home.get("pve_volatility"))
         v_away = norm_volatility(away.get("pve_volatility"))
-        vol_avg, _ = safe_weighted_avg([(v_home, 1), (v_away, 1)])
+        behavior_risk = safe_avg([v_home, v_away])
 
-        asym_f = norm_asym_fatigue(home["fatigue_index"], away["fatigue_index"])
-        asym_c = norm_asym_consistency(
-            home.get("consistency"), away.get("consistency")
-        )
-        asymmetry_score, _ = safe_weighted_avg([(asym_f, 1), (asym_c, 1)])
+        # -----------------------------
+        # Matchup risk (asymmetry)
+        # -----------------------------
+        asym_f = norm_asym(home["fatigue_index"] - away["fatigue_index"], 40.0)
+        asym_c = norm_asym(home.get("consistency") - away.get("consistency"), 0.30)
+        matchup_risk = safe_avg([asym_f, asym_c])
 
-        noise_score, _ = safe_weighted_avg([
-            (fatigue_avg, 0.45),
-            (vol_avg, 0.35),
-            (asymmetry_score, 0.20),
+        # -----------------------------
+        # Overall environment risk
+        # -----------------------------
+        risk_score = safe_avg([
+            0.45 * load_risk if not pd.isna(load_risk) else np.nan,
+            0.35 * behavior_risk if not pd.isna(behavior_risk) else np.nan,
+            0.20 * matchup_risk if not pd.isna(matchup_risk) else np.nan,
         ])
 
         rows.append({
@@ -158,22 +155,19 @@ def main():
             "game_date": home["game_date"],
             "matchup": f"{away['team_name']} @ {home['team_name']}",
 
-            "noise_score": None if pd.isna(noise_score) else round(noise_score, 3),
-            "environment_label": classify_environment(noise_score, maturity_ok),
-            "drivers": build_drivers(fatigue_avg, vol_avg, asymmetry_score, maturity_ok),
+            "environment_risk": None if pd.isna(risk_score) else round(risk_score, 3),
+            "environment_label": classify_environment(risk_score, maturity_ok),
+            "drivers": build_drivers(load_risk, behavior_risk, matchup_risk, maturity_ok),
+
+            "load_risk": None if pd.isna(load_risk) else round(load_risk, 3),
+            "behavior_risk": None if pd.isna(behavior_risk) else round(behavior_risk, 3),
+            "matchup_risk": None if pd.isna(matchup_risk) else round(matchup_risk, 3),
 
             "fatigue_home": home["fatigue_index"],
             "fatigue_away": away["fatigue_index"],
-            "fatigue_risk_avg": None if pd.isna(fatigue_avg) else round(fatigue_avg, 3),
 
             "vol_home": home.get("pve_volatility"),
             "vol_away": away.get("pve_volatility"),
-            "vol_risk_avg": None if pd.isna(vol_avg) else round(vol_avg, 3),
-
-            "asymmetry_score": None if pd.isna(asymmetry_score) else round(asymmetry_score, 3),
-
-            "expected_margin_home": home.get("expected_margin"),
-            "expected_margin_away": away.get("expected_margin"),
 
             "games_played_home": gp_home,
             "games_played_away": gp_away,
