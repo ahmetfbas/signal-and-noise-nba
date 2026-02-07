@@ -197,11 +197,11 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500159,2025-11-03,1610612752,New York Knicks,1610612764,Washington Wizards,H,17,New York,New York,3,6,45.2,1,0.0,1,57.2,High
 22500160,2025-11-03,1610612742,Dallas Mavericks,1610612745,Houston Rockets,A,-8,Houston,Detroit,3,6,45.2,2,1106.3,3,51.5,High
 22500160,2025-11-03,1610612745,Houston Rockets,1610612742,Dallas Mavericks,H,8,Houston,Boston,3,5,38.2,2,1604.1,3,45.2,Elevated
-22500161,2025-11-03,1610612763,Memphis Grizzlies,1610612765,Detroit Pistons,H,-8,Memphis,Toronto,4,7,75.0,1,817.2,3,101.0,Critical
+22500161,2025-11-03,1610612763,Memphis Grizzlies,1610612765,Detroit Pistons,H,-8,Memphis,Toronto,4,7,75.0,1,817.2,3,100.0,Critical
 22500161,2025-11-03,1610612765,Detroit Pistons,1610612763,Memphis Grizzlies,A,8,Memphis,Detroit,3,6,45.2,2,623.9,2,47.9,Elevated
 22500162,2025-11-03,1610612743,Denver Nuggets,1610612758,Sacramento Kings,H,6,Denver,Portland,3,5,38.2,3,979.7,3,39.2,Elevated
 22500162,2025-11-03,1610612758,Sacramento Kings,1610612743,Denver Nuggets,A,-6,Denver,Milwaukee,3,6,45.2,2,912.8,3,51.5,High
-22500163,2025-11-03,1610612747,Los Angeles Lakers,1610612757,Portland Trail Blazers,A,8,Portland,Los Angeles,4,7,75.0,1,827.1,3,101.0,Critical
+22500163,2025-11-03,1610612747,Los Angeles Lakers,1610612757,Portland Trail Blazers,A,8,Portland,Los Angeles,4,7,75.0,1,827.1,3,100.0,Critical
 22500163,2025-11-03,1610612757,Portland Trail Blazers,1610612747,Los Angeles Lakers,H,-8,Portland,Portland,3,6,45.2,3,0.0,1,38.4,Elevated
 22500164,2025-11-03,1610612748,Miami Heat,1610612746,LA Clippers,A,1,Los Angeles,Los Angeles,3,6,45.2,1,0.0,1,57.2,High
 22500164,2025-11-03,1610612746,LA Clippers,1610612748,Miami Heat,H,-1,Los Angeles,Los Angeles,2,5,18.8,3,0.0,1,17.8,Low
@@ -304,7 +304,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500202,2025-11-10,1610612759,San Antonio Spurs,1610612741,Chicago Bulls,A,4,Chicago,San Antonio,3,6,45.2,2,1049.5,3,51.5,High
 22500202,2025-11-10,1610612741,Chicago Bulls,1610612759,San Antonio Spurs,H,-4,Chicago,Cleveland,3,7,52.2,2,309.9,2,54.2,High
 22500203,2025-11-10,1610612742,Dallas Mavericks,1610612749,Milwaukee Bucks,H,-2,Dallas,Washington,4,7,75.0,2,1183.0,3,78.3,Critical
-22500203,2025-11-10,1610612749,Milwaukee Bucks,1610612742,Dallas Mavericks,A,2,Dallas,Milwaukee,4,7,75.0,1,857.3,3,101.0,Critical
+22500203,2025-11-10,1610612749,Milwaukee Bucks,1610612742,Dallas Mavericks,A,2,Dallas,Milwaukee,4,7,75.0,1,857.3,3,100.0,Critical
 22500204,2025-11-10,1610612756,Phoenix Suns,1610612740,New Orleans Pelicans,H,23,Phoenix,Los Angeles,3,7,52.2,2,358.3,2,54.2,High
 22500204,2025-11-10,1610612740,New Orleans Pelicans,1610612756,Phoenix Suns,A,-23,Phoenix,San Antonio,3,7,52.2,2,849.5,3,57.8,High
 22500205,2025-11-10,1610612762,Utah Jazz,1610612750,Minnesota Timberwolves,H,-7,Salt Lake City,Minneapolis,3,7,52.2,3,984.4,3,50.1,High
@@ -348,8 +348,8 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500224,2025-11-12,1610612743,Denver Nuggets,1610612746,LA Clippers,A,14,Los Angeles,Sacramento,4,7,75.0,1,361.4,2,97.0,Critical
 22500224,2025-11-12,1610612746,LA Clippers,1610612743,Denver Nuggets,H,-14,Los Angeles,Los Angeles,3,6,45.2,2,0.0,1,44.3,Elevated
 22500225,2025-11-13,1610612761,Toronto Raptors,1610612739,Cleveland Cavaliers,A,13,Cleveland,Brooklyn,3,6,45.2,2,405.4,2,47.9,Elevated
-22500225,2025-11-13,1610612739,Cleveland Cavaliers,1610612761,Toronto Raptors,H,-13,Cleveland,Miami,4,7,75.0,1,1089.2,3,101.0,Critical
-22500226,2025-11-13,1610612756,Phoenix Suns,1610612754,Indiana Pacers,H,35,Phoenix,Dallas,4,7,75.0,1,883.5,3,101.0,Critical
+22500225,2025-11-13,1610612739,Cleveland Cavaliers,1610612761,Toronto Raptors,H,-13,Cleveland,Miami,4,7,75.0,1,1089.2,3,100.0,Critical
+22500226,2025-11-13,1610612756,Phoenix Suns,1610612754,Indiana Pacers,H,35,Phoenix,Dallas,4,7,75.0,1,883.5,3,100.0,Critical
 22500226,2025-11-13,1610612754,Indiana Pacers,1610612756,Phoenix Suns,A,-35,Phoenix,Salt Lake City,3,7,52.2,2,506.0,2,54.2,High
 22500227,2025-11-13,1610612737,Atlanta Hawks,1610612762,Utah Jazz,A,10,Salt Lake City,Sacramento,4,7,75.0,1,532.1,2,97.0,Critical
 22500227,2025-11-13,1610612762,Utah Jazz,1610612737,Atlanta Hawks,H,-10,Salt Lake City,Salt Lake City,3,7,52.2,2,0.0,1,50.6,High
@@ -377,7 +377,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500229,2025-11-15,1610612760,Oklahoma City Thunder,1610612766,Charlotte Hornets,A,13,Charlotte,Oklahoma City,3,7,52.2,3,938.9,3,50.1,High
 22500230,2025-11-15,1610612761,Toronto Raptors,1610612754,Indiana Pacers,A,18,Indianapolis,Cleveland,3,6,45.2,2,263.0,1,44.3,Elevated
 22500230,2025-11-15,1610612754,Indiana Pacers,1610612761,Toronto Raptors,H,-18,Indianapolis,Phoenix,4,7,75.0,2,1496.2,3,78.3,Critical
-22500231,2025-11-15,1610612747,Los Angeles Lakers,1610612749,Milwaukee Bucks,A,24,Milwaukee,New Orleans,4,7,75.0,1,912.7,3,101.0,Critical
+22500231,2025-11-15,1610612747,Los Angeles Lakers,1610612749,Milwaukee Bucks,A,24,Milwaukee,New Orleans,4,7,75.0,1,912.7,3,100.0,Critical
 22500231,2025-11-15,1610612749,Milwaukee Bucks,1610612747,Los Angeles Lakers,H,-24,Milwaukee,Milwaukee,4,8,82.0,1,0.0,1,94.0,Critical
 22500232,2025-11-15,1610612750,Minnesota Timberwolves,1610612743,Denver Nuggets,H,-11,Minneapolis,Minneapolis,3,7,52.2,1,0.0,1,64.2,High
 22500232,2025-11-15,1610612743,Denver Nuggets,1610612750,Minnesota Timberwolves,A,11,Minneapolis,Los Angeles,3,6,45.2,3,1522.4,3,44.6,Elevated
@@ -408,7 +408,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500245,2025-11-17,1610612761,Toronto Raptors,1610612766,Charlotte Hornets,H,2,Toronto,Indianapolis,3,6,45.2,2,440.3,2,47.9,Elevated
 22500245,2025-11-17,1610612766,Charlotte Hornets,1610612761,Toronto Raptors,A,-2,Toronto,Charlotte,4,6,68.0,2,586.8,2,68.4,High
 22500246,2025-11-17,1610612750,Minnesota Timberwolves,1610612742,Dallas Mavericks,H,24,Minneapolis,Minneapolis,3,7,52.2,2,0.0,1,50.6,High
-22500246,2025-11-17,1610612742,Dallas Mavericks,1610612750,Minnesota Timberwolves,A,-24,Minneapolis,Dallas,4,8,82.0,1,863.1,3,108.0,Critical
+22500246,2025-11-17,1610612742,Dallas Mavericks,1610612750,Minnesota Timberwolves,A,-24,Minneapolis,Dallas,4,8,82.0,1,863.1,3,100.0,Critical
 22500247,2025-11-17,1610612740,New Orleans Pelicans,1610612760,Oklahoma City Thunder,H,-17,New Orleans,New Orleans,4,7,75.0,1,0.0,1,87.0,Critical
 22500247,2025-11-17,1610612760,Oklahoma City Thunder,1610612740,New Orleans Pelicans,A,17,New Orleans,Charlotte,3,7,52.2,2,649.5,2,54.2,High
 22500248,2025-11-17,1610612743,Denver Nuggets,1610612741,Chicago Bulls,H,-3,Denver,Minneapolis,3,7,52.2,2,698.5,2,54.2,High
@@ -473,7 +473,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500268,2025-11-22,1610612766,Charlotte Hornets,1610612746,LA Clippers,H,-15,Charlotte,Indianapolis,3,6,45.2,3,427.9,2,41.5,Elevated
 22500269,2025-11-22,1610612752,New York Knicks,1610612753,Orlando Magic,A,-12,Orlando,Dallas,2,6,25.8,3,961.6,3,29.5,Low
 22500269,2025-11-22,1610612753,Orlando Magic,1610612752,New York Knicks,H,12,Orlando,Orlando,3,7,52.2,2,0.0,1,50.6,High
-22500270,2025-11-22,1610612740,New Orleans Pelicans,1610612737,Atlanta Hawks,H,-17,New Orleans,Dallas,4,8,82.0,1,442.7,2,104.0,Critical
+22500270,2025-11-22,1610612740,New Orleans Pelicans,1610612737,Atlanta Hawks,H,-17,New Orleans,Dallas,4,8,82.0,1,442.7,2,100.0,Critical
 22500270,2025-11-22,1610612737,Atlanta Hawks,1610612740,New Orleans Pelicans,A,17,New Orleans,San Antonio,3,7,52.2,2,502.7,2,54.2,High
 22500271,2025-11-22,1610612741,Chicago Bulls,1610612764,Washington Wizards,H,1,Chicago,Chicago,4,7,75.0,1,0.0,1,87.0,Critical
 22500271,2025-11-22,1610612764,Washington Wizards,1610612741,Chicago Bulls,A,-1,Chicago,Toronto,3,6,45.2,1,437.8,2,67.2,High
@@ -482,12 +482,12 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500273,2025-11-22,1610612742,Dallas Mavericks,1610612763,Memphis Grizzlies,H,-6,Dallas,Dallas,4,8,82.0,1,0.0,1,94.0,Critical
 22500273,2025-11-22,1610612763,Memphis Grizzlies,1610612742,Dallas Mavericks,A,6,Dallas,Memphis,3,6,45.2,2,419.8,2,47.9,Elevated
 22500274,2025-11-22,1610612758,Sacramento Kings,1610612743,Denver Nuggets,A,5,Denver,Memphis,3,7,52.2,2,878.8,3,57.8,High
-22500274,2025-11-22,1610612743,Denver Nuggets,1610612758,Sacramento Kings,H,-5,Denver,Houston,4,7,75.0,1,880.3,3,101.0,Critical
+22500274,2025-11-22,1610612743,Denver Nuggets,1610612758,Sacramento Kings,H,-5,Denver,Houston,4,7,75.0,1,880.3,3,100.0,Critical
 22500275,2025-11-23,1610612748,Miami Heat,1610612755,Philadelphia 76ers,A,10,Philadelphia,Chicago,3,6,45.2,2,666.5,2,47.9,Elevated
 22500275,2025-11-23,1610612755,Philadelphia 76ers,1610612748,Miami Heat,H,-10,Philadelphia,Milwaukee,3,6,45.2,3,693.8,2,41.5,Elevated
 22500276,2025-11-23,1610612766,Charlotte Hornets,1610612737,Atlanta Hawks,A,-3,Atlanta,Charlotte,3,7,52.2,1,226.5,1,64.2,High
 22500276,2025-11-23,1610612737,Atlanta Hawks,1610612766,Charlotte Hornets,H,3,Atlanta,New Orleans,4,7,75.0,1,424.8,2,97.0,Critical
-22500277,2025-11-23,1610612753,Orlando Magic,1610612738,Boston Celtics,A,-9,Boston,Orlando,4,8,82.0,1,1116.1,3,108.0,Critical
+22500277,2025-11-23,1610612753,Orlando Magic,1610612738,Boston Celtics,A,-9,Boston,Orlando,4,8,82.0,1,1116.1,3,100.0,Critical
 22500277,2025-11-23,1610612738,Boston Celtics,1610612753,Orlando Magic,H,9,Boston,Boston,3,6,45.2,2,0.0,1,44.3,Elevated
 22500278,2025-11-23,1610612746,LA Clippers,1610612739,Cleveland Cavaliers,A,-15,Cleveland,Charlotte,4,7,75.0,1,435.7,2,97.0,Critical
 22500278,2025-11-23,1610612739,Cleveland Cavaliers,1610612746,LA Clippers,H,15,Cleveland,Cleveland,3,7,52.2,2,0.0,1,50.6,High
@@ -506,11 +506,11 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500285,2025-11-24,1610612752,New York Knicks,1610612751,Brooklyn Nets,A,13,Brooklyn,Orlando,3,6,45.2,2,938.0,3,51.5,High
 22500285,2025-11-24,1610612751,Brooklyn Nets,1610612752,New York Knicks,H,-13,Brooklyn,Toronto,3,6,45.2,1,344.0,2,67.2,High
 22500286,2025-11-24,1610612742,Dallas Mavericks,1610612748,Miami Heat,A,-4,Miami,Dallas,4,8,82.0,2,1110.8,3,84.6,Critical
-22500286,2025-11-24,1610612748,Miami Heat,1610612742,Dallas Mavericks,H,4,Miami,Philadelphia,4,7,75.0,1,1017.6,3,101.0,Critical
+22500286,2025-11-24,1610612748,Miami Heat,1610612742,Dallas Mavericks,H,4,Miami,Philadelphia,4,7,75.0,1,1017.6,3,100.0,Critical
 22500287,2025-11-24,1610612763,Memphis Grizzlies,1610612743,Denver Nuggets,H,-10,Memphis,Dallas,3,6,45.2,2,419.8,2,47.9,Elevated
 22500287,2025-11-24,1610612743,Denver Nuggets,1610612763,Memphis Grizzlies,A,10,Memphis,Denver,4,7,75.0,2,878.8,3,78.3,Critical
 22500288,2025-11-24,1610612749,Milwaukee Bucks,1610612757,Portland Trail Blazers,H,-12,Milwaukee,Milwaukee,3,7,52.2,2,0.0,1,50.6,High
-22500288,2025-11-24,1610612757,Portland Trail Blazers,1610612749,Milwaukee Bucks,A,12,Milwaukee,Oklahoma City,4,8,82.0,1,732.6,2,104.0,Critical
+22500288,2025-11-24,1610612757,Portland Trail Blazers,1610612749,Milwaukee Bucks,A,12,Milwaukee,Oklahoma City,4,8,82.0,1,732.6,2,100.0,Critical
 22500289,2025-11-24,1610612740,New Orleans Pelicans,1610612741,Chicago Bulls,H,13,New Orleans,New Orleans,4,8,82.0,2,0.0,1,77.4,Critical
 22500289,2025-11-24,1610612741,Chicago Bulls,1610612740,New Orleans Pelicans,A,-13,New Orleans,Chicago,4,7,75.0,2,835.2,3,78.3,Critical
 22500290,2025-11-24,1610612756,Phoenix Suns,1610612745,Houston Rockets,H,-22,Phoenix,Phoenix,3,7,52.2,1,0.0,1,64.2,High
@@ -578,7 +578,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500298,2025-11-29,1610612740,New Orleans Pelicans,1610612744,Golden State Warriors,A,-8,San Francisco,New Orleans,3,7,52.2,3,1920.0,3,50.1,High
 22500298,2025-11-29,1610612744,Golden State Warriors,1610612740,New Orleans Pelicans,H,8,San Francisco,San Francisco,2,6,25.8,3,0.0,1,23.2,Low
 22500299,2025-11-29,1610612743,Denver Nuggets,1610612756,Phoenix Suns,A,18,Phoenix,Denver,3,7,52.2,1,585.4,2,74.2,Critical
-22500299,2025-11-29,1610612756,Phoenix Suns,1610612743,Denver Nuggets,H,-18,Phoenix,Oklahoma City,4,7,75.0,1,840.1,3,101.0,Critical
+22500299,2025-11-29,1610612756,Phoenix Suns,1610612743,Denver Nuggets,H,-18,Phoenix,Oklahoma City,4,7,75.0,1,840.1,3,100.0,Critical
 22500300,2025-11-29,1610612742,Dallas Mavericks,1610612746,LA Clippers,A,4,Los Angeles,Los Angeles,3,7,52.2,1,0.0,1,64.2,High
 22500300,2025-11-29,1610612746,LA Clippers,1610612742,Dallas Mavericks,H,-4,Los Angeles,Los Angeles,4,7,75.0,1,0.0,1,87.0,Critical
 22500301,2025-11-30,1610612745,Houston Rockets,1610612762,Utah Jazz,A,28,Salt Lake City,San Francisco,2,5,18.8,4,597.6,2,17.4,Low
@@ -682,14 +682,14 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500350,2025-12-06,1610612740,New Orleans Pelicans,1610612751,Brooklyn Nets,A,-18,Brooklyn,New Orleans,4,7,75.0,2,1169.1,3,78.3,Critical
 22500350,2025-12-06,1610612751,Brooklyn Nets,1610612740,New Orleans Pelicans,H,18,Brooklyn,Brooklyn,4,7,75.0,2,0.0,1,71.1,Critical
 22500351,2025-12-06,1610612764,Washington Wizards,1610612737,Atlanta Hawks,H,-15,Washington,Washington,3,6,45.2,2,0.0,1,44.3,Elevated
-22500351,2025-12-06,1610612737,Atlanta Hawks,1610612764,Washington Wizards,A,15,Washington,Atlanta,4,8,82.0,1,542.5,2,104.0,Critical
+22500351,2025-12-06,1610612737,Atlanta Hawks,1610612764,Washington Wizards,A,15,Washington,Atlanta,4,8,82.0,1,542.5,2,100.0,Critical
 22500352,2025-12-06,1610612739,Cleveland Cavaliers,1610612744,Golden State Warriors,H,-5,Cleveland,Cleveland,4,7,75.0,1,0.0,1,87.0,Critical
 22500352,2025-12-06,1610612744,Golden State Warriors,1610612739,Cleveland Cavaliers,A,5,Cleveland,Philadelphia,3,5,38.2,2,358.6,2,41.6,Elevated
 22500353,2025-12-06,1610612749,Milwaukee Bucks,1610612765,Detroit Pistons,A,-12,Detroit,Milwaukee,4,8,82.0,1,251.6,1,94.0,Critical
 22500353,2025-12-06,1610612765,Detroit Pistons,1610612749,Milwaukee Bucks,H,12,Detroit,Detroit,4,8,82.0,1,0.0,1,94.0,Critical
 22500354,2025-12-06,1610612758,Sacramento Kings,1610612748,Miami Heat,A,16,Miami,Houston,2,6,25.8,3,966.6,3,29.5,Low
 22500354,2025-12-06,1610612748,Miami Heat,1610612758,Sacramento Kings,H,-16,Miami,Orlando,4,7,75.0,1,204.3,1,87.0,Critical
-22500355,2025-12-06,1610612746,LA Clippers,1610612750,Minnesota Timberwolves,A,-3,Minneapolis,Memphis,4,8,82.0,1,700.9,2,104.0,Critical
+22500355,2025-12-06,1610612746,LA Clippers,1610612750,Minnesota Timberwolves,A,-3,Minneapolis,Memphis,4,8,82.0,1,700.9,2,100.0,Critical
 22500355,2025-12-06,1610612750,Minnesota Timberwolves,1610612746,LA Clippers,H,3,Minneapolis,New Orleans,4,6,68.0,2,1053.0,3,72.0,Critical
 22500356,2025-12-06,1610612745,Houston Rockets,1610612742,Dallas Mavericks,A,-13,Dallas,Houston,4,6,68.0,1,226.8,1,80.0,Critical
 22500356,2025-12-06,1610612742,Dallas Mavericks,1610612745,Houston Rockets,H,13,Dallas,Oklahoma City,4,7,75.0,1,189.0,1,87.0,Critical
@@ -1031,8 +1031,8 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500488,2026-01-03,1610612737,Atlanta Hawks,1610612761,Toronto Raptors,A,-17,Toronto,New York,4,7,75.0,1,340.4,2,97.0,Critical
 22500489,2026-01-03,1610612741,Chicago Bulls,1610612766,Charlotte Hornets,H,-13,Chicago,Chicago,4,7,75.0,1,0.0,1,87.0,Critical
 22500489,2026-01-03,1610612766,Charlotte Hornets,1610612741,Chicago Bulls,A,13,Chicago,Milwaukee,3,7,52.2,1,81.4,1,64.2,High
-22500490,2026-01-03,1610612759,San Antonio Spurs,1610612757,Portland Trail Blazers,H,-5,San Antonio,Indianapolis,4,7,75.0,1,997.1,3,101.0,Critical
-22500490,2026-01-03,1610612757,Portland Trail Blazers,1610612759,San Antonio Spurs,A,5,San Antonio,New Orleans,4,8,82.0,1,502.7,2,104.0,Critical
+22500490,2026-01-03,1610612759,San Antonio Spurs,1610612757,Portland Trail Blazers,H,-5,San Antonio,Indianapolis,4,7,75.0,1,997.1,3,100.0,Critical
+22500490,2026-01-03,1610612757,Portland Trail Blazers,1610612759,San Antonio Spurs,A,5,San Antonio,New Orleans,4,8,82.0,1,502.7,2,100.0,Critical
 22500491,2026-01-03,1610612742,Dallas Mavericks,1610612745,Houston Rockets,H,6,Dallas,Dallas,3,7,52.2,2,0.0,1,50.6,High
 22500491,2026-01-03,1610612745,Houston Rockets,1610612742,Dallas Mavericks,A,-6,Dallas,Brooklyn,3,7,52.2,2,1371.7,3,57.8,High
 22500492,2026-01-03,1610612762,Utah Jazz,1610612744,Golden State Warriors,A,-9,San Francisco,Los Angeles,3,7,52.2,2,345.5,2,54.2,High
@@ -1062,8 +1062,8 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500504,2026-01-05,1610612761,Toronto Raptors,1610612737,Atlanta Hawks,H,18,Toronto,Toronto,3,6,45.2,2,0.0,1,44.3,Elevated
 22500504,2026-01-05,1610612737,Atlanta Hawks,1610612761,Toronto Raptors,A,-18,Toronto,Toronto,4,7,75.0,2,0.0,1,71.1,Critical
 22500505,2026-01-05,1610612745,Houston Rockets,1610612756,Phoenix Suns,H,3,Houston,Dallas,3,6,45.2,2,226.8,1,44.3,Elevated
-22500505,2026-01-05,1610612756,Phoenix Suns,1610612745,Houston Rockets,A,-3,Houston,Phoenix,4,7,75.0,1,1014.7,3,101.0,Critical
-22500506,2026-01-05,1610612760,Oklahoma City Thunder,1610612766,Charlotte Hornets,H,-27,Oklahoma City,Phoenix,4,8,82.0,1,840.1,3,108.0,Critical
+22500505,2026-01-05,1610612756,Phoenix Suns,1610612745,Houston Rockets,A,-3,Houston,Phoenix,4,7,75.0,1,1014.7,3,100.0,Critical
+22500506,2026-01-05,1610612760,Oklahoma City Thunder,1610612766,Charlotte Hornets,H,-27,Oklahoma City,Phoenix,4,8,82.0,1,840.1,3,100.0,Critical
 22500506,2026-01-05,1610612766,Charlotte Hornets,1610612760,Oklahoma City Thunder,A,27,Oklahoma City,Chicago,4,7,75.0,2,690.9,2,74.7,Critical
 22500507,2026-01-05,1610612755,Philadelphia 76ers,1610612743,Denver Nuggets,H,-1,Philadelphia,New York,3,6,45.2,2,85.4,1,44.3,Elevated
 22500507,2026-01-05,1610612743,Denver Nuggets,1610612755,Philadelphia 76ers,A,1,Philadelphia,Brooklyn,4,8,82.0,1,83.0,1,94.0,Critical
@@ -1113,7 +1113,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500529,2026-01-08,1610612741,Chicago Bulls,1610612748,Miami Heat,H,0,Chicago,Detroit,4,8,82.0,1,238.8,1,94.0,Critical
 22500530,2026-01-08,1610612750,Minnesota Timberwolves,1610612739,Cleveland Cavaliers,H,9,Minneapolis,Minneapolis,3,7,52.2,2,0.0,1,50.6,High
 22500530,2026-01-08,1610612739,Cleveland Cavaliers,1610612750,Minnesota Timberwolves,A,-9,Minneapolis,Indianapolis,3,7,52.2,2,511.4,2,54.2,High
-22500531,2026-01-08,1610612762,Utah Jazz,1610612742,Dallas Mavericks,H,2,Salt Lake City,Oklahoma City,4,7,75.0,1,862.2,3,101.0,Critical
+22500531,2026-01-08,1610612762,Utah Jazz,1610612742,Dallas Mavericks,H,2,Salt Lake City,Oklahoma City,4,7,75.0,1,862.2,3,100.0,Critical
 22500531,2026-01-08,1610612742,Dallas Mavericks,1610612762,Utah Jazz,A,-2,Salt Lake City,Sacramento,3,6,45.2,2,532.1,2,47.9,Elevated
 22500532,2026-01-09,1610612738,Boston Celtics,1610612761,Toronto Raptors,H,8,Boston,Boston,3,7,52.2,2,0.0,1,50.6,High
 22500532,2026-01-09,1610612761,Toronto Raptors,1610612738,Boston Celtics,A,-8,Boston,Charlotte,3,7,52.2,2,720.7,2,54.2,High
@@ -1197,12 +1197,12 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500571,2026-01-14,1610612761,Toronto Raptors,1610612754,Indiana Pacers,A,14,Indianapolis,Toronto,4,7,75.0,2,440.3,2,74.7,Critical
 22500572,2026-01-14,1610612755,Philadelphia 76ers,1610612739,Cleveland Cavaliers,H,-26,Philadelphia,Toronto,4,7,75.0,2,337.3,2,74.7,Critical
 22500572,2026-01-14,1610612739,Cleveland Cavaliers,1610612755,Philadelphia 76ers,A,26,Philadelphia,Cleveland,3,7,52.2,2,358.6,2,54.2,High
-22500573,2026-01-14,1610612741,Chicago Bulls,1610612762,Utah Jazz,H,2,Chicago,Houston,4,8,82.0,1,941.3,3,108.0,Critical
+22500573,2026-01-14,1610612741,Chicago Bulls,1610612762,Utah Jazz,H,2,Chicago,Houston,4,8,82.0,1,941.3,3,100.0,Critical
 22500573,2026-01-14,1610612762,Utah Jazz,1610612741,Chicago Bulls,A,-2,Chicago,Cleveland,4,7,75.0,2,309.9,2,74.7,Critical
 22500574,2026-01-14,1610612740,New Orleans Pelicans,1610612751,Brooklyn Nets,H,3,New Orleans,New Orleans,4,8,82.0,1,0.0,1,94.0,Critical
 22500574,2026-01-14,1610612751,Brooklyn Nets,1610612740,New Orleans Pelicans,A,-3,New Orleans,Dallas,4,7,75.0,2,442.7,2,74.7,Critical
 22500575,2026-01-14,1610612742,Dallas Mavericks,1610612743,Denver Nuggets,H,-9,Dallas,Dallas,3,6,45.2,2,0.0,1,44.3,Elevated
-22500575,2026-01-14,1610612743,Denver Nuggets,1610612742,Dallas Mavericks,A,9,Dallas,New Orleans,4,8,82.0,1,442.7,2,104.0,Critical
+22500575,2026-01-14,1610612743,Denver Nuggets,1610612742,Dallas Mavericks,A,9,Dallas,New Orleans,4,8,82.0,1,442.7,2,100.0,Critical
 22500576,2026-01-14,1610612752,New York Knicks,1610612758,Sacramento Kings,A,-11,Sacramento,Portland,3,7,52.2,3,484.0,2,47.0,Elevated
 22500576,2026-01-14,1610612758,Sacramento Kings,1610612752,New York Knicks,H,11,Sacramento,Sacramento,3,7,52.2,2,0.0,1,50.6,High
 22500577,2026-01-14,1610612746,LA Clippers,1610612764,Washington Wizards,H,14,Los Angeles,Los Angeles,4,7,75.0,2,0.0,1,71.1,Critical
@@ -1217,7 +1217,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500581,2026-01-15,1610612745,Houston Rockets,1610612760,Oklahoma City Thunder,H,-20,Houston,Houston,3,7,52.2,2,0.0,1,50.6,High
 22500582,2026-01-15,1610612749,Milwaukee Bucks,1610612759,San Antonio Spurs,A,-18,San Antonio,Milwaukee,3,6,45.2,2,1106.6,3,51.5,High
 22500582,2026-01-15,1610612759,San Antonio Spurs,1610612749,Milwaukee Bucks,H,18,San Antonio,Oklahoma City,3,7,52.2,2,420.5,2,54.2,High
-22500583,2026-01-15,1610612762,Utah Jazz,1610612742,Dallas Mavericks,A,-22,Dallas,Chicago,4,8,82.0,1,803.0,3,108.0,Critical
+22500583,2026-01-15,1610612762,Utah Jazz,1610612742,Dallas Mavericks,A,-22,Dallas,Chicago,4,8,82.0,1,803.0,3,100.0,Critical
 22500583,2026-01-15,1610612742,Dallas Mavericks,1610612762,Utah Jazz,H,22,Dallas,Dallas,4,7,75.0,1,0.0,1,87.0,Critical
 22500584,2026-01-15,1610612752,New York Knicks,1610612744,Golden State Warriors,A,-13,San Francisco,Sacramento,3,7,52.2,1,74.0,1,64.2,High
 22500584,2026-01-15,1610612744,Golden State Warriors,1610612752,New York Knicks,H,13,San Francisco,San Francisco,3,7,52.2,2,0.0,1,50.6,High
@@ -1266,7 +1266,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500606,2026-01-18,1610612757,Portland Trail Blazers,1610612758,Sacramento Kings,A,7,Sacramento,Portland,4,7,75.0,1,484.0,2,97.0,Critical
 22500606,2026-01-18,1610612758,Sacramento Kings,1610612757,Portland Trail Blazers,H,-7,Sacramento,Sacramento,4,7,75.0,2,0.0,1,71.1,Critical
 22500607,2026-01-18,1610612761,Toronto Raptors,1610612747,Los Angeles Lakers,A,-17,Los Angeles,Toronto,4,7,75.0,2,2173.0,3,78.3,Critical
-22500607,2026-01-18,1610612747,Los Angeles Lakers,1610612761,Toronto Raptors,H,17,Los Angeles,Portland,4,8,82.0,1,827.1,3,108.0,Critical
+22500607,2026-01-18,1610612747,Los Angeles Lakers,1610612761,Toronto Raptors,H,17,Los Angeles,Portland,4,8,82.0,1,827.1,3,100.0,Critical
 22500014,2026-01-19,1610612737,Atlanta Hawks,1610612749,Milwaukee Bucks,H,-2,Atlanta,Atlanta,3,7,52.2,2,0.0,1,50.6,High
 22500014,2026-01-19,1610612749,Milwaukee Bucks,1610612737,Atlanta Hawks,A,2,Atlanta,San Antonio,2,5,18.8,4,878.0,3,20.0,Low
 22500015,2026-01-19,1610612760,Oklahoma City Thunder,1610612739,Cleveland Cavaliers,A,32,Cleveland,Miami,3,7,52.2,2,1089.2,3,57.8,High
@@ -1291,7 +1291,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500614,2026-01-20,1610612746,LA Clippers,1610612741,Chicago Bulls,A,-28,Chicago,Washington,3,7,52.2,1,596.8,2,74.2,Critical
 22500615,2026-01-20,1610612745,Houston Rockets,1610612759,San Antonio Spurs,H,5,Houston,Houston,4,7,75.0,2,0.0,1,71.1,Critical
 22500615,2026-01-20,1610612759,San Antonio Spurs,1610612745,Houston Rockets,A,-5,Houston,San Antonio,4,8,82.0,1,186.1,1,94.0,Critical
-22500616,2026-01-20,1610612762,Utah Jazz,1610612750,Minnesota Timberwolves,H,5,Salt Lake City,San Antonio,4,8,82.0,1,1089.8,3,108.0,Critical
+22500616,2026-01-20,1610612762,Utah Jazz,1610612750,Minnesota Timberwolves,H,5,Salt Lake City,San Antonio,4,8,82.0,1,1089.8,3,100.0,Critical
 22500616,2026-01-20,1610612750,Minnesota Timberwolves,1610612762,Utah Jazz,A,-5,Salt Lake City,San Antonio,3,7,52.2,3,1089.8,3,50.1,High
 22500617,2026-01-20,1610612743,Denver Nuggets,1610612747,Los Angeles Lakers,H,-8,Denver,Denver,4,7,75.0,2,0.0,1,71.1,Critical
 22500617,2026-01-20,1610612747,Los Angeles Lakers,1610612743,Denver Nuggets,A,8,Denver,Los Angeles,4,8,82.0,2,830.8,3,84.6,Critical
@@ -1330,7 +1330,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500634,2026-01-22,1610612748,Miami Heat,1610612757,Portland Trail Blazers,A,-17,Portland,Sacramento,4,8,82.0,2,484.0,2,81.0,Critical
 22500634,2026-01-22,1610612757,Portland Trail Blazers,1610612748,Miami Heat,H,17,Portland,Sacramento,3,6,45.2,4,484.0,2,34.6,Elevated
 22500635,2026-01-23,1610612765,Detroit Pistons,1610612745,Houston Rockets,H,-7,Detroit,New Orleans,3,5,38.2,2,940.8,3,45.2,Elevated
-22500635,2026-01-23,1610612745,Houston Rockets,1610612765,Detroit Pistons,A,7,Detroit,Philadelphia,4,8,82.0,1,443.4,2,104.0,Critical
+22500635,2026-01-23,1610612745,Houston Rockets,1610612765,Detroit Pistons,A,7,Detroit,Philadelphia,4,8,82.0,1,443.4,2,100.0,Critical
 22500636,2026-01-23,1610612737,Atlanta Hawks,1610612756,Phoenix Suns,H,7,Atlanta,Memphis,3,7,52.2,2,335.9,2,54.2,High
 22500636,2026-01-23,1610612756,Phoenix Suns,1610612737,Atlanta Hawks,A,-7,Atlanta,Philadelphia,3,7,52.2,3,663.0,2,47.0,Elevated
 22500637,2026-01-23,1610612738,Boston Celtics,1610612751,Brooklyn Nets,A,4,Brooklyn,Boston,3,7,52.2,2,190.4,1,50.6,High
@@ -1340,7 +1340,7 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 22500639,2026-01-23,1610612763,Memphis Grizzlies,1610612740,New Orleans Pelicans,H,-6,Memphis,Memphis,2,5,18.8,2,0.0,1,20.5,Low
 22500639,2026-01-23,1610612740,New Orleans Pelicans,1610612763,Memphis Grizzlies,A,6,Memphis,New Orleans,3,7,52.2,2,358.5,2,54.2,High
 22500640,2026-01-23,1610612749,Milwaukee Bucks,1610612743,Denver Nuggets,H,-2,Milwaukee,Milwaukee,2,6,25.8,2,0.0,1,26.8,Low
-22500640,2026-01-23,1610612743,Denver Nuggets,1610612749,Milwaukee Bucks,A,2,Milwaukee,Washington,4,8,82.0,1,635.9,2,104.0,Critical
+22500640,2026-01-23,1610612743,Denver Nuggets,1610612749,Milwaukee Bucks,A,2,Milwaukee,Washington,4,8,82.0,1,635.9,2,100.0,Critical
 22500641,2026-01-23,1610612760,Oklahoma City Thunder,1610612754,Indiana Pacers,H,-3,Oklahoma City,Milwaukee,3,7,52.2,2,732.6,2,54.2,High
 22500641,2026-01-23,1610612754,Indiana Pacers,1610612760,Oklahoma City Thunder,A,3,Oklahoma City,Boston,4,7,75.0,2,1492.8,3,78.3,Critical
 22500642,2026-01-23,1610612761,Toronto Raptors,1610612757,Portland Trail Blazers,A,12,Portland,Sacramento,4,8,82.0,2,484.0,2,81.0,Critical

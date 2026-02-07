@@ -1,6 +1,15 @@
 import pandas as pd
+import math
 from typing import Dict
 from analysis.utils import clamp
+
+
+def bounded_sigmoid(x: float, max_margin: float = 12.0) -> float:
+    """
+    Smoothly bounds expected margin to [-max_margin, +max_margin]
+    using tanh to avoid hard cliffs.
+    """
+    return max_margin * math.tanh(x / max_margin)
 
 
 def expected_margin_breakdown_from_rows(
@@ -12,19 +21,35 @@ def expected_margin_breakdown_from_rows(
     fatigue_index: float,
 ) -> Dict[str, float]:
     """
-    Row-based expected margin calculation with win–loss component.
+    Row-based expected margin calculation (defensive & bounded).
 
-    Design principles:
-    - Expected margin should NEVER reach unrealistic NBA values
-    - Losing teams beating expectations via blowout-losses should not be rewarded
-    - Downstream momentum must not be polluted by extreme expectations
-
-    Hard cap applied:
-      expected_total ∈ [-25, +25]
+    Rules enforced:
+    - Ignore zero-margin games (broken ingestion / placeholders)
+    - Ignore today & future games
+    - Bound expectations smoothly (sigmoid)
     """
 
     # --------------------------------------------------
-    # Base form (average margin over recent games)
+    # Defensive filtering (CRITICAL)
+    # --------------------------------------------------
+    today = pd.Timestamp.utcnow().normalize()
+
+    recent_games = recent_games.copy()
+    recent_games["game_date"] = pd.to_datetime(
+        recent_games["game_date"],
+        utc=True,
+        errors="coerce"
+    )
+
+    recent_games = recent_games[
+        (recent_games["game_date"].notna()) &
+        (recent_games["game_date"] < today) &
+        (recent_games["actual_margin"].notna()) &
+        (recent_games["actual_margin"] != 0)
+    ]
+
+    # --------------------------------------------------
+    # Base form (average margin)
     # --------------------------------------------------
     team_rows = recent_games[recent_games["team_id"] == team_id]
     opp_rows = recent_games[recent_games["team_id"] == opponent_id]
@@ -34,7 +59,7 @@ def expected_margin_breakdown_from_rows(
     base_form_diff = team_form - opp_form
 
     # --------------------------------------------------
-    # Win–loss component (psychological signal)
+    # Win–loss component (bounded psychological signal)
     # --------------------------------------------------
     def win_rate(rows: pd.DataFrame) -> float:
         if rows.empty:
@@ -46,7 +71,7 @@ def expected_margin_breakdown_from_rows(
     team_win_rate = win_rate(team_rows)
     opp_win_rate = win_rate(opp_rows)
 
-    # bounded influence: ±6 points max
+    # bounded influence: ±6 points
     win_diff = (team_win_rate - opp_win_rate) * 6.0
 
     # --------------------------------------------------
@@ -63,7 +88,7 @@ def expected_margin_breakdown_from_rows(
     fatigue_adj = -fatigue_norm * FATIGUE_WEIGHT
 
     # --------------------------------------------------
-    # Combine expectation
+    # Linear expectation (pre-bounding)
     # --------------------------------------------------
     expected_raw = (
         base_form_diff
@@ -73,14 +98,15 @@ def expected_margin_breakdown_from_rows(
     )
 
     # --------------------------------------------------
-    # HARD CAP — critical fix
+    # SOFT BOUND (sigmoid)
     # --------------------------------------------------
-    expected_total = clamp(expected_raw, -25.0, 25.0)
+    expected_total = bounded_sigmoid(expected_raw, max_margin=12.0)
 
     return {
         "base_form_diff": round(base_form_diff, 2),
         "win_diff": round(win_diff, 2),
         "home_away_adj": round(home_away_adj, 2),
         "fatigue_adj": round(fatigue_adj, 2),
+        "expected_raw": round(expected_raw, 2),
         "expected_total": round(expected_total, 2),
     }

@@ -98,9 +98,9 @@ game_id,game_date,matchup,environment_risk,environment_label,drivers,load_risk,b
 22500158,2025-11-03 00:00:00+00:00,Utah Jazz @ Boston Celtics,0.252,Forming,early-season/low-history,0.911,,0.473,71.1,90.0,,,7,6,False
 22500159,2025-11-03 00:00:00+00:00,Washington Wizards @ New York Knicks,0.126,Forming,early-season/low-history,0.415,,0.323,57.2,44.3,,,6,6,False
 22500160,2025-11-03 00:00:00+00:00,Dallas Mavericks @ Houston Rockets,0.098,Forming,early-season/low-history,0.367,,0.157,45.2,51.5,,,5,6,False
-22500161,2025-11-03 00:00:00+00:00,Detroit Pistons @ Memphis Grizzlies,0.253,Forming,early-season/low-history,0.679,,1.0,101.0,47.9,,,7,6,False
+22500161,2025-11-03 00:00:00+00:00,Detroit Pistons @ Memphis Grizzlies,0.253,Forming,early-season/low-history,0.679,,1.0,100.0,47.9,,,7,6,False
 22500162,2025-11-03 00:00:00+00:00,Sacramento Kings @ Denver Nuggets,0.1,Forming,early-season/low-history,0.307,,0.307,39.2,51.5,,,5,6,False
-22500163,2025-11-03 00:00:00+00:00,Los Angeles Lakers @ Portland Trail Blazers,0.231,Forming,early-season/low-history,0.584,,1.0,38.4,101.0,,,6,7,False
+22500163,2025-11-03 00:00:00+00:00,Los Angeles Lakers @ Portland Trail Blazers,0.231,Forming,early-season/low-history,0.584,,1.0,38.4,100.0,,,6,7,False
 22500164,2025-11-03 00:00:00+00:00,Miami Heat @ LA Clippers,0.16,Forming,early-season/low-history,0.272,,0.985,17.8,57.2,,,5,6,False
 22500165,2025-11-04 00:00:00+00:00,Milwaukee Bucks @ Toronto Raptors,0.259,Forming,early-season/low-history,0.706,,1.0,50.6,97.0,,,7,7,False
 22500166,2025-11-04 00:00:00+00:00,Orlando Magic @ Atlanta Hawks,0.111,Forming,early-season/low-history,0.412,,0.18,54.2,47.0,,,7,7,False
@@ -120,557 +120,557 @@ game_id,game_date,matchup,environment_risk,environment_label,drivers,load_risk,b
 22500180,2025-11-05 00:00:00+00:00,Oklahoma City Thunder @ Portland Trail Blazers,0.224,Forming,early-season/low-history,0.688,,0.69,50.6,78.2,,,7,8,False
 22500181,2025-11-05 00:00:00+00:00,Golden State Warriors @ Sacramento Kings,0.156,Forming,early-season/low-history,0.62,,0.16,57.8,64.2,,,7,8,False
 22500182,2025-11-06 00:00:00+00:00,LA Clippers @ Phoenix Suns,0.11,Forming,early-season/low-history,0.421,,0.158,54.2,47.9,,,8,7,False
-22500028,2025-11-07 00:00:00+00:00,Boston Celtics @ Orlando Magic,0.261,Forming,early-season/low-history,0.518,1.0,1.0,31.8,84.6,,15.06,8,9,False
+22500028,2025-11-07 00:00:00+00:00,Boston Celtics @ Orlando Magic,0.261,Forming,early-season/low-history,0.518,1.0,1.0,31.8,84.6,,15.27,8,9,False
 22500029,2025-11-07 00:00:00+00:00,Cleveland Cavaliers @ Washington Wizards,0.109,Forming,early-season/low-history,0.484,,0.0,54.2,54.2,,,8,8,False
 22500030,2025-11-07 00:00:00+00:00,Toronto Raptors @ Atlanta Hawks,0.077,Forming,early-season/low-history,0.308,,0.08,43.8,47.0,,,8,8,False
 22500031,2025-11-07 00:00:00+00:00,Detroit Pistons @ Brooklyn Nets,0.109,Forming,early-season/low-history,0.484,,0.0,54.2,54.2,,,8,8,False
 22500032,2025-11-07 00:00:00+00:00,Houston Rockets @ San Antonio Spurs,0.084,Forming,early-season/low-history,0.219,,0.347,34.0,47.9,,,7,7,False
 22500033,2025-11-07 00:00:00+00:00,Charlotte Hornets @ Miami Heat,0.128,Forming,early-season/low-history,0.448,,0.27,57.8,47.0,,,8,8,False
-22500034,2025-11-07 00:00:00+00:00,Dallas Mavericks @ Memphis Grizzlies,0.227,Forming,early-season/low-history,0.716,0.691,0.58,77.4,54.2,10.37,,9,8,False
+22500034,2025-11-07 00:00:00+00:00,Dallas Mavericks @ Memphis Grizzlies,0.225,Forming,early-season/low-history,0.716,0.678,0.58,77.4,54.2,10.17,,9,8,False
 22500035,2025-11-07 00:00:00+00:00,Chicago Bulls @ Milwaukee Bucks,0.079,Forming,early-season/low-history,0.254,,0.215,47.0,38.4,,,8,7,False
 22500036,2025-11-07 00:00:00+00:00,Utah Jazz @ Minnesota Timberwolves,0.205,Forming,early-season/low-history,0.725,,0.423,57.8,74.7,,,8,8,False
-22500037,2025-11-07 00:00:00+00:00,Golden State Warriors @ Denver Nuggets,0.172,Forming,early-season/low-history,0.421,0.741,0.338,44.3,57.8,,11.12,7,9,False
-22500038,2025-11-07 00:00:00+00:00,Oklahoma City Thunder @ Sacramento Kings,0.148,Forming,early-season/low-history,0.448,0.637,0.09,50.6,54.2,,9.56,8,9,False
-22500183,2025-11-08 00:00:00+00:00,Dallas Mavericks @ Washington Wizards,0.244,Forming,early-season/low-history,1.0,0.482,0.563,87.0,97.0,3.06,11.41,9,9,False
-22500184,2025-11-08 00:00:00+00:00,Toronto Raptors @ Philadelphia 76ers,0.254,Forming,early-season/low-history,0.612,1.0,0.68,47.0,74.2,,19.93,8,9,False
-22500185,2025-11-08 00:00:00+00:00,Los Angeles Lakers @ Atlanta Hawks,0.207,Forming,early-season/low-history,0.543,0.945,0.231,64.2,50.1,13.34,15.26,9,9,False
-22500186,2025-11-08 00:00:00+00:00,Chicago Bulls @ Cleveland Cavaliers,0.239,Forming,early-season/low-history,0.884,0.915,0.0,74.2,74.2,13.73,,9,8,False
-22500187,2025-11-08 00:00:00+00:00,Portland Trail Blazers @ Miami Heat,0.258,Forming,early-season/low-history,0.5,1.0,1.0,87.0,29.5,17.68,,9,8,False
+22500037,2025-11-07 00:00:00+00:00,Golden State Warriors @ Denver Nuggets,0.165,Forming,early-season/low-history,0.421,0.678,0.338,44.3,57.8,,10.17,7,9,False
+22500038,2025-11-07 00:00:00+00:00,Oklahoma City Thunder @ Sacramento Kings,0.149,Forming,early-season/low-history,0.448,0.647,0.09,50.6,54.2,,9.7,8,9,False
+22500183,2025-11-08 00:00:00+00:00,Dallas Mavericks @ Washington Wizards,0.22,Forming,early-season/low-history,1.0,0.352,0.427,87.0,97.0,2.84,7.72,9,9,False
+22500184,2025-11-08 00:00:00+00:00,Toronto Raptors @ Philadelphia 76ers,0.254,Forming,early-season/low-history,0.612,1.0,0.68,47.0,74.2,,16.61,8,9,False
+22500185,2025-11-08 00:00:00+00:00,Los Angeles Lakers @ Atlanta Hawks,0.198,Forming,early-season/low-history,0.543,0.856,0.248,64.2,50.1,11.75,13.94,9,9,False
+22500186,2025-11-08 00:00:00+00:00,Chicago Bulls @ Cleveland Cavaliers,0.237,Forming,early-season/low-history,0.884,0.898,0.0,74.2,74.2,13.47,,9,8,False
+22500187,2025-11-08 00:00:00+00:00,Portland Trail Blazers @ Miami Heat,0.258,Forming,early-season/low-history,0.5,1.0,1.0,87.0,29.5,15.41,,9,8,False
 22500188,2025-11-08 00:00:00+00:00,New Orleans Pelicans @ San Antonio Spurs,0.127,Forming,early-season/low-history,0.356,,0.47,57.2,38.4,,,8,8,False
 22500189,2025-11-08 00:00:00+00:00,Indiana Pacers @ Denver Nuggets,0.157,Forming,early-season/low-history,0.543,,0.353,64.2,50.1,,,8,8,False
-22500190,2025-11-08 00:00:00+00:00,Phoenix Suns @ LA Clippers,0.189,Forming,early-season/low-history,0.421,0.992,0.158,47.9,54.2,,14.88,8,9,False
-22500191,2025-11-09 00:00:00+00:00,Houston Rockets @ Milwaukee Bucks,0.162,Forming,early-season/low-history,0.421,0.839,0.022,50.6,51.5,12.58,,9,8,False
-22500192,2025-11-09 00:00:00+00:00,Brooklyn Nets @ New York Knicks,0.188,Forming,early-season/low-history,0.431,0.495,0.977,32.0,71.1,,7.43,8,9,False
-22500193,2025-11-09 00:00:00+00:00,Boston Celtics @ Orlando Magic,0.187,Forming,early-season/low-history,0.269,0.989,0.47,26.8,56.9,18.35,14.67,9,10,False
-22500194,2025-11-09 00:00:00+00:00,Oklahoma City Thunder @ Memphis Grizzlies,0.22,Clean,"fatigue load, volatile teams",0.894,0.663,0.128,71.1,78.3,10.44,9.45,10,10,True
-22500195,2025-11-09 00:00:00+00:00,Detroit Pistons @ Philadelphia 76ers,0.2,Forming,early-season/low-history,0.706,0.486,0.555,87.0,50.6,8.29,6.29,9,9,False
-22500196,2025-11-09 00:00:00+00:00,Indiana Pacers @ Golden State Warriors,0.216,Forming,early-season/low-history,0.76,0.627,0.437,57.8,78.2,11.55,7.25,10,9,False
-22500197,2025-11-09 00:00:00+00:00,Minnesota Timberwolves @ Sacramento Kings,0.188,Forming,early-season/low-history,0.484,0.846,0.243,50.6,57.8,10.39,15.08,9,9,False
-22500198,2025-11-10 00:00:00+00:00,Los Angeles Lakers @ Charlotte Hornets,0.162,Forming,early-season/low-history,0.206,0.944,0.321,26.4,50.6,14.45,13.87,9,10,False
-22500199,2025-11-10 00:00:00+00:00,Washington Wizards @ Detroit Pistons,0.238,Clean,"fatigue load, stability mismatch",0.947,0.411,0.722,97.0,74.7,9.99,2.33,10,10,True
-22500200,2025-11-10 00:00:00+00:00,Portland Trail Blazers @ Orlando Magic,0.21,Forming,early-season/low-history,0.485,0.967,0.36,64.2,44.3,18.31,14.0,10,9,False
-22500201,2025-11-10 00:00:00+00:00,Cleveland Cavaliers @ Miami Heat,0.233,Clean,"fatigue load, volatile teams",0.689,0.948,0.281,71.1,57.8,17.73,13.45,10,10,True
-22500202,2025-11-10 00:00:00+00:00,San Antonio Spurs @ Chicago Bulls,0.183,Forming,early-season/low-history,0.457,0.807,0.31,54.2,51.5,9.22,18.12,9,9,False
-22500203,2025-11-10 00:00:00+00:00,Milwaukee Bucks @ Dallas Mavericks,0.259,Clean,"fatigue load, volatile teams",0.983,0.766,0.339,78.3,101.0,10.71,12.26,10,10,True
-22500204,2025-11-10 00:00:00+00:00,New Orleans Pelicans @ Phoenix Suns,0.185,Forming,early-season/low-history,0.52,0.758,0.285,54.2,57.8,14.64,8.09,10,9,False
-22500205,2025-11-10 00:00:00+00:00,Minnesota Timberwolves @ Utah Jazz,0.252,Forming,early-season/low-history,0.701,0.934,0.565,50.1,97.0,13.01,15.23,9,10,False
-22500206,2025-11-10 00:00:00+00:00,Atlanta Hawks @ LA Clippers,0.217,Forming,early-season/low-history,0.626,0.923,0.238,64.8,57.8,18.21,12.7,9,10,False
-22500207,2025-11-11 00:00:00+00:00,Toronto Raptors @ Brooklyn Nets,0.151,Clean,volatile teams,0.227,0.74,0.465,44.3,38.4,7.21,19.05,10,10,True
-22500208,2025-11-11 00:00:00+00:00,Memphis Grizzlies @ New York Knicks,0.145,Forming,early-season/low-history,0.278,0.652,0.412,26.8,57.8,10.07,9.48,9,11,False
-22500209,2025-11-11 00:00:00+00:00,Boston Celtics @ Philadelphia 76ers,0.219,Clean,"fatigue load, volatile teams",0.689,0.758,0.401,71.1,57.8,8.16,14.59,10,11,True
-22500210,2025-11-11 00:00:00+00:00,Golden State Warriors @ Oklahoma City Thunder,0.226,Clean,"fatigue load, volatile teams",0.93,0.684,0.102,74.7,78.3,9.54,10.98,11,11,True
-22500211,2025-11-11 00:00:00+00:00,Indiana Pacers @ Utah Jazz,0.19,Clean,volatile teams,0.584,0.665,0.377,64.2,54.2,13.07,6.89,10,10,True
-22500212,2025-11-11 00:00:00+00:00,Denver Nuggets @ Sacramento Kings,0.137,Forming,early-season/low-history,0.352,0.666,0.103,50.6,44.6,10.35,9.64,10,9,False
-22500213,2025-11-12 00:00:00+00:00,Milwaukee Bucks @ Charlotte Hornets,0.173,Clean,volatile teams,0.278,0.841,0.502,26.8,57.8,14.35,10.87,10,11,True
-22500214,2025-11-12 00:00:00+00:00,Chicago Bulls @ Detroit Pistons,0.182,Clean,"fatigue load, volatile teams",0.617,0.618,0.256,71.1,50.6,9.26,9.27,11,10,True
-22500215,2025-11-12 00:00:00+00:00,Orlando Magic @ New York Knicks,0.195,Clean,volatile teams,0.55,0.855,0.191,57.2,57.8,10.66,16.6,10,11,True
-22500216,2025-11-12 00:00:00+00:00,Memphis Grizzlies @ Boston Celtics,0.256,Clean,"fatigue load, volatile teams",1.0,0.676,0.415,94.0,94.0,15.54,5.27,12,12,True
-22500217,2025-11-12 00:00:00+00:00,Cleveland Cavaliers @ Miami Heat,0.228,Clean,"fatigue load, volatile teams",0.822,0.841,0.1,71.1,71.1,11.11,14.13,11,11,True
-22500218,2025-11-12 00:00:00+00:00,Washington Wizards @ Houston Rockets,0.21,Forming,early-season/low-history,0.629,0.464,0.921,44.6,78.3,11.99,1.92,9,11,False
-22500219,2025-11-12 00:00:00+00:00,Portland Trail Blazers @ New Orleans Pelicans,0.174,Clean,volatile teams,0.457,0.714,0.335,57.8,47.9,7.95,13.47,10,10,True
-22500220,2025-11-12 00:00:00+00:00,Golden State Warriors @ San Antonio Spurs,0.253,Clean,"fatigue load, volatile teams",0.92,0.806,0.319,72.0,97.0,12.0,12.19,10,12,True
-22500221,2025-11-12 00:00:00+00:00,Phoenix Suns @ Dallas Mavericks,0.211,Clean,"fatigue load, volatile teams",0.689,0.788,0.24,71.1,57.8,10.77,12.86,11,11,True
-22500222,2025-11-12 00:00:00+00:00,Los Angeles Lakers @ Oklahoma City Thunder,0.225,Clean,"fatigue load, volatile teams",0.778,0.7,0.402,87.0,57.8,10.02,10.97,12,11,True
-22500223,2025-11-12 00:00:00+00:00,Atlanta Hawks @ Sacramento Kings,0.23,Clean,"fatigue load, volatile teams",0.742,0.687,0.585,87.0,54.2,8.07,12.53,11,11,True
-22500224,2025-11-12 00:00:00+00:00,Denver Nuggets @ LA Clippers,0.243,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.819,0.762,44.3,97.0,18.1,9.57,10,10,True
-22500225,2025-11-13 00:00:00+00:00,Toronto Raptors @ Cleveland Cavaliers,0.256,Clean,"fatigue load, volatile teams",0.679,1.0,0.567,101.0,47.9,15.85,18.61,12,11,True
-22500226,2025-11-13 00:00:00+00:00,Indiana Pacers @ Phoenix Suns,0.233,Clean,"fatigue load, volatile teams, stability mismatch",0.742,0.63,0.722,101.0,54.2,12.05,6.85,12,11,True
-22500227,2025-11-13 00:00:00+00:00,Atlanta Hawks @ Utah Jazz,0.231,Clean,"fatigue load, volatile teams",0.706,0.76,0.552,50.6,97.0,10.69,12.11,11,12,True
-22500039,2025-11-14 00:00:00+00:00,Miami Heat @ New York Knicks,0.211,Clean,"fatigue load, volatile teams",0.689,0.7,0.391,50.6,78.3,9.9,11.11,11,12,True
-22500040,2025-11-14 00:00:00+00:00,Brooklyn Nets @ Orlando Magic,0.218,Clean,"volatile teams, stability mismatch",0.566,0.739,0.696,72.0,44.6,17.29,7.17,12,11,True
-22500041,2025-11-14 00:00:00+00:00,Philadelphia 76ers @ Detroit Pistons,0.176,Clean,stable conditions,0.581,0.488,0.481,71.1,47.0,9.11,5.54,12,11,True
-22500042,2025-11-14 00:00:00+00:00,Portland Trail Blazers @ Houston Rockets,0.143,Clean,volatile teams,0.322,0.751,0.113,44.3,47.9,12.21,10.32,10,11,True
-22500043,2025-11-14 00:00:00+00:00,Charlotte Hornets @ Milwaukee Bucks,0.215,Clean,"fatigue load, volatile teams",0.626,0.8,0.417,74.7,47.9,10.81,13.19,12,11,True
-22500044,2025-11-14 00:00:00+00:00,Sacramento Kings @ Minnesota Timberwolves,0.223,Clean,"volatile teams, stability mismatch",0.555,0.752,0.782,37.2,78.3,15.23,7.57,11,12,True
-22500045,2025-11-14 00:00:00+00:00,Los Angeles Lakers @ New Orleans Pelicans,0.152,Clean,volatile teams,0.448,0.633,0.167,50.6,54.2,8.05,10.95,11,12,True
-22500046,2025-11-14 00:00:00+00:00,LA Clippers @ Dallas Mavericks,0.183,Clean,fatigue load,0.689,0.374,0.536,71.1,57.8,2.54,8.68,12,11,True
-22500047,2025-11-14 00:00:00+00:00,Golden State Warriors @ San Antonio Spurs,0.215,Clean,"fatigue load, volatile teams",0.759,0.797,0.119,64.8,71.1,11.38,12.53,11,13,True
-22500228,2025-11-15 00:00:00+00:00,Memphis Grizzlies @ Cleveland Cavaliers,0.209,Clean,"volatile teams, stability mismatch",0.581,0.633,0.715,71.1,47.0,14.26,4.72,13,13,True
-22500229,2025-11-15 00:00:00+00:00,Oklahoma City Thunder @ Charlotte Hornets,0.202,Clean,"fatigue load, volatile teams",0.643,0.686,0.381,74.2,50.1,11.31,9.28,12,13,True
-22500230,2025-11-15 00:00:00+00:00,Toronto Raptors @ Indiana Pacers,0.214,Clean,"fatigue load, volatile teams, stability mismatch",0.626,0.65,0.663,78.3,44.3,6.86,12.65,12,12,True
-22500231,2025-11-15 00:00:00+00:00,Los Angeles Lakers @ Milwaukee Bucks,0.238,Clean,"fatigue load, volatile teams",1.0,0.706,0.092,94.0,101.0,10.66,10.51,13,13,True
-22500232,2025-11-15 00:00:00+00:00,Denver Nuggets @ Minnesota Timberwolves,0.194,Clean,volatile teams,0.488,0.778,0.457,64.2,44.6,14.64,8.71,12,11,True
-22500233,2025-11-16 00:00:00+00:00,LA Clippers @ Boston Celtics,0.161,Clean,volatile teams,0.298,0.708,0.509,32.0,57.8,13.04,8.2,13,12,True
-22500234,2025-11-16 00:00:00+00:00,Sacramento Kings @ San Antonio Spurs,0.21,Clean,"fatigue load, volatile teams",0.689,0.627,0.501,50.6,78.3,11.24,7.57,12,13,True
-22500235,2025-11-16 00:00:00+00:00,Brooklyn Nets @ Washington Wizards,0.139,Clean,stability mismatch,0.242,0.382,0.87,24.6,54.2,1.21,10.25,12,12,True
-22500236,2025-11-16 00:00:00+00:00,Orlando Magic @ Houston Rockets,0.224,Clean,volatile teams,0.563,0.927,0.466,44.3,72.0,12.82,17.14,11,13,True
-22500237,2025-11-16 00:00:00+00:00,Golden State Warriors @ New Orleans Pelicans,0.205,Clean,"fatigue load, volatile teams",0.653,0.656,0.461,50.6,74.7,7.88,11.81,12,14,True
-22500238,2025-11-16 00:00:00+00:00,Portland Trail Blazers @ Dallas Mavericks,0.135,Clean,stable conditions,0.349,0.477,0.41,50.6,44.3,3.96,10.34,13,12,True
-22500239,2025-11-16 00:00:00+00:00,Atlanta Hawks @ Phoenix Suns,0.148,Clean,volatile teams,0.308,0.827,0.078,43.8,47.0,12.97,11.84,13,13,True
-22500240,2025-11-16 00:00:00+00:00,Chicago Bulls @ Utah Jazz,0.102,Clean,stable conditions,0.138,0.55,0.26,43.8,24.6,8.48,8.03,12,11,True
-22500241,2025-11-17 00:00:00+00:00,Milwaukee Bucks @ Cleveland Cavaliers,0.249,Clean,"fatigue load, volatile teams",0.911,0.815,0.254,71.1,81.0,14.15,10.29,14,14,True
-22500242,2025-11-17 00:00:00+00:00,Indiana Pacers @ Detroit Pistons,0.129,Clean,stable conditions,0.344,0.544,0.205,43.8,50.6,9.45,6.87,13,13,True
-22500243,2025-11-17 00:00:00+00:00,LA Clippers @ Philadelphia 76ers,0.171,Clean,stability mismatch,0.5,0.479,0.607,26.4,94.0,6.14,8.24,12,13,True
-22500244,2025-11-17 00:00:00+00:00,New York Knicks @ Miami Heat,0.131,Clean,stable conditions,0.347,0.587,0.164,50.1,44.6,7.73,9.89,13,12,True
-22500245,2025-11-17 00:00:00+00:00,Charlotte Hornets @ Toronto Raptors,0.205,Clean,volatile teams,0.563,0.837,0.348,47.9,68.4,13.95,11.17,13,13,True
-22500246,2025-11-17 00:00:00+00:00,Dallas Mavericks @ Minnesota Timberwolves,0.24,Clean,"fatigue load, stability mismatch",0.706,0.589,0.978,50.6,108.0,14.03,3.65,13,14,True
-22500247,2025-11-17 00:00:00+00:00,Oklahoma City Thunder @ New Orleans Pelicans,0.206,Clean,fatigue load,0.742,0.552,0.453,87.0,54.2,7.82,8.75,13,14,True
-22500248,2025-11-17 00:00:00+00:00,Chicago Bulls @ Denver Nuggets,0.186,Clean,"fatigue load, volatile teams",0.614,0.708,0.174,54.2,67.2,10.47,10.78,12,12,True
-22500249,2025-11-18 00:00:00+00:00,Golden State Warriors @ Orlando Magic,0.25,Clean,"fatigue load, volatile teams",0.778,0.891,0.44,57.8,81.0,16.84,11.73,14,15,True
-22500250,2025-11-18 00:00:00+00:00,Boston Celtics @ Brooklyn Nets,0.131,Clean,volatile teams,0.286,0.723,0.05,44.3,44.3,10.18,11.5,13,14,True
-22500251,2025-11-18 00:00:00+00:00,Detroit Pistons @ Atlanta Hawks,0.215,Clean,"fatigue load, volatile teams",0.72,0.73,0.333,57.8,74.2,12.69,9.21,14,14,True
-22500252,2025-11-18 00:00:00+00:00,Memphis Grizzlies @ San Antonio Spurs,0.141,Clean,stable conditions,0.352,0.527,0.393,50.6,44.6,11.18,4.63,13,14,True
-22500253,2025-11-18 00:00:00+00:00,Utah Jazz @ Los Angeles Lakers,0.13,Clean,volatile teams,0.325,0.605,0.155,44.6,47.9,10.39,7.75,14,13,True
-22500254,2025-11-18 00:00:00+00:00,Phoenix Suns @ Portland Trail Blazers,0.172,Clean,volatile teams,0.493,0.688,0.259,51.5,57.8,8.04,12.61,13,14,True
-22500255,2025-11-19 00:00:00+00:00,Houston Rockets @ Cleveland Cavaliers,0.216,Clean,"fatigue load, volatile teams",0.62,0.805,0.437,77.4,44.6,11.69,12.46,15,12,True
-22500256,2025-11-19 00:00:00+00:00,Charlotte Hornets @ Indiana Pacers,0.185,Clean,volatile teams,0.59,0.648,0.321,50.6,68.4,8.5,10.93,14,14,True
-22500257,2025-11-19 00:00:00+00:00,Golden State Warriors @ Miami Heat,0.214,Clean,"fatigue load, volatile teams",0.706,0.607,0.567,50.6,94.0,8.31,9.89,14,16,True
-22500258,2025-11-19 00:00:00+00:00,Toronto Raptors @ Philadelphia 76ers,0.142,Clean,volatile teams,0.179,0.664,0.56,26.8,47.9,6.35,13.57,13,14,True
-22500259,2025-11-19 00:00:00+00:00,Washington Wizards @ Minnesota Timberwolves,0.145,Clean,stability mismatch,0.206,0.54,0.764,50.6,29.5,15.47,1.21,14,13,True
-22500260,2025-11-19 00:00:00+00:00,Denver Nuggets @ New Orleans Pelicans,0.193,Clean,"fatigue load, volatile teams",0.689,0.606,0.276,71.1,57.8,7.82,10.37,14,13,True
-22500261,2025-11-19 00:00:00+00:00,Sacramento Kings @ Oklahoma City Thunder,0.14,Clean,stable conditions,0.412,0.57,0.18,54.2,47.0,9.54,7.57,15,14,True
-22500262,2025-11-19 00:00:00+00:00,New York Knicks @ Dallas Mavericks,0.212,Clean,"fatigue load, stability mismatch",0.715,0.461,0.769,84.6,51.5,3.58,10.25,15,13,True
-22500263,2025-11-19 00:00:00+00:00,Chicago Bulls @ Portland Trail Blazers,0.217,Clean,"fatigue load, volatile teams",0.715,0.6,0.595,87.0,51.5,7.25,10.75,14,13,True
-22500264,2025-11-20 00:00:00+00:00,LA Clippers @ Orlando Magic,0.165,Clean,volatile teams,0.407,0.641,0.44,50.6,50.1,14.67,4.57,15,14,True
-22500265,2025-11-20 00:00:00+00:00,Sacramento Kings @ Memphis Grizzlies,0.181,Clean,stability mismatch,0.446,0.486,0.853,30.4,74.2,10.71,3.88,15,15,True
-22500266,2025-11-20 00:00:00+00:00,Philadelphia 76ers @ Milwaukee Bucks,0.164,Clean,stable conditions,0.542,0.543,0.298,47.0,67.2,8.61,7.67,15,14,True
-22500267,2025-11-20 00:00:00+00:00,Atlanta Hawks @ San Antonio Spurs,0.172,Clean,volatile teams,0.484,0.78,0.12,50.6,57.8,11.27,12.12,14,15,True
-22500048,2025-11-21 00:00:00+00:00,Indiana Pacers @ Cleveland Cavaliers,0.168,Clean,volatile teams,0.475,0.626,0.36,56.9,50.6,12.69,6.1,16,15,True
-22500049,2025-11-21 00:00:00+00:00,Brooklyn Nets @ Boston Celtics,0.137,Clean,volatile teams,0.084,0.925,0.25,23.2,38.4,14.86,12.88,15,14,True
-22500050,2025-11-21 00:00:00+00:00,Washington Wizards @ Toronto Raptors,0.143,Clean,stability mismatch,0.246,0.456,0.798,54.2,30.4,12.47,1.21,15,14,True
-22500051,2025-11-21 00:00:00+00:00,Miami Heat @ Chicago Bulls,0.183,Clean,volatile teams,0.556,0.808,0.077,57.8,57.8,10.98,13.25,14,15,True
-22500052,2025-11-21 00:00:00+00:00,New Orleans Pelicans @ Dallas Mavericks,0.2,Clean,fatigue load,0.921,0.399,0.234,77.4,74.7,4.24,7.73,16,15,True
-22500053,2025-11-21 00:00:00+00:00,Minnesota Timberwolves @ Phoenix Suns,0.208,Clean,"volatile teams, stability mismatch",0.483,0.812,0.613,29.5,78.3,10.49,13.86,15,15,True
-22500054,2025-11-21 00:00:00+00:00,Denver Nuggets @ Houston Rockets,0.165,Clean,volatile teams,0.457,0.781,0.075,51.5,54.2,12.31,11.11,13,14,True
-22500055,2025-11-21 00:00:00+00:00,Oklahoma City Thunder @ Utah Jazz,0.144,Clean,stable conditions,0.278,0.569,0.536,26.4,57.8,6.96,10.11,14,16,True
-22500056,2025-11-21 00:00:00+00:00,Portland Trail Blazers @ Golden State Warriors,0.229,Clean,fatigue load,0.947,0.598,0.26,84.6,74.7,10.54,7.41,17,15,True
-22500268,2025-11-22 00:00:00+00:00,LA Clippers @ Charlotte Hornets,0.145,Clean,volatile teams,0.357,0.635,0.259,41.5,54.2,10.73,8.32,15,15,True
-22500269,2025-11-22 00:00:00+00:00,New York Knicks @ Orlando Magic,0.145,Clean,volatile teams,0.206,0.792,0.329,50.6,29.5,12.83,10.94,16,14,True
-22500270,2025-11-22 00:00:00+00:00,Atlanta Hawks @ New Orleans Pelicans,0.232,Clean,"fatigue load, stability mismatch",0.742,0.562,0.82,104.0,54.2,4.99,11.87,16,16,True
-22500271,2025-11-22 00:00:00+00:00,Washington Wizards @ Chicago Bulls,0.226,Clean,"fatigue load, stability mismatch",0.872,0.39,0.747,87.0,67.2,10.57,1.12,15,15,True
-22500272,2025-11-22 00:00:00+00:00,Detroit Pistons @ Milwaukee Bucks,0.127,Clean,stable conditions,0.206,0.591,0.406,50.6,22.0,8.32,9.41,16,15,True
-22500273,2025-11-22 00:00:00+00:00,Memphis Grizzlies @ Dallas Mavericks,0.211,Clean,"fatigue load, stability mismatch",0.679,0.472,0.808,94.0,47.9,4.13,10.03,17,16,True
-22500274,2025-11-22 00:00:00+00:00,Sacramento Kings @ Denver Nuggets,0.248,Clean,"fatigue load, volatile teams, stability mismatch",0.778,0.759,0.638,101.0,57.8,13.31,9.45,15,16,True
-22500275,2025-11-23 00:00:00+00:00,Miami Heat @ Philadelphia 76ers,0.145,Clean,volatile teams,0.294,0.692,0.307,41.5,47.9,7.5,13.27,15,16,True
-22500276,2025-11-23 00:00:00+00:00,Charlotte Hornets @ Atlanta Hawks,0.246,Clean,"fatigue load, volatile teams, stability mismatch",0.842,0.674,0.622,97.0,64.2,12.74,7.47,17,16,True
-22500277,2025-11-23 00:00:00+00:00,Orlando Magic @ Boston Celtics,0.241,Clean,"fatigue load, volatile teams",0.643,0.913,0.57,44.3,108.0,14.85,12.55,16,17,True
-22500278,2025-11-23 00:00:00+00:00,LA Clippers @ Cleveland Cavaliers,0.228,Clean,"fatigue load, volatile teams, stability mismatch",0.706,0.675,0.65,50.6,97.0,12.01,8.25,17,16,True
-22500279,2025-11-23 00:00:00+00:00,Brooklyn Nets @ Toronto Raptors,0.157,Clean,volatile teams,0.322,0.886,0.078,44.3,47.9,13.82,12.76,16,15,True
-22500280,2025-11-23 00:00:00+00:00,Portland Trail Blazers @ Oklahoma City Thunder,0.206,Clean,fatigue load,0.761,0.532,0.441,57.8,78.3,9.93,6.04,17,16,True
-22500281,2025-11-23 00:00:00+00:00,San Antonio Spurs @ Phoenix Suns,0.111,Clean,stable conditions,0.289,0.54,0.074,44.3,44.6,7.35,8.84,16,15,True
-22500282,2025-11-23 00:00:00+00:00,Los Angeles Lakers @ Utah Jazz,0.131,Clean,stability mismatch,0.143,0.59,0.605,44.3,13.4,6.4,11.3,15,15,True
-22500283,2025-11-24 00:00:00+00:00,Detroit Pistons @ Indiana Pacers,0.114,Clean,stable conditions,0.227,0.539,0.262,38.4,44.3,6.1,10.08,16,16,True
-22500284,2025-11-24 00:00:00+00:00,Cleveland Cavaliers @ Toronto Raptors,0.239,Clean,"fatigue load, volatile teams",1.0,0.701,0.101,87.0,94.0,10.7,10.33,17,18,True
-22500285,2025-11-24 00:00:00+00:00,New York Knicks @ Brooklyn Nets,0.195,Clean,volatile teams,0.587,0.706,0.361,67.2,51.5,12.73,8.45,16,15,True
-22500286,2025-11-24 00:00:00+00:00,Dallas Mavericks @ Miami Heat,0.265,Clean,"fatigue load, volatile teams, stability mismatch",1.0,0.61,0.658,101.0,84.6,14.21,4.09,17,18,True
-22500287,2025-11-24 00:00:00+00:00,Denver Nuggets @ Memphis Grizzlies,0.222,Clean,"fatigue load, volatile teams",0.662,0.771,0.497,47.9,78.3,9.9,13.22,17,16,True
-22500288,2025-11-24 00:00:00+00:00,Portland Trail Blazers @ Milwaukee Bucks,0.207,Clean,fatigue load,0.706,0.532,0.585,50.6,104.0,8.87,7.1,17,17,True
-22500289,2025-11-24 00:00:00+00:00,Chicago Bulls @ New Orleans Pelicans,0.232,Clean,"fatigue load, volatile teams",0.957,0.631,0.225,77.4,78.3,6.94,11.98,17,16,True
-22500290,2025-11-24 00:00:00+00:00,Houston Rockets @ Phoenix Suns,0.166,Clean,"volatile teams, stability mismatch",0.342,0.625,0.625,64.2,24.0,7.9,10.85,17,14,True
-22500291,2025-11-24 00:00:00+00:00,Utah Jazz @ Golden State Warriors,0.186,Clean,stable conditions,0.58,0.504,0.597,43.8,74.2,9.74,5.37,18,16,True
-22500292,2025-11-24 00:00:00+00:00,Minnesota Timberwolves @ Sacramento Kings,0.184,Clean,volatile teams,0.393,0.873,0.349,57.8,41.5,11.2,15.94,17,16,True
-22500057,2025-11-25 00:00:00+00:00,Atlanta Hawks @ Washington Wizards,0.206,Clean,volatile teams,0.507,0.838,0.49,36.0,74.7,12.67,12.46,16,18,True
-22500058,2025-11-25 00:00:00+00:00,Orlando Magic @ Philadelphia 76ers,0.214,Clean,"volatile teams, stability mismatch",0.554,0.754,0.643,44.3,71.1,7.62,16.38,16,18,True
-22500059,2025-11-25 00:00:00+00:00,LA Clippers @ Los Angeles Lakers,0.152,Clean,volatile teams,0.278,0.622,0.568,24.1,57.8,11.06,7.61,16,17,True
-22500060,2025-11-26 00:00:00+00:00,Detroit Pistons @ Boston Celtics,0.125,Clean,volatile teams,0.04,0.821,0.352,17.8,34.0,14.55,10.07,17,17,True
-22500061,2025-11-26 00:00:00+00:00,New York Knicks @ Charlotte Hornets,0.13,Clean,stable conditions,0.317,0.511,0.343,43.8,47.9,4.72,10.6,17,16,True
-22500062,2025-11-26 00:00:00+00:00,Milwaukee Bucks @ Miami Heat,0.218,Clean,"fatigue load, volatile teams",0.689,0.697,0.495,71.1,57.8,14.61,6.31,18,18,True
-22500063,2025-11-26 00:00:00+00:00,Indiana Pacers @ Toronto Raptors,0.199,Clean,volatile teams,0.59,0.606,0.6,71.1,47.9,12.61,5.58,18,17,True
-22500064,2025-11-26 00:00:00+00:00,Minnesota Timberwolves @ Oklahoma City Thunder,0.165,Clean,volatile teams,0.299,0.819,0.372,38.4,51.5,9.56,15.86,18,17,True
-22500065,2025-11-26 00:00:00+00:00,Memphis Grizzlies @ New Orleans Pelicans,0.196,Clean,fatigue load,0.653,0.557,0.49,77.4,47.9,7.03,9.69,18,18,True
-22500066,2025-11-26 00:00:00+00:00,Houston Rockets @ Golden State Warriors,0.133,Clean,volatile teams,0.385,0.624,0.039,50.6,47.9,9.41,9.31,19,15,True
-22500067,2025-11-26 00:00:00+00:00,San Antonio Spurs @ Portland Trail Blazers,0.181,Clean,stability mismatch,0.5,0.56,0.61,84.6,29.5,7.2,9.61,18,16,True
-22500068,2025-11-26 00:00:00+00:00,Phoenix Suns @ Sacramento Kings,0.195,Clean,"fatigue load, volatile teams",0.653,0.648,0.323,71.1,54.2,11.07,8.38,18,18,True
-22500069,2025-11-28 00:00:00+00:00,Cleveland Cavaliers @ Atlanta Hawks,0.112,Clean,volatile teams,0.161,0.699,0.101,41.5,34.6,10.68,10.29,19,19,True
-22500070,2025-11-28 00:00:00+00:00,Philadelphia 76ers @ Brooklyn Nets,0.099,Clean,volatile teams,0.02,0.663,0.275,32.0,23.2,11.99,7.91,17,17,True
-22500071,2025-11-28 00:00:00+00:00,Chicago Bulls @ Charlotte Hornets,0.139,Clean,stable conditions,0.252,0.557,0.54,50.6,34.6,4.73,11.97,18,17,True
-22500072,2025-11-28 00:00:00+00:00,Orlando Magic @ Detroit Pistons,0.162,Clean,volatile teams,0.349,0.833,0.193,47.9,47.0,10.0,15.54,18,19,True
-22500073,2025-11-28 00:00:00+00:00,Washington Wizards @ Indiana Pacers,0.14,Clean,volatile teams,0.239,0.737,0.272,47.9,36.0,9.37,12.73,18,17,True
-22500074,2025-11-28 00:00:00+00:00,Milwaukee Bucks @ New York Knicks,0.149,Clean,stable conditions,0.457,0.547,0.255,47.9,57.8,9.61,6.8,17,19,True
-22500075,2025-11-28 00:00:00+00:00,Phoenix Suns @ Oklahoma City Thunder,0.172,Clean,stable conditions,0.563,0.541,0.366,44.3,72.0,8.33,7.89,19,19,True
-22500076,2025-11-28 00:00:00+00:00,San Antonio Spurs @ Denver Nuggets,0.109,Clean,volatile teams,0.112,0.709,0.138,37.2,34.0,11.94,9.33,17,17,True
-22500077,2025-11-28 00:00:00+00:00,Sacramento Kings @ Utah Jazz,0.137,Clean,stable conditions,0.242,0.548,0.556,30.0,54.2,5.53,10.92,17,19,True
-22500078,2025-11-28 00:00:00+00:00,Dallas Mavericks @ Los Angeles Lakers,0.119,Clean,stability mismatch,0.117,0.498,0.647,17.8,41.7,10.9,4.04,17,19,True
-22500079,2025-11-28 00:00:00+00:00,Memphis Grizzlies @ LA Clippers,0.132,Clean,stable conditions,0.353,0.569,0.195,43.8,51.5,7.44,9.64,18,19,True
-22500293,2025-11-29 00:00:00+00:00,Boston Celtics @ Minnesota Timberwolves,0.108,Clean,volatile teams,0.0,0.867,0.107,26.4,24.0,11.79,14.21,18,18,True
-22500294,2025-11-29 00:00:00+00:00,Toronto Raptors @ Charlotte Hornets,0.234,Clean,"fatigue load, volatile teams, stability mismatch",0.67,0.733,0.717,87.0,47.0,8.1,13.9,19,19,True
-22500295,2025-11-29 00:00:00+00:00,Chicago Bulls @ Indiana Pacers,0.215,Clean,"fatigue load, volatile teams",0.784,0.707,0.228,64.2,74.2,9.25,11.96,19,18,True
-22500296,2025-11-29 00:00:00+00:00,Detroit Pistons @ Miami Heat,0.229,Clean,"volatile teams, stability mismatch",0.584,0.844,0.647,38.4,94.0,14.88,10.44,19,19,True
-22500297,2025-11-29 00:00:00+00:00,Brooklyn Nets @ Milwaukee Bucks,0.244,Clean,"fatigue load, volatile teams",0.872,0.661,0.542,97.0,67.2,7.82,12.01,20,18,True
-22500298,2025-11-29 00:00:00+00:00,New Orleans Pelicans @ Golden State Warriors,0.124,Clean,stable conditions,0.201,0.549,0.453,23.2,50.1,9.5,6.98,20,19,True
-22500299,2025-11-29 00:00:00+00:00,Denver Nuggets @ Phoenix Suns,0.268,Clean,"fatigue load, volatile teams",0.942,0.763,0.568,101.0,74.2,8.22,14.67,20,18,True
-22500300,2025-11-29 00:00:00+00:00,Dallas Mavericks @ LA Clippers,0.203,Clean,fatigue load,0.842,0.41,0.44,87.0,64.2,7.53,4.77,19,20,True
-22500301,2025-11-30 00:00:00+00:00,Houston Rockets @ Utah Jazz,0.118,Clean,stable conditions,0.143,0.51,0.555,44.3,17.4,5.43,9.87,18,16,True
-22500302,2025-11-30 00:00:00+00:00,Boston Celtics @ Cleveland Cavaliers,0.201,Clean,volatile teams,0.551,0.799,0.371,47.9,67.2,10.1,13.86,20,19,True
-22500303,2025-11-30 00:00:00+00:00,Toronto Raptors @ New York Knicks,0.232,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.811,0.617,44.3,97.0,10.46,13.88,18,20,True
-22500304,2025-11-30 00:00:00+00:00,Atlanta Hawks @ Philadelphia 76ers,0.147,Clean,volatile teams,0.385,0.612,0.265,44.3,54.2,7.53,10.83,18,20,True
-22500305,2025-11-30 00:00:00+00:00,Oklahoma City Thunder @ Portland Trail Blazers,0.124,Clean,stable conditions,0.28,0.549,0.276,36.5,51.5,7.29,9.19,19,20,True
-22500306,2025-11-30 00:00:00+00:00,San Antonio Spurs @ Minnesota Timberwolves,0.15,Clean,volatile teams,0.451,0.606,0.18,57.2,47.9,9.82,8.37,19,18,True
-22500307,2025-11-30 00:00:00+00:00,Memphis Grizzlies @ Sacramento Kings,0.152,Clean,volatile teams,0.421,0.689,0.129,54.2,47.9,10.98,9.7,20,20,True
-22500308,2025-11-30 00:00:00+00:00,New Orleans Pelicans @ Los Angeles Lakers,0.193,Clean,"volatile teams, stability mismatch",0.502,0.616,0.693,30.2,81.2,11.5,6.98,18,20,True
-22500309,2025-12-01 00:00:00+00:00,Atlanta Hawks @ Detroit Pistons,0.202,Clean,fatigue load,0.925,0.503,0.073,78.3,74.2,7.77,7.33,20,21,True
-22500310,2025-12-01 00:00:00+00:00,Cleveland Cavaliers @ Indiana Pacers,0.189,Clean,fatigue load,0.753,0.56,0.161,71.1,64.2,9.22,7.58,20,21,True
-22500311,2025-12-01 00:00:00+00:00,Milwaukee Bucks @ Washington Wizards,0.193,Clean,"volatile teams, stability mismatch",0.447,0.669,0.713,20.9,74.7,12.68,7.38,18,21,True
-22500312,2025-12-01 00:00:00+00:00,Charlotte Hornets @ Brooklyn Nets,0.157,Clean,volatile teams,0.421,0.654,0.26,47.9,54.2,12.03,7.59,19,20,True
-22500313,2025-12-01 00:00:00+00:00,LA Clippers @ Miami Heat,0.184,Clean,volatile teams,0.484,0.749,0.362,50.6,57.8,14.89,7.57,20,20,True
-22500314,2025-12-01 00:00:00+00:00,Chicago Bulls @ Orlando Magic,0.18,Clean,volatile teams,0.278,0.904,0.495,29.5,57.8,17.05,12.11,20,19,True
-22500315,2025-12-01 00:00:00+00:00,Dallas Mavericks @ Denver Nuggets,0.193,Clean,volatile teams,0.52,0.858,0.225,54.2,57.8,16.6,10.74,19,21,True
-22500316,2025-12-01 00:00:00+00:00,Houston Rockets @ Utah Jazz,0.168,Clean,volatile teams,0.474,0.717,0.202,57.2,50.2,9.23,12.28,19,17,True
-22500317,2025-12-01 00:00:00+00:00,Phoenix Suns @ Los Angeles Lakers,0.209,Clean,"fatigue load, volatile teams",0.649,0.779,0.311,50.2,74.7,11.62,11.76,19,21,True
-22500318,2025-12-02 00:00:00+00:00,Washington Wizards @ Philadelphia 76ers,0.166,Clean,volatile teams,0.415,0.684,0.355,44.3,57.2,7.82,12.71,19,19,True
-22500319,2025-12-02 00:00:00+00:00,Portland Trail Blazers @ Toronto Raptors,0.151,Clean,volatile teams,0.345,0.637,0.369,54.2,40.3,11.88,7.23,21,20,True
-22500320,2025-12-02 00:00:00+00:00,New York Knicks @ Boston Celtics,0.153,Clean,volatile teams,0.322,0.804,0.163,47.9,44.3,13.79,10.34,20,19,True
-22500321,2025-12-02 00:00:00+00:00,Minnesota Timberwolves @ New Orleans Pelicans,0.153,Clean,stable conditions,0.493,0.557,0.212,57.8,51.5,6.9,9.81,21,20,True
-22500322,2025-12-02 00:00:00+00:00,Memphis Grizzlies @ San Antonio Spurs,0.152,Clean,stable conditions,0.493,0.59,0.142,51.5,57.8,8.14,9.57,19,21,True
-22500323,2025-12-02 00:00:00+00:00,Oklahoma City Thunder @ Golden State Warriors,0.12,Clean,volatile teams,0.179,0.608,0.339,23.2,47.9,9.47,8.76,21,21,True
-22500324,2025-12-03 00:00:00+00:00,Portland Trail Blazers @ Cleveland Cavaliers,0.169,Clean,volatile teams,0.548,0.615,0.228,50.6,64.2,8.53,9.93,22,21,True
-22500325,2025-12-03 00:00:00+00:00,Denver Nuggets @ Indiana Pacers,0.225,Clean,"fatigue load, volatile teams",0.689,0.806,0.418,71.1,57.8,9.18,16.99,21,20,True
-22500326,2025-12-03 00:00:00+00:00,San Antonio Spurs @ Orlando Magic,0.218,Clean,"volatile teams, stability mismatch",0.5,0.798,0.742,26.8,94.0,16.12,8.93,21,20,True
-22500327,2025-12-03 00:00:00+00:00,LA Clippers @ Atlanta Hawks,0.165,Clean,volatile teams,0.484,0.672,0.203,54.2,54.2,7.54,12.62,22,21,True
-22500328,2025-12-03 00:00:00+00:00,Charlotte Hornets @ New York Knicks,0.225,Clean,fatigue load,0.911,0.585,0.307,87.0,71.1,10.01,7.54,20,21,True
-22500329,2025-12-03 00:00:00+00:00,Brooklyn Nets @ Chicago Bulls,0.176,Clean,volatile teams,0.457,0.837,0.142,57.8,47.9,12.85,12.25,20,20,True
-22500330,2025-12-03 00:00:00+00:00,Sacramento Kings @ Houston Rockets,0.156,Clean,volatile teams,0.416,0.769,0.064,51.5,50.1,12.19,10.87,18,21,True
-22500331,2025-12-03 00:00:00+00:00,Detroit Pistons @ Milwaukee Bucks,0.199,Clean,"fatigue load, volatile teams",0.795,0.607,0.142,74.7,64.8,9.31,8.89,22,21,True
-22500332,2025-12-03 00:00:00+00:00,Miami Heat @ Dallas Mavericks,0.187,Clean,volatile teams,0.52,0.85,0.153,54.2,57.8,11.08,14.43,22,21,True
-22500333,2025-12-04 00:00:00+00:00,Golden State Warriors @ Philadelphia 76ers,0.096,Clean,stable conditions,0.143,0.501,0.237,44.3,27.7,7.82,7.21,20,22,True
-22500334,2025-12-04 00:00:00+00:00,Boston Celtics @ Washington Wizards,0.165,Clean,volatile teams,0.322,0.928,0.133,44.3,47.9,12.85,15.84,20,21,True
-22500335,2025-12-04 00:00:00+00:00,Utah Jazz @ Brooklyn Nets,0.227,Clean,"fatigue load, volatile teams",0.646,0.776,0.59,97.0,44.6,12.93,10.36,21,20,True
-22500336,2025-12-04 00:00:00+00:00,Los Angeles Lakers @ Toronto Raptors,0.145,Clean,volatile teams,0.298,0.765,0.159,50.6,39.2,11.71,11.24,22,20,True
-22500337,2025-12-04 00:00:00+00:00,Minnesota Timberwolves @ New Orleans Pelicans,0.13,Clean,stable conditions,0.349,0.549,0.209,50.6,44.3,6.85,9.63,22,21,True
-22500338,2025-12-05 00:00:00+00:00,Los Angeles Lakers @ Boston Celtics,0.263,Clean,"fatigue load, volatile teams",1.0,0.859,0.194,97.0,90.0,14.53,11.24,22,21,True
-22500339,2025-12-05 00:00:00+00:00,Miami Heat @ Orlando Magic,0.189,Clean,volatile teams,0.421,0.975,0.179,44.3,57.8,14.8,14.44,22,22,True
-22500340,2025-12-05 00:00:00+00:00,Denver Nuggets @ Atlanta Hawks,0.24,Clean,"fatigue load, volatile teams",0.858,0.737,0.375,71.1,74.7,7.12,16.27,23,21,True
-22500341,2025-12-05 00:00:00+00:00,San Antonio Spurs @ Cleveland Cavaliers,0.204,Clean,"fatigue load, volatile teams",0.831,0.645,0.065,71.1,72.0,10.34,9.02,23,21,True
-22500342,2025-12-05 00:00:00+00:00,Portland Trail Blazers @ Detroit Pistons,0.18,Clean,fatigue load,0.617,0.597,0.266,71.1,50.6,8.84,9.08,22,22,True
-22500343,2025-12-05 00:00:00+00:00,Utah Jazz @ New York Knicks,0.235,Clean,"fatigue load, volatile teams",0.911,0.711,0.224,71.1,87.0,10.99,10.35,21,21,True
-22500344,2025-12-05 00:00:00+00:00,Charlotte Hornets @ Toronto Raptors,0.264,Clean,"fatigue load, volatile teams",0.947,0.86,0.323,94.0,74.7,11.64,14.17,23,22,True
-22500345,2025-12-05 00:00:00+00:00,Indiana Pacers @ Chicago Bulls,0.22,Clean,"fatigue load, volatile teams",0.822,0.774,0.09,71.1,71.1,12.86,10.35,21,22,True
-22500346,2025-12-05 00:00:00+00:00,Phoenix Suns @ Houston Rockets,0.136,Clean,volatile teams,0.26,0.791,0.064,44.3,41.7,12.31,11.42,19,22,True
-22500347,2025-12-05 00:00:00+00:00,LA Clippers @ Memphis Grizzlies,0.206,Clean,volatile teams,0.562,0.733,0.54,41.5,74.7,9.31,12.67,22,22,True
-22500348,2025-12-05 00:00:00+00:00,Philadelphia 76ers @ Milwaukee Bucks,0.226,Clean,"fatigue load, volatile teams",0.911,0.619,0.251,71.1,90.0,9.1,9.47,23,21,True
-22500349,2025-12-05 00:00:00+00:00,Dallas Mavericks @ Oklahoma City Thunder,0.188,Clean,volatile teams,0.557,0.618,0.491,44.6,71.1,7.4,11.15,22,23,True
-22500350,2025-12-06 00:00:00+00:00,New Orleans Pelicans @ Brooklyn Nets,0.227,Clean,"fatigue load, volatile teams",0.894,0.626,0.3,71.1,78.3,11.87,6.91,22,23,True
-22500351,2025-12-06 00:00:00+00:00,Atlanta Hawks @ Washington Wizards,0.223,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.667,0.732,44.3,104.0,12.86,7.14,21,24,True
-22500352,2025-12-06 00:00:00+00:00,Golden State Warriors @ Cleveland Cavaliers,0.202,Clean,"fatigue load, stability mismatch",0.616,0.563,0.665,87.0,41.6,10.25,6.65,24,23,True
-22500353,2025-12-06 00:00:00+00:00,Milwaukee Bucks @ Detroit Pistons,0.221,Clean,fatigue load,1.0,0.59,0.03,94.0,94.0,8.5,9.2,23,24,True
-22500354,2025-12-06 00:00:00+00:00,Sacramento Kings @ Miami Heat,0.224,Clean,volatile teams,0.5,0.993,0.503,87.0,29.5,14.85,14.93,23,22,True
-22500355,2025-12-06 00:00:00+00:00,LA Clippers @ Minnesota Timberwolves,0.259,Clean,"fatigue load, volatile teams",0.92,0.754,0.498,72.0,104.0,9.95,12.67,22,23,True
-22500356,2025-12-06 00:00:00+00:00,Houston Rockets @ Dallas Mavericks,0.263,Clean,"fatigue load, volatile teams",1.0,0.902,0.121,87.0,80.0,12.96,14.09,24,20,True
-22500357,2025-12-07 00:00:00+00:00,Orlando Magic @ New York Knicks,0.22,Clean,"fatigue load, volatile teams",0.626,0.879,0.348,71.1,51.5,11.57,14.8,22,23,True
-22500358,2025-12-07 00:00:00+00:00,Boston Celtics @ Toronto Raptors,0.242,Clean,"fatigue load, volatile teams",0.921,0.8,0.16,77.4,74.7,10.17,13.83,24,23,True
-22500359,2025-12-07 00:00:00+00:00,Denver Nuggets @ Charlotte Hornets,0.183,Clean,volatile teams,0.385,0.975,0.172,54.2,44.3,14.26,15.96,23,22,True
-22500360,2025-12-07 00:00:00+00:00,Portland Trail Blazers @ Memphis Grizzlies,0.187,Clean,volatile teams,0.59,0.612,0.408,44.3,74.7,9.51,8.84,23,23,True
-22500361,2025-12-07 00:00:00+00:00,Golden State Warriors @ Chicago Bulls,0.172,Clean,volatile teams,0.515,0.624,0.33,44.3,67.2,8.84,9.88,22,24,True
-22500362,2025-12-07 00:00:00+00:00,Los Angeles Lakers @ Philadelphia 76ers,0.217,Clean,"fatigue load, volatile teams",0.858,0.678,0.14,74.7,71.1,8.96,11.37,22,22,True
-22500363,2025-12-07 00:00:00+00:00,Oklahoma City Thunder @ Utah Jazz,0.206,Clean,"fatigue load, volatile teams",0.698,0.623,0.43,78.3,51.5,10.49,8.21,22,23,True
-22500364,2025-12-08 00:00:00+00:00,Sacramento Kings @ Indiana Pacers,0.144,Clean,volatile teams,0.178,0.861,0.252,43.8,34.0,10.89,14.93,23,23,True
-22500365,2025-12-08 00:00:00+00:00,Phoenix Suns @ Minnesota Timberwolves,0.132,Clean,volatile teams,0.206,0.678,0.327,50.6,29.5,9.37,10.97,23,23,True
-22500366,2025-12-08 00:00:00+00:00,San Antonio Spurs @ New Orleans Pelicans,0.141,Clean,stable conditions,0.424,0.522,0.252,57.8,44.6,6.91,8.75,24,22,True
-22501201,2025-12-09 00:00:00+00:00,Miami Heat @ Orlando Magic,0.172,Clean,volatile teams,0.299,0.988,0.174,51.5,38.4,15.02,14.65,24,24,True
-22501202,2025-12-09 00:00:00+00:00,New York Knicks @ Toronto Raptors,0.218,Clean,"fatigue load, volatile teams",0.858,0.7,0.115,71.1,74.7,9.59,11.4,25,23,True
-22501203,2025-12-10 00:00:00+00:00,Phoenix Suns @ Oklahoma City Thunder,0.087,Clean,volatile teams,0.004,0.725,0.023,29.5,30.4,11.03,10.71,24,24,True
-22501204,2025-12-10 00:00:00+00:00,San Antonio Spurs @ Los Angeles Lakers,0.147,Clean,stable conditions,0.424,0.518,0.338,44.6,57.8,5.99,9.56,23,23,True
-22501205,2025-12-11 00:00:00+00:00,LA Clippers @ Houston Rockets,0.118,Clean,volatile teams,0.0,0.914,0.165,11.4,18.9,14.86,12.55,21,24,True
-22501206,2025-12-11 00:00:00+00:00,Boston Celtics @ Milwaukee Bucks,0.132,Clean,volatile teams,0.046,0.905,0.29,14.9,34.6,12.86,14.3,25,24,True
-22501207,2025-12-11 00:00:00+00:00,Portland Trail Blazers @ New Orleans Pelicans,0.108,Clean,volatile teams,0.084,0.638,0.313,38.4,17.4,10.19,8.95,25,24,True
-22501208,2025-12-11 00:00:00+00:00,Denver Nuggets @ Sacramento Kings,0.12,Clean,volatile teams,0.0,1.0,0.053,24.0,24.6,15.11,16.82,24,23,True
-22501209,2025-12-12 00:00:00+00:00,Chicago Bulls @ Charlotte Hornets,0.107,Clean,volatile teams,0.0,0.842,0.135,14.9,16.9,14.3,10.95,24,23,True
-22501210,2025-12-12 00:00:00+00:00,Atlanta Hawks @ Detroit Pistons,0.074,Clean,stable conditions,0.0,0.559,0.128,14.9,16.9,9.53,7.25,24,25,True
-22501211,2025-12-12 00:00:00+00:00,Indiana Pacers @ Philadelphia 76ers,0.085,Clean,volatile teams,0.0,0.635,0.164,14.9,22.0,8.63,10.43,23,24,True
-22501212,2025-12-12 00:00:00+00:00,Cleveland Cavaliers @ Washington Wizards,0.1,Clean,volatile teams,0.0,0.771,0.15,11.4,16.9,12.72,10.41,22,25,True
-22501213,2025-12-12 00:00:00+00:00,Utah Jazz @ Memphis Grizzlies,0.099,Clean,volatile teams,0.0,0.77,0.132,11.4,18.9,12.09,11.0,24,23,True
-22501214,2025-12-12 00:00:00+00:00,Brooklyn Nets @ Dallas Mavericks,0.106,Clean,volatile teams,0.0,0.845,0.107,14.9,18.9,13.54,11.8,25,23,True
-22501215,2025-12-12 00:00:00+00:00,Minnesota Timberwolves @ Golden State Warriors,0.089,Clean,volatile teams,0.0,0.677,0.15,15.4,24.6,10.59,9.71,25,24,True
-22501229,2025-12-13 00:00:00+00:00,New York Knicks @ Orlando Magic,0.117,Clean,volatile teams,0.0,0.852,0.266,14.8,24.6,14.98,10.59,25,24,True
-22501230,2025-12-13 00:00:00+00:00,San Antonio Spurs @ Oklahoma City Thunder,0.107,Clean,volatile teams,0.0,0.809,0.183,17.8,29.5,12.69,11.58,25,24,True
-22501216,2025-12-14 00:00:00+00:00,Washington Wizards @ Indiana Pacers,0.113,Clean,volatile teams,0.0,0.856,0.195,24.1,24.1,10.67,17.12,25,23,True
-22501217,2025-12-14 00:00:00+00:00,Philadelphia 76ers @ Atlanta Hawks,0.064,Clean,stable conditions,0.008,0.517,0.032,30.4,30.4,7.44,8.06,26,24,True
-22501218,2025-12-14 00:00:00+00:00,Charlotte Hornets @ Cleveland Cavaliers,0.115,Clean,volatile teams,0.004,0.874,0.19,30.4,24.1,11.36,14.86,26,25,True
-22501219,2025-12-14 00:00:00+00:00,Milwaukee Bucks @ Brooklyn Nets,0.122,Clean,volatile teams,0.0,0.956,0.157,27.7,20.9,16.25,13.68,24,26,True
-22501220,2025-12-14 00:00:00+00:00,Sacramento Kings @ Minnesota Timberwolves,0.121,Clean,volatile teams,0.04,0.82,0.297,34.0,24.0,9.75,14.85,25,25,True
-22501221,2025-12-14 00:00:00+00:00,Golden State Warriors @ Portland Trail Blazers,0.086,Clean,volatile teams,0.0,0.654,0.149,29.5,24.1,8.81,10.81,25,26,True
-22501223,2025-12-14 00:00:00+00:00,New Orleans Pelicans @ Chicago Bulls,0.091,Clean,volatile teams,0.0,0.725,0.099,24.1,29.5,11.31,10.45,24,26,True
-22501228,2025-12-14 00:00:00+00:00,Los Angeles Lakers @ Phoenix Suns,0.097,Clean,volatile teams,0.0,0.689,0.243,14.3,22.0,12.2,8.47,25,24,True
-22501222,2025-12-15 00:00:00+00:00,Detroit Pistons @ Boston Celtics,0.089,Clean,volatile teams,0.0,0.75,0.021,20.0,20.9,11.38,11.11,25,25,True
-22501224,2025-12-15 00:00:00+00:00,Dallas Mavericks @ Utah Jazz,0.1,Clean,volatile teams,0.0,0.817,0.073,24.0,24.0,11.17,13.34,24,26,True
-22501225,2025-12-15 00:00:00+00:00,Houston Rockets @ Denver Nuggets,0.118,Clean,volatile teams,0.0,0.982,0.055,20.0,20.0,16.49,14.46,24,22,True
-22501226,2025-12-15 00:00:00+00:00,Memphis Grizzlies @ LA Clippers,0.088,Clean,volatile teams,0.0,0.703,0.09,20.0,17.2,11.27,9.82,25,25,True
-22501227,2025-12-15 00:00:00+00:00,Toronto Raptors @ Miami Heat,0.077,Clean,stable conditions,0.0,0.575,0.15,11.4,15.4,7.51,9.74,25,26,True
-62500001,2025-12-16 00:00:00+00:00,San Antonio Spurs @ New York Knicks,0.086,Clean,volatile teams,0.0,0.741,0.0,29.5,29.5,11.12,11.11,25,25,True
-22500367,2025-12-17 00:00:00+00:00,Cleveland Cavaliers @ Chicago Bulls,0.094,Clean,volatile teams,0.0,0.773,0.062,17.8,20.9,11.93,11.26,25,27,True
-22500368,2025-12-17 00:00:00+00:00,Memphis Grizzlies @ Minnesota Timberwolves,0.082,Clean,volatile teams,0.0,0.649,0.088,17.8,19.8,8.98,10.49,26,26,True
-22500369,2025-12-18 00:00:00+00:00,LA Clippers @ Oklahoma City Thunder,0.1,Clean,volatile teams,0.0,0.774,0.151,7.0,17.2,11.95,11.27,26,26,True
-22500370,2025-12-18 00:00:00+00:00,Washington Wizards @ San Antonio Spurs,0.125,Clean,volatile teams,0.0,0.87,0.347,27.7,14.3,11.1,17.11,26,24,True
-22500371,2025-12-18 00:00:00+00:00,Atlanta Hawks @ Charlotte Hornets,0.106,Clean,volatile teams,0.0,0.712,0.349,11.7,9.1,14.74,6.62,26,27,True
-22500372,2025-12-18 00:00:00+00:00,New York Knicks @ Indiana Pacers,0.099,Clean,volatile teams,0.0,0.73,0.208,9.1,24.1,10.67,11.22,26,26,True
-22500373,2025-12-18 00:00:00+00:00,Miami Heat @ Brooklyn Nets,0.118,Clean,volatile teams,0.0,0.824,0.326,9.1,17.2,16.8,9.73,25,26,True
-22500374,2025-12-18 00:00:00+00:00,Toronto Raptors @ Milwaukee Bucks,0.102,Clean,volatile teams,0.0,0.693,0.312,11.7,24.0,12.42,8.37,27,27,True
-22500375,2025-12-18 00:00:00+00:00,Houston Rockets @ New Orleans Pelicans,0.109,Clean,volatile teams,0.0,0.809,0.22,20.0,17.2,9.43,14.84,27,23,True
-22500376,2025-12-18 00:00:00+00:00,Detroit Pistons @ Dallas Mavericks,0.097,Clean,volatile teams,0.0,0.781,0.085,17.2,17.2,12.91,10.51,27,26,True
-22500377,2025-12-18 00:00:00+00:00,Orlando Magic @ Denver Nuggets,0.113,Clean,volatile teams,0.0,0.948,0.033,10.9,11.0,13.69,14.76,25,26,True
-22500378,2025-12-18 00:00:00+00:00,Golden State Warriors @ Phoenix Suns,0.1,Clean,volatile teams,0.0,0.748,0.193,9.1,20.0,12.0,10.45,26,27,True
-22500379,2025-12-18 00:00:00+00:00,Los Angeles Lakers @ Utah Jazz,0.091,Clean,volatile teams,0.0,0.704,0.128,17.8,17.4,12.16,8.96,25,25,True
-22500380,2025-12-18 00:00:00+00:00,Sacramento Kings @ Portland Trail Blazers,0.102,Clean,volatile teams,0.0,0.749,0.225,9.1,14.3,9.04,13.43,26,26,True
-22500381,2025-12-19 00:00:00+00:00,Miami Heat @ Boston Celtics,0.111,Clean,volatile teams,0.008,0.747,0.335,9.1,30.8,12.09,10.33,26,27,True
-22500382,2025-12-19 00:00:00+00:00,Philadelphia 76ers @ New York Knicks,0.185,Clean,volatile teams,0.372,0.774,0.59,67.2,9.0,12.89,10.33,27,25,True
-22500383,2025-12-19 00:00:00+00:00,San Antonio Spurs @ Atlanta Hawks,0.195,Clean,fatigue load,0.614,0.581,0.526,50.2,71.2,5.81,11.63,28,27,True
-22500384,2025-12-19 00:00:00+00:00,Chicago Bulls @ Cleveland Cavaliers,0.123,Clean,volatile teams,0.232,0.757,0.005,41.6,41.6,11.41,11.29,28,26,True
-22500385,2025-12-19 00:00:00+00:00,Oklahoma City Thunder @ Minnesota Timberwolves,0.124,Clean,volatile teams,0.188,0.753,0.113,38.0,40.8,10.22,12.36,27,27,True
-22500386,2025-12-20 00:00:00+00:00,Houston Rockets @ Denver Nuggets,0.123,Clean,volatile teams,0.0,1.0,0.09,12.6,19.8,15.37,15.39,26,24,True
-22500387,2025-12-20 00:00:00+00:00,Dallas Mavericks @ Philadelphia 76ers,0.098,Clean,volatile teams,0.0,0.75,0.164,22.0,19.8,9.37,13.13,26,28,True
-22500388,2025-12-20 00:00:00+00:00,Boston Celtics @ Toronto Raptors,0.109,Clean,volatile teams,0.02,0.652,0.454,16.2,32.0,6.67,12.89,28,27,True
-22500389,2025-12-20 00:00:00+00:00,Indiana Pacers @ New Orleans Pelicans,0.086,Clean,volatile teams,0.0,0.688,0.085,20.5,16.2,9.93,10.71,28,27,True
-22500390,2025-12-20 00:00:00+00:00,Charlotte Hornets @ Detroit Pistons,0.11,Clean,volatile teams,0.0,0.843,0.18,19.8,16.2,10.61,14.67,27,27,True
-22500391,2025-12-20 00:00:00+00:00,Washington Wizards @ Memphis Grizzlies,0.122,Clean,volatile teams,0.0,1.0,0.086,14.0,16.2,15.87,18.22,27,25,True
-22500392,2025-12-20 00:00:00+00:00,Phoenix Suns @ Golden State Warriors,0.098,Clean,volatile teams,0.0,0.751,0.157,24.1,16.2,10.46,12.08,28,27,True
-22500393,2025-12-20 00:00:00+00:00,Orlando Magic @ Utah Jazz,0.113,Clean,volatile teams,0.0,0.899,0.123,12.6,16.2,12.22,14.75,26,27,True
-22500394,2025-12-20 00:00:00+00:00,Portland Trail Blazers @ Sacramento Kings,0.096,Clean,volatile teams,0.0,0.679,0.254,24.1,16.2,12.14,8.22,27,27,True
-22500395,2025-12-20 00:00:00+00:00,Los Angeles Lakers @ LA Clippers,0.101,Clean,volatile teams,0.0,0.751,0.197,19.8,16.2,13.34,9.2,27,26,True
-22500396,2025-12-21 00:00:00+00:00,Chicago Bulls @ Atlanta Hawks,0.11,Clean,stable conditions,0.118,0.568,0.396,30.2,41.6,5.76,11.29,29,27,True
-22500397,2025-12-21 00:00:00+00:00,Toronto Raptors @ Brooklyn Nets,0.188,Clean,"volatile teams, stability mismatch",0.302,0.664,0.982,10.9,60.2,17.31,4.92,26,29,True
-22500398,2025-12-21 00:00:00+00:00,Miami Heat @ New York Knicks,0.121,Clean,volatile teams,0.145,0.728,0.216,44.3,30.2,11.45,10.39,28,28,True
-22500399,2025-12-21 00:00:00+00:00,San Antonio Spurs @ Washington Wizards,0.174,Clean,volatile teams,0.394,0.901,0.15,51.5,47.9,15.49,12.04,26,28,True
-22500400,2025-12-21 00:00:00+00:00,Milwaukee Bucks @ Minnesota Timberwolves,0.131,Clean,volatile teams,0.08,0.815,0.359,38.0,10.9,11.94,12.5,28,28,True
-22500401,2025-12-21 00:00:00+00:00,Houston Rockets @ Sacramento Kings,0.186,Clean,volatile teams,0.457,0.916,0.158,50.2,55.5,12.47,15.57,28,25,True
-22500402,2025-12-22 00:00:00+00:00,Charlotte Hornets @ Cleveland Cavaliers,0.114,Clean,volatile teams,0.0,0.929,0.086,10.9,12.6,12.86,15.07,29,28,True
-22500403,2025-12-22 00:00:00+00:00,Indiana Pacers @ Boston Celtics,0.116,Clean,volatile teams,0.038,0.74,0.356,33.8,27.7,14.83,7.36,28,28,True
-22500404,2025-12-22 00:00:00+00:00,Dallas Mavericks @ New Orleans Pelicans,0.126,Clean,volatile teams,0.074,0.853,0.235,20.5,37.4,12.45,13.13,29,29,True
-22500405,2025-12-22 00:00:00+00:00,Utah Jazz @ Denver Nuggets,0.121,Clean,volatile teams,0.04,0.904,0.15,30.2,33.8,15.61,12.11,27,27,True
-22500406,2025-12-22 00:00:00+00:00,Memphis Grizzlies @ Oklahoma City Thunder,0.136,Clean,volatile teams,0.038,0.915,0.349,14.0,33.8,12.44,15.84,28,28,True
-22500407,2025-12-22 00:00:00+00:00,Orlando Magic @ Golden State Warriors,0.09,Clean,volatile teams,0.0,0.629,0.253,12.6,16.2,11.9,6.97,29,28,True
-22500408,2025-12-22 00:00:00+00:00,Detroit Pistons @ Portland Trail Blazers,0.11,Clean,volatile teams,0.074,0.656,0.333,16.2,37.4,8.99,10.7,28,28,True
-22500409,2025-12-23 00:00:00+00:00,Washington Wizards @ Charlotte Hornets,0.194,Clean,volatile teams,0.418,0.971,0.268,60.2,41.6,14.14,15.39,29,27,True
-22500410,2025-12-23 00:00:00+00:00,Brooklyn Nets @ Philadelphia 76ers,0.113,Clean,volatile teams,0.0,0.811,0.275,10.9,12.6,9.34,17.35,27,27,True
-22500411,2025-12-23 00:00:00+00:00,Chicago Bulls @ Atlanta Hawks,0.108,Clean,stable conditions,0.16,0.559,0.287,38.0,38.0,5.3,11.46,30,28,True
-22500412,2025-12-23 00:00:00+00:00,New Orleans Pelicans @ Cleveland Cavaliers,0.198,Clean,volatile teams,0.544,0.873,0.212,50.2,64.2,13.7,12.5,30,30,True
-22500413,2025-12-23 00:00:00+00:00,Milwaukee Bucks @ Indiana Pacers,0.179,Clean,"volatile teams, stability mismatch",0.342,0.681,0.723,64.2,16.2,7.41,13.02,29,29,True
-22500414,2025-12-23 00:00:00+00:00,Toronto Raptors @ Miami Heat,0.126,Clean,volatile teams,0.304,0.687,0.002,45.2,45.2,10.32,10.29,29,30,True
-22500415,2025-12-23 00:00:00+00:00,Denver Nuggets @ Dallas Mavericks,0.201,Clean,"fatigue load, volatile teams",0.604,0.929,0.028,60.2,60.2,13.46,14.42,30,28,True
-22500416,2025-12-23 00:00:00+00:00,New York Knicks @ Minnesota Timberwolves,0.196,Clean,volatile teams,0.5,0.783,0.442,38.0,72.0,11.96,11.52,29,29,True
-22500417,2025-12-23 00:00:00+00:00,Oklahoma City Thunder @ San Antonio Spurs,0.217,Clean,"fatigue load, volatile teams",0.722,0.838,0.161,72.0,60.2,12.77,12.37,29,29,True
-22500418,2025-12-23 00:00:00+00:00,Los Angeles Lakers @ Phoenix Suns,0.094,Clean,volatile teams,0.0,0.728,0.135,14.0,14.0,12.71,9.12,28,27,True
-22500419,2025-12-23 00:00:00+00:00,Memphis Grizzlies @ Utah Jazz,0.213,Clean,"fatigue load, volatile teams",0.644,0.899,0.173,60.2,64.2,11.97,16.11,28,29,True
-22500420,2025-12-23 00:00:00+00:00,Orlando Magic @ Portland Trail Blazers,0.184,Clean,volatile teams,0.504,0.817,0.192,50.2,60.2,13.25,11.27,29,29,True
-22500421,2025-12-23 00:00:00+00:00,Detroit Pistons @ Sacramento Kings,0.171,Clean,volatile teams,0.382,0.778,0.347,38.0,60.2,12.66,10.67,29,29,True
-22500422,2025-12-23 00:00:00+00:00,Houston Rockets @ LA Clippers,0.156,Clean,volatile teams,0.116,0.97,0.389,10.9,41.6,14.63,14.46,28,26,True
-22500009,2025-12-25 00:00:00+00:00,Cleveland Cavaliers @ New York Knicks,0.211,Clean,volatile teams,0.599,0.83,0.36,72.0,47.9,11.57,13.32,30,31,True
-22500010,2025-12-25 00:00:00+00:00,San Antonio Spurs @ Oklahoma City Thunder,0.224,Clean,"fatigue load, volatile teams",0.705,0.903,0.189,62.1,68.4,12.1,15.76,30,30,True
-22500011,2025-12-25 00:00:00+00:00,Dallas Mavericks @ Golden State Warriors,0.186,Clean,volatile teams,0.449,0.74,0.49,32.9,72.0,11.08,11.13,30,31,True
-22500012,2025-12-25 00:00:00+00:00,Houston Rockets @ Los Angeles Lakers,0.199,Clean,"volatile teams, stability mismatch",0.386,0.808,0.701,33.8,64.8,9.25,19.82,28,27,True
-22500013,2025-12-25 00:00:00+00:00,Minnesota Timberwolves @ Denver Nuggets,0.194,Clean,volatile teams,0.563,0.786,0.268,68.4,47.9,11.63,11.96,29,30,True
-22500423,2025-12-26 00:00:00+00:00,Miami Heat @ Atlanta Hawks,0.111,Clean,stable conditions,0.144,0.579,0.335,38.4,36.0,5.33,12.04,31,30,True
-22500424,2025-12-26 00:00:00+00:00,Charlotte Hornets @ Orlando Magic,0.141,Clean,volatile teams,0.207,0.846,0.165,39.2,41.5,10.61,14.77,30,30,True
-22500425,2025-12-26 00:00:00+00:00,Toronto Raptors @ Washington Wizards,0.145,Clean,volatile teams,0.207,0.815,0.28,41.5,39.2,17.48,9.46,28,31,True
-22500426,2025-12-26 00:00:00+00:00,Boston Celtics @ Indiana Pacers,0.128,Clean,volatile teams,0.084,0.746,0.424,38.4,27.0,7.41,14.98,30,29,True
-22500427,2025-12-26 00:00:00+00:00,Philadelphia 76ers @ Chicago Bulls,0.116,Clean,volatile teams,0.175,0.668,0.177,41.5,36.0,11.36,8.67,29,28,True
-22500428,2025-12-26 00:00:00+00:00,Milwaukee Bucks @ Memphis Grizzlies,0.165,Clean,volatile teams,0.146,0.947,0.483,44.6,14.0,17.03,13.4,30,30,True
-22500429,2025-12-26 00:00:00+00:00,Phoenix Suns @ New Orleans Pelicans,0.137,Clean,volatile teams,0.092,0.877,0.317,39.2,17.2,12.5,13.82,31,29,True
-22500430,2025-12-26 00:00:00+00:00,Detroit Pistons @ Utah Jazz,0.115,Clean,volatile teams,0.199,0.695,0.065,38.4,41.5,10.07,10.79,29,30,True
-22500431,2025-12-26 00:00:00+00:00,LA Clippers @ Portland Trail Blazers,0.127,Clean,volatile teams,0.029,0.916,0.23,32.9,17.2,13.19,14.29,30,29,True
-22500432,2025-12-27 00:00:00+00:00,Dallas Mavericks @ Sacramento Kings,0.181,Clean,volatile teams,0.348,0.812,0.507,27.4,64.8,12.76,11.6,30,32,True
-22500433,2025-12-27 00:00:00+00:00,Denver Nuggets @ Orlando Magic,0.232,Clean,"fatigue load, volatile teams",0.92,0.712,0.167,80.0,72.0,9.81,11.55,31,30,True
-22500434,2025-12-27 00:00:00+00:00,Phoenix Suns @ New Orleans Pelicans,0.238,Clean,"fatigue load, volatile teams",0.702,0.893,0.421,80.0,50.2,12.64,14.16,32,30,True
-22500435,2025-12-27 00:00:00+00:00,New York Knicks @ Atlanta Hawks,0.152,Clean,stable conditions,0.514,0.468,0.301,57.2,54.2,4.5,9.54,32,31,True
-22500436,2025-12-27 00:00:00+00:00,Indiana Pacers @ Miami Heat,0.239,Clean,"fatigue load, volatile teams",0.872,0.633,0.508,67.2,94.0,11.56,7.42,31,31,True
-22500437,2025-12-27 00:00:00+00:00,Milwaukee Bucks @ Chicago Bulls,0.189,Clean,volatile teams,0.574,0.829,0.099,57.2,60.2,11.5,13.38,30,31,True
-22500438,2025-12-27 00:00:00+00:00,Cleveland Cavaliers @ Houston Rockets,0.231,Clean,"fatigue load, volatile teams",0.635,0.887,0.49,72.0,51.5,20.39,11.62,28,32,True
-22500439,2025-12-27 00:00:00+00:00,Brooklyn Nets @ Minnesota Timberwolves,0.17,Clean,volatile teams,0.179,0.899,0.58,47.9,14.3,11.96,17.64,31,28,True
-22500440,2025-12-27 00:00:00+00:00,Utah Jazz @ San Antonio Spurs,0.259,Clean,"fatigue load, volatile teams, stability mismatch",0.742,0.863,0.699,54.2,94.0,17.72,10.89,31,30,True
-22500441,2025-12-28 00:00:00+00:00,Golden State Warriors @ Toronto Raptors,0.135,Clean,volatile teams,0.179,0.724,0.362,47.9,24.0,10.02,11.7,32,31,True
-22500442,2025-12-28 00:00:00+00:00,Philadelphia 76ers @ Oklahoma City Thunder,0.102,Clean,volatile teams,0.029,0.703,0.24,32.9,24.1,12.21,8.87,31,29,True
-22500443,2025-12-28 00:00:00+00:00,Memphis Grizzlies @ Washington Wizards,0.17,Clean,volatile teams,0.322,1.0,0.082,44.3,47.9,17.75,19.43,29,31,True
-22500444,2025-12-28 00:00:00+00:00,Boston Celtics @ Portland Trail Blazers,0.145,Clean,volatile teams,0.143,0.843,0.372,44.3,27.7,10.3,15.36,31,30,True
-22500445,2025-12-28 00:00:00+00:00,Detroit Pistons @ LA Clippers,0.147,Clean,volatile teams,0.179,0.828,0.351,27.7,47.9,13.9,10.95,30,31,True
-22500446,2025-12-28 00:00:00+00:00,Sacramento Kings @ Los Angeles Lakers,0.184,Clean,"volatile teams, stability mismatch",0.372,0.738,0.627,17.8,67.2,9.35,12.78,29,31,True
-22500447,2025-12-29 00:00:00+00:00,Milwaukee Bucks @ Charlotte Hornets,0.144,Clean,volatile teams,0.176,0.931,0.132,36.0,41.6,14.98,12.95,31,32,True
-22500448,2025-12-29 00:00:00+00:00,Phoenix Suns @ Washington Wizards,0.188,Clean,volatile teams,0.424,0.858,0.357,57.2,45.2,17.67,10.75,30,31,True
-22500449,2025-12-29 00:00:00+00:00,Golden State Warriors @ Brooklyn Nets,0.2,Clean,"volatile teams, stability mismatch",0.302,0.971,0.623,19.8,60.2,18.99,14.14,29,32,True
-22500450,2025-12-29 00:00:00+00:00,Denver Nuggets @ Miami Heat,0.205,Clean,"fatigue load, volatile teams",0.617,0.796,0.29,50.6,71.1,12.42,11.46,32,31,True
-22500451,2025-12-29 00:00:00+00:00,Orlando Magic @ Toronto Raptors,0.197,Clean,"fatigue load, volatile teams",0.762,0.649,0.106,64.2,72.0,9.64,9.84,33,32,True
-22500452,2025-12-29 00:00:00+00:00,Minnesota Timberwolves @ Chicago Bulls,0.165,Clean,volatile teams,0.322,0.89,0.188,44.3,47.9,11.69,16.52,31,32,True
-22500453,2025-12-29 00:00:00+00:00,Indiana Pacers @ Houston Rockets,0.212,Clean,"fatigue load, stability mismatch",0.626,0.573,0.767,50.6,72.0,20.41,2.2,29,32,True
-22500454,2025-12-29 00:00:00+00:00,New York Knicks @ New Orleans Pelicans,0.191,Clean,volatile teams,0.59,0.748,0.234,64.8,54.2,12.6,9.83,33,32,True
-22500455,2025-12-29 00:00:00+00:00,Atlanta Hawks @ Oklahoma City Thunder,0.219,Clean,"fatigue load, stability mismatch",0.679,0.563,0.77,80.0,47.9,12.38,4.5,32,33,True
-22500456,2025-12-29 00:00:00+00:00,Cleveland Cavaliers @ San Antonio Spurs,0.215,Clean,volatile teams,0.554,0.936,0.341,50.6,64.8,19.43,13.07,32,33,True
-22500457,2025-12-29 00:00:00+00:00,Dallas Mavericks @ Portland Trail Blazers,0.235,Clean,"fatigue load, volatile teams",0.947,0.732,0.113,80.0,74.7,10.35,11.61,32,33,True
-22500458,2025-12-30 00:00:00+00:00,Philadelphia 76ers @ Memphis Grizzlies,0.164,Clean,volatile teams,0.295,0.787,0.414,47.9,41.6,19.46,8.6,32,30,True
-22500459,2025-12-30 00:00:00+00:00,Boston Celtics @ Utah Jazz,0.14,Clean,volatile teams,0.146,0.816,0.343,44.6,24.1,10.93,13.54,31,31,True
-22500460,2025-12-30 00:00:00+00:00,Detroit Pistons @ Los Angeles Lakers,0.125,Clean,volatile teams,0.223,0.699,0.157,38.0,44.3,9.46,11.5,30,32,True
-22500461,2025-12-30 00:00:00+00:00,Sacramento Kings @ LA Clippers,0.127,Clean,volatile teams,0.223,0.608,0.34,38.0,44.3,12.12,6.13,31,32,True
-22500462,2025-12-31 00:00:00+00:00,Golden State Warriors @ Charlotte Hornets,0.148,Clean,volatile teams,0.179,0.811,0.394,26.8,47.9,10.26,14.07,32,33,True
-22500463,2025-12-31 00:00:00+00:00,Minnesota Timberwolves @ Atlanta Hawks,0.183,Clean,volatile teams,0.484,0.804,0.242,54.2,54.2,9.13,16.45,34,33,True
-22500464,2025-12-31 00:00:00+00:00,Orlando Magic @ Indiana Pacers,0.159,Clean,stable conditions,0.52,0.386,0.542,57.8,54.2,1.67,9.92,33,33,True
-22500465,2025-12-31 00:00:00+00:00,Phoenix Suns @ Cleveland Cavaliers,0.178,Clean,volatile teams,0.457,0.814,0.219,57.8,47.9,13.63,10.8,34,32,True
-22500466,2025-12-31 00:00:00+00:00,New Orleans Pelicans @ Chicago Bulls,0.178,Clean,volatile teams,0.484,0.848,0.093,50.6,57.8,12.78,12.67,32,34,True
-22500467,2025-12-31 00:00:00+00:00,New York Knicks @ San Antonio Spurs,0.185,Clean,volatile teams,0.448,0.806,0.355,50.6,54.2,19.56,9.18,33,33,True
-22500468,2025-12-31 00:00:00+00:00,Denver Nuggets @ Toronto Raptors,0.169,Clean,volatile teams,0.484,0.732,0.16,50.6,57.8,10.04,11.92,34,32,True
-22500469,2025-12-31 00:00:00+00:00,Washington Wizards @ Milwaukee Bucks,0.188,Clean,volatile teams,0.421,0.992,0.139,47.9,54.2,14.76,17.05,33,31,True
-22500470,2025-12-31 00:00:00+00:00,Portland Trail Blazers @ Oklahoma City Thunder,0.172,Clean,volatile teams,0.484,0.758,0.163,50.6,57.8,12.38,10.35,33,33,True
-22500471,2026-01-01 00:00:00+00:00,Houston Rockets @ Brooklyn Nets,0.175,Clean,volatile teams,0.201,1.0,0.417,17.8,50.1,19.28,19.88,30,30,True
-22500472,2026-01-01 00:00:00+00:00,Miami Heat @ Detroit Pistons,0.18,Clean,volatile teams,0.479,0.85,0.133,57.8,50.1,13.32,12.17,33,33,True
-22500473,2026-01-01 00:00:00+00:00,Philadelphia 76ers @ Dallas Mavericks,0.13,Clean,stable conditions,0.38,0.569,0.096,50.1,47.9,7.78,9.29,34,31,True
-22500474,2026-01-01 00:00:00+00:00,Boston Celtics @ Sacramento Kings,0.162,Clean,volatile teams,0.421,0.642,0.365,54.2,47.9,6.22,13.04,33,32,True
-22500475,2026-01-01 00:00:00+00:00,Utah Jazz @ LA Clippers,0.156,Clean,volatile teams,0.385,0.755,0.154,44.3,54.2,11.74,10.92,32,32,True
-22500476,2026-01-02 00:00:00+00:00,San Antonio Spurs @ Indiana Pacers,0.213,Clean,"fatigue load, stability mismatch",0.689,0.555,0.666,71.1,57.8,1.65,18.74,34,34,True
-22500477,2026-01-02 00:00:00+00:00,Brooklyn Nets @ Washington Wizards,0.238,Clean,"fatigue load, volatile teams",0.649,1.0,0.358,74.7,50.2,16.8,18.99,32,31,True
-22500478,2026-01-02 00:00:00+00:00,Denver Nuggets @ Cleveland Cavaliers,0.16,Clean,volatile teams,0.412,0.794,0.088,50.6,50.6,13.2,10.62,35,33,True
-22500479,2026-01-02 00:00:00+00:00,Atlanta Hawks @ New York Knicks,0.209,Clean,"fatigue load, volatile teams",0.725,0.696,0.278,57.8,74.7,9.6,11.29,34,35,True
-22500480,2026-01-02 00:00:00+00:00,Orlando Magic @ Chicago Bulls,0.213,Clean,"fatigue load, volatile teams",0.822,0.731,0.07,71.1,71.1,11.91,10.02,33,34,True
-22500481,2026-01-02 00:00:00+00:00,Charlotte Hornets @ Milwaukee Bucks,0.202,Clean,volatile teams,0.527,0.839,0.38,64.8,47.9,15.32,10.17,34,33,True
-22500482,2026-01-02 00:00:00+00:00,Portland Trail Blazers @ New Orleans Pelicans,0.241,Clean,"fatigue load, volatile teams",0.93,0.772,0.173,78.3,74.7,9.77,13.38,35,34,True
-22500483,2026-01-02 00:00:00+00:00,Sacramento Kings @ Phoenix Suns,0.239,Clean,fatigue load,0.92,0.568,0.526,72.0,97.0,10.85,6.18,33,34,True
-22500484,2026-01-02 00:00:00+00:00,Oklahoma City Thunder @ Golden State Warriors,0.179,Clean,volatile teams,0.493,0.85,0.092,51.5,57.8,12.95,12.54,34,34,True
-22500485,2026-01-02 00:00:00+00:00,Memphis Grizzlies @ Los Angeles Lakers,0.158,Clean,"volatile teams, stability mismatch",0.146,0.814,0.612,17.8,44.6,9.43,18.48,31,33,True
-22500486,2026-01-03 00:00:00+00:00,Minnesota Timberwolves @ Miami Heat,0.173,Clean,volatile teams,0.33,0.93,0.222,51.5,41.5,12.91,16.34,34,34,True
-22500487,2026-01-03 00:00:00+00:00,Philadelphia 76ers @ New York Knicks,0.211,Clean,"fatigue load, volatile teams",0.715,0.621,0.47,87.0,51.5,9.64,9.0,35,32,True
-22500488,2026-01-03 00:00:00+00:00,Atlanta Hawks @ Toronto Raptors,0.217,Clean,"fatigue load, volatile teams",0.638,0.736,0.537,43.8,97.0,10.54,11.54,35,36,True
-22500489,2026-01-03 00:00:00+00:00,Charlotte Hornets @ Chicago Bulls,0.242,Clean,"fatigue load, volatile teams",0.842,0.797,0.337,87.0,64.2,12.7,11.21,34,34,True
-22500490,2026-01-03 00:00:00+00:00,Portland Trail Blazers @ San Antonio Spurs,0.274,Clean,"fatigue load, volatile teams",1.0,0.971,0.166,101.0,104.0,19.26,14.14,35,35,True
-22500491,2026-01-03 00:00:00+00:00,Houston Rockets @ Dallas Mavericks,0.192,Clean,volatile teams,0.484,0.782,0.42,50.6,57.8,8.45,18.96,35,31,True
-22500492,2026-01-03 00:00:00+00:00,Utah Jazz @ Golden State Warriors,0.231,Clean,"fatigue load, volatile teams",0.742,0.753,0.483,87.0,54.2,12.3,10.28,35,33,True
-22500493,2026-01-03 00:00:00+00:00,Boston Celtics @ LA Clippers,0.165,Clean,volatile teams,0.322,0.905,0.165,44.3,47.9,12.15,16.19,33,33,True
-22500494,2026-01-04 00:00:00+00:00,Detroit Pistons @ Cleveland Cavaliers,0.148,Clean,volatile teams,0.29,0.765,0.234,50.6,38.4,10.32,12.64,36,34,True
-22500495,2026-01-04 00:00:00+00:00,Indiana Pacers @ Orlando Magic,0.161,Clean,stable conditions,0.556,0.377,0.5,57.8,57.8,9.95,1.35,35,35,True
-22500496,2026-01-04 00:00:00+00:00,Denver Nuggets @ Brooklyn Nets,0.182,Clean,volatile teams,0.385,0.867,0.347,44.3,54.2,18.89,11.02,32,34,True
-22500497,2026-01-04 00:00:00+00:00,New Orleans Pelicans @ Miami Heat,0.19,Clean,volatile teams,0.584,0.699,0.312,64.2,54.2,12.89,8.07,35,36,True
-22500498,2026-01-04 00:00:00+00:00,Minnesota Timberwolves @ Washington Wizards,0.259,Clean,"fatigue load, volatile teams",0.893,1.0,0.125,71.1,78.2,15.62,17.06,33,35,True
-22500499,2026-01-04 00:00:00+00:00,Oklahoma City Thunder @ Phoenix Suns,0.206,Clean,volatile teams,0.59,0.78,0.393,44.3,74.7,11.87,11.52,34,35,True
-22500500,2026-01-04 00:00:00+00:00,Milwaukee Bucks @ Sacramento Kings,0.211,Clean,"fatigue load, volatile teams",0.725,0.61,0.465,74.7,57.8,6.24,12.07,35,35,True
-22500501,2026-01-04 00:00:00+00:00,Memphis Grizzlies @ Los Angeles Lakers,0.151,Clean,volatile teams,0.223,0.804,0.357,38.0,44.3,9.11,17.96,32,34,True
-22500502,2026-01-05 00:00:00+00:00,New York Knicks @ Detroit Pistons,0.222,Clean,"fatigue load, volatile teams",0.789,0.735,0.261,64.2,74.7,12.79,9.26,35,36,True
-22500503,2026-01-05 00:00:00+00:00,Chicago Bulls @ Boston Celtics,0.239,Clean,"fatigue load, volatile teams",0.698,0.889,0.453,51.5,78.3,15.58,11.67,34,35,True
-22500504,2026-01-05 00:00:00+00:00,Atlanta Hawks @ Toronto Raptors,0.193,Clean,volatile teams,0.554,0.745,0.348,44.3,71.1,11.0,11.35,36,37,True
-22500505,2026-01-05 00:00:00+00:00,Phoenix Suns @ Houston Rockets,0.245,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.84,0.753,44.3,101.0,18.89,10.2,32,35,True
-22500506,2026-01-05 00:00:00+00:00,Charlotte Hornets @ Oklahoma City Thunder,0.274,Clean,"fatigue load, volatile teams",0.947,0.852,0.486,108.0,74.7,11.69,13.87,36,35,True
-22500507,2026-01-05 00:00:00+00:00,Denver Nuggets @ Philadelphia 76ers,0.217,Clean,"fatigue load, volatile teams",0.643,0.714,0.565,44.3,94.0,9.85,11.56,33,35,True
-22500508,2026-01-05 00:00:00+00:00,Golden State Warriors @ LA Clippers,0.208,Clean,volatile teams,0.59,0.795,0.398,44.3,74.7,12.18,11.66,34,36,True
-22500509,2026-01-05 00:00:00+00:00,Utah Jazz @ Portland Trail Blazers,0.24,Clean,"fatigue load, volatile teams",0.742,0.785,0.552,84.6,54.2,14.22,9.34,36,34,True
-22500510,2026-01-06 00:00:00+00:00,Cleveland Cavaliers @ Indiana Pacers,0.156,Clean,stable conditions,0.484,0.381,0.59,57.8,50.6,1.33,10.11,36,37,True
-22500511,2026-01-06 00:00:00+00:00,Orlando Magic @ Washington Wizards,0.179,Clean,volatile teams,0.448,0.86,0.165,50.6,54.2,14.78,11.03,34,36,True
-22500512,2026-01-06 00:00:00+00:00,San Antonio Spurs @ Memphis Grizzlies,0.183,Clean,volatile teams,0.385,1.0,0.128,51.5,47.0,16.22,19.25,35,36,True
-22500513,2026-01-06 00:00:00+00:00,Miami Heat @ Minnesota Timberwolves,0.197,Clean,volatile teams,0.556,0.918,0.1,57.8,57.8,15.92,12.54,36,36,True
-22500514,2026-01-06 00:00:00+00:00,Los Angeles Lakers @ New Orleans Pelicans,0.137,Clean,stable conditions,0.457,0.478,0.195,54.2,51.5,5.6,8.75,37,33,True
-22500515,2026-01-06 00:00:00+00:00,Dallas Mavericks @ Sacramento Kings,0.162,Clean,stability mismatch,0.411,0.499,0.625,71.1,29.5,6.23,8.74,36,36,True
-22500516,2026-01-07 00:00:00+00:00,Toronto Raptors @ Charlotte Hornets,0.214,Clean,volatile teams,0.599,0.826,0.418,72.0,47.9,14.12,10.66,36,37,True
-22500517,2026-01-07 00:00:00+00:00,Chicago Bulls @ Detroit Pistons,0.208,Clean,volatile teams,0.59,0.767,0.445,44.3,74.7,12.41,10.6,36,36,True
-22500518,2026-01-07 00:00:00+00:00,Washington Wizards @ Philadelphia 76ers,0.234,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.782,0.693,44.3,87.0,8.98,14.47,34,35,True
-22500519,2026-01-07 00:00:00+00:00,New Orleans Pelicans @ Atlanta Hawks,0.241,Clean,fatigue load,0.947,0.552,0.524,74.7,97.0,10.92,5.65,38,38,True
-22500520,2026-01-07 00:00:00+00:00,Denver Nuggets @ Boston Celtics,0.205,Clean,volatile teams,0.554,0.764,0.495,44.3,71.1,13.71,9.22,35,36,True
-22500521,2026-01-07 00:00:00+00:00,Orlando Magic @ Brooklyn Nets,0.229,Clean,"volatile teams, stability mismatch",0.529,0.87,0.722,32.9,87.0,19.0,11.11,33,37,True
-22500522,2026-01-07 00:00:00+00:00,LA Clippers @ New York Knicks,0.208,Clean,"fatigue load, volatile teams",0.662,0.679,0.435,74.7,51.5,8.37,12.01,37,35,True
-22500523,2026-01-07 00:00:00+00:00,Los Angeles Lakers @ San Antonio Spurs,0.268,Clean,"fatigue load, volatile teams, stability mismatch",0.872,0.744,0.751,97.0,67.2,18.74,7.32,37,34,True
-22500524,2026-01-07 00:00:00+00:00,Phoenix Suns @ Memphis Grizzlies,0.229,Clean,"fatigue load, volatile teams",0.719,0.873,0.295,57.2,74.7,14.3,11.88,36,36,True
-22500525,2026-01-07 00:00:00+00:00,Utah Jazz @ Oklahoma City Thunder,0.195,Clean,"fatigue load, volatile teams",0.626,0.663,0.355,71.1,51.5,11.32,8.57,37,35,True
-22500526,2026-01-07 00:00:00+00:00,Milwaukee Bucks @ Golden State Warriors,0.199,Clean,volatile teams,0.531,0.752,0.472,74.7,38.4,11.54,11.02,37,36,True
-22500527,2026-01-07 00:00:00+00:00,Houston Rockets @ Portland Trail Blazers,0.23,Clean,"fatigue load, volatile teams",0.626,0.974,0.337,71.1,51.5,14.22,17.74,37,33,True
-22500528,2026-01-08 00:00:00+00:00,Indiana Pacers @ Charlotte Hornets,0.234,Clean,"fatigue load, stability mismatch",0.742,0.534,0.91,87.0,54.2,14.11,1.9,37,37,True
-22500530,2026-01-08 00:00:00+00:00,Cleveland Cavaliers @ Minnesota Timberwolves,0.178,Clean,volatile teams,0.448,0.773,0.313,50.6,54.2,15.86,8.19,37,38,True
-22500531,2026-01-08 00:00:00+00:00,Dallas Mavericks @ Utah Jazz,0.203,Clean,fatigue load,0.679,0.575,0.505,101.0,47.9,8.58,8.68,36,37,True
-22500532,2026-01-09 00:00:00+00:00,Toronto Raptors @ Boston Celtics,0.169,Clean,volatile teams,0.448,0.798,0.137,50.6,54.2,13.3,10.64,36,38,True
-22500533,2026-01-09 00:00:00+00:00,Philadelphia 76ers @ Orlando Magic,0.226,Clean,"fatigue load, volatile teams",0.778,0.651,0.493,84.6,57.8,11.69,7.83,38,35,True
-22500534,2026-01-09 00:00:00+00:00,New Orleans Pelicans @ Washington Wizards,0.253,Clean,"fatigue load, volatile teams",0.974,0.683,0.405,77.4,81.0,14.69,5.81,36,39,True
-22500535,2026-01-09 00:00:00+00:00,LA Clippers @ Brooklyn Nets,0.157,Clean,volatile teams,0.349,0.821,0.139,44.3,50.6,13.2,11.42,34,36,True
-22500536,2026-01-09 00:00:00+00:00,Oklahoma City Thunder @ Memphis Grizzlies,0.221,Clean,"fatigue load, volatile teams",0.858,0.757,0.057,71.1,74.7,11.19,11.51,37,38,True
-22500537,2026-01-09 00:00:00+00:00,Atlanta Hawks @ Denver Nuggets,0.253,Clean,"fatigue load, volatile teams",0.983,0.758,0.254,78.3,84.6,8.98,13.77,37,39,True
-22500538,2026-01-09 00:00:00+00:00,New York Knicks @ Phoenix Suns,0.239,Clean,"fatigue load, volatile teams",0.983,0.677,0.182,84.6,78.3,11.46,8.86,37,38,True
-22500539,2026-01-09 00:00:00+00:00,Sacramento Kings @ Golden State Warriors,0.193,Clean,volatile teams,0.549,0.608,0.59,71.1,43.8,11.96,6.27,38,37,True
-22500540,2026-01-09 00:00:00+00:00,Houston Rockets @ Portland Trail Blazers,0.238,Clean,"fatigue load, volatile teams",0.617,0.957,0.509,77.4,44.3,13.72,17.23,38,34,True
-22500541,2026-01-09 00:00:00+00:00,Milwaukee Bucks @ Los Angeles Lakers,0.199,Clean,"fatigue load, volatile teams",0.662,0.633,0.391,72.0,54.2,7.48,11.52,35,37,True
-22500542,2026-01-10 00:00:00+00:00,Minnesota Timberwolves @ Cleveland Cavaliers,0.225,Clean,"fatigue load, volatile teams",0.689,0.772,0.476,54.2,74.7,8.52,14.63,39,38,True
-22500543,2026-01-10 00:00:00+00:00,Miami Heat @ Indiana Pacers,0.196,Clean,"fatigue load, volatile teams",0.653,0.685,0.268,54.2,71.1,9.53,11.02,38,38,True
-22500544,2026-01-10 00:00:00+00:00,LA Clippers @ Detroit Pistons,0.224,Clean,"volatile teams, stability mismatch",0.584,0.827,0.605,38.4,97.0,13.98,10.84,37,37,True
-22500545,2026-01-10 00:00:00+00:00,San Antonio Spurs @ Boston Celtics,0.254,Clean,"fatigue load, volatile teams, stability mismatch",0.701,0.92,0.616,87.0,50.1,12.6,18.33,37,38,True
-22500546,2026-01-10 00:00:00+00:00,Dallas Mavericks @ Chicago Bulls,0.211,Clean,"fatigue load, volatile teams",0.689,0.673,0.435,77.4,51.5,11.5,8.69,38,38,True
-22500547,2026-01-10 00:00:00+00:00,Charlotte Hornets @ Utah Jazz,0.257,Clean,"fatigue load, volatile teams",0.894,0.796,0.448,71.1,78.3,8.89,21.33,37,38,True
-22500548,2026-01-11 00:00:00+00:00,New Orleans Pelicans @ Orlando Magic,0.185,Clean,fatigue load,0.858,0.423,0.103,71.1,74.7,6.88,5.81,39,40,True
-22500549,2026-01-11 00:00:00+00:00,Brooklyn Nets @ Memphis Grizzlies,0.208,Clean,"fatigue load, volatile teams",0.626,0.805,0.295,71.1,51.5,11.35,12.81,38,35,True
-22500550,2026-01-11 00:00:00+00:00,Philadelphia 76ers @ Toronto Raptors,0.16,Clean,volatile teams,0.52,0.611,0.157,54.2,57.8,10.46,7.86,39,36,True
-22500551,2026-01-11 00:00:00+00:00,New York Knicks @ Portland Trail Blazers,0.159,Clean,volatile teams,0.547,0.642,0.028,56.9,57.8,9.42,9.84,39,39,True
-22500552,2026-01-11 00:00:00+00:00,San Antonio Spurs @ Minnesota Timberwolves,0.283,Clean,"fatigue load, volatile teams",0.982,0.985,0.305,97.0,78.2,14.55,17.16,39,39,True
-22500553,2026-01-11 00:00:00+00:00,Miami Heat @ Oklahoma City Thunder,0.252,Clean,"fatigue load, volatile teams",1.0,0.752,0.22,81.0,97.0,11.54,11.02,39,39,True
-22500554,2026-01-11 00:00:00+00:00,Milwaukee Bucks @ Denver Nuggets,0.195,Clean,"fatigue load, volatile teams",0.626,0.638,0.402,71.1,51.5,7.69,11.46,38,38,True
-22500555,2026-01-11 00:00:00+00:00,Washington Wizards @ Phoenix Suns,0.256,Clean,"fatigue load, volatile teams",0.911,0.857,0.287,71.1,84.6,11.05,14.67,38,37,True
-22500556,2026-01-11 00:00:00+00:00,Atlanta Hawks @ Golden State Warriors,0.19,Clean,volatile teams,0.547,0.902,0.041,56.9,57.8,13.02,14.04,39,40,True
-22500557,2026-01-11 00:00:00+00:00,Houston Rockets @ Sacramento Kings,0.173,Clean,volatile teams,0.385,0.799,0.335,50.6,47.9,8.97,18.69,38,35,True
-22500558,2026-01-12 00:00:00+00:00,Utah Jazz @ Cleveland Cavaliers,0.225,Clean,"fatigue load, volatile teams",0.689,0.813,0.403,50.6,78.3,13.03,11.35,40,38,True
-22500559,2026-01-12 00:00:00+00:00,Boston Celtics @ Indiana Pacers,0.209,Clean,"fatigue load, volatile teams",0.689,0.677,0.401,50.6,78.3,9.46,10.85,39,38,True
-22500560,2026-01-12 00:00:00+00:00,Philadelphia 76ers @ Toronto Raptors,0.221,Clean,"fatigue load, volatile teams",1.0,0.604,0.012,87.0,87.0,9.2,8.92,40,37,True
-22500561,2026-01-12 00:00:00+00:00,Brooklyn Nets @ Dallas Mavericks,0.198,Clean,"fatigue load, volatile teams",0.657,0.644,0.364,51.5,74.2,8.69,10.64,39,36,True
-22500562,2026-01-12 00:00:00+00:00,Los Angeles Lakers @ Sacramento Kings,0.169,Clean,volatile teams,0.457,0.673,0.327,64.2,41.5,10.65,9.54,39,36,True
-22500563,2026-01-12 00:00:00+00:00,Charlotte Hornets @ LA Clippers,0.268,Clean,"fatigue load, volatile teams",0.983,0.822,0.365,78.3,81.0,9.67,21.66,38,39,True
-22500564,2026-01-13 00:00:00+00:00,Phoenix Suns @ Miami Heat,0.21,Clean,"fatigue load, volatile teams",0.761,0.654,0.29,78.3,57.8,10.22,9.39,40,39,True
-22500565,2026-01-13 00:00:00+00:00,Chicago Bulls @ Houston Rockets,0.18,Clean,volatile teams,0.416,0.885,0.214,51.5,50.1,18.52,11.55,36,39,True
-22500566,2026-01-13 00:00:00+00:00,Minnesota Timberwolves @ Milwaukee Bucks,0.222,Clean,"fatigue load, volatile teams",0.626,0.86,0.417,51.5,71.1,10.79,16.34,39,40,True
-22500567,2026-01-13 00:00:00+00:00,Denver Nuggets @ New Orleans Pelicans,0.183,Clean,fatigue load,0.725,0.454,0.315,74.7,57.8,5.82,7.79,41,39,True
-22500568,2026-01-13 00:00:00+00:00,San Antonio Spurs @ Oklahoma City Thunder,0.208,Clean,"fatigue load, volatile teams",0.653,0.763,0.315,50.6,74.7,11.26,11.62,40,40,True
-22500569,2026-01-13 00:00:00+00:00,Atlanta Hawks @ Los Angeles Lakers,0.251,Clean,"fatigue load, volatile teams",0.742,0.885,0.553,97.0,54.2,12.44,14.12,37,41,True
-22500570,2026-01-13 00:00:00+00:00,Portland Trail Blazers @ Golden State Warriors,0.169,Clean,volatile teams,0.448,0.761,0.197,50.6,54.2,13.51,9.32,40,40,True
-22500571,2026-01-14 00:00:00+00:00,Toronto Raptors @ Indiana Pacers,0.199,Clean,"fatigue load, volatile teams",0.653,0.678,0.335,50.6,74.7,9.74,10.61,40,41,True
-22500572,2026-01-14 00:00:00+00:00,Cleveland Cavaliers @ Philadelphia 76ers,0.23,Clean,"fatigue load, volatile teams",0.689,0.837,0.435,74.7,54.2,10.11,15.61,38,41,True
-22500573,2026-01-14 00:00:00+00:00,Utah Jazz @ Chicago Bulls,0.261,Clean,"fatigue load, volatile teams",0.947,0.775,0.428,108.0,74.7,11.78,11.47,40,39,True
-22500574,2026-01-14 00:00:00+00:00,Brooklyn Nets @ New Orleans Pelicans,0.236,Clean,fatigue load,0.947,0.543,0.465,94.0,74.7,5.79,10.51,42,37,True
-22500575,2026-01-14 00:00:00+00:00,Denver Nuggets @ Dallas Mavericks,0.195,Clean,fatigue load,0.643,0.507,0.595,44.3,104.0,6.64,8.58,40,40,True
-22500576,2026-01-14 00:00:00+00:00,New York Knicks @ Sacramento Kings,0.147,Clean,volatile teams,0.376,0.743,0.062,50.6,47.0,11.38,10.9,40,40,True
-22500577,2026-01-14 00:00:00+00:00,Washington Wizards @ LA Clippers,0.203,Clean,volatile teams,0.581,0.758,0.406,71.1,47.0,9.91,12.83,39,38,True
-22500578,2026-01-15 00:00:00+00:00,Memphis Grizzlies @ Orlando Magic,0.085,Clean,volatile teams,0.0,0.607,0.213,19.4,22.0,7.04,11.18,40,39,True
-22500579,2026-01-15 00:00:00+00:00,Phoenix Suns @ Detroit Pistons,0.176,Clean,"volatile teams, stability mismatch",0.278,0.766,0.668,11.4,57.8,13.84,9.14,38,40,True
-22500580,2026-01-15 00:00:00+00:00,Boston Celtics @ Miami Heat,0.207,Clean,"fatigue load, volatile teams",0.675,0.707,0.351,77.4,50.1,10.48,10.74,41,39,True
-22500581,2026-01-15 00:00:00+00:00,Oklahoma City Thunder @ Houston Rockets,0.168,Clean,volatile teams,0.448,0.816,0.085,50.6,54.2,12.82,11.65,37,41,True
-22500582,2026-01-15 00:00:00+00:00,Milwaukee Bucks @ San Antonio Spurs,0.152,Clean,volatile teams,0.457,0.686,0.057,54.2,51.5,9.99,10.58,41,40,True
-22500583,2026-01-15 00:00:00+00:00,Utah Jazz @ Dallas Mavericks,0.236,Clean,fatigue load,1.0,0.56,0.311,87.0,108.0,7.87,8.94,41,40,True
-22500584,2026-01-15 00:00:00+00:00,New York Knicks @ Golden State Warriors,0.193,Clean,volatile teams,0.548,0.809,0.243,50.6,64.2,13.21,11.05,41,41,True
-22500585,2026-01-15 00:00:00+00:00,Atlanta Hawks @ Portland Trail Blazers,0.187,Clean,volatile teams,0.52,0.822,0.202,54.2,57.8,10.01,14.65,41,42,True
-22500586,2026-01-15 00:00:00+00:00,Charlotte Hornets @ Los Angeles Lakers,0.179,Clean,volatile teams,0.344,0.904,0.323,50.6,43.8,12.11,21.63,38,40,True
-22500587,2026-01-16 00:00:00+00:00,Chicago Bulls @ Brooklyn Nets,0.212,Clean,fatigue load,0.788,0.541,0.454,78.3,60.5,5.67,10.55,38,41,True
-22500588,2026-01-16 00:00:00+00:00,New Orleans Pelicans @ Indiana Pacers,0.205,Clean,fatigue load,0.706,0.524,0.575,50.6,81.0,9.88,5.84,41,43,True
-22500589,2026-01-16 00:00:00+00:00,Cleveland Cavaliers @ Philadelphia 76ers,0.219,Clean,"fatigue load, volatile teams",0.617,0.851,0.408,71.1,50.6,10.53,15.16,39,42,True
-22500590,2026-01-16 00:00:00+00:00,LA Clippers @ Toronto Raptors,0.224,Clean,"fatigue load, volatile teams",0.93,0.671,0.087,74.7,78.3,10.58,9.56,42,40,True
-22500591,2026-01-16 00:00:00+00:00,Minnesota Timberwolves @ Houston Rockets,0.25,Clean,"fatigue load, volatile teams",0.701,0.906,0.581,87.0,50.1,12.17,16.22,38,41,True
-22500592,2026-01-16 00:00:00+00:00,Washington Wizards @ Sacramento Kings,0.2,Clean,"fatigue load, volatile teams",0.653,0.753,0.215,71.1,54.2,11.34,11.26,41,39,True
-22500593,2026-01-17 00:00:00+00:00,Utah Jazz @ Dallas Mavericks,0.206,Clean,fatigue load,0.885,0.536,0.157,71.1,77.4,7.22,8.87,42,41,True
-22500594,2026-01-17 00:00:00+00:00,Boston Celtics @ Atlanta Hawks,0.192,Clean,volatile teams,0.52,0.873,0.177,57.8,54.2,15.36,11.18,43,40,True
-22500595,2026-01-17 00:00:00+00:00,Indiana Pacers @ Detroit Pistons,0.22,Clean,"volatile teams, stability mismatch",0.5,0.836,0.707,20.5,87.0,16.65,10.08,39,42,True
-22500596,2026-01-17 00:00:00+00:00,Phoenix Suns @ New York Knicks,0.163,Clean,volatile teams,0.52,0.667,0.11,57.8,54.2,10.8,9.21,42,41,True
-22500597,2026-01-17 00:00:00+00:00,Oklahoma City Thunder @ Miami Heat,0.22,Clean,"fatigue load, volatile teams",0.752,0.749,0.292,77.4,57.8,10.61,11.87,42,42,True
-22500598,2026-01-17 00:00:00+00:00,Minnesota Timberwolves @ San Antonio Spurs,0.254,Clean,"fatigue load, volatile teams",0.911,0.701,0.538,71.1,94.0,7.29,13.75,42,42,True
-22500599,2026-01-17 00:00:00+00:00,Charlotte Hornets @ Golden State Warriors,0.19,Clean,volatile teams,0.448,0.864,0.323,50.6,54.2,10.93,21.5,42,41,True
-22500600,2026-01-17 00:00:00+00:00,Washington Wizards @ Denver Nuggets,0.208,Clean,"fatigue load, volatile teams",0.652,0.667,0.48,47.0,78.2,8.9,11.11,41,40,True
-22500601,2026-01-17 00:00:00+00:00,Los Angeles Lakers @ Portland Trail Blazers,0.169,Clean,volatile teams,0.484,0.741,0.147,50.6,57.8,10.36,11.86,42,39,True
-22500602,2026-01-18 00:00:00+00:00,Orlando Magic @ Memphis Grizzlies,0.077,Clean,stable conditions,0.0,0.578,0.145,26.4,26.4,10.29,7.04,40,41,True
-22500603,2026-01-18 00:00:00+00:00,Brooklyn Nets @ Chicago Bulls,0.202,Clean,fatigue load,0.689,0.527,0.56,54.2,74.7,11.02,4.78,42,39,True
-22500604,2026-01-18 00:00:00+00:00,New Orleans Pelicans @ Houston Rockets,0.236,Clean,fatigue load,0.911,0.596,0.444,71.1,84.6,12.02,5.85,39,44,True
-22500605,2026-01-18 00:00:00+00:00,Charlotte Hornets @ Denver Nuggets,0.276,Clean,"fatigue load, volatile teams",0.982,0.777,0.578,94.0,78.2,8.32,21.16,42,42,True
-22500606,2026-01-18 00:00:00+00:00,Portland Trail Blazers @ Sacramento Kings,0.244,Clean,"fatigue load, volatile teams",0.911,0.705,0.37,71.1,97.0,11.2,9.96,42,43,True
-22500607,2026-01-18 00:00:00+00:00,Toronto Raptors @ Los Angeles Lakers,0.268,Clean,"fatigue load, volatile teams",0.983,0.777,0.45,108.0,78.3,12.77,10.55,40,43,True
-22500014,2026-01-19 00:00:00+00:00,Milwaukee Bucks @ Atlanta Hawks,0.162,Clean,volatile teams,0.206,0.808,0.554,50.6,20.0,14.62,9.62,44,41,True
-22500015,2026-01-19 00:00:00+00:00,Oklahoma City Thunder @ Cleveland Cavaliers,0.185,Clean,volatile teams,0.393,0.95,0.234,41.5,57.8,14.78,13.71,43,43,True
-22500016,2026-01-19 00:00:00+00:00,Dallas Mavericks @ New York Knicks,0.209,Clean,"fatigue load, volatile teams",0.689,0.698,0.363,50.6,78.3,10.27,10.68,43,43,True
-22500017,2026-01-19 00:00:00+00:00,Boston Celtics @ Detroit Pistons,0.178,Clean,volatile teams,0.242,0.874,0.595,20.5,54.2,17.05,11.22,40,41,True
-22500608,2026-01-19 00:00:00+00:00,LA Clippers @ Washington Wizards,0.154,Clean,volatile teams,0.448,0.615,0.222,57.8,47.0,10.24,8.22,41,41,True
-22500609,2026-01-19 00:00:00+00:00,Indiana Pacers @ Philadelphia 76ers,0.195,Clean,volatile teams,0.585,0.691,0.401,43.8,74.7,10.55,10.18,40,43,True
-22500610,2026-01-19 00:00:00+00:00,Phoenix Suns @ Brooklyn Nets,0.206,Clean,"fatigue load, stability mismatch",0.706,0.451,0.708,97.0,50.6,4.81,8.72,40,42,True
-22500611,2026-01-19 00:00:00+00:00,Utah Jazz @ San Antonio Spurs,0.192,Clean,fatigue load,0.68,0.522,0.43,50.6,77.4,6.83,8.82,43,42,True
-22500612,2026-01-19 00:00:00+00:00,Miami Heat @ Golden State Warriors,0.169,Clean,volatile teams,0.484,0.733,0.16,50.6,57.8,11.95,10.04,43,43,True
-22500613,2026-01-20 00:00:00+00:00,Phoenix Suns @ Philadelphia 76ers,0.224,Clean,"fatigue load, volatile teams",0.842,0.634,0.35,64.2,87.0,10.3,8.72,41,43,True
-22500614,2026-01-20 00:00:00+00:00,LA Clippers @ Chicago Bulls,0.222,Clean,"fatigue load, volatile teams",0.853,0.71,0.167,71.1,74.2,12.34,8.95,43,42,True
-22500615,2026-01-20 00:00:00+00:00,San Antonio Spurs @ Houston Rockets,0.225,Clean,fatigue load,0.911,0.516,0.428,71.1,94.0,9.21,6.27,40,44,True
-22500616,2026-01-20 00:00:00+00:00,Minnesota Timberwolves @ Utah Jazz,0.241,Clean,"fatigue load, volatile teams, stability mismatch",0.701,0.783,0.67,108.0,50.1,9.34,14.16,43,43,True
-22500617,2026-01-20 00:00:00+00:00,Los Angeles Lakers @ Denver Nuggets,0.246,Clean,"fatigue load, volatile teams",0.911,0.739,0.345,71.1,84.6,8.71,13.46,43,41,True
-22500618,2026-01-20 00:00:00+00:00,Toronto Raptors @ Golden State Warriors,0.234,Clean,"fatigue load, volatile teams",0.742,0.806,0.425,87.0,54.2,11.89,12.3,44,44,True
-22500619,2026-01-20 00:00:00+00:00,Miami Heat @ Sacramento Kings,0.224,Clean,"fatigue load, volatile teams, stability mismatch",0.706,0.663,0.605,50.6,94.0,11.25,8.65,43,44,True
-22500620,2026-01-21 00:00:00+00:00,Cleveland Cavaliers @ Charlotte Hornets,0.186,Clean,volatile teams,0.38,0.987,0.204,50.1,47.9,22.42,14.61,43,44,True
-22500621,2026-01-21 00:00:00+00:00,Indiana Pacers @ Boston Celtics,0.198,Clean,"fatigue load, volatile teams",0.653,0.709,0.256,54.2,71.1,11.24,10.04,42,44,True
-22500622,2026-01-21 00:00:00+00:00,Brooklyn Nets @ New York Knicks,0.249,Clean,"fatigue load, volatile teams",0.885,0.664,0.579,71.1,77.4,18.13,4.92,44,41,True
-22500623,2026-01-21 00:00:00+00:00,Atlanta Hawks @ Memphis Grizzlies,0.16,Clean,"volatile teams, stability mismatch",0.242,0.622,0.767,17.8,54.2,5.71,12.96,41,45,True
-22500624,2026-01-21 00:00:00+00:00,Detroit Pistons @ New Orleans Pelicans,0.157,Clean,volatile teams,0.322,0.682,0.444,47.0,45.2,5.45,16.23,45,41,True
-22500625,2026-01-21 00:00:00+00:00,Oklahoma City Thunder @ Milwaukee Bucks,0.146,Clean,volatile teams,0.246,0.704,0.399,30.4,54.2,9.24,11.88,42,44,True
-22500626,2026-01-21 00:00:00+00:00,Toronto Raptors @ Sacramento Kings,0.256,Clean,"fatigue load, volatile teams",1.0,0.825,0.141,87.0,94.0,11.58,13.18,44,45,True
-22500627,2026-01-22 00:00:00+00:00,Charlotte Hornets @ Orlando Magic,0.226,Clean,"volatile teams, stability mismatch",0.5,0.726,0.988,11.7,97.0,6.77,22.89,42,44,True
-22500628,2026-01-22 00:00:00+00:00,Houston Rockets @ Philadelphia 76ers,0.2,Clean,"fatigue load, volatile teams",0.689,0.613,0.38,50.6,78.3,9.58,8.82,42,41,True
-22500629,2026-01-22 00:00:00+00:00,Denver Nuggets @ Washington Wizards,0.133,Clean,stable conditions,0.362,0.451,0.391,38.4,57.8,5.36,8.16,42,44,True
-22500630,2026-01-22 00:00:00+00:00,Golden State Warriors @ Dallas Mavericks,0.218,Clean,"fatigue load, volatile teams",0.684,0.758,0.402,50.1,78.3,10.66,12.09,44,45,True
-22500631,2026-01-22 00:00:00+00:00,Chicago Bulls @ Minnesota Timberwolves,0.194,Clean,volatile teams,0.52,0.929,0.113,57.8,54.2,15.17,12.87,44,44,True
-22500632,2026-01-22 00:00:00+00:00,San Antonio Spurs @ Utah Jazz,0.215,Clean,fatigue load,0.957,0.503,0.19,77.4,78.3,9.36,5.74,44,45,True
-22500633,2026-01-22 00:00:00+00:00,Los Angeles Lakers @ LA Clippers,0.23,Clean,"fatigue load, volatile teams",0.761,0.738,0.44,57.8,78.3,8.6,13.54,43,42,True
-22500634,2026-01-22 00:00:00+00:00,Miami Heat @ Portland Trail Blazers,0.182,Clean,stable conditions,0.546,0.565,0.513,34.6,81.0,8.63,8.32,44,45,True
-22500635,2026-01-23 00:00:00+00:00,Houston Rockets @ Detroit Pistons,0.244,Clean,"fatigue load, volatile teams, stability mismatch",0.652,0.883,0.643,45.2,104.0,16.2,11.48,42,42,True
-22500636,2026-01-23 00:00:00+00:00,Phoenix Suns @ Atlanta Hawks,0.162,Clean,volatile teams,0.412,0.712,0.25,54.2,47.0,12.76,8.6,46,44,True
-22500637,2026-01-23 00:00:00+00:00,Boston Celtics @ Brooklyn Nets,0.184,Clean,"fatigue load, stability mismatch",0.68,0.315,0.675,77.4,50.6,2.13,7.31,42,43,True
-22500638,2026-01-23 00:00:00+00:00,Sacramento Kings @ Cleveland Cavaliers,0.243,Clean,"fatigue load, volatile teams",0.679,0.883,0.574,47.9,84.6,15.14,11.48,45,45,True
-22500639,2026-01-23 00:00:00+00:00,New Orleans Pelicans @ Memphis Grizzlies,0.115,Clean,stable conditions,0.242,0.427,0.433,20.5,54.2,6.29,6.51,42,46,True
-22500640,2026-01-23 00:00:00+00:00,Denver Nuggets @ Milwaukee Bucks,0.168,Clean,stable conditions,0.5,0.483,0.55,26.8,104.0,6.75,7.73,43,45,True
-22500641,2026-01-23 00:00:00+00:00,Indiana Pacers @ Oklahoma City Thunder,0.225,Clean,"fatigue load, volatile teams",0.725,0.803,0.345,54.2,78.3,12.68,11.4,45,45,True
-22500642,2026-01-23 00:00:00+00:00,Toronto Raptors @ Portland Trail Blazers,0.242,Clean,"fatigue load, volatile teams",0.842,0.807,0.327,64.2,81.0,10.39,13.82,45,46,True
+22500190,2025-11-08 00:00:00+00:00,Phoenix Suns @ LA Clippers,0.17,Forming,early-season/low-history,0.421,0.825,0.158,47.9,54.2,,12.38,8,9,False
+22500191,2025-11-09 00:00:00+00:00,Houston Rockets @ Milwaukee Bucks,0.147,Forming,early-season/low-history,0.421,0.706,0.022,50.6,51.5,10.59,,9,8,False
+22500192,2025-11-09 00:00:00+00:00,Brooklyn Nets @ New York Knicks,0.177,Forming,early-season/low-history,0.431,0.409,0.977,32.0,71.1,,6.13,8,9,False
+22500193,2025-11-09 00:00:00+00:00,Boston Celtics @ Orlando Magic,0.181,Forming,early-season/low-history,0.269,0.984,0.381,26.8,56.9,14.66,14.85,9,10,False
+22500194,2025-11-09 00:00:00+00:00,Oklahoma City Thunder @ Memphis Grizzlies,0.218,Clean,"fatigue load, volatile teams",0.894,0.649,0.127,71.1,78.3,10.18,9.28,10,10,True
+22500195,2025-11-09 00:00:00+00:00,Detroit Pistons @ Philadelphia 76ers,0.196,Forming,early-season/low-history,0.706,0.451,0.562,87.0,50.6,7.78,5.75,9,9,False
+22500196,2025-11-09 00:00:00+00:00,Indiana Pacers @ Golden State Warriors,0.214,Forming,early-season/low-history,0.76,0.565,0.513,57.8,78.2,11.27,5.67,10,9,False
+22500197,2025-11-09 00:00:00+00:00,Minnesota Timberwolves @ Sacramento Kings,0.18,Forming,early-season/low-history,0.484,0.69,0.405,50.6,57.8,6.4,14.31,9,9,False
+22500198,2025-11-10 00:00:00+00:00,Los Angeles Lakers @ Charlotte Hornets,0.154,Forming,early-season/low-history,0.206,0.867,0.329,26.4,50.6,13.42,12.58,9,10,False
+22500199,2025-11-10 00:00:00+00:00,Washington Wizards @ Detroit Pistons,0.219,Clean,"fatigue load, stability mismatch",0.947,0.298,0.625,97.0,74.7,7.06,1.89,10,10,True
+22500200,2025-11-10 00:00:00+00:00,Portland Trail Blazers @ Orlando Magic,0.2,Forming,early-season/low-history,0.485,0.914,0.302,64.2,44.3,14.61,12.82,10,9,False
+22500201,2025-11-10 00:00:00+00:00,Cleveland Cavaliers @ Miami Heat,0.228,Clean,"fatigue load, volatile teams",0.689,0.938,0.233,71.1,57.8,15.45,13.14,10,10,True
+22500202,2025-11-10 00:00:00+00:00,San Antonio Spurs @ Chicago Bulls,0.175,Forming,early-season/low-history,0.457,0.734,0.317,54.2,51.5,7.24,14.79,9,9,False
+22500203,2025-11-10 00:00:00+00:00,Milwaukee Bucks @ Dallas Mavericks,0.243,Clean,fatigue load,0.983,0.575,0.421,78.3,100.0,6.96,10.29,10,10,True
+22500204,2025-11-10 00:00:00+00:00,New Orleans Pelicans @ Phoenix Suns,0.17,Forming,early-season/low-history,0.52,0.603,0.33,54.2,57.8,12.27,5.82,10,9,False
+22500205,2025-11-10 00:00:00+00:00,Minnesota Timberwolves @ Utah Jazz,0.242,Forming,early-season/low-history,0.701,0.775,0.702,50.1,97.0,8.79,14.47,9,10,False
+22500206,2025-11-10 00:00:00+00:00,Atlanta Hawks @ LA Clippers,0.199,Forming,early-season/low-history,0.626,0.81,0.156,64.8,57.8,13.17,11.13,9,10,False
+22500207,2025-11-11 00:00:00+00:00,Toronto Raptors @ Brooklyn Nets,0.145,Clean,volatile teams,0.227,0.698,0.449,44.3,38.4,5.94,15.54,10,10,True
+22500208,2025-11-11 00:00:00+00:00,Memphis Grizzlies @ New York Knicks,0.144,Forming,early-season/low-history,0.278,0.647,0.396,26.8,57.8,9.8,9.6,9,11,False
+22500209,2025-11-11 00:00:00+00:00,Boston Celtics @ Philadelphia 76ers,0.219,Clean,"fatigue load, volatile teams",0.689,0.749,0.423,71.1,57.8,7.76,14.71,10,11,True
+22500210,2025-11-11 00:00:00+00:00,Golden State Warriors @ Oklahoma City Thunder,0.227,Clean,"fatigue load, volatile teams",0.93,0.691,0.11,74.7,78.3,9.54,11.2,11,11,True
+22500211,2025-11-11 00:00:00+00:00,Indiana Pacers @ Utah Jazz,0.164,Clean,stable conditions,0.584,0.475,0.318,64.2,54.2,8.98,5.26,10,10,True
+22500212,2025-11-11 00:00:00+00:00,Denver Nuggets @ Sacramento Kings,0.125,Forming,early-season/low-history,0.352,0.511,0.193,50.6,44.6,6.46,8.87,10,9,False
+22500213,2025-11-12 00:00:00+00:00,Milwaukee Bucks @ Charlotte Hornets,0.165,Clean,volatile teams,0.278,0.76,0.526,26.8,57.8,13.3,9.49,10,11,True
+22500214,2025-11-12 00:00:00+00:00,Chicago Bulls @ Detroit Pistons,0.166,Clean,fatigue load,0.617,0.459,0.291,71.1,50.6,6.54,7.23,11,10,True
+22500215,2025-11-12 00:00:00+00:00,Orlando Magic @ New York Knicks,0.189,Clean,volatile teams,0.55,0.836,0.136,57.2,57.8,10.61,14.47,10,11,True
+22500216,2025-11-12 00:00:00+00:00,Memphis Grizzlies @ Boston Celtics,0.257,Clean,"fatigue load, volatile teams",1.0,0.665,0.44,94.0,94.0,15.71,4.95,12,12,True
+22500217,2025-11-12 00:00:00+00:00,Cleveland Cavaliers @ Miami Heat,0.226,Clean,"fatigue load, volatile teams",0.822,0.829,0.083,71.1,71.1,11.19,13.69,11,11,True
+22500218,2025-11-12 00:00:00+00:00,Washington Wizards @ Houston Rockets,0.204,Forming,early-season/low-history,0.629,0.414,0.921,44.6,78.3,10.53,1.88,9,11,False
+22500219,2025-11-12 00:00:00+00:00,Portland Trail Blazers @ New Orleans Pelicans,0.165,Clean,stable conditions,0.457,0.596,0.41,57.8,47.9,5.71,12.18,10,10,True
+22500220,2025-11-12 00:00:00+00:00,Golden State Warriors @ San Antonio Spurs,0.246,Clean,"fatigue load, volatile teams",0.92,0.703,0.389,72.0,97.0,9.54,11.55,10,12,True
+22500221,2025-11-12 00:00:00+00:00,Phoenix Suns @ Dallas Mavericks,0.195,Clean,fatigue load,0.689,0.595,0.336,71.1,57.8,6.98,10.86,11,11,True
+22500222,2025-11-12 00:00:00+00:00,Los Angeles Lakers @ Oklahoma City Thunder,0.223,Clean,"fatigue load, volatile teams",0.778,0.694,0.385,87.0,57.8,10.15,10.67,12,11,True
+22500223,2025-11-12 00:00:00+00:00,Atlanta Hawks @ Sacramento Kings,0.23,Clean,"fatigue load, volatile teams, stability mismatch",0.742,0.612,0.712,87.0,54.2,5.71,12.64,11,11,True
+22500224,2025-11-12 00:00:00+00:00,Denver Nuggets @ LA Clippers,0.225,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.731,0.655,44.3,97.0,13.05,8.89,10,10,True
+22500225,2025-11-13 00:00:00+00:00,Toronto Raptors @ Cleveland Cavaliers,0.253,Clean,"fatigue load, volatile teams",0.679,0.997,0.52,100.0,47.9,15.59,14.91,12,11,True
+22500226,2025-11-13 00:00:00+00:00,Indiana Pacers @ Phoenix Suns,0.224,Clean,"fatigue load, stability mismatch",0.742,0.531,0.762,100.0,54.2,10.68,5.25,12,11,True
+22500227,2025-11-13 00:00:00+00:00,Atlanta Hawks @ Utah Jazz,0.229,Clean,"fatigue load, volatile teams, stability mismatch",0.706,0.679,0.658,50.6,97.0,8.18,12.19,11,12,True
+22500039,2025-11-14 00:00:00+00:00,Miami Heat @ New York Knicks,0.212,Clean,"fatigue load, volatile teams",0.689,0.72,0.375,50.6,78.3,10.43,11.17,11,12,True
+22500040,2025-11-14 00:00:00+00:00,Brooklyn Nets @ Orlando Magic,0.207,Clean,"volatile teams, stability mismatch",0.566,0.663,0.674,72.0,44.6,13.97,5.92,12,11,True
+22500041,2025-11-14 00:00:00+00:00,Philadelphia 76ers @ Detroit Pistons,0.157,Clean,stable conditions,0.581,0.425,0.311,71.1,47.0,6.28,6.47,12,11,True
+22500042,2025-11-14 00:00:00+00:00,Portland Trail Blazers @ Houston Rockets,0.133,Clean,volatile teams,0.322,0.676,0.088,44.3,47.9,10.7,9.58,10,11,True
+22500043,2025-11-14 00:00:00+00:00,Charlotte Hornets @ Milwaukee Bucks,0.209,Clean,"fatigue load, volatile teams",0.626,0.725,0.452,74.7,47.9,9.31,12.44,12,11,True
+22500044,2025-11-14 00:00:00+00:00,Sacramento Kings @ Minnesota Timberwolves,0.215,Clean,"volatile teams, stability mismatch",0.555,0.636,0.867,37.2,78.3,13.82,5.27,11,12,True
+22500045,2025-11-14 00:00:00+00:00,Los Angeles Lakers @ New Orleans Pelicans,0.149,Clean,stable conditions,0.448,0.55,0.272,50.6,54.2,5.83,10.67,11,12,True
+22500046,2025-11-14 00:00:00+00:00,LA Clippers @ Dallas Mavericks,0.165,Clean,fatigue load,0.689,0.274,0.443,71.1,57.8,2.11,6.1,12,11,True
+22500047,2025-11-14 00:00:00+00:00,Golden State Warriors @ San Antonio Spurs,0.207,Clean,"fatigue load, volatile teams",0.759,0.706,0.154,64.8,71.1,9.61,11.58,11,13,True
+22500228,2025-11-15 00:00:00+00:00,Memphis Grizzlies @ Cleveland Cavaliers,0.207,Clean,"volatile teams, stability mismatch",0.581,0.615,0.718,71.1,47.0,13.93,4.53,13,13,True
+22500229,2025-11-15 00:00:00+00:00,Oklahoma City Thunder @ Charlotte Hornets,0.197,Clean,"fatigue load, volatile teams",0.643,0.67,0.338,74.2,50.1,10.51,9.58,12,13,True
+22500230,2025-11-15 00:00:00+00:00,Toronto Raptors @ Indiana Pacers,0.206,Clean,"fatigue load, stability mismatch",0.626,0.553,0.708,78.3,44.3,5.26,11.33,12,12,True
+22500231,2025-11-15 00:00:00+00:00,Los Angeles Lakers @ Milwaukee Bucks,0.234,Clean,"fatigue load, volatile teams",1.0,0.653,0.118,94.0,100.0,9.27,10.33,13,13,True
+22500232,2025-11-15 00:00:00+00:00,Denver Nuggets @ Minnesota Timberwolves,0.189,Clean,volatile teams,0.488,0.737,0.448,64.2,44.6,13.78,8.34,12,11,True
+22500233,2025-11-16 00:00:00+00:00,LA Clippers @ Boston Celtics,0.162,Clean,"volatile teams, stability mismatch",0.298,0.626,0.659,32.0,57.8,13.29,5.49,13,12,True
+22500234,2025-11-16 00:00:00+00:00,Sacramento Kings @ San Antonio Spurs,0.199,Clean,fatigue load,0.689,0.501,0.565,50.6,78.3,9.7,5.32,12,13,True
+22500235,2025-11-16 00:00:00+00:00,Brooklyn Nets @ Washington Wizards,0.136,Clean,stability mismatch,0.242,0.362,0.87,24.6,54.2,1.24,9.61,12,12,True
+22500236,2025-11-16 00:00:00+00:00,Orlando Magic @ Houston Rockets,0.21,Clean,volatile teams,0.563,0.824,0.435,44.3,72.0,11.03,13.7,11,13,True
+22500237,2025-11-16 00:00:00+00:00,Golden State Warriors @ New Orleans Pelicans,0.198,Clean,fatigue load,0.653,0.551,0.541,50.6,74.7,5.69,10.83,12,14,True
+22500238,2025-11-16 00:00:00+00:00,Portland Trail Blazers @ Dallas Mavericks,0.131,Clean,stable conditions,0.349,0.445,0.395,50.6,44.3,3.75,9.6,13,12,True
+22500239,2025-11-16 00:00:00+00:00,Atlanta Hawks @ Phoenix Suns,0.141,Clean,volatile teams,0.308,0.786,0.05,43.8,47.0,11.66,11.93,13,13,True
+22500240,2025-11-16 00:00:00+00:00,Chicago Bulls @ Utah Jazz,0.098,Clean,stable conditions,0.138,0.469,0.337,43.8,24.6,7.97,6.1,12,11,True
+22500241,2025-11-17 00:00:00+00:00,Milwaukee Bucks @ Cleveland Cavaliers,0.245,Clean,"fatigue load, volatile teams",0.911,0.754,0.3,71.1,81.0,13.74,8.88,14,14,True
+22500242,2025-11-17 00:00:00+00:00,Indiana Pacers @ Detroit Pistons,0.1,Clean,stable conditions,0.344,0.358,0.098,43.8,50.6,5.49,5.26,13,13,True
+22500243,2025-11-17 00:00:00+00:00,LA Clippers @ Philadelphia 76ers,0.16,Clean,stable conditions,0.5,0.406,0.57,26.4,94.0,6.71,5.47,12,13,True
+22500244,2025-11-17 00:00:00+00:00,New York Knicks @ Miami Heat,0.135,Clean,volatile teams,0.347,0.603,0.182,50.1,44.6,7.72,10.36,13,12,True
+22500245,2025-11-17 00:00:00+00:00,Charlotte Hornets @ Toronto Raptors,0.194,Clean,volatile teams,0.563,0.75,0.323,47.9,68.4,12.18,10.33,13,13,True
+22500246,2025-11-17 00:00:00+00:00,Dallas Mavericks @ Minnesota Timberwolves,0.234,Clean,"fatigue load, stability mismatch",0.706,0.551,0.953,50.6,100.0,12.97,3.56,13,14,True
+22500247,2025-11-17 00:00:00+00:00,Oklahoma City Thunder @ New Orleans Pelicans,0.204,Clean,fatigue load,0.742,0.474,0.563,87.0,54.2,5.61,8.6,13,14,True
+22500248,2025-11-17 00:00:00+00:00,Chicago Bulls @ Denver Nuggets,0.18,Clean,"fatigue load, volatile teams",0.614,0.601,0.261,54.2,67.2,10.14,7.88,12,12,True
+22500249,2025-11-18 00:00:00+00:00,Golden State Warriors @ Orlando Magic,0.236,Clean,"fatigue load, volatile teams",0.778,0.802,0.38,57.8,81.0,13.33,10.74,14,15,True
+22500250,2025-11-18 00:00:00+00:00,Boston Celtics @ Brooklyn Nets,0.133,Clean,volatile teams,0.286,0.721,0.092,44.3,44.3,9.6,12.02,13,14,True
+22500251,2025-11-18 00:00:00+00:00,Detroit Pistons @ Atlanta Hawks,0.214,Clean,fatigue load,0.72,0.596,0.548,57.8,74.2,12.77,5.11,14,14,True
+22500252,2025-11-18 00:00:00+00:00,Memphis Grizzlies @ San Antonio Spurs,0.128,Clean,stable conditions,0.352,0.457,0.323,50.6,44.6,9.18,4.52,13,14,True
+22500253,2025-11-18 00:00:00+00:00,Utah Jazz @ Los Angeles Lakers,0.127,Clean,stable conditions,0.325,0.583,0.16,44.6,47.9,10.07,7.42,14,13,True
+22500254,2025-11-18 00:00:00+00:00,Phoenix Suns @ Portland Trail Blazers,0.163,Clean,volatile teams,0.493,0.62,0.247,51.5,57.8,7.33,11.28,13,14,True
+22500255,2025-11-19 00:00:00+00:00,Houston Rockets @ Cleveland Cavaliers,0.21,Clean,"fatigue load, volatile teams",0.62,0.74,0.457,77.4,44.6,11.73,10.47,15,12,True
+22500256,2025-11-19 00:00:00+00:00,Charlotte Hornets @ Indiana Pacers,0.18,Clean,stable conditions,0.59,0.578,0.358,50.6,68.4,7.15,10.18,14,14,True
+22500257,2025-11-19 00:00:00+00:00,Golden State Warriors @ Miami Heat,0.213,Clean,"fatigue load, volatile teams",0.706,0.601,0.553,50.6,94.0,8.39,9.63,14,16,True
+22500258,2025-11-19 00:00:00+00:00,Toronto Raptors @ Philadelphia 76ers,0.13,Clean,volatile teams,0.179,0.629,0.454,26.8,47.9,7.19,11.67,13,14,True
+22500259,2025-11-19 00:00:00+00:00,Washington Wizards @ Minnesota Timberwolves,0.137,Clean,stability mismatch,0.206,0.475,0.764,50.6,29.5,13.17,1.09,14,13,True
+22500260,2025-11-19 00:00:00+00:00,Denver Nuggets @ New Orleans Pelicans,0.177,Clean,fatigue load,0.689,0.46,0.301,71.1,57.8,5.61,8.2,14,13,True
+22500261,2025-11-19 00:00:00+00:00,Sacramento Kings @ Oklahoma City Thunder,0.135,Clean,stable conditions,0.412,0.473,0.273,54.2,47.0,8.88,5.32,15,14,True
+22500262,2025-11-19 00:00:00+00:00,New York Knicks @ Dallas Mavericks,0.214,Clean,"fatigue load, stability mismatch",0.715,0.469,0.787,84.6,51.5,3.5,10.57,15,13,True
+22500263,2025-11-19 00:00:00+00:00,Chicago Bulls @ Portland Trail Blazers,0.198,Clean,fatigue load,0.715,0.488,0.514,87.0,51.5,6.63,8.02,14,13,True
+22500264,2025-11-20 00:00:00+00:00,LA Clippers @ Orlando Magic,0.152,Clean,stable conditions,0.407,0.571,0.373,50.6,50.1,12.5,4.62,15,14,True
+22500265,2025-11-20 00:00:00+00:00,Sacramento Kings @ Memphis Grizzlies,0.184,Clean,stability mismatch,0.446,0.504,0.88,30.4,74.2,11.33,3.8,15,15,True
+22500266,2025-11-20 00:00:00+00:00,Philadelphia 76ers @ Milwaukee Bucks,0.164,Clean,stable conditions,0.542,0.555,0.266,47.0,67.2,8.46,8.19,15,14,True
+22500267,2025-11-20 00:00:00+00:00,Atlanta Hawks @ San Antonio Spurs,0.17,Clean,volatile teams,0.484,0.719,0.203,50.6,57.8,9.28,12.29,14,15,True
+22500048,2025-11-21 00:00:00+00:00,Indiana Pacers @ Cleveland Cavaliers,0.163,Clean,stable conditions,0.475,0.583,0.357,56.9,50.6,11.85,5.65,16,15,True
+22500049,2025-11-21 00:00:00+00:00,Brooklyn Nets @ Boston Celtics,0.127,Clean,volatile teams,0.084,0.808,0.3,23.2,38.4,13.75,10.49,15,14,True
+22500050,2025-11-21 00:00:00+00:00,Washington Wizards @ Toronto Raptors,0.139,Clean,stability mismatch,0.246,0.418,0.798,54.2,30.4,11.42,1.11,15,14,True
+22500051,2025-11-21 00:00:00+00:00,Miami Heat @ Chicago Bulls,0.181,Clean,volatile teams,0.556,0.725,0.19,57.8,57.8,8.36,13.39,14,15,True
+22500052,2025-11-21 00:00:00+00:00,New Orleans Pelicans @ Dallas Mavericks,0.184,Clean,fatigue load,0.921,0.312,0.135,77.4,74.7,3.9,5.47,16,15,True
+22500053,2025-11-21 00:00:00+00:00,Minnesota Timberwolves @ Phoenix Suns,0.197,Clean,volatile teams,0.483,0.737,0.578,29.5,78.3,9.98,12.14,15,15,True
+22500054,2025-11-21 00:00:00+00:00,Denver Nuggets @ Houston Rockets,0.152,Clean,volatile teams,0.457,0.628,0.155,51.5,54.2,10.87,7.97,13,14,True
+22500055,2025-11-21 00:00:00+00:00,Oklahoma City Thunder @ Utah Jazz,0.137,Clean,stable conditions,0.278,0.532,0.501,26.4,57.8,6.84,9.13,14,16,True
+22500056,2025-11-21 00:00:00+00:00,Portland Trail Blazers @ Golden State Warriors,0.227,Clean,fatigue load,0.947,0.568,0.275,84.6,74.7,10.18,6.85,17,15,True
+22500268,2025-11-22 00:00:00+00:00,LA Clippers @ Charlotte Hornets,0.14,Clean,volatile teams,0.357,0.604,0.237,41.5,54.2,9.98,8.14,15,15,True
+22500269,2025-11-22 00:00:00+00:00,New York Knicks @ Orlando Magic,0.136,Clean,volatile teams,0.206,0.729,0.305,50.6,29.5,10.39,11.49,16,14,True
+22500270,2025-11-22 00:00:00+00:00,Atlanta Hawks @ New Orleans Pelicans,0.233,Clean,"fatigue load, stability mismatch",0.742,0.524,0.907,100.0,54.2,3.76,11.97,16,16,True
+22500271,2025-11-22 00:00:00+00:00,Washington Wizards @ Chicago Bulls,0.204,Clean,"fatigue load, stability mismatch",0.872,0.262,0.638,87.0,67.2,6.67,1.19,15,15,True
+22500272,2025-11-22 00:00:00+00:00,Detroit Pistons @ Milwaukee Bucks,0.119,Clean,stable conditions,0.206,0.453,0.528,50.6,22.0,8.4,5.19,16,15,True
+22500273,2025-11-22 00:00:00+00:00,Memphis Grizzlies @ Dallas Mavericks,0.216,Clean,"fatigue load, stability mismatch",0.679,0.49,0.86,94.0,47.9,3.84,10.86,17,16,True
+22500274,2025-11-22 00:00:00+00:00,Sacramento Kings @ Denver Nuggets,0.223,Clean,"fatigue load, stability mismatch",0.778,0.532,0.66,100.0,57.8,9.66,6.3,15,16,True
+22500275,2025-11-23 00:00:00+00:00,Miami Heat @ Philadelphia 76ers,0.146,Clean,volatile teams,0.294,0.686,0.33,41.5,47.9,7.15,13.44,15,16,True
+22500276,2025-11-23 00:00:00+00:00,Charlotte Hornets @ Atlanta Hawks,0.244,Clean,"fatigue load, volatile teams, stability mismatch",0.842,0.626,0.663,97.0,64.2,12.36,6.41,17,16,True
+22500277,2025-11-23 00:00:00+00:00,Orlando Magic @ Boston Celtics,0.23,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.79,0.618,44.3,100.0,13.55,10.16,16,17,True
+22500278,2025-11-23 00:00:00+00:00,LA Clippers @ Cleveland Cavaliers,0.224,Clean,"fatigue load, volatile teams, stability mismatch",0.706,0.648,0.637,50.6,97.0,11.38,8.05,17,16,True
+22500279,2025-11-23 00:00:00+00:00,Brooklyn Nets @ Toronto Raptors,0.142,Clean,volatile teams,0.322,0.746,0.103,44.3,47.9,11.98,10.4,16,15,True
+22500280,2025-11-23 00:00:00+00:00,Portland Trail Blazers @ Oklahoma City Thunder,0.202,Clean,fatigue load,0.761,0.499,0.44,57.8,78.3,9.31,5.65,17,16,True
+22500281,2025-11-23 00:00:00+00:00,San Antonio Spurs @ Phoenix Suns,0.112,Clean,stable conditions,0.289,0.528,0.099,44.3,44.6,8.92,6.92,16,15,True
+22500282,2025-11-23 00:00:00+00:00,Los Angeles Lakers @ Utah Jazz,0.128,Clean,stable conditions,0.143,0.576,0.591,44.3,13.4,6.38,10.89,15,15,True
+22500283,2025-11-24 00:00:00+00:00,Detroit Pistons @ Indiana Pacers,0.085,Clean,stable conditions,0.227,0.387,0.09,38.4,44.3,5.65,5.95,16,16,True
+22500284,2025-11-24 00:00:00+00:00,Cleveland Cavaliers @ Toronto Raptors,0.228,Clean,"fatigue load, volatile teams",1.0,0.615,0.091,87.0,94.0,9.2,9.26,17,18,True
+22500285,2025-11-24 00:00:00+00:00,New York Knicks @ Brooklyn Nets,0.182,Clean,volatile teams,0.587,0.689,0.203,67.2,51.5,10.43,10.25,16,15,True
+22500286,2025-11-24 00:00:00+00:00,Dallas Mavericks @ Miami Heat,0.262,Clean,"fatigue load, stability mismatch",1.0,0.585,0.656,100.0,84.6,13.77,3.77,17,18,True
+22500287,2025-11-24 00:00:00+00:00,Denver Nuggets @ Memphis Grizzlies,0.207,Clean,"fatigue load, volatile teams",0.662,0.68,0.425,47.9,78.3,10.77,9.64,17,16,True
+22500288,2025-11-24 00:00:00+00:00,Portland Trail Blazers @ Milwaukee Bucks,0.207,Clean,fatigue load,0.706,0.531,0.59,50.6,100.0,8.91,7.02,17,17,True
+22500289,2025-11-24 00:00:00+00:00,Chicago Bulls @ New Orleans Pelicans,0.209,Clean,fatigue load,0.957,0.499,0.11,77.4,78.3,6.48,8.49,17,16,True
+22500290,2025-11-24 00:00:00+00:00,Houston Rockets @ Phoenix Suns,0.158,Clean,volatile teams,0.342,0.623,0.512,64.2,24.0,9.2,9.49,17,14,True
+22500291,2025-11-24 00:00:00+00:00,Utah Jazz @ Golden State Warriors,0.185,Clean,stable conditions,0.58,0.513,0.567,43.8,74.2,9.61,5.77,18,16,True
+22500292,2025-11-24 00:00:00+00:00,Minnesota Timberwolves @ Sacramento Kings,0.173,Clean,volatile teams,0.393,0.705,0.47,57.8,41.5,7.15,13.99,17,16,True
+22500057,2025-11-25 00:00:00+00:00,Atlanta Hawks @ Washington Wizards,0.197,Clean,volatile teams,0.507,0.705,0.577,36.0,74.7,9.34,11.81,16,18,True
+22500058,2025-11-25 00:00:00+00:00,Orlando Magic @ Philadelphia 76ers,0.209,Clean,"volatile teams, stability mismatch",0.554,0.729,0.61,44.3,71.1,7.32,14.56,16,18,True
+22500059,2025-11-25 00:00:00+00:00,LA Clippers @ Los Angeles Lakers,0.148,Clean,stable conditions,0.278,0.597,0.556,24.1,57.8,10.49,7.41,16,17,True
+22500060,2025-11-26 00:00:00+00:00,Detroit Pistons @ Boston Celtics,0.113,Clean,volatile teams,0.04,0.637,0.496,17.8,34.0,13.04,6.08,17,17,True
+22500061,2025-11-26 00:00:00+00:00,New York Knicks @ Charlotte Hornets,0.137,Clean,stable conditions,0.317,0.547,0.383,43.8,47.9,4.72,11.7,17,16,True
+22500062,2025-11-26 00:00:00+00:00,Milwaukee Bucks @ Miami Heat,0.214,Clean,"fatigue load, volatile teams",0.689,0.676,0.476,71.1,57.8,13.98,6.3,18,18,True
+22500063,2025-11-26 00:00:00+00:00,Indiana Pacers @ Toronto Raptors,0.183,Clean,stable conditions,0.59,0.51,0.525,71.1,47.9,10.04,5.27,18,17,True
+22500064,2025-11-26 00:00:00+00:00,Minnesota Timberwolves @ Oklahoma City Thunder,0.155,Clean,volatile teams,0.299,0.731,0.369,38.4,51.5,8.24,13.7,18,17,True
+22500065,2025-11-26 00:00:00+00:00,Memphis Grizzlies @ New Orleans Pelicans,0.202,Clean,fatigue load,0.653,0.573,0.554,77.4,47.9,6.56,10.63,18,18,True
+22500066,2025-11-26 00:00:00+00:00,Houston Rockets @ Golden State Warriors,0.133,Clean,volatile teams,0.385,0.619,0.039,50.6,47.9,9.23,9.35,19,15,True
+22500067,2025-11-26 00:00:00+00:00,San Antonio Spurs @ Portland Trail Blazers,0.166,Clean,stable conditions,0.5,0.487,0.508,84.6,29.5,7.23,7.39,18,16,True
+22500068,2025-11-26 00:00:00+00:00,Phoenix Suns @ Sacramento Kings,0.183,Clean,fatigue load,0.653,0.548,0.316,71.1,54.2,7.09,9.36,18,18,True
+22500069,2025-11-28 00:00:00+00:00,Cleveland Cavaliers @ Atlanta Hawks,0.107,Clean,volatile teams,0.161,0.646,0.12,41.5,34.6,10.08,9.29,19,19,True
+22500070,2025-11-28 00:00:00+00:00,Philadelphia 76ers @ Brooklyn Nets,0.084,Clean,stable conditions,0.02,0.578,0.207,32.0,23.2,9.74,7.59,17,17,True
+22500071,2025-11-28 00:00:00+00:00,Chicago Bulls @ Charlotte Hornets,0.116,Clean,stable conditions,0.252,0.441,0.403,50.6,34.6,4.75,8.49,18,17,True
+22500072,2025-11-28 00:00:00+00:00,Orlando Magic @ Detroit Pistons,0.15,Clean,volatile teams,0.349,0.66,0.313,47.9,47.0,6.23,13.56,18,19,True
+22500073,2025-11-28 00:00:00+00:00,Washington Wizards @ Indiana Pacers,0.119,Clean,volatile teams,0.239,0.627,0.15,47.9,36.0,9.44,9.37,18,17,True
+22500074,2025-11-28 00:00:00+00:00,Milwaukee Bucks @ New York Knicks,0.158,Clean,stable conditions,0.457,0.583,0.319,47.9,57.8,10.92,6.57,17,19,True
+22500075,2025-11-28 00:00:00+00:00,Phoenix Suns @ Oklahoma City Thunder,0.178,Clean,stable conditions,0.563,0.583,0.38,44.3,72.0,8.36,9.12,19,19,True
+22500076,2025-11-28 00:00:00+00:00,San Antonio Spurs @ Denver Nuggets,0.086,Clean,stable conditions,0.112,0.522,0.122,37.2,34.0,8.69,6.98,17,17,True
+22500077,2025-11-28 00:00:00+00:00,Sacramento Kings @ Utah Jazz,0.111,Clean,stable conditions,0.242,0.425,0.372,30.0,54.2,5.73,7.01,17,19,True
+22500078,2025-11-28 00:00:00+00:00,Dallas Mavericks @ Los Angeles Lakers,0.115,Clean,stability mismatch,0.117,0.464,0.644,17.8,41.7,10.23,3.7,17,19,True
+22500079,2025-11-28 00:00:00+00:00,Memphis Grizzlies @ LA Clippers,0.138,Clean,stable conditions,0.353,0.593,0.241,43.8,51.5,7.26,10.54,18,19,True
+22500293,2025-11-29 00:00:00+00:00,Boston Celtics @ Minnesota Timberwolves,0.093,Clean,volatile teams,0.0,0.728,0.115,26.4,24.0,9.78,12.07,18,18,True
+22500294,2025-11-29 00:00:00+00:00,Toronto Raptors @ Charlotte Hornets,0.22,Clean,"fatigue load, volatile teams, stability mismatch",0.67,0.616,0.712,87.0,47.0,6.77,11.7,19,19,True
+22500295,2025-11-29 00:00:00+00:00,Chicago Bulls @ Indiana Pacers,0.198,Clean,fatigue load,0.784,0.595,0.158,64.2,74.2,9.3,8.54,19,18,True
+22500296,2025-11-29 00:00:00+00:00,Detroit Pistons @ Miami Heat,0.222,Clean,"volatile teams, stability mismatch",0.584,0.695,0.805,38.4,94.0,14.29,6.57,19,19,True
+22500297,2025-11-29 00:00:00+00:00,Brooklyn Nets @ Milwaukee Bucks,0.23,Clean,fatigue load,0.872,0.585,0.459,97.0,67.2,7.81,9.74,20,18,True
+22500298,2025-11-29 00:00:00+00:00,New Orleans Pelicans @ Golden State Warriors,0.112,Clean,stable conditions,0.201,0.474,0.4,23.2,50.1,7.72,6.5,20,19,True
+22500299,2025-11-29 00:00:00+00:00,Denver Nuggets @ Phoenix Suns,0.246,Clean,"fatigue load, volatile teams",0.942,0.676,0.386,100.0,74.2,9.35,10.93,20,18,True
+22500300,2025-11-29 00:00:00+00:00,Dallas Mavericks @ LA Clippers,0.202,Clean,fatigue load,0.842,0.393,0.45,87.0,64.2,7.34,4.46,19,20,True
+22500301,2025-11-30 00:00:00+00:00,Houston Rockets @ Utah Jazz,0.12,Clean,stable conditions,0.143,0.528,0.555,44.3,17.4,5.66,10.19,18,16,True
+22500302,2025-11-30 00:00:00+00:00,Boston Celtics @ Cleveland Cavaliers,0.184,Clean,volatile teams,0.551,0.687,0.32,47.9,67.2,9.3,11.3,20,19,True
+22500303,2025-11-30 00:00:00+00:00,Toronto Raptors @ New York Knicks,0.219,Clean,"fatigue load, volatile teams",0.643,0.718,0.582,44.3,97.0,9.68,11.85,18,20,True
+22500304,2025-11-30 00:00:00+00:00,Atlanta Hawks @ Philadelphia 76ers,0.143,Clean,stable conditions,0.385,0.581,0.257,44.3,54.2,7.22,10.2,18,20,True
+22500305,2025-11-30 00:00:00+00:00,Oklahoma City Thunder @ Portland Trail Blazers,0.123,Clean,stable conditions,0.28,0.541,0.266,36.5,51.5,7.28,8.95,19,20,True
+22500306,2025-11-30 00:00:00+00:00,San Antonio Spurs @ Minnesota Timberwolves,0.135,Clean,stable conditions,0.451,0.498,0.143,57.2,47.9,7.74,7.2,19,18,True
+22500307,2025-11-30 00:00:00+00:00,Memphis Grizzlies @ Sacramento Kings,0.145,Clean,stable conditions,0.421,0.573,0.224,54.2,47.9,6.98,10.2,20,20,True
+22500308,2025-11-30 00:00:00+00:00,New Orleans Pelicans @ Los Angeles Lakers,0.186,Clean,stability mismatch,0.502,0.561,0.673,30.2,81.2,10.3,6.52,18,20,True
+22500309,2025-12-01 00:00:00+00:00,Atlanta Hawks @ Detroit Pistons,0.193,Clean,fatigue load,0.925,0.404,0.1,78.3,74.2,5.64,6.49,20,21,True
+22500310,2025-12-01 00:00:00+00:00,Cleveland Cavaliers @ Indiana Pacers,0.189,Clean,fatigue load,0.753,0.549,0.181,71.1,64.2,9.27,7.21,20,21,True
+22500311,2025-12-01 00:00:00+00:00,Milwaukee Bucks @ Washington Wizards,0.172,Clean,stable conditions,0.447,0.56,0.593,20.9,74.7,9.42,7.39,18,21,True
+22500312,2025-12-01 00:00:00+00:00,Charlotte Hornets @ Brooklyn Nets,0.143,Clean,stable conditions,0.421,0.53,0.274,47.9,54.2,10.0,5.91,19,20,True
+22500313,2025-12-01 00:00:00+00:00,LA Clippers @ Miami Heat,0.18,Clean,volatile teams,0.484,0.72,0.357,50.6,57.8,14.3,7.31,20,20,True
+22500314,2025-12-01 00:00:00+00:00,Chicago Bulls @ Orlando Magic,0.169,Clean,volatile teams,0.278,0.772,0.555,29.5,57.8,14.39,8.78,20,19,True
+22500315,2025-12-01 00:00:00+00:00,Dallas Mavericks @ Denver Nuggets,0.173,Clean,volatile teams,0.52,0.672,0.25,54.2,57.8,12.63,7.53,19,21,True
+22500316,2025-12-01 00:00:00+00:00,Houston Rockets @ Utah Jazz,0.163,Clean,volatile teams,0.474,0.642,0.259,57.2,50.2,7.57,11.7,19,17,True
+22500317,2025-12-01 00:00:00+00:00,Phoenix Suns @ Los Angeles Lakers,0.206,Clean,"fatigue load, volatile teams",0.649,0.73,0.346,50.2,74.7,10.41,11.5,19,21,True
+22500318,2025-12-02 00:00:00+00:00,Washington Wizards @ Philadelphia 76ers,0.145,Clean,stable conditions,0.415,0.583,0.225,44.3,57.2,8.03,9.46,19,19,True
+22500319,2025-12-02 00:00:00+00:00,Portland Trail Blazers @ Toronto Raptors,0.143,Clean,stable conditions,0.345,0.6,0.314,54.2,40.3,10.62,7.37,21,20,True
+22500320,2025-12-02 00:00:00+00:00,New York Knicks @ Boston Celtics,0.137,Clean,volatile teams,0.322,0.704,0.097,47.9,44.3,11.25,9.87,20,19,True
+22500321,2025-12-02 00:00:00+00:00,Minnesota Timberwolves @ New Orleans Pelicans,0.139,Clean,stable conditions,0.493,0.474,0.147,57.8,51.5,6.43,7.78,21,20,True
+22500322,2025-12-02 00:00:00+00:00,Memphis Grizzlies @ San Antonio Spurs,0.155,Clean,stable conditions,0.493,0.572,0.212,51.5,57.8,7.1,10.06,19,21,True
+22500323,2025-12-02 00:00:00+00:00,Oklahoma City Thunder @ Golden State Warriors,0.114,Clean,stable conditions,0.179,0.547,0.355,23.2,47.9,7.7,8.7,21,21,True
+22500324,2025-12-03 00:00:00+00:00,Portland Trail Blazers @ Cleveland Cavaliers,0.165,Clean,stable conditions,0.548,0.576,0.237,50.6,64.2,7.89,9.38,22,21,True
+22500325,2025-12-03 00:00:00+00:00,Denver Nuggets @ Indiana Pacers,0.209,Clean,"fatigue load, volatile teams",0.689,0.735,0.303,71.1,57.8,9.19,12.86,21,20,True
+22500326,2025-12-03 00:00:00+00:00,San Antonio Spurs @ Orlando Magic,0.211,Clean,"volatile teams, stability mismatch",0.5,0.71,0.797,26.8,94.0,14.46,6.85,21,20,True
+22500327,2025-12-03 00:00:00+00:00,LA Clippers @ Atlanta Hawks,0.157,Clean,volatile teams,0.484,0.609,0.202,54.2,54.2,6.81,11.47,22,21,True
+22500328,2025-12-03 00:00:00+00:00,Charlotte Hornets @ New York Knicks,0.221,Clean,fatigue load,0.911,0.511,0.375,87.0,71.1,9.47,5.87,20,21,True
+22500329,2025-12-03 00:00:00+00:00,Brooklyn Nets @ Chicago Bulls,0.157,Clean,volatile teams,0.457,0.669,0.15,57.8,47.9,9.7,10.37,20,20,True
+22500330,2025-12-03 00:00:00+00:00,Sacramento Kings @ Houston Rockets,0.152,Clean,volatile teams,0.416,0.633,0.234,51.5,50.1,12.05,6.93,18,21,True
+22500331,2025-12-03 00:00:00+00:00,Detroit Pistons @ Milwaukee Bucks,0.192,Clean,fatigue load,0.795,0.518,0.184,74.7,64.8,8.4,7.15,22,21,True
+22500332,2025-12-03 00:00:00+00:00,Miami Heat @ Dallas Mavericks,0.18,Clean,volatile teams,0.52,0.733,0.253,54.2,57.8,8.2,13.78,22,21,True
+22500333,2025-12-04 00:00:00+00:00,Golden State Warriors @ Philadelphia 76ers,0.097,Clean,stable conditions,0.143,0.482,0.287,44.3,27.7,8.02,6.44,20,22,True
+22500334,2025-12-04 00:00:00+00:00,Boston Celtics @ Washington Wizards,0.157,Clean,volatile teams,0.322,0.807,0.215,44.3,47.9,9.63,14.59,20,21,True
+22500335,2025-12-04 00:00:00+00:00,Utah Jazz @ Brooklyn Nets,0.213,Clean,"fatigue load, volatile teams, stability mismatch",0.646,0.645,0.608,97.0,44.6,11.0,8.36,21,20,True
+22500336,2025-12-04 00:00:00+00:00,Los Angeles Lakers @ Toronto Raptors,0.134,Clean,volatile teams,0.298,0.683,0.147,50.6,39.2,10.3,10.18,22,20,True
+22500337,2025-12-04 00:00:00+00:00,Minnesota Timberwolves @ New Orleans Pelicans,0.117,Clean,stable conditions,0.349,0.472,0.149,50.6,44.3,6.4,7.76,22,21,True
+22500338,2025-12-05 00:00:00+00:00,Los Angeles Lakers @ Boston Celtics,0.253,Clean,"fatigue load, volatile teams",1.0,0.774,0.196,97.0,90.0,13.14,10.07,22,21,True
+22500339,2025-12-05 00:00:00+00:00,Miami Heat @ Orlando Magic,0.183,Clean,volatile teams,0.421,0.928,0.177,44.3,57.8,14.05,13.78,22,22,True
+22500340,2025-12-05 00:00:00+00:00,Denver Nuggets @ Atlanta Hawks,0.222,Clean,"fatigue load, volatile teams",0.858,0.63,0.295,71.1,74.7,6.49,12.4,23,21,True
+22500341,2025-12-05 00:00:00+00:00,San Antonio Spurs @ Cleveland Cavaliers,0.198,Clean,fatigue load,0.831,0.56,0.115,71.1,72.0,9.53,7.26,23,21,True
+22500342,2025-12-05 00:00:00+00:00,Portland Trail Blazers @ Detroit Pistons,0.176,Clean,fatigue load,0.617,0.527,0.328,71.1,50.6,7.16,8.65,22,22,True
+22500343,2025-12-05 00:00:00+00:00,Utah Jazz @ New York Knicks,0.234,Clean,"fatigue load, volatile teams",0.911,0.655,0.314,71.1,87.0,11.24,8.4,21,21,True
+22500344,2025-12-05 00:00:00+00:00,Charlotte Hornets @ Toronto Raptors,0.248,Clean,"fatigue load, volatile teams",0.947,0.741,0.295,94.0,74.7,10.37,11.85,23,22,True
+22500345,2025-12-05 00:00:00+00:00,Indiana Pacers @ Chicago Bulls,0.202,Clean,"fatigue load, volatile teams",0.822,0.666,0.022,71.1,71.1,9.71,10.27,21,22,True
+22500346,2025-12-05 00:00:00+00:00,Phoenix Suns @ Houston Rockets,0.132,Clean,volatile teams,0.26,0.741,0.099,44.3,41.7,12.01,10.21,19,22,True
+22500347,2025-12-05 00:00:00+00:00,LA Clippers @ Memphis Grizzlies,0.199,Clean,volatile teams,0.562,0.71,0.483,41.5,74.7,9.76,11.54,22,22,True
+22500348,2025-12-05 00:00:00+00:00,Philadelphia 76ers @ Milwaukee Bucks,0.225,Clean,fatigue load,0.911,0.592,0.293,71.1,90.0,8.23,9.52,23,21,True
+22500349,2025-12-05 00:00:00+00:00,Dallas Mavericks @ Oklahoma City Thunder,0.169,Clean,stable conditions,0.557,0.533,0.353,44.6,71.1,7.78,8.22,22,23,True
+22500350,2025-12-06 00:00:00+00:00,New Orleans Pelicans @ Brooklyn Nets,0.212,Clean,fatigue load,0.894,0.534,0.24,71.1,78.3,9.59,6.43,22,23,True
+22500351,2025-12-06 00:00:00+00:00,Atlanta Hawks @ Washington Wizards,0.202,Clean,"fatigue load, stability mismatch",0.643,0.535,0.652,44.3,100.0,9.61,6.44,21,24,True
+22500352,2025-12-06 00:00:00+00:00,Golden State Warriors @ Cleveland Cavaliers,0.198,Clean,"fatigue load, stability mismatch",0.616,0.536,0.647,87.0,41.6,9.61,6.48,24,23,True
+22500353,2025-12-06 00:00:00+00:00,Milwaukee Bucks @ Detroit Pistons,0.213,Clean,fatigue load,1.0,0.511,0.052,94.0,94.0,7.13,8.2,23,24,True
+22500354,2025-12-06 00:00:00+00:00,Sacramento Kings @ Miami Heat,0.212,Clean,"volatile teams, stability mismatch",0.5,0.806,0.64,87.0,29.5,14.13,10.05,23,22,True
+22500355,2025-12-06 00:00:00+00:00,LA Clippers @ Minnesota Timberwolves,0.247,Clean,"fatigue load, volatile teams",0.92,0.646,0.503,72.0,100.0,7.84,11.54,22,23,True
+22500356,2025-12-06 00:00:00+00:00,Houston Rockets @ Dallas Mavericks,0.258,Clean,"fatigue load, volatile teams",1.0,0.795,0.232,87.0,80.0,9.83,14.02,24,20,True
+22500357,2025-12-07 00:00:00+00:00,Orlando Magic @ New York Knicks,0.215,Clean,"fatigue load, volatile teams",0.626,0.851,0.328,71.1,51.5,11.48,14.05,22,23,True
+22500358,2025-12-07 00:00:00+00:00,Boston Celtics @ Toronto Raptors,0.233,Clean,"fatigue load, volatile teams",0.921,0.73,0.152,77.4,74.7,9.36,12.54,24,23,True
+22500359,2025-12-07 00:00:00+00:00,Denver Nuggets @ Charlotte Hornets,0.16,Clean,volatile teams,0.385,0.8,0.129,54.2,44.3,11.94,12.07,23,22,True
+22500360,2025-12-07 00:00:00+00:00,Portland Trail Blazers @ Memphis Grizzlies,0.19,Clean,volatile teams,0.59,0.615,0.447,44.3,74.7,10.02,8.43,23,23,True
+22500361,2025-12-07 00:00:00+00:00,Golden State Warriors @ Chicago Bulls,0.17,Clean,stable conditions,0.515,0.583,0.373,44.3,67.2,7.76,9.72,22,24,True
+22500362,2025-12-07 00:00:00+00:00,Los Angeles Lakers @ Philadelphia 76ers,0.209,Clean,"fatigue load, volatile teams",0.858,0.647,0.078,74.7,71.1,9.3,10.12,22,22,True
+22500363,2025-12-07 00:00:00+00:00,Oklahoma City Thunder @ Utah Jazz,0.195,Clean,fatigue load,0.698,0.575,0.343,78.3,51.5,8.53,8.71,22,23,True
+22500364,2025-12-08 00:00:00+00:00,Sacramento Kings @ Indiana Pacers,0.114,Clean,volatile teams,0.178,0.675,0.129,43.8,34.0,10.23,10.03,23,23,True
+22500365,2025-12-08 00:00:00+00:00,Phoenix Suns @ Minnesota Timberwolves,0.122,Clean,stable conditions,0.206,0.551,0.395,50.6,29.5,6.84,9.68,23,23,True
+22500366,2025-12-08 00:00:00+00:00,San Antonio Spurs @ New Orleans Pelicans,0.132,Clean,stable conditions,0.424,0.462,0.217,57.8,44.6,6.43,7.43,24,22,True
+22501201,2025-12-09 00:00:00+00:00,Miami Heat @ Orlando Magic,0.166,Clean,volatile teams,0.299,0.939,0.172,51.5,38.4,14.21,13.96,24,24,True
+22501202,2025-12-09 00:00:00+00:00,New York Knicks @ Toronto Raptors,0.213,Clean,fatigue load,0.858,0.584,0.248,71.1,74.7,6.49,11.04,25,23,True
+22501203,2025-12-10 00:00:00+00:00,Phoenix Suns @ Oklahoma City Thunder,0.095,Clean,volatile teams,0.004,0.746,0.116,29.5,30.4,12.63,9.76,24,24,True
+22501204,2025-12-10 00:00:00+00:00,San Antonio Spurs @ Los Angeles Lakers,0.142,Clean,stable conditions,0.424,0.5,0.302,44.6,57.8,6.13,8.87,23,23,True
+22501205,2025-12-11 00:00:00+00:00,LA Clippers @ Houston Rockets,0.112,Clean,volatile teams,0.0,0.855,0.185,11.4,18.9,14.23,11.41,21,24,True
+22501206,2025-12-11 00:00:00+00:00,Boston Celtics @ Milwaukee Bucks,0.122,Clean,volatile teams,0.046,0.799,0.323,14.9,34.6,10.88,13.1,25,24,True
+22501207,2025-12-11 00:00:00+00:00,Portland Trail Blazers @ New Orleans Pelicans,0.106,Clean,volatile teams,0.084,0.616,0.323,38.4,17.4,9.96,8.53,25,24,True
+22501208,2025-12-11 00:00:00+00:00,Denver Nuggets @ Sacramento Kings,0.102,Clean,volatile teams,0.0,0.794,0.134,24.0,24.6,10.09,13.74,24,23,True
+22501209,2025-12-12 00:00:00+00:00,Chicago Bulls @ Charlotte Hornets,0.09,Clean,volatile teams,0.0,0.7,0.132,14.9,16.9,11.9,9.1,24,23,True
+22501210,2025-12-12 00:00:00+00:00,Atlanta Hawks @ Detroit Pistons,0.068,Clean,stable conditions,0.0,0.51,0.12,14.9,16.9,8.62,6.69,24,25,True
+22501211,2025-12-12 00:00:00+00:00,Indiana Pacers @ Philadelphia 76ers,0.082,Clean,volatile teams,0.0,0.629,0.135,14.9,22.0,8.87,10.0,23,24,True
+22501212,2025-12-12 00:00:00+00:00,Cleveland Cavaliers @ Washington Wizards,0.079,Clean,volatile teams,0.0,0.637,0.075,11.4,16.9,9.48,9.63,22,25,True
+22501213,2025-12-12 00:00:00+00:00,Utah Jazz @ Memphis Grizzlies,0.094,Clean,volatile teams,0.0,0.69,0.209,11.4,18.9,11.82,8.87,24,23,True
+22501214,2025-12-12 00:00:00+00:00,Brooklyn Nets @ Dallas Mavericks,0.081,Clean,volatile teams,0.0,0.651,0.073,14.9,18.9,10.05,9.47,25,23,True
+22501215,2025-12-12 00:00:00+00:00,Minnesota Timberwolves @ Golden State Warriors,0.086,Clean,volatile teams,0.0,0.608,0.227,15.4,24.6,10.42,7.82,25,24,True
+22501229,2025-12-13 00:00:00+00:00,New York Knicks @ Orlando Magic,0.111,Clean,volatile teams,0.0,0.796,0.277,14.8,24.6,14.17,9.72,25,24,True
+22501230,2025-12-13 00:00:00+00:00,San Antonio Spurs @ Oklahoma City Thunder,0.114,Clean,volatile teams,0.0,0.795,0.311,17.8,29.5,14.3,9.56,25,24,True
+22501216,2025-12-14 00:00:00+00:00,Washington Wizards @ Indiana Pacers,0.093,Clean,volatile teams,0.0,0.751,0.08,24.1,24.1,10.15,12.37,25,23,True
+22501217,2025-12-14 00:00:00+00:00,Philadelphia 76ers @ Atlanta Hawks,0.066,Clean,stable conditions,0.008,0.501,0.09,30.4,30.4,6.61,8.43,26,24,True
+22501218,2025-12-14 00:00:00+00:00,Charlotte Hornets @ Cleveland Cavaliers,0.099,Clean,volatile teams,0.004,0.769,0.135,30.4,24.1,10.75,12.33,26,25,True
+22501219,2025-12-14 00:00:00+00:00,Milwaukee Bucks @ Brooklyn Nets,0.118,Clean,volatile teams,0.0,0.886,0.223,27.7,20.9,16.21,11.59,24,26,True
+22501220,2025-12-14 00:00:00+00:00,Sacramento Kings @ Minnesota Timberwolves,0.09,Clean,stable conditions,0.04,0.591,0.222,34.0,24.0,7.75,9.97,25,25,True
+22501221,2025-12-14 00:00:00+00:00,Golden State Warriors @ Portland Trail Blazers,0.084,Clean,volatile teams,0.0,0.631,0.156,29.5,24.1,8.41,10.53,25,26,True
+22501223,2025-12-14 00:00:00+00:00,New Orleans Pelicans @ Chicago Bulls,0.083,Clean,volatile teams,0.0,0.66,0.096,24.1,29.5,9.54,10.26,24,26,True
+22501228,2025-12-14 00:00:00+00:00,Los Angeles Lakers @ Phoenix Suns,0.086,Clean,stable conditions,0.0,0.594,0.256,14.3,22.0,10.72,7.09,25,24,True
+22501222,2025-12-15 00:00:00+00:00,Detroit Pistons @ Boston Celtics,0.093,Clean,volatile teams,0.0,0.735,0.111,20.0,20.9,12.39,9.65,25,25,True
+22501224,2025-12-15 00:00:00+00:00,Dallas Mavericks @ Utah Jazz,0.077,Clean,volatile teams,0.0,0.636,0.037,24.0,24.0,9.09,9.98,24,26,True
+22501225,2025-12-15 00:00:00+00:00,Houston Rockets @ Denver Nuggets,0.108,Clean,volatile teams,0.0,0.919,0.015,20.0,20.0,13.54,14.03,24,22,True
+22501226,2025-12-15 00:00:00+00:00,Memphis Grizzlies @ LA Clippers,0.079,Clean,volatile teams,0.0,0.642,0.068,20.0,17.2,10.03,9.23,25,25,True
+22501227,2025-12-15 00:00:00+00:00,Toronto Raptors @ Miami Heat,0.057,Clean,stable conditions,0.0,0.453,0.057,11.4,15.4,6.88,6.72,25,26,True
+62500001,2025-12-16 00:00:00+00:00,San Antonio Spurs @ New York Knicks,0.076,Clean,volatile teams,0.0,0.637,0.032,29.5,29.5,9.95,9.17,25,25,True
+22500367,2025-12-17 00:00:00+00:00,Cleveland Cavaliers @ Chicago Bulls,0.088,Clean,volatile teams,0.0,0.718,0.065,17.8,20.9,11.11,10.42,25,27,True
+22500368,2025-12-17 00:00:00+00:00,Memphis Grizzlies @ Minnesota Timberwolves,0.074,Clean,stable conditions,0.0,0.574,0.11,17.8,19.8,7.65,9.56,26,26,True
+22500369,2025-12-18 00:00:00+00:00,LA Clippers @ Oklahoma City Thunder,0.109,Clean,volatile teams,0.0,0.79,0.254,7.0,17.2,13.67,10.04,26,26,True
+22500370,2025-12-18 00:00:00+00:00,Washington Wizards @ San Antonio Spurs,0.103,Clean,volatile teams,0.0,0.734,0.267,27.7,14.3,9.67,12.35,26,24,True
+22500371,2025-12-18 00:00:00+00:00,Atlanta Hawks @ Charlotte Hornets,0.091,Clean,volatile teams,0.0,0.619,0.286,11.7,9.1,12.23,6.35,26,27,True
+22500372,2025-12-18 00:00:00+00:00,New York Knicks @ Indiana Pacers,0.091,Clean,volatile teams,0.0,0.668,0.199,9.1,24.1,10.15,9.88,26,26,True
+22500373,2025-12-18 00:00:00+00:00,Miami Heat @ Brooklyn Nets,0.116,Clean,volatile teams,0.0,0.788,0.368,9.1,17.2,16.64,8.65,25,26,True
+22500374,2025-12-18 00:00:00+00:00,Toronto Raptors @ Milwaukee Bucks,0.088,Clean,stable conditions,0.0,0.525,0.402,11.7,24.0,10.44,5.3,27,27,True
+22500375,2025-12-18 00:00:00+00:00,Houston Rockets @ New Orleans Pelicans,0.107,Clean,volatile teams,0.0,0.795,0.215,20.0,17.2,9.34,14.51,27,23,True
+22500376,2025-12-18 00:00:00+00:00,Detroit Pistons @ Dallas Mavericks,0.075,Clean,volatile teams,0.0,0.643,0.007,17.2,17.2,9.57,9.72,27,26,True
+22500377,2025-12-18 00:00:00+00:00,Orlando Magic @ Denver Nuggets,0.106,Clean,volatile teams,0.0,0.876,0.06,10.9,11.0,12.22,14.05,25,26,True
+22500378,2025-12-18 00:00:00+00:00,Golden State Warriors @ Phoenix Suns,0.09,Clean,volatile teams,0.0,0.688,0.15,9.1,20.0,10.5,10.15,26,27,True
+22500379,2025-12-18 00:00:00+00:00,Los Angeles Lakers @ Utah Jazz,0.077,Clean,stable conditions,0.0,0.584,0.125,17.8,17.4,10.12,7.41,25,25,True
+22500380,2025-12-18 00:00:00+00:00,Sacramento Kings @ Portland Trail Blazers,0.076,Clean,stable conditions,0.0,0.588,0.108,9.1,14.3,8.33,9.3,26,26,True
+22500381,2025-12-19 00:00:00+00:00,Miami Heat @ Boston Celtics,0.115,Clean,volatile teams,0.008,0.754,0.386,9.1,30.8,12.9,9.73,26,27,True
+22500382,2025-12-19 00:00:00+00:00,Philadelphia 76ers @ New York Knicks,0.179,Clean,volatile teams,0.372,0.716,0.593,67.2,9.0,11.99,9.49,27,25,True
+22500383,2025-12-19 00:00:00+00:00,San Antonio Spurs @ Atlanta Hawks,0.189,Clean,fatigue load,0.614,0.554,0.479,50.2,71.2,5.98,10.64,28,27,True
+22500384,2025-12-19 00:00:00+00:00,Chicago Bulls @ Cleveland Cavaliers,0.118,Clean,volatile teams,0.232,0.709,0.0,41.6,41.6,10.65,10.63,28,26,True
+22500385,2025-12-19 00:00:00+00:00,Oklahoma City Thunder @ Minnesota Timberwolves,0.134,Clean,volatile teams,0.188,0.77,0.243,38.0,40.8,8.66,14.45,27,27,True
+22500386,2025-12-20 00:00:00+00:00,Houston Rockets @ Denver Nuggets,0.119,Clean,volatile teams,0.0,0.964,0.105,12.6,19.8,14.19,14.73,26,24,True
+22500387,2025-12-20 00:00:00+00:00,Dallas Mavericks @ Philadelphia 76ers,0.077,Clean,volatile teams,0.0,0.608,0.086,22.0,19.8,8.44,9.8,26,28,True
+22500388,2025-12-20 00:00:00+00:00,Boston Celtics @ Toronto Raptors,0.113,Clean,volatile teams,0.02,0.618,0.564,16.2,32.0,5.07,13.48,28,27,True
+22500389,2025-12-20 00:00:00+00:00,Indiana Pacers @ New Orleans Pelicans,0.082,Clean,volatile teams,0.0,0.643,0.102,20.5,16.2,9.06,10.23,28,27,True
+22500390,2025-12-20 00:00:00+00:00,Charlotte Hornets @ Detroit Pistons,0.095,Clean,volatile teams,0.0,0.755,0.11,19.8,16.2,10.44,12.2,27,27,True
+22500391,2025-12-20 00:00:00+00:00,Washington Wizards @ Memphis Grizzlies,0.101,Clean,volatile teams,0.0,0.838,0.044,14.0,16.2,12.33,12.81,27,25,True
+22500392,2025-12-20 00:00:00+00:00,Phoenix Suns @ Golden State Warriors,0.088,Clean,volatile teams,0.0,0.688,0.119,24.1,16.2,10.07,10.58,28,27,True
+22500393,2025-12-20 00:00:00+00:00,Orlando Magic @ Utah Jazz,0.106,Clean,volatile teams,0.0,0.805,0.175,12.6,16.2,10.16,13.98,26,27,True
+22500394,2025-12-20 00:00:00+00:00,Portland Trail Blazers @ Sacramento Kings,0.071,Clean,stable conditions,0.0,0.525,0.152,24.1,16.2,8.43,7.32,27,27,True
+22500395,2025-12-20 00:00:00+00:00,Los Angeles Lakers @ LA Clippers,0.09,Clean,volatile teams,0.0,0.646,0.222,19.8,16.2,11.83,7.56,27,26,True
+22500396,2025-12-21 00:00:00+00:00,Chicago Bulls @ Atlanta Hawks,0.106,Clean,stable conditions,0.118,0.551,0.363,30.2,41.6,5.92,10.62,29,27,True
+22500397,2025-12-21 00:00:00+00:00,Toronto Raptors @ Brooklyn Nets,0.183,Clean,"volatile teams, stability mismatch",0.302,0.609,1.0,10.9,60.2,16.88,3.27,26,29,True
+22500398,2025-12-21 00:00:00+00:00,Miami Heat @ New York Knicks,0.118,Clean,volatile teams,0.145,0.693,0.223,44.3,30.2,11.01,9.79,28,28,True
+22500399,2025-12-21 00:00:00+00:00,San Antonio Spurs @ Washington Wizards,0.144,Clean,volatile teams,0.394,0.687,0.072,51.5,47.9,10.65,9.95,26,28,True
+22500400,2025-12-21 00:00:00+00:00,Milwaukee Bucks @ Minnesota Timberwolves,0.114,Clean,volatile teams,0.08,0.653,0.392,38.0,10.9,9.14,10.46,28,28,True
+22500401,2025-12-21 00:00:00+00:00,Houston Rockets @ Sacramento Kings,0.18,Clean,volatile teams,0.457,0.791,0.286,50.2,55.5,8.73,15.02,28,25,True
+22500402,2025-12-22 00:00:00+00:00,Charlotte Hornets @ Cleveland Cavaliers,0.098,Clean,volatile teams,0.0,0.818,0.041,10.9,12.6,11.96,12.58,29,28,True
+22500403,2025-12-22 00:00:00+00:00,Indiana Pacers @ Boston Celtics,0.11,Clean,volatile teams,0.038,0.686,0.361,33.8,27.7,13.86,6.71,28,28,True
+22500404,2025-12-22 00:00:00+00:00,Dallas Mavericks @ New Orleans Pelicans,0.101,Clean,volatile teams,0.074,0.647,0.211,20.5,37.4,9.69,9.72,29,29,True
+22500405,2025-12-22 00:00:00+00:00,Utah Jazz @ Denver Nuggets,0.114,Clean,volatile teams,0.04,0.822,0.185,30.2,33.8,14.42,10.23,27,27,True
+22500406,2025-12-22 00:00:00+00:00,Memphis Grizzlies @ Oklahoma City Thunder,0.13,Clean,volatile teams,0.038,0.891,0.307,14.0,33.8,14.33,12.4,28,28,True
+22500407,2025-12-22 00:00:00+00:00,Orlando Magic @ Golden State Warriors,0.088,Clean,stable conditions,0.0,0.572,0.315,12.6,16.2,11.53,5.64,29,28,True
+22500408,2025-12-22 00:00:00+00:00,Detroit Pistons @ Portland Trail Blazers,0.106,Clean,volatile teams,0.074,0.608,0.363,16.2,37.4,7.96,10.27,28,28,True
+22500409,2025-12-23 00:00:00+00:00,Washington Wizards @ Charlotte Hornets,0.17,Clean,volatile teams,0.418,0.753,0.286,60.2,41.6,12.04,10.56,29,27,True
+22500410,2025-12-23 00:00:00+00:00,Brooklyn Nets @ Philadelphia 76ers,0.111,Clean,volatile teams,0.0,0.782,0.3,10.9,12.6,8.47,16.77,27,27,True
+22500411,2025-12-23 00:00:00+00:00,Chicago Bulls @ Atlanta Hawks,0.104,Clean,stable conditions,0.16,0.54,0.248,38.0,38.0,5.48,10.72,30,28,True
+22500412,2025-12-23 00:00:00+00:00,New Orleans Pelicans @ Cleveland Cavaliers,0.19,Clean,volatile teams,0.544,0.759,0.293,50.2,64.2,13.01,9.75,30,30,True
+22500413,2025-12-23 00:00:00+00:00,Milwaukee Bucks @ Indiana Pacers,0.168,Clean,"volatile teams, stability mismatch",0.342,0.602,0.697,64.2,16.2,6.78,11.29,29,29,True
+22500414,2025-12-23 00:00:00+00:00,Toronto Raptors @ Miami Heat,0.121,Clean,volatile teams,0.304,0.631,0.022,45.2,45.2,9.73,9.19,29,30,True
+22500415,2025-12-23 00:00:00+00:00,Denver Nuggets @ Dallas Mavericks,0.189,Clean,"fatigue load, volatile teams",0.604,0.774,0.127,60.2,60.2,9.82,13.39,30,28,True
+22500416,2025-12-23 00:00:00+00:00,New York Knicks @ Minnesota Timberwolves,0.188,Clean,volatile teams,0.5,0.679,0.507,38.0,72.0,9.16,11.22,29,29,True
+22500417,2025-12-23 00:00:00+00:00,Oklahoma City Thunder @ San Antonio Spurs,0.224,Clean,"fatigue load, volatile teams",0.722,0.838,0.264,72.0,60.2,10.81,14.33,29,29,True
+22500418,2025-12-23 00:00:00+00:00,Los Angeles Lakers @ Phoenix Suns,0.086,Clean,volatile teams,0.0,0.643,0.162,14.0,14.0,11.6,7.68,28,27,True
+22500419,2025-12-23 00:00:00+00:00,Memphis Grizzlies @ Utah Jazz,0.193,Clean,"fatigue load, volatile teams",0.644,0.752,0.135,60.2,64.2,10.12,12.45,28,29,True
+22500420,2025-12-23 00:00:00+00:00,Orlando Magic @ Portland Trail Blazers,0.157,Clean,stable conditions,0.504,0.562,0.242,50.2,60.2,9.72,7.14,29,29,True
+22500421,2025-12-23 00:00:00+00:00,Detroit Pistons @ Sacramento Kings,0.154,Clean,volatile teams,0.382,0.639,0.338,38.0,60.2,8.86,10.31,29,29,True
+22500422,2025-12-23 00:00:00+00:00,Houston Rockets @ LA Clippers,0.149,Clean,volatile teams,0.116,0.902,0.397,10.9,41.6,13.29,13.76,28,26,True
+22500009,2025-12-25 00:00:00+00:00,Cleveland Cavaliers @ New York Knicks,0.206,Clean,volatile teams,0.599,0.797,0.348,72.0,47.9,11.29,12.62,30,31,True
+22500010,2025-12-25 00:00:00+00:00,San Antonio Spurs @ Oklahoma City Thunder,0.22,Clean,"fatigue load, volatile teams",0.705,0.891,0.154,62.1,68.4,14.56,12.16,30,30,True
+22500011,2025-12-25 00:00:00+00:00,Dallas Mavericks @ Golden State Warriors,0.185,Clean,volatile teams,0.449,0.675,0.58,32.9,72.0,11.28,8.97,30,31,True
+22500012,2025-12-25 00:00:00+00:00,Houston Rockets @ Los Angeles Lakers,0.193,Clean,"volatile teams, stability mismatch",0.386,0.77,0.683,33.8,64.8,8.09,16.69,28,27,True
+22500013,2025-12-25 00:00:00+00:00,Minnesota Timberwolves @ Denver Nuggets,0.189,Clean,volatile teams,0.563,0.697,0.351,68.4,47.9,11.68,9.23,29,30,True
+22500423,2025-12-26 00:00:00+00:00,Miami Heat @ Atlanta Hawks,0.107,Clean,stable conditions,0.144,0.561,0.3,38.4,36.0,5.5,11.34,31,30,True
+22500424,2025-12-26 00:00:00+00:00,Charlotte Hornets @ Orlando Magic,0.125,Clean,volatile teams,0.207,0.661,0.257,39.2,41.5,7.11,12.73,30,30,True
+22500425,2025-12-26 00:00:00+00:00,Toronto Raptors @ Washington Wizards,0.129,Clean,volatile teams,0.207,0.741,0.174,41.5,39.2,13.08,9.15,28,31,True
+22500426,2025-12-26 00:00:00+00:00,Boston Celtics @ Indiana Pacers,0.122,Clean,volatile teams,0.084,0.691,0.426,38.4,27.0,6.79,13.94,30,29,True
+22500427,2025-12-26 00:00:00+00:00,Philadelphia 76ers @ Chicago Bulls,0.11,Clean,volatile teams,0.175,0.614,0.187,41.5,36.0,10.61,7.82,29,28,True
+22500428,2025-12-26 00:00:00+00:00,Milwaukee Bucks @ Memphis Grizzlies,0.148,Clean,volatile teams,0.146,0.829,0.447,44.6,14.0,13.41,11.45,30,30,True
+22500429,2025-12-26 00:00:00+00:00,Phoenix Suns @ New Orleans Pelicans,0.121,Clean,volatile teams,0.092,0.716,0.353,39.2,17.2,9.72,11.76,31,29,True
+22500430,2025-12-26 00:00:00+00:00,Detroit Pistons @ Utah Jazz,0.112,Clean,volatile teams,0.199,0.653,0.094,38.4,41.5,9.12,10.47,29,30,True
+22500431,2025-12-26 00:00:00+00:00,LA Clippers @ Portland Trail Blazers,0.114,Clean,volatile teams,0.029,0.76,0.318,32.9,17.2,9.73,13.08,30,29,True
+22500432,2025-12-27 00:00:00+00:00,Dallas Mavericks @ Sacramento Kings,0.155,Clean,volatile teams,0.348,0.617,0.469,27.4,64.8,9.24,9.27,30,32,True
+22500433,2025-12-27 00:00:00+00:00,Denver Nuggets @ Orlando Magic,0.23,Clean,fatigue load,0.92,0.598,0.328,80.0,72.0,6.38,11.57,31,30,True
+22500434,2025-12-27 00:00:00+00:00,Phoenix Suns @ New Orleans Pelicans,0.221,Clean,"fatigue load, volatile teams",0.702,0.733,0.449,80.0,50.2,9.94,12.04,32,30,True
+22500435,2025-12-27 00:00:00+00:00,New York Knicks @ Atlanta Hawks,0.142,Clean,stable conditions,0.514,0.429,0.216,57.2,54.2,4.82,8.06,32,31,True
+22500436,2025-12-27 00:00:00+00:00,Indiana Pacers @ Miami Heat,0.237,Clean,"fatigue load, volatile teams",0.872,0.606,0.533,67.2,94.0,11.37,6.82,31,31,True
+22500437,2025-12-27 00:00:00+00:00,Milwaukee Bucks @ Chicago Bulls,0.178,Clean,volatile teams,0.574,0.743,0.073,57.2,60.2,10.67,11.62,30,31,True
+22500438,2025-12-27 00:00:00+00:00,Cleveland Cavaliers @ Houston Rockets,0.225,Clean,"fatigue load, volatile teams",0.635,0.867,0.431,72.0,51.5,16.83,11.02,28,32,True
+22500439,2025-12-27 00:00:00+00:00,Brooklyn Nets @ Minnesota Timberwolves,0.166,Clean,"volatile teams, stability mismatch",0.179,0.813,0.658,47.9,14.3,9.38,16.76,31,28,True
+22500440,2025-12-27 00:00:00+00:00,Utah Jazz @ San Antonio Spurs,0.247,Clean,"fatigue load, volatile teams, stability mismatch",0.742,0.784,0.661,54.2,94.0,14.09,9.42,31,30,True
+22500441,2025-12-28 00:00:00+00:00,Golden State Warriors @ Toronto Raptors,0.135,Clean,volatile teams,0.179,0.715,0.377,47.9,24.0,9.69,11.77,32,31,True
+22500442,2025-12-28 00:00:00+00:00,Philadelphia 76ers @ Oklahoma City Thunder,0.117,Clean,volatile teams,0.029,0.762,0.355,32.9,24.1,14.79,8.08,31,29,True
+22500443,2025-12-28 00:00:00+00:00,Memphis Grizzlies @ Washington Wizards,0.162,Clean,volatile teams,0.322,0.922,0.098,44.3,47.9,12.95,14.72,29,31,True
+22500444,2025-12-28 00:00:00+00:00,Boston Celtics @ Portland Trail Blazers,0.138,Clean,volatile teams,0.143,0.722,0.491,44.3,27.7,7.11,14.54,31,30,True
+22500445,2025-12-28 00:00:00+00:00,Detroit Pistons @ LA Clippers,0.14,Clean,volatile teams,0.179,0.791,0.312,27.7,47.9,12.73,11.01,30,31,True
+22500446,2025-12-28 00:00:00+00:00,Sacramento Kings @ Los Angeles Lakers,0.161,Clean,volatile teams,0.372,0.605,0.513,17.8,67.2,8.92,9.23,29,31,True
+22500447,2025-12-29 00:00:00+00:00,Milwaukee Bucks @ Charlotte Hornets,0.129,Clean,volatile teams,0.176,0.812,0.118,36.0,41.6,12.9,11.45,31,32,True
+22500448,2025-12-29 00:00:00+00:00,Phoenix Suns @ Washington Wizards,0.169,Clean,volatile teams,0.424,0.741,0.278,57.2,45.2,12.87,9.37,30,31,True
+22500449,2025-12-29 00:00:00+00:00,Golden State Warriors @ Brooklyn Nets,0.196,Clean,"volatile teams, stability mismatch",0.302,0.936,0.63,19.8,60.2,17.9,13.08,29,32,True
+22500450,2025-12-29 00:00:00+00:00,Denver Nuggets @ Miami Heat,0.204,Clean,"fatigue load, volatile teams",0.617,0.795,0.285,50.6,71.1,12.32,11.52,32,31,True
+22500451,2025-12-29 00:00:00+00:00,Orlando Magic @ Toronto Raptors,0.191,Clean,fatigue load,0.762,0.528,0.234,64.2,72.0,9.34,6.49,33,32,True
+22500452,2025-12-29 00:00:00+00:00,Minnesota Timberwolves @ Chicago Bulls,0.156,Clean,volatile teams,0.322,0.833,0.153,44.3,47.9,10.87,14.13,31,32,True
+22500453,2025-12-29 00:00:00+00:00,Indiana Pacers @ Houston Rockets,0.209,Clean,"fatigue load, stability mismatch",0.626,0.545,0.767,50.6,72.0,16.67,1.35,29,32,True
+22500454,2025-12-29 00:00:00+00:00,New York Knicks @ New Orleans Pelicans,0.172,Clean,volatile teams,0.59,0.604,0.202,64.8,54.2,9.87,8.25,33,32,True
+22500455,2025-12-29 00:00:00+00:00,Atlanta Hawks @ Oklahoma City Thunder,0.233,Clean,"fatigue load, volatile teams, stability mismatch",0.679,0.649,0.836,80.0,47.9,14.83,4.64,32,33,True
+22500456,2025-12-29 00:00:00+00:00,Cleveland Cavaliers @ San Antonio Spurs,0.208,Clean,volatile teams,0.554,0.896,0.303,50.6,64.8,16.05,11.89,32,33,True
+22500457,2025-12-29 00:00:00+00:00,Dallas Mavericks @ Portland Trail Blazers,0.217,Clean,fatigue load,0.947,0.549,0.161,80.0,74.7,7.21,9.26,32,33,True
+22500458,2025-12-30 00:00:00+00:00,Philadelphia 76ers @ Memphis Grizzlies,0.155,Clean,volatile teams,0.295,0.762,0.334,47.9,41.6,14.94,7.93,32,30,True
+22500459,2025-12-30 00:00:00+00:00,Boston Celtics @ Utah Jazz,0.126,Clean,volatile teams,0.146,0.698,0.34,44.6,24.1,9.41,11.53,31,31,True
+22500460,2025-12-30 00:00:00+00:00,Detroit Pistons @ Los Angeles Lakers,0.125,Clean,volatile teams,0.223,0.687,0.177,38.0,44.3,9.05,11.57,30,32,True
+22500461,2025-12-30 00:00:00+00:00,Sacramento Kings @ LA Clippers,0.128,Clean,stable conditions,0.223,0.589,0.395,38.0,44.3,12.35,5.31,31,32,True
+22500462,2025-12-31 00:00:00+00:00,Golden State Warriors @ Charlotte Hornets,0.14,Clean,volatile teams,0.179,0.739,0.407,26.8,47.9,9.15,13.01,32,33,True
+22500463,2025-12-31 00:00:00+00:00,Minnesota Timberwolves @ Atlanta Hawks,0.174,Clean,volatile teams,0.484,0.776,0.17,54.2,54.2,9.25,14.03,34,33,True
+22500464,2025-12-31 00:00:00+00:00,Orlando Magic @ Indiana Pacers,0.135,Clean,stable conditions,0.52,0.262,0.397,57.8,54.2,1.45,6.41,33,33,True
+22500465,2025-12-31 00:00:00+00:00,Phoenix Suns @ Cleveland Cavaliers,0.169,Clean,volatile teams,0.457,0.728,0.235,57.8,47.9,12.41,9.42,34,32,True
+22500466,2025-12-31 00:00:00+00:00,New Orleans Pelicans @ Chicago Bulls,0.169,Clean,volatile teams,0.484,0.735,0.165,50.6,57.8,12.04,10.01,32,34,True
+22500467,2025-12-31 00:00:00+00:00,New York Knicks @ San Antonio Spurs,0.178,Clean,volatile teams,0.448,0.752,0.35,50.6,54.2,16.11,7.55,33,33,True
+22500468,2025-12-31 00:00:00+00:00,Denver Nuggets @ Toronto Raptors,0.167,Clean,volatile teams,0.484,0.718,0.167,50.6,57.8,9.75,11.78,34,32,True
+22500469,2025-12-31 00:00:00+00:00,Washington Wizards @ Milwaukee Bucks,0.165,Clean,volatile teams,0.421,0.827,0.08,47.9,54.2,12.38,12.44,33,31,True
+22500470,2025-12-31 00:00:00+00:00,Portland Trail Blazers @ Oklahoma City Thunder,0.183,Clean,volatile teams,0.484,0.734,0.372,50.6,57.8,14.75,7.28,33,33,True
+22500471,2026-01-01 00:00:00+00:00,Houston Rockets @ Brooklyn Nets,0.177,Clean,volatile teams,0.201,1.0,0.452,17.8,50.1,18.21,16.16,30,30,True
+22500472,2026-01-01 00:00:00+00:00,Miami Heat @ Detroit Pistons,0.179,Clean,volatile teams,0.479,0.844,0.135,57.8,50.1,13.24,12.09,33,33,True
+22500473,2026-01-01 00:00:00+00:00,Philadelphia 76ers @ Dallas Mavericks,0.125,Clean,stable conditions,0.38,0.489,0.164,50.1,47.9,5.97,8.69,34,31,True
+22500474,2026-01-01 00:00:00+00:00,Boston Celtics @ Sacramento Kings,0.15,Clean,stable conditions,0.421,0.547,0.345,54.2,47.9,5.38,11.04,33,32,True
+22500475,2026-01-01 00:00:00+00:00,Utah Jazz @ LA Clippers,0.154,Clean,volatile teams,0.385,0.705,0.217,44.3,54.2,11.78,9.36,32,32,True
+22500476,2026-01-02 00:00:00+00:00,San Antonio Spurs @ Indiana Pacers,0.212,Clean,"fatigue load, stability mismatch",0.689,0.548,0.666,71.1,57.8,1.43,16.02,34,34,True
+22500477,2026-01-02 00:00:00+00:00,Brooklyn Nets @ Washington Wizards,0.236,Clean,"fatigue load, volatile teams",0.649,0.936,0.436,74.7,50.2,13.08,17.92,32,31,True
+22500478,2026-01-02 00:00:00+00:00,Denver Nuggets @ Cleveland Cavaliers,0.154,Clean,volatile teams,0.412,0.745,0.077,50.6,50.6,12.2,10.14,35,33,True
+22500479,2026-01-02 00:00:00+00:00,Atlanta Hawks @ New York Knicks,0.203,Clean,"fatigue load, volatile teams",0.725,0.633,0.303,57.8,74.7,8.4,10.59,34,35,True
+22500480,2026-01-02 00:00:00+00:00,Orlando Magic @ Chicago Bulls,0.209,Clean,"fatigue load, volatile teams",0.822,0.606,0.223,71.1,71.1,11.66,6.52,33,34,True
+22500481,2026-01-02 00:00:00+00:00,Charlotte Hornets @ Milwaukee Bucks,0.187,Clean,volatile teams,0.527,0.726,0.35,64.8,47.9,12.73,9.04,34,33,True
+22500482,2026-01-02 00:00:00+00:00,Portland Trail Blazers @ New Orleans Pelicans,0.219,Clean,fatigue load,0.93,0.58,0.178,78.3,74.7,7.21,10.2,35,34,True
+22500483,2026-01-02 00:00:00+00:00,Sacramento Kings @ Phoenix Suns,0.235,Clean,fatigue load,0.92,0.519,0.549,72.0,97.0,10.22,5.36,33,34,True
+22500484,2026-01-02 00:00:00+00:00,Oklahoma City Thunder @ Golden State Warriors,0.177,Clean,volatile teams,0.493,0.815,0.12,51.5,57.8,11.61,12.84,34,34,True
+22500485,2026-01-02 00:00:00+00:00,Memphis Grizzlies @ Los Angeles Lakers,0.145,Clean,volatile teams,0.146,0.765,0.513,17.8,44.6,8.99,13.97,31,33,True
+22500486,2026-01-03 00:00:00+00:00,Minnesota Timberwolves @ Miami Heat,0.164,Clean,volatile teams,0.33,0.887,0.165,51.5,41.5,12.66,13.94,34,34,True
+22500487,2026-01-03 00:00:00+00:00,Philadelphia 76ers @ New York Knicks,0.204,Clean,fatigue load,0.715,0.566,0.457,87.0,51.5,8.34,8.64,35,32,True
+22500488,2026-01-03 00:00:00+00:00,Atlanta Hawks @ Toronto Raptors,0.212,Clean,"fatigue load, volatile teams",0.638,0.701,0.522,43.8,97.0,10.23,10.8,35,36,True
+22500489,2026-01-03 00:00:00+00:00,Charlotte Hornets @ Chicago Bulls,0.238,Clean,"fatigue load, volatile teams",0.842,0.746,0.372,87.0,64.2,12.39,9.99,34,34,True
+22500490,2026-01-03 00:00:00+00:00,Portland Trail Blazers @ San Antonio Spurs,0.262,Clean,"fatigue load, volatile teams",1.0,0.858,0.182,100.0,100.0,16.65,10.73,35,35,True
+22500491,2026-01-03 00:00:00+00:00,Houston Rockets @ Dallas Mavericks,0.187,Clean,volatile teams,0.484,0.736,0.422,50.6,57.8,7.09,16.24,35,31,True
+22500492,2026-01-03 00:00:00+00:00,Utah Jazz @ Golden State Warriors,0.221,Clean,"fatigue load, volatile teams",0.742,0.658,0.487,87.0,54.2,10.83,8.92,35,33,True
+22500493,2026-01-03 00:00:00+00:00,Boston Celtics @ LA Clippers,0.158,Clean,volatile teams,0.322,0.882,0.11,44.3,47.9,12.19,14.26,33,33,True
+22500494,2026-01-04 00:00:00+00:00,Detroit Pistons @ Cleveland Cavaliers,0.147,Clean,volatile teams,0.29,0.745,0.246,50.6,38.4,9.9,12.45,36,34,True
+22500495,2026-01-04 00:00:00+00:00,Indiana Pacers @ Orlando Magic,0.136,Clean,stable conditions,0.556,0.249,0.355,57.8,57.8,6.18,1.29,35,35,True
+22500496,2026-01-04 00:00:00+00:00,Denver Nuggets @ Brooklyn Nets,0.18,Clean,volatile teams,0.385,0.856,0.335,44.3,54.2,17.8,10.67,32,34,True
+22500497,2026-01-04 00:00:00+00:00,New Orleans Pelicans @ Miami Heat,0.187,Clean,volatile teams,0.584,0.607,0.432,64.2,54.2,12.59,5.61,35,36,True
+22500498,2026-01-04 00:00:00+00:00,Minnesota Timberwolves @ Washington Wizards,0.251,Clean,"fatigue load, volatile teams",0.893,0.912,0.165,71.1,78.2,12.41,14.95,33,35,True
+22500499,2026-01-04 00:00:00+00:00,Oklahoma City Thunder @ Phoenix Suns,0.209,Clean,volatile teams,0.59,0.754,0.482,44.3,74.7,9.93,12.7,34,35,True
+22500500,2026-01-04 00:00:00+00:00,Milwaukee Bucks @ Sacramento Kings,0.203,Clean,fatigue load,0.725,0.537,0.47,74.7,57.8,5.35,10.75,35,35,True
+22500501,2026-01-04 00:00:00+00:00,Memphis Grizzlies @ Los Angeles Lakers,0.135,Clean,volatile teams,0.223,0.732,0.249,38.0,44.3,8.69,13.27,32,34,True
+22500502,2026-01-05 00:00:00+00:00,New York Knicks @ Detroit Pistons,0.223,Clean,"fatigue load, volatile teams",0.789,0.717,0.318,64.2,74.7,13.22,8.29,35,36,True
+22500503,2026-01-05 00:00:00+00:00,Chicago Bulls @ Boston Celtics,0.229,Clean,"fatigue load, volatile teams",0.698,0.833,0.405,51.5,78.3,13.56,11.43,34,35,True
+22500504,2026-01-05 00:00:00+00:00,Atlanta Hawks @ Toronto Raptors,0.189,Clean,volatile teams,0.554,0.711,0.337,44.3,71.1,10.7,10.64,36,37,True
+22500505,2026-01-05 00:00:00+00:00,Phoenix Suns @ Houston Rockets,0.239,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.785,0.76,44.3,100.0,16.17,8.55,32,35,True
+22500506,2026-01-05 00:00:00+00:00,Charlotte Hornets @ Oklahoma City Thunder,0.264,Clean,"fatigue load, volatile teams",0.947,0.866,0.32,100.0,74.7,13.05,12.92,36,35,True
+22500507,2026-01-05 00:00:00+00:00,Denver Nuggets @ Philadelphia 76ers,0.213,Clean,"fatigue load, volatile teams",0.643,0.678,0.568,44.3,94.0,9.31,11.04,33,35,True
+22500508,2026-01-05 00:00:00+00:00,Golden State Warriors @ LA Clippers,0.206,Clean,volatile teams,0.59,0.746,0.455,44.3,74.7,12.23,10.16,34,36,True
+22500509,2026-01-05 00:00:00+00:00,Utah Jazz @ Portland Trail Blazers,0.219,Clean,"fatigue load, volatile teams",0.742,0.632,0.503,84.6,54.2,10.96,8.0,36,34,True
+22500510,2026-01-06 00:00:00+00:00,Cleveland Cavaliers @ Indiana Pacers,0.154,Clean,stable conditions,0.484,0.363,0.59,57.8,50.6,1.24,9.66,36,37,True
+22500511,2026-01-06 00:00:00+00:00,Orlando Magic @ Washington Wizards,0.158,Clean,volatile teams,0.448,0.647,0.223,50.6,54.2,11.88,7.54,34,36,True
+22500512,2026-01-06 00:00:00+00:00,San Antonio Spurs @ Memphis Grizzlies,0.174,Clean,volatile teams,0.385,0.879,0.206,51.5,47.0,11.36,16.3,35,36,True
+22500513,2026-01-06 00:00:00+00:00,Miami Heat @ Minnesota Timberwolves,0.189,Clean,volatile teams,0.556,0.879,0.045,57.8,57.8,13.9,12.46,36,36,True
+22500514,2026-01-06 00:00:00+00:00,Los Angeles Lakers @ New Orleans Pelicans,0.134,Clean,stable conditions,0.457,0.393,0.299,54.2,51.5,3.6,8.18,37,33,True
+22500515,2026-01-06 00:00:00+00:00,Dallas Mavericks @ Sacramento Kings,0.151,Clean,stability mismatch,0.411,0.42,0.605,71.1,29.5,5.35,7.24,36,36,True
+22500516,2026-01-07 00:00:00+00:00,Toronto Raptors @ Charlotte Hornets,0.208,Clean,volatile teams,0.599,0.79,0.391,72.0,47.9,13.16,10.53,36,37,True
+22500517,2026-01-07 00:00:00+00:00,Chicago Bulls @ Detroit Pistons,0.209,Clean,volatile teams,0.59,0.769,0.468,44.3,74.7,12.75,10.31,36,36,True
+22500518,2026-01-07 00:00:00+00:00,Washington Wizards @ Philadelphia 76ers,0.22,Clean,"fatigue load, volatile teams, stability mismatch",0.643,0.692,0.637,44.3,87.0,8.63,12.14,34,35,True
+22500519,2026-01-07 00:00:00+00:00,New Orleans Pelicans @ Atlanta Hawks,0.24,Clean,"fatigue load, stability mismatch",0.947,0.418,0.73,74.7,97.0,10.23,2.32,38,38,True
+22500520,2026-01-07 00:00:00+00:00,Denver Nuggets @ Boston Celtics,0.192,Clean,volatile teams,0.554,0.678,0.448,44.3,71.1,11.59,8.74,35,36,True
+22500521,2026-01-07 00:00:00+00:00,Orlando Magic @ Brooklyn Nets,0.224,Clean,"volatile teams, stability mismatch",0.529,0.755,0.843,32.9,87.0,17.88,7.65,33,37,True
+22500522,2026-01-07 00:00:00+00:00,LA Clippers @ New York Knicks,0.208,Clean,"fatigue load, volatile teams",0.662,0.666,0.465,74.7,51.5,7.83,12.15,37,35,True
+22500523,2026-01-07 00:00:00+00:00,Los Angeles Lakers @ San Antonio Spurs,0.263,Clean,"fatigue load, volatile teams, stability mismatch",0.872,0.755,0.657,97.0,67.2,15.54,7.66,37,34,True
+22500524,2026-01-07 00:00:00+00:00,Phoenix Suns @ Memphis Grizzlies,0.201,Clean,"fatigue load, volatile teams",0.719,0.669,0.227,57.2,74.7,9.92,10.14,36,36,True
+22500525,2026-01-07 00:00:00+00:00,Utah Jazz @ Oklahoma City Thunder,0.201,Clean,"fatigue load, volatile teams",0.626,0.656,0.46,71.1,51.5,12.47,7.22,37,35,True
+22500526,2026-01-07 00:00:00+00:00,Milwaukee Bucks @ Golden State Warriors,0.187,Clean,volatile teams,0.531,0.651,0.472,74.7,38.4,10.01,9.53,37,36,True
+22500527,2026-01-07 00:00:00+00:00,Houston Rockets @ Portland Trail Blazers,0.22,Clean,"fatigue load, volatile teams",0.626,0.865,0.377,71.1,51.5,10.96,15.06,37,33,True
+22500528,2026-01-08 00:00:00+00:00,Indiana Pacers @ Charlotte Hornets,0.23,Clean,"fatigue load, stability mismatch",0.742,0.499,0.91,87.0,54.2,13.1,1.88,37,37,True
+22500530,2026-01-08 00:00:00+00:00,Cleveland Cavaliers @ Minnesota Timberwolves,0.171,Clean,volatile teams,0.448,0.731,0.272,50.6,54.2,13.98,7.94,37,38,True
+22500531,2026-01-08 00:00:00+00:00,Dallas Mavericks @ Utah Jazz,0.192,Clean,fatigue load,0.679,0.479,0.51,100.0,47.9,7.28,7.09,36,37,True
+22500532,2026-01-09 00:00:00+00:00,Toronto Raptors @ Boston Celtics,0.157,Clean,volatile teams,0.448,0.726,0.073,50.6,54.2,11.27,10.52,36,38,True
+22500533,2026-01-09 00:00:00+00:00,Philadelphia 76ers @ Orlando Magic,0.204,Clean,fatigue load,0.778,0.556,0.338,84.6,57.8,8.38,8.31,38,35,True
+22500534,2026-01-09 00:00:00+00:00,New Orleans Pelicans @ Washington Wizards,0.238,Clean,"fatigue load, volatile teams",0.974,0.603,0.327,77.4,81.0,12.24,5.84,36,39,True
+22500535,2026-01-09 00:00:00+00:00,LA Clippers @ Brooklyn Nets,0.148,Clean,volatile teams,0.349,0.768,0.085,44.3,50.6,11.61,11.43,34,36,True
+22500536,2026-01-09 00:00:00+00:00,Oklahoma City Thunder @ Memphis Grizzlies,0.223,Clean,"fatigue load, volatile teams",0.858,0.69,0.212,71.1,74.7,8.22,12.47,37,38,True
+22500537,2026-01-09 00:00:00+00:00,Atlanta Hawks @ Denver Nuggets,0.246,Clean,"fatigue load, volatile teams",0.983,0.697,0.264,78.3,84.6,8.08,12.82,37,39,True
+22500538,2026-01-09 00:00:00+00:00,New York Knicks @ Phoenix Suns,0.226,Clean,fatigue load,0.983,0.591,0.139,84.6,78.3,9.55,8.18,37,38,True
+22500539,2026-01-09 00:00:00+00:00,Sacramento Kings @ Golden State Warriors,0.189,Clean,stability mismatch,0.549,0.559,0.618,71.1,43.8,11.36,5.42,38,37,True
+22500540,2026-01-09 00:00:00+00:00,Houston Rockets @ Portland Trail Blazers,0.226,Clean,"fatigue load, volatile teams",0.617,0.826,0.562,77.4,44.3,10.19,14.58,38,34,True
+22500541,2026-01-09 00:00:00+00:00,Milwaukee Bucks @ Los Angeles Lakers,0.189,Clean,fatigue load,0.662,0.592,0.309,72.0,54.2,7.9,9.87,35,37,True
+22500542,2026-01-10 00:00:00+00:00,Minnesota Timberwolves @ Cleveland Cavaliers,0.225,Clean,"fatigue load, volatile teams",0.689,0.765,0.486,54.2,74.7,8.31,14.64,39,38,True
+22500543,2026-01-10 00:00:00+00:00,Miami Heat @ Indiana Pacers,0.195,Clean,"fatigue load, volatile teams",0.653,0.676,0.276,54.2,71.1,9.32,10.97,38,38,True
+22500544,2026-01-10 00:00:00+00:00,LA Clippers @ Detroit Pistons,0.222,Clean,volatile teams,0.584,0.819,0.59,38.4,97.0,13.62,10.94,37,37,True
+22500545,2026-01-10 00:00:00+00:00,San Antonio Spurs @ Boston Celtics,0.246,Clean,"fatigue load, volatile teams, stability mismatch",0.701,0.861,0.611,87.0,50.1,10.82,15.57,37,38,True
+22500546,2026-01-10 00:00:00+00:00,Dallas Mavericks @ Chicago Bulls,0.209,Clean,"fatigue load, volatile teams",0.689,0.614,0.504,77.4,51.5,11.3,7.11,38,38,True
+22500547,2026-01-10 00:00:00+00:00,Charlotte Hornets @ Utah Jazz,0.255,Clean,"fatigue load, volatile teams",0.894,0.753,0.49,71.1,78.3,7.59,20.39,37,38,True
+22500548,2026-01-11 00:00:00+00:00,New Orleans Pelicans @ Orlando Magic,0.184,Clean,fatigue load,0.858,0.418,0.093,71.1,74.7,6.71,5.84,39,40,True
+22500549,2026-01-11 00:00:00+00:00,Brooklyn Nets @ Memphis Grizzlies,0.194,Clean,"fatigue load, volatile teams",0.626,0.653,0.362,71.1,51.5,8.36,11.23,38,35,True
+22500550,2026-01-11 00:00:00+00:00,Philadelphia 76ers @ Toronto Raptors,0.159,Clean,volatile teams,0.52,0.623,0.13,54.2,57.8,10.36,8.34,39,36,True
+22500551,2026-01-11 00:00:00+00:00,New York Knicks @ Portland Trail Blazers,0.154,Clean,stable conditions,0.547,0.599,0.026,56.9,57.8,8.82,9.15,39,39,True
+22500552,2026-01-11 00:00:00+00:00,San Antonio Spurs @ Minnesota Timberwolves,0.275,Clean,"fatigue load, volatile teams",0.982,0.955,0.25,97.0,78.2,14.58,14.08,39,39,True
+22500553,2026-01-11 00:00:00+00:00,Miami Heat @ Oklahoma City Thunder,0.257,Clean,"fatigue load, volatile teams",1.0,0.779,0.238,81.0,97.0,12.24,11.14,39,39,True
+22500554,2026-01-11 00:00:00+00:00,Milwaukee Bucks @ Denver Nuggets,0.184,Clean,fatigue load,0.626,0.572,0.355,71.1,51.5,7.35,9.81,38,38,True
+22500555,2026-01-11 00:00:00+00:00,Washington Wizards @ Phoenix Suns,0.239,Clean,"fatigue load, volatile teams",0.911,0.712,0.287,71.1,84.6,9.11,12.24,38,37,True
+22500556,2026-01-11 00:00:00+00:00,Atlanta Hawks @ Golden State Warriors,0.184,Clean,volatile teams,0.547,0.853,0.035,56.9,57.8,12.44,13.16,39,40,True
+22500557,2026-01-11 00:00:00+00:00,Houston Rockets @ Sacramento Kings,0.168,Clean,volatile teams,0.385,0.767,0.317,50.6,47.9,8.02,16.1,38,35,True
+22500558,2026-01-12 00:00:00+00:00,Utah Jazz @ Cleveland Cavaliers,0.214,Clean,"fatigue load, volatile teams",0.689,0.7,0.441,50.6,78.3,11.72,9.27,40,38,True
+22500559,2026-01-12 00:00:00+00:00,Boston Celtics @ Indiana Pacers,0.209,Clean,"fatigue load, volatile teams",0.689,0.671,0.41,50.6,78.3,9.26,10.86,39,38,True
+22500560,2026-01-12 00:00:00+00:00,Philadelphia 76ers @ Toronto Raptors,0.222,Clean,"fatigue load, volatile teams",1.0,0.607,0.01,87.0,87.0,9.23,8.99,40,37,True
+22500561,2026-01-12 00:00:00+00:00,Brooklyn Nets @ Dallas Mavericks,0.188,Clean,fatigue load,0.657,0.548,0.385,51.5,74.2,7.12,9.32,39,36,True
+22500562,2026-01-12 00:00:00+00:00,Los Angeles Lakers @ Sacramento Kings,0.163,Clean,volatile teams,0.457,0.642,0.292,64.2,41.5,9.53,9.73,39,36,True
+22500563,2026-01-12 00:00:00+00:00,Charlotte Hornets @ LA Clippers,0.267,Clean,"fatigue load, volatile teams",0.983,0.834,0.334,78.3,81.0,10.02,20.82,38,39,True
+22500564,2026-01-13 00:00:00+00:00,Phoenix Suns @ Miami Heat,0.211,Clean,"fatigue load, volatile teams",0.761,0.654,0.308,78.3,57.8,10.45,9.18,40,39,True
+22500565,2026-01-13 00:00:00+00:00,Chicago Bulls @ Houston Rockets,0.175,Clean,volatile teams,0.416,0.878,0.157,51.5,50.1,15.86,11.34,36,39,True
+22500566,2026-01-13 00:00:00+00:00,Minnesota Timberwolves @ Milwaukee Bucks,0.22,Clean,"fatigue load, volatile teams",0.626,0.801,0.485,51.5,71.1,9.03,16.25,39,40,True
+22500567,2026-01-13 00:00:00+00:00,Denver Nuggets @ New Orleans Pelicans,0.18,Clean,fatigue load,0.725,0.443,0.298,74.7,57.8,5.84,7.46,41,39,True
+22500568,2026-01-13 00:00:00+00:00,San Antonio Spurs @ Oklahoma City Thunder,0.209,Clean,"fatigue load, volatile teams",0.653,0.761,0.335,50.6,74.7,11.88,10.95,40,40,True
+22500569,2026-01-13 00:00:00+00:00,Atlanta Hawks @ Los Angeles Lakers,0.246,Clean,"fatigue load, volatile teams",0.742,0.855,0.528,97.0,54.2,12.39,13.26,37,41,True
+22500570,2026-01-13 00:00:00+00:00,Portland Trail Blazers @ Golden State Warriors,0.165,Clean,volatile teams,0.448,0.726,0.203,50.6,54.2,13.01,8.77,40,40,True
+22500571,2026-01-14 00:00:00+00:00,Toronto Raptors @ Indiana Pacers,0.199,Clean,"fatigue load, volatile teams",0.653,0.671,0.343,50.6,74.7,9.54,10.59,40,41,True
+22500572,2026-01-14 00:00:00+00:00,Cleveland Cavaliers @ Philadelphia 76ers,0.226,Clean,"fatigue load, volatile teams",0.689,0.816,0.406,74.7,54.2,10.04,14.45,38,41,True
+22500573,2026-01-14 00:00:00+00:00,Utah Jazz @ Chicago Bulls,0.249,Clean,"fatigue load, volatile teams",0.947,0.693,0.4,100.0,74.7,11.45,9.33,40,39,True
+22500574,2026-01-14 00:00:00+00:00,Brooklyn Nets @ New Orleans Pelicans,0.228,Clean,fatigue load,0.947,0.502,0.413,94.0,74.7,5.8,9.27,42,37,True
+22500575,2026-01-14 00:00:00+00:00,Denver Nuggets @ Dallas Mavericks,0.193,Clean,"fatigue load, stability mismatch",0.643,0.485,0.602,44.3,100.0,6.27,8.28,40,40,True
+22500576,2026-01-14 00:00:00+00:00,New York Knicks @ Sacramento Kings,0.139,Clean,volatile teams,0.376,0.684,0.048,50.6,47.0,10.22,10.29,40,40,True
+22500577,2026-01-14 00:00:00+00:00,Washington Wizards @ LA Clippers,0.187,Clean,volatile teams,0.581,0.676,0.313,71.1,47.0,10.0,10.29,39,38,True
+22500578,2026-01-15 00:00:00+00:00,Memphis Grizzlies @ Orlando Magic,0.066,Clean,stable conditions,0.0,0.507,0.108,19.4,22.0,6.84,8.36,40,39,True
+22500579,2026-01-15 00:00:00+00:00,Phoenix Suns @ Detroit Pistons,0.173,Clean,"volatile teams, stability mismatch",0.278,0.748,0.663,11.4,57.8,13.46,8.99,38,40,True
+22500580,2026-01-15 00:00:00+00:00,Boston Celtics @ Miami Heat,0.207,Clean,"fatigue load, volatile teams",0.675,0.709,0.348,77.4,50.1,10.55,10.72,41,39,True
+22500581,2026-01-15 00:00:00+00:00,Oklahoma City Thunder @ Houston Rockets,0.165,Clean,volatile teams,0.448,0.801,0.062,50.6,54.2,12.25,11.79,37,41,True
+22500582,2026-01-15 00:00:00+00:00,Milwaukee Bucks @ San Antonio Spurs,0.145,Clean,volatile teams,0.457,0.617,0.074,54.2,51.5,9.72,8.78,41,40,True
+22500583,2026-01-15 00:00:00+00:00,Utah Jazz @ Dallas Mavericks,0.222,Clean,fatigue load,1.0,0.501,0.199,87.0,100.0,7.89,7.15,41,40,True
+22500584,2026-01-15 00:00:00+00:00,New York Knicks @ Golden State Warriors,0.188,Clean,volatile teams,0.548,0.769,0.247,50.6,64.2,12.61,10.47,41,41,True
+22500585,2026-01-15 00:00:00+00:00,Atlanta Hawks @ Portland Trail Blazers,0.181,Clean,volatile teams,0.52,0.777,0.192,54.2,57.8,9.57,13.74,41,42,True
+22500586,2026-01-15 00:00:00+00:00,Charlotte Hornets @ Los Angeles Lakers,0.178,Clean,volatile teams,0.344,0.906,0.308,50.6,43.8,12.19,20.85,38,40,True
+22500587,2026-01-16 00:00:00+00:00,Chicago Bulls @ Brooklyn Nets,0.21,Clean,fatigue load,0.788,0.525,0.464,78.3,60.5,5.39,10.37,38,41,True
+22500588,2026-01-16 00:00:00+00:00,New Orleans Pelicans @ Indiana Pacers,0.204,Clean,fatigue load,0.706,0.518,0.565,50.6,81.0,9.67,5.86,41,43,True
+22500589,2026-01-16 00:00:00+00:00,Cleveland Cavaliers @ Philadelphia 76ers,0.212,Clean,"fatigue load, volatile teams",0.617,0.807,0.386,71.1,50.6,10.2,14.0,39,42,True
+22500590,2026-01-16 00:00:00+00:00,LA Clippers @ Toronto Raptors,0.224,Clean,"fatigue load, volatile teams",0.93,0.674,0.08,74.7,78.3,10.56,9.67,42,40,True
+22500591,2026-01-16 00:00:00+00:00,Minnesota Timberwolves @ Houston Rockets,0.248,Clean,"fatigue load, volatile teams",0.701,0.886,0.6,87.0,50.1,11.57,16.21,38,41,True
+22500592,2026-01-16 00:00:00+00:00,Washington Wizards @ Sacramento Kings,0.19,Clean,"fatigue load, volatile teams",0.653,0.667,0.211,71.1,54.2,10.01,10.0,41,39,True
+22500593,2026-01-17 00:00:00+00:00,Utah Jazz @ Dallas Mavericks,0.196,Clean,fatigue load,0.885,0.486,0.099,71.1,77.4,7.48,7.1,42,41,True
+22500594,2026-01-17 00:00:00+00:00,Boston Celtics @ Atlanta Hawks,0.186,Clean,volatile teams,0.52,0.844,0.145,57.8,54.2,14.21,11.11,43,40,True
+22500595,2026-01-17 00:00:00+00:00,Indiana Pacers @ Detroit Pistons,0.219,Clean,"volatile teams, stability mismatch",0.5,0.829,0.715,20.5,87.0,16.67,9.88,39,42,True
+22500596,2026-01-17 00:00:00+00:00,Phoenix Suns @ New York Knicks,0.159,Clean,volatile teams,0.52,0.642,0.093,57.8,54.2,10.22,9.04,42,41,True
+22500597,2026-01-17 00:00:00+00:00,Oklahoma City Thunder @ Miami Heat,0.223,Clean,"fatigue load, volatile teams",0.752,0.754,0.333,77.4,57.8,10.1,12.51,42,42,True
+22500598,2026-01-17 00:00:00+00:00,Minnesota Timberwolves @ San Antonio Spurs,0.255,Clean,"fatigue load, volatile teams",0.911,0.703,0.543,71.1,94.0,7.27,13.83,42,42,True
+22500599,2026-01-17 00:00:00+00:00,Charlotte Hornets @ Golden State Warriors,0.19,Clean,volatile teams,0.448,0.892,0.278,50.6,54.2,11.76,20.72,42,41,True
+22500600,2026-01-17 00:00:00+00:00,Washington Wizards @ Denver Nuggets,0.199,Clean,"fatigue load, volatile teams",0.652,0.603,0.458,47.0,78.2,8.26,9.83,41,40,True
+22500601,2026-01-17 00:00:00+00:00,Los Angeles Lakers @ Portland Trail Blazers,0.166,Clean,volatile teams,0.484,0.718,0.147,50.6,57.8,10.01,11.52,42,39,True
+22500602,2026-01-18 00:00:00+00:00,Orlando Magic @ Memphis Grizzlies,0.056,Clean,stable conditions,0.0,0.469,0.018,26.4,26.4,7.21,6.85,40,41,True
+22500603,2026-01-18 00:00:00+00:00,Brooklyn Nets @ Chicago Bulls,0.202,Clean,fatigue load,0.689,0.526,0.558,54.2,74.7,10.99,4.78,42,39,True
+22500604,2026-01-18 00:00:00+00:00,New Orleans Pelicans @ Houston Rockets,0.233,Clean,fatigue load,0.911,0.58,0.425,71.1,84.6,11.56,5.85,39,44,True
+22500605,2026-01-18 00:00:00+00:00,Charlotte Hornets @ Denver Nuggets,0.275,Clean,"fatigue load, volatile teams",0.982,0.763,0.584,94.0,78.2,7.9,20.43,42,42,True
+22500606,2026-01-18 00:00:00+00:00,Portland Trail Blazers @ Sacramento Kings,0.234,Clean,"fatigue load, volatile teams",0.911,0.638,0.345,71.1,97.0,9.84,9.29,42,43,True
+22500607,2026-01-18 00:00:00+00:00,Toronto Raptors @ Los Angeles Lakers,0.259,Clean,"fatigue load, volatile teams",0.983,0.765,0.338,100.0,78.3,12.42,10.54,40,43,True
+22500014,2026-01-19 00:00:00+00:00,Milwaukee Bucks @ Atlanta Hawks,0.152,Clean,volatile teams,0.206,0.701,0.591,50.6,20.0,13.18,7.84,44,41,True
+22500015,2026-01-19 00:00:00+00:00,Oklahoma City Thunder @ Cleveland Cavaliers,0.18,Clean,volatile teams,0.393,0.914,0.215,41.5,57.8,13.92,13.51,43,43,True
+22500016,2026-01-19 00:00:00+00:00,Dallas Mavericks @ New York Knicks,0.206,Clean,"fatigue load, volatile teams",0.689,0.666,0.371,50.6,78.3,9.68,10.31,43,43,True
+22500017,2026-01-19 00:00:00+00:00,Boston Celtics @ Detroit Pistons,0.177,Clean,volatile teams,0.242,0.872,0.591,20.5,54.2,16.88,11.17,40,41,True
+22500608,2026-01-19 00:00:00+00:00,LA Clippers @ Washington Wizards,0.149,Clean,stable conditions,0.448,0.551,0.262,57.8,47.0,9.63,6.91,41,41,True
+22500609,2026-01-19 00:00:00+00:00,Indiana Pacers @ Philadelphia 76ers,0.193,Clean,volatile teams,0.585,0.674,0.396,43.8,74.7,10.23,9.98,40,43,True
+22500610,2026-01-19 00:00:00+00:00,Phoenix Suns @ Brooklyn Nets,0.204,Clean,"fatigue load, stability mismatch",0.706,0.442,0.695,97.0,50.6,4.82,8.45,40,42,True
+22500611,2026-01-19 00:00:00+00:00,Utah Jazz @ San Antonio Spurs,0.179,Clean,fatigue load,0.68,0.466,0.347,50.6,77.4,6.86,7.11,43,42,True
+22500612,2026-01-19 00:00:00+00:00,Miami Heat @ Golden State Warriors,0.172,Clean,volatile teams,0.484,0.724,0.222,50.6,57.8,12.62,9.1,43,43,True
+22500613,2026-01-20 00:00:00+00:00,Phoenix Suns @ Philadelphia 76ers,0.222,Clean,"fatigue load, volatile teams",0.842,0.605,0.373,64.2,87.0,10.09,8.05,41,43,True
+22500614,2026-01-20 00:00:00+00:00,LA Clippers @ Chicago Bulls,0.221,Clean,"fatigue load, volatile teams",0.853,0.668,0.225,71.1,74.2,12.34,7.7,43,42,True
+22500615,2026-01-20 00:00:00+00:00,San Antonio Spurs @ Houston Rockets,0.222,Clean,fatigue load,0.911,0.502,0.398,71.1,94.0,8.68,6.39,40,44,True
+22500616,2026-01-20 00:00:00+00:00,Minnesota Timberwolves @ Utah Jazz,0.24,Clean,"fatigue load, volatile teams, stability mismatch",0.701,0.73,0.747,100.0,50.1,7.69,14.22,43,43,True
+22500617,2026-01-20 00:00:00+00:00,Los Angeles Lakers @ Denver Nuggets,0.243,Clean,"fatigue load, volatile teams",0.911,0.711,0.349,71.1,84.6,8.31,13.03,43,41,True
+22500618,2026-01-20 00:00:00+00:00,Toronto Raptors @ Golden State Warriors,0.235,Clean,"fatigue load, volatile teams",0.742,0.822,0.417,87.0,54.2,12.44,12.21,44,44,True
+22500619,2026-01-20 00:00:00+00:00,Miami Heat @ Sacramento Kings,0.214,Clean,"fatigue load, volatile teams",0.706,0.606,0.567,50.6,94.0,9.86,8.31,43,44,True
+22500620,2026-01-21 00:00:00+00:00,Cleveland Cavaliers @ Charlotte Hornets,0.183,Clean,volatile teams,0.38,0.956,0.218,50.1,47.9,21.67,13.69,43,44,True
+22500621,2026-01-21 00:00:00+00:00,Indiana Pacers @ Boston Celtics,0.197,Clean,"fatigue load, volatile teams",0.653,0.701,0.261,54.2,71.1,11.16,9.87,42,44,True
+22500622,2026-01-21 00:00:00+00:00,Brooklyn Nets @ New York Knicks,0.249,Clean,"fatigue load, volatile teams",0.885,0.665,0.577,71.1,77.4,18.13,4.94,44,41,True
+22500623,2026-01-21 00:00:00+00:00,Atlanta Hawks @ Memphis Grizzlies,0.155,Clean,stability mismatch,0.242,0.593,0.74,17.8,54.2,5.7,12.08,41,45,True
+22500624,2026-01-21 00:00:00+00:00,Detroit Pistons @ New Orleans Pelicans,0.157,Clean,volatile teams,0.322,0.684,0.429,47.0,45.2,5.51,15.79,45,41,True
+22500625,2026-01-21 00:00:00+00:00,Oklahoma City Thunder @ Milwaukee Bucks,0.142,Clean,volatile teams,0.246,0.63,0.471,30.4,54.2,7.38,11.52,42,44,True
+22500626,2026-01-21 00:00:00+00:00,Toronto Raptors @ Sacramento Kings,0.252,Clean,"fatigue load, volatile teams",1.0,0.771,0.187,87.0,94.0,10.15,12.97,44,45,True
+22500627,2026-01-22 00:00:00+00:00,Charlotte Hornets @ Orlando Magic,0.225,Clean,"volatile teams, stability mismatch",0.5,0.722,0.983,11.7,97.0,6.65,22.22,42,44,True
+22500628,2026-01-22 00:00:00+00:00,Houston Rockets @ Philadelphia 76ers,0.199,Clean,fatigue load,0.689,0.588,0.4,50.6,78.3,9.44,8.21,42,41,True
+22500629,2026-01-22 00:00:00+00:00,Denver Nuggets @ Washington Wizards,0.13,Clean,stable conditions,0.362,0.423,0.387,38.4,57.8,5.03,7.67,42,44,True
+22500630,2026-01-22 00:00:00+00:00,Golden State Warriors @ Dallas Mavericks,0.222,Clean,"fatigue load, volatile teams",0.684,0.769,0.444,50.1,78.3,10.25,12.82,44,45,True
+22500631,2026-01-22 00:00:00+00:00,Chicago Bulls @ Minnesota Timberwolves,0.194,Clean,volatile teams,0.52,0.922,0.12,57.8,54.2,15.18,12.67,44,44,True
+22500632,2026-01-22 00:00:00+00:00,San Antonio Spurs @ Utah Jazz,0.203,Clean,fatigue load,0.957,0.452,0.108,77.4,78.3,7.69,5.87,44,45,True
+22500633,2026-01-22 00:00:00+00:00,Los Angeles Lakers @ LA Clippers,0.226,Clean,"fatigue load, volatile teams",0.761,0.682,0.488,57.8,78.3,7.33,13.13,43,42,True
+22500634,2026-01-22 00:00:00+00:00,Miami Heat @ Portland Trail Blazers,0.181,Clean,stable conditions,0.546,0.549,0.52,34.6,81.0,8.45,8.02,44,45,True
+22500635,2026-01-23 00:00:00+00:00,Houston Rockets @ Detroit Pistons,0.241,Clean,"fatigue load, volatile teams, stability mismatch",0.652,0.826,0.7,45.2,100.0,15.92,9.79,42,42,True
+22500636,2026-01-23 00:00:00+00:00,Phoenix Suns @ Atlanta Hawks,0.156,Clean,volatile teams,0.412,0.68,0.223,54.2,47.0,11.87,8.52,46,44,True
+22500637,2026-01-23 00:00:00+00:00,Boston Celtics @ Brooklyn Nets,0.184,Clean,"fatigue load, stability mismatch",0.68,0.315,0.675,77.4,50.6,2.13,7.32,42,43,True
+22500638,2026-01-23 00:00:00+00:00,Sacramento Kings @ Cleveland Cavaliers,0.235,Clean,"fatigue load, volatile teams",0.679,0.799,0.594,47.9,84.6,13.94,10.04,45,45,True
+22500639,2026-01-23 00:00:00+00:00,New Orleans Pelicans @ Memphis Grizzlies,0.115,Clean,stable conditions,0.242,0.424,0.435,20.5,54.2,6.24,6.48,42,46,True
+22500640,2026-01-23 00:00:00+00:00,Denver Nuggets @ Milwaukee Bucks,0.165,Clean,stable conditions,0.5,0.444,0.573,26.8,100.0,5.97,7.34,43,45,True
+22500641,2026-01-23 00:00:00+00:00,Indiana Pacers @ Oklahoma City Thunder,0.218,Clean,"fatigue load, volatile teams",0.725,0.729,0.361,54.2,78.3,11.75,10.13,45,45,True
+22500642,2026-01-23 00:00:00+00:00,Toronto Raptors @ Portland Trail Blazers,0.241,Clean,"fatigue load, volatile teams",0.842,0.801,0.312,64.2,81.0,10.53,13.51,45,46,True
 18447461,2026-01-24 00:00:00+00:00,New York Knicks @ Philadelphia 76ers,0.0,Forming,early-season/low-history,0.0,,0.0,5.0,5.0,,,0,0,False
 18447463,2026-01-24 00:00:00+00:00,Washington Wizards @ Charlotte Hornets,0.0,Forming,early-season/low-history,0.0,,0.0,5.0,5.0,,,0,0,False
 18447464,2026-01-24 00:00:00+00:00,Cleveland Cavaliers @ Orlando Magic,0.0,Forming,early-season/low-history,0.0,,0.0,5.0,5.0,,,0,0,False
