@@ -2,6 +2,7 @@ import pandas as pd
 
 from analysis.utils import season_record
 from analysis.compose_tweet import compose_tweet
+from analysis.summarize_pregame_ai import summarize_pregame_matchup
 
 
 SCHEDULE_CSV = "data/derived/game_schedule_today.csv"
@@ -12,7 +13,7 @@ ENV_CSV = "data/derived/game_environment_pregame.csv"
 
 # -------------------- SAFE HELPERS --------------------
 
-def safe_metric(row, key, default="—"):
+def safe_metric(row, key, default=0.0):
     if row is None or key not in row:
         return default
     v = row[key]
@@ -20,9 +21,7 @@ def safe_metric(row, key, default="—"):
 
 
 def clip01(x):
-    if x is None:
-        return 0.0
-    return max(0.0, min(1.0, float(x)))
+    return max(0.0, min(1.0, float(x))) if x is not None else 0.0
 
 
 def to_minus1_plus1(x01):
@@ -91,36 +90,33 @@ def lookup_environment(env_df, away, home, game_date):
         & (env_df["game_day"] == game_date)
     ]
 
-    if row.empty:
-        return None
-
-    return row.iloc[0]
+    return row.iloc[0] if not row.empty else None
 
 
 # -------------------- FORMATTER --------------------
 
 def format_pregame_lens(home, away, home_record, away_record, env_row, id_map):
-    # --- Identity (SEASON-LEVEL)
+    # Identity (season-level)
     away_id = id_map.get(away["team_name"], "—")
     home_id = id_map.get(home["team_name"], "—")
 
-    # --- Fatigue
-    away_f = clip01(safe_metric(away, "fatigue_index", 0) / 100.0)
-    home_f = clip01(safe_metric(home, "fatigue_index", 0) / 100.0)
+    # Fatigue
+    away_f = clip01(safe_metric(away, "fatigue_index") / 100.0)
+    home_f = clip01(safe_metric(home, "fatigue_index") / 100.0)
 
-    # --- Momentum
+    # Momentum
     away_m = to_minus1_plus1(
-        clip01((safe_metric(away, "rpmi_delta", 0) + 10.0) / 20.0)
+        (safe_metric(away, "rpmi_delta") + 10.0) / 20.0
     )
     home_m = to_minus1_plus1(
-        clip01((safe_metric(home, "rpmi_delta", 0) + 10.0) / 20.0)
+        (safe_metric(home, "rpmi_delta") + 10.0) / 20.0
     )
 
-    # --- Consistency
-    away_c = clip01(safe_metric(away, "consistency", 0))
-    home_c = clip01(safe_metric(home, "consistency", 0))
+    # Consistency
+    away_c = clip01(safe_metric(away, "consistency"))
+    home_c = clip01(safe_metric(home, "consistency"))
 
-    # --- Environment
+    # Environment
     env_label = (
         env_row["environment_label"]
         if env_row is not None and pd.notna(env_row.get("environment_label"))
@@ -144,7 +140,13 @@ def format_pregame_lens(home, away, home_record, away_record, env_row, id_map):
         f"Environment: {env_label} {env_icon}",
     ]
 
-    return header + "\n" + "\n".join(lines)
+    return header + "\n" + "\n".join(lines), {
+        "identity": {"away": away_id, "home": home_id},
+        "momentum": {"away": away_m, "home": home_m},
+        "fatigue": {"away": away_f, "home": home_f},
+        "consistency": {"away": away_c, "home": home_c},
+        "environment": env_label,
+    }
 
 
 # -------------------- MAIN --------------------
@@ -155,7 +157,6 @@ def main():
     env = pd.read_csv(ENV_CSV)
     identity = pd.read_csv(IDENTITY_CSV)
 
-    # season identity map
     id_map = dict(zip(identity["team_name"], identity["archetype"]))
 
     sched["game_date"] = pd.to_datetime(sched["game_date"]).dt.date
@@ -185,7 +186,7 @@ def main():
         home_w, home_l = season_record(metrics, home_name, run_date)
         away_w, away_l = season_record(metrics, away_name, run_date)
 
-        text = format_pregame_lens(
+        text, ai_payload = format_pregame_lens(
             home,
             away,
             f"{home_w}-{home_l}",
@@ -203,6 +204,15 @@ def main():
         )
 
         print(tweet_main)
+
+        ai_text = summarize_pregame_matchup(
+            matchup_name=f"{away_name} @ {home_name}",
+            signals=ai_payload,
+        )
+
+        if ai_text:
+            print(ai_text)
+
         print("\n" + "-" * 40 + "\n")
 
 

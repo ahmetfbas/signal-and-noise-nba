@@ -2,7 +2,7 @@ import textwrap
 import hashlib
 from typing import Optional, Tuple
 
-from analysis.summarize_ai import summarize_board
+from analysis.summarize_pregame_ai import summarize_board
 
 
 # --------------------------------------------------
