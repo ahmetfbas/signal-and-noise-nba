@@ -6,7 +6,7 @@ from analysis.compose_tweet import compose_tweet
 
 SCHEDULE_CSV = "data/derived/game_schedule_today.csv"
 METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
-IDENTITY_CSV = "data/derived/team_season_identity.csv"
+IDENTITY_CSV = "data/derived/team_game_metrics_with_archetypes.csv"
 ENV_CSV = "data/derived/game_environment_pregame.csv"
 
 
