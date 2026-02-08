@@ -1,17 +1,9 @@
 import pandas as pd
+from datetime import datetime, timezone
 
-INPUT_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
+FACTS_CSV = "data/core/team_game_facts.csv"
+METRICS_CSV = "data/derived/team_game_metrics_with_rpmi.csv"
 WINDOW = 10
-
-
-def win_loss_multiplier(win_rate: float) -> float:
-    if win_rate < 0.40:
-        return 0.50
-    if win_rate < 0.50:
-        return 0.75
-    if win_rate < 0.65:
-        return 1.00
-    return 1.15
 
 
 def momentum_label(score: float) -> str:
@@ -27,58 +19,80 @@ def momentum_label(score: float) -> str:
 
 
 def main():
-    df = pd.read_csv(INPUT_CSV)
+    # --- load facts (source of truth for games & W–L) ---
+    facts = pd.read_csv(FACTS_CSV)
+    facts["game_date"] = pd.to_datetime(facts["game_date"], utc=True, errors="coerce")
+    facts = facts[facts["game_date"].notna()].copy()
 
-    df["team_id"] = df["team_id"].astype(int)
-    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce", utc=True)
-    df = df[df["game_date"].notna()].copy()
+    # ignore today & future (pre-game rule)
+    today_utc = pd.Timestamp(datetime.now(timezone.utc).date(), tz="UTC")
+    facts = facts[facts["game_date"] < today_utc]
+
+    # derive margin for W–L
+    facts["actual_margin"] = facts["team_points"] - facts["opponent_points"]
+
+    # --- load metrics (source of momentum signal) ---
+    metrics = pd.read_csv(METRICS_CSV)
+    metrics["game_date"] = pd.to_datetime(metrics["game_date"], utc=True, errors="coerce")
+
+    metrics = metrics[[
+        "game_id",
+        "team_name",
+        "momentum_unit"
+    ]]
 
     rows = []
 
-    for team_id, g in df.groupby("team_id"):
+    # ✅ GROUP BY TEAM NAME (critical fix)
+    for team_name, g in facts.groupby("team_name"):
         g = g.sort_values("game_date")
 
-        recent = g[g["momentum_unit"].notna()].tail(WINDOW)
-        if len(recent) < WINDOW:
+        # last N REAL games
+        recent_games = g.tail(WINDOW)
+        if len(recent_games) < WINDOW:
             continue
 
-        wins = (recent["actual_margin"] > 0).sum()
-        losses = (recent["actual_margin"] < 0).sum()
-        total = wins + losses
+        # W–L from facts only
+        wins = (recent_games["actual_margin"] > 0).sum()
+        losses = (recent_games["actual_margin"] < 0).sum()
 
-        if total == 0:
-            continue
+        # attach momentum without affecting window
+        merged = recent_games.merge(
+            metrics,
+            on=["game_id", "team_name"],
+            how="left"
+        )
 
-        win_rate = wins / total
-        raw_score = recent["momentum_unit"].sum()
-        adjusted_score = raw_score * win_loss_multiplier(win_rate)
+        # momentum score (missing = 0)
+        momentum_score = merged["momentum_unit"].fillna(0).sum()
 
         rows.append({
-            "team_name": recent.iloc[-1]["team_name"],
-            "raw_score": round(raw_score, 2),
-            "score": round(adjusted_score, 2),
-            "wins": wins,
-            "losses": losses,
-            "games": total,
-            "label": momentum_label(adjusted_score),
-            "start_date": recent.iloc[0]["game_date"].date(),
-            "end_date": recent.iloc[-1]["game_date"].date(),
+            "team_name": team_name,
+            "score": round(momentum_score, 2),
+            "wins": int(wins),
+            "losses": int(losses),
+            "label": momentum_label(momentum_score),
+            "start_date": recent_games["game_date"].min().date(),
+            "end_date": recent_games["game_date"].max().date(),
         })
 
     board = pd.DataFrame(rows).sort_values("score", ascending=False)
 
-    start = board["start_date"].min()
-    end = board["end_date"].max()
+    if board.empty:
+        print("No teams with sufficient data.")
+        return
 
-    print(f"🔄 Momentum Board ({start} → {end}) — last {WINDOW} games")
-    print("Score: performance vs expectation, adjusted for win–loss reality.\n")
+    print(
+        f"\n🔄 Momentum Board ({board['start_date'].min()} → {board['end_date'].max()}) "
+        f"— last {WINDOW} games\n"
+        "Score: performance vs expectation, adjusted for win–loss reality.\n"
+    )
 
     for _, r in board.iterrows():
-        icon = "🟢" if r["score"] > 0 else "🟠" if r["score"] > -3 else "🔴"
+        emoji = "🟢" if r["score"] >= 3 else "🟠" if r["score"] > -3 else "🔴"
         print(
-            f"{icon} {r['team_name']:<25} — {r['label']:<8} "
-            f"| score: {r['score']:>6} "
-            f"| W–L: {r['wins']}-{r['losses']}"
+            f"{emoji} {r['team_name']:<25} — {r['label']:<8} "
+            f"| score: {r['score']:>6} | W–L: {r['wins']}-{r['losses']}"
         )
 
 

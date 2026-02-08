@@ -1465,26 +1465,26 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 18447518,2026-01-31,18,Minnesota Timberwolves,15,Memphis Grizzlies,A,17,Memphis,Minneapolis,4,4,52.2,2,700.9,2,54.2,High
 18447519,2026-01-31,11,Houston Rockets,7,Dallas Mavericks,H,4,Houston,Atlanta,3,3,29.5,2,700.7,2,33.8,Elevated
 18447519,2026-01-31,7,Dallas Mavericks,11,Houston Rockets,A,-4,Houston,Dallas,4,4,52.2,2,226.8,1,50.6,High
-18447520,2026-02-01,2,Boston Celtics,17,Milwaukee Bucks,H,0,Boston,Boston,3,4,29.5,2,0.0,1,30.2,Elevated
-18447520,2026-02-01,17,Milwaukee Bucks,2,Boston Celtics,A,0,Boston,Washington,3,3,29.5,3,393.6,2,29.2,Low
-18447521,2026-02-01,27,San Antonio Spurs,22,Orlando Magic,H,0,San Antonio,Charlotte,3,3,29.5,1,1100.8,3,55.5,High
-18447521,2026-02-01,22,Orlando Magic,27,San Antonio Spurs,A,0,San Antonio,Orlando,3,4,29.5,2,1031.6,3,37.4,Elevated
-18447522,2026-02-01,9,Detroit Pistons,3,Brooklyn Nets,H,0,Detroit,San Francisco,4,4,52.2,2,2085.2,3,57.8,High
-18447522,2026-02-01,3,Brooklyn Nets,9,Detroit Pistons,A,0,Detroit,Salt Lake City,4,4,52.2,2,1488.3,3,57.8,High
-18447523,2026-02-01,16,Miami Heat,5,Chicago Bulls,H,0,Miami,Miami,4,5,61.0,1,0.0,1,73.0,Critical
-18447523,2026-02-01,5,Chicago Bulls,16,Miami Heat,A,0,Miami,Miami,4,5,61.0,1,0.0,1,73.0,Critical
-18447524,2026-02-01,28,Toronto Raptors,29,Utah Jazz,H,0,Toronto,Orlando,3,3,29.5,2,1049.5,3,37.4,Elevated
-18447524,2026-02-01,29,Utah Jazz,28,Toronto Raptors,A,0,Toronto,Salt Lake City,3,4,29.5,2,1665.5,3,37.4,Elevated
-18447525,2026-02-01,30,Washington Wizards,26,Sacramento Kings,H,0,Washington,Washington,3,4,29.5,2,0.0,1,30.2,Elevated
-18447525,2026-02-01,26,Sacramento Kings,30,Washington Wizards,A,0,Washington,Boston,4,4,52.2,2,393.6,2,54.2,High
-18447526,2026-02-01,20,New York Knicks,14,Los Angeles Lakers,H,0,New York,New York,3,4,29.5,2,0.0,1,30.2,Elevated
-18447526,2026-02-01,14,Los Angeles Lakers,20,New York Knicks,A,0,New York,Washington,3,4,29.5,2,205.4,1,30.2,Elevated
-18447527,2026-02-01,24,Phoenix Suns,13,LA Clippers,H,0,Phoenix,Phoenix,4,4,52.2,2,0.0,1,50.6,High
-18447527,2026-02-01,13,LA Clippers,24,Phoenix Suns,A,0,Phoenix,Denver,3,3,29.5,2,585.4,2,33.8,Elevated
-18447528,2026-02-01,25,Portland Trail Blazers,6,Cleveland Cavaliers,H,0,Portland,New York,3,3,29.5,2,2438.1,3,37.4,Elevated
-18447528,2026-02-01,6,Cleveland Cavaliers,25,Portland Trail Blazers,A,0,Portland,Phoenix,3,4,29.5,2,1006.3,3,37.4,Elevated
-18447529,2026-02-01,8,Denver Nuggets,21,Oklahoma City Thunder,H,0,Denver,Denver,4,4,52.2,2,0.0,1,50.6,High
-18447529,2026-02-01,21,Oklahoma City Thunder,8,Denver Nuggets,A,0,Denver,Minneapolis,3,3,29.5,3,698.5,2,29.2,Low
+18447520,2026-02-01,2,Boston Celtics,17,Milwaukee Bucks,H,28,Boston,Boston,3,4,29.5,2,0.0,1,30.2,Elevated
+18447520,2026-02-01,17,Milwaukee Bucks,2,Boston Celtics,A,-28,Boston,Washington,3,3,29.5,3,393.6,2,29.2,Low
+18447521,2026-02-01,27,San Antonio Spurs,22,Orlando Magic,H,9,San Antonio,Charlotte,3,3,29.5,1,1100.8,3,55.5,High
+18447521,2026-02-01,22,Orlando Magic,27,San Antonio Spurs,A,-9,San Antonio,Orlando,3,4,29.5,2,1031.6,3,37.4,Elevated
+18447522,2026-02-01,9,Detroit Pistons,3,Brooklyn Nets,H,53,Detroit,San Francisco,4,4,52.2,2,2085.2,3,57.8,High
+18447522,2026-02-01,3,Brooklyn Nets,9,Detroit Pistons,A,-53,Detroit,Salt Lake City,4,4,52.2,2,1488.3,3,57.8,High
+18447523,2026-02-01,16,Miami Heat,5,Chicago Bulls,H,43,Miami,Miami,4,5,61.0,1,0.0,1,73.0,Critical
+18447523,2026-02-01,5,Chicago Bulls,16,Miami Heat,A,-43,Miami,Miami,4,5,61.0,1,0.0,1,73.0,Critical
+18447524,2026-02-01,28,Toronto Raptors,29,Utah Jazz,H,7,Toronto,Orlando,3,3,29.5,2,1049.5,3,37.4,Elevated
+18447524,2026-02-01,29,Utah Jazz,28,Toronto Raptors,A,-7,Toronto,Salt Lake City,3,4,29.5,2,1665.5,3,37.4,Elevated
+18447525,2026-02-01,30,Washington Wizards,26,Sacramento Kings,H,4,Washington,Washington,3,4,29.5,2,0.0,1,30.2,Elevated
+18447525,2026-02-01,26,Sacramento Kings,30,Washington Wizards,A,-4,Washington,Boston,4,4,52.2,2,393.6,2,54.2,High
+18447526,2026-02-01,20,New York Knicks,14,Los Angeles Lakers,H,12,New York,New York,3,4,29.5,2,0.0,1,30.2,Elevated
+18447526,2026-02-01,14,Los Angeles Lakers,20,New York Knicks,A,-12,New York,Washington,3,4,29.5,2,205.4,1,30.2,Elevated
+18447527,2026-02-01,24,Phoenix Suns,13,LA Clippers,H,-24,Phoenix,Phoenix,4,4,52.2,2,0.0,1,50.6,High
+18447527,2026-02-01,13,LA Clippers,24,Phoenix Suns,A,24,Phoenix,Denver,3,3,29.5,2,585.4,2,33.8,Elevated
+18447528,2026-02-01,25,Portland Trail Blazers,6,Cleveland Cavaliers,H,-19,Portland,New York,3,3,29.5,2,2438.1,3,37.4,Elevated
+18447528,2026-02-01,6,Cleveland Cavaliers,25,Portland Trail Blazers,A,19,Portland,Phoenix,3,4,29.5,2,1006.3,3,37.4,Elevated
+18447529,2026-02-01,8,Denver Nuggets,21,Oklahoma City Thunder,H,-10,Denver,Denver,4,4,52.2,2,0.0,1,50.6,High
+18447529,2026-02-01,21,Oklahoma City Thunder,8,Denver Nuggets,A,10,Denver,Minneapolis,3,3,29.5,3,698.5,2,29.2,Low
 18447530,2026-02-02,4,Charlotte Hornets,19,New Orleans Pelicans,H,7,Charlotte,Charlotte,4,5,61.0,2,0.0,1,58.5,High
 18447530,2026-02-02,19,New Orleans Pelicans,4,Charlotte Hornets,A,-7,Charlotte,Philadelphia,3,4,29.5,2,447.8,2,33.8,Elevated
 18447531,2026-02-02,12,Indiana Pacers,11,Houston Rockets,H,-4,Indianapolis,Indianapolis,3,3,29.5,2,0.0,1,30.2,Elevated

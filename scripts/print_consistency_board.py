@@ -23,37 +23,35 @@ def main():
     df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce", utc=True)
     df = df[df["game_date"].notna()].copy()
 
+    # only rows where consistency exists
+    df = df[df["consistency"].notna()].copy()
+
     if df.empty:
-        print("⚠️ No data available.")
-        return
-
-    df = df.sort_values(["team_id", "game_date", "game_id"])
-    latest = df.drop_duplicates(subset=["team_id"], keep="last").copy()
-
-    latest = latest[latest["consistency"].notna()].copy()
-    if latest.empty:
         print("⚠️ No valid consistency data available.")
         return
 
-    latest = latest.sort_values(["consistency", "team_name"], ascending=[False, True])
+    # sort so latest game per team_name is last
+    df = df.sort_values(["team_name", "game_date", "game_id"])
 
-    latest_date = latest["game_date"].max().date()
-    print(f"📊 Consistency Board ({latest_date})\n")
+    latest = df.groupby("team_name", as_index=False).tail(1)
+
+    latest = latest.sort_values(
+        ["consistency", "team_name"],
+        ascending=[False, True]
+    )
+
+    min_date = df["game_date"].min().date()
+    max_date = df["game_date"].max().date()
+
+    print(f"📊 Consistency Board ({min_date} → {max_date})\n")
 
     for _, r in latest.iterrows():
-        team = r["team_name"]
-        c = r["consistency"]
-        win_c = r.get("consistency_win")
-        loss_c = r.get("consistency_loss")
-        band = consistency_band(c)
-
-        line = (
-            f"{team:<25} | "
-            f"avg: {float(c):.2f} ({band}) | "
-            f"W: {fmt_float(win_c)} | "
-            f"L: {fmt_float(loss_c)}"
+        print(
+            f"{r['team_name']:<25} | "
+            f"avg: {r['consistency']:.2f} ({consistency_band(r['consistency'])}) | "
+            f"W: {fmt_float(r.get('consistency_win'))} | "
+            f"L: {fmt_float(r.get('consistency_loss'))}"
         )
-        print(line)
 
 
 if __name__ == "__main__":
