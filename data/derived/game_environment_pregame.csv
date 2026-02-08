@@ -1,0 +1,5 @@
+game_date,matchup,environment_risk,environment_label,drivers,load_risk,behavior_risk,matchup_risk
+2026-02-08,Indiana Pacers @ Toronto Raptors,0.184,Clean,volatile teams,0.404,0.933,0.218
+2026-02-08,LA Clippers @ Minnesota Timberwolves,0.248,Clean,"fatigue load, volatile teams",0.768,1.0,0.236
+2026-02-08,Miami Heat @ Washington Wizards,0.2,Clean,volatile teams,0.484,1.0,0.156
+2026-02-08,New York Knicks @ Boston Celtics,0.294,Clean,"fatigue load, volatile teams",0.966,1.0,0.49
