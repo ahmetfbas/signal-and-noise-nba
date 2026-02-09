@@ -6,88 +6,147 @@ from analysis.compose_tweet import compose_tweet
 # --------------------------------------------------
 # Paths
 # --------------------------------------------------
+FACTS_CSV = "data/core/team_game_facts.csv"
 METRICS_CSV = "data/derived/team_game_metrics_with_rpmi_cvv.csv"
+
+
+# --------------------------------------------------
+# Thresholds (tightened & intentional)
+# --------------------------------------------------
+FATIGUE_GAP = 0.12
+MOMENTUM_GAP = 0.35
+CONSISTENCY_GAP = 0.18
 
 
 # --------------------------------------------------
 # Helpers
 # --------------------------------------------------
-def signal_dot(expected_margin_home, actual_margin_home):
+def favorite_team(home_sig, away_sig):
+    """Favorite based on season win rate."""
+    if home_sig.get("win_rate", 0) > away_sig.get("win_rate", 0):
+        return "home"
+    if away_sig.get("win_rate", 0) > home_sig.get("win_rate", 0):
+        return "away"
+    return None
+
+
+def asymmetry(metric_home, metric_away, threshold, lower_is_better=False):
     """
-    Compare expected vs actual performance for quick visual signal.
+    Returns 'home', 'away', or None.
     """
-    if pd.isna(expected_margin_home) or pd.isna(actual_margin_home):
-        return "🟡"
+    if pd.isna(metric_home) or pd.isna(metric_away):
+        return None
 
-    aligned = expected_margin_home * actual_margin_home > 0
-    if aligned:
-        return "🟢"
-    if abs(actual_margin_home) <= 4:
-        return "🟡"
-    return "🔴"
+    diff = metric_home - metric_away
+    if abs(diff) < threshold:
+        return None
+
+    if lower_is_better:
+        return "home" if diff < 0 else "away"
+    return "home" if diff > 0 else "away"
 
 
-def format_postgame(home, away):
-    matchup = f"{away['team_name']} @ {home['team_name']}"
-    dot = signal_dot(
-        home.get("expected_margin"),
-        home.get("actual_margin"),
-    )
+def evaluate_pregame_signals(home_facts, away_facts, home_sig, away_sig):
+    """
+    Structured evaluation passed to AI.
+    AI is NOT allowed to invent anything outside this object.
+    """
 
-    home_pts = int(home["team_points"])
-    away_pts = int(home["opponent_points"])
+    home_pts = home_facts["team_points"]
+    away_pts = away_facts["team_points"]
+    winner = "home" if home_pts > away_pts else "away"
+
+    evaluation = {
+        "winner": winner,
+        "fatigue": {},
+        "momentum": {},
+        "consistency": {},
+        "favorite": {},
+    }
+
+    # --- Fatigue ---
+    f_home = home_sig.get("fatigue_index")
+    f_away = away_sig.get("fatigue_index")
+    f_edge = asymmetry(f_home, f_away, FATIGUE_GAP, lower_is_better=True)
+
+    evaluation["fatigue"] = {
+        "edge": f_edge,
+        "aligned": f_edge == winner if f_edge else None,
+        "home": f_home,
+        "away": f_away,
+    }
+
+    # --- Momentum ---
+    m_home = home_sig.get("rpmi_delta")
+    m_away = away_sig.get("rpmi_delta")
+    m_edge = asymmetry(m_home, m_away, MOMENTUM_GAP)
+
+    evaluation["momentum"] = {
+        "edge": m_edge,
+        "aligned": m_edge == winner if m_edge else None,
+        "home": m_home,
+        "away": m_away,
+    }
+
+    # --- Consistency ---
+    c_home = home_sig.get("consistency")
+    c_away = away_sig.get("consistency")
+    c_edge = asymmetry(c_home, c_away, CONSISTENCY_GAP)
+
+    evaluation["consistency"] = {
+        "edge": c_edge,
+        "aligned": c_edge == winner if c_edge else None,
+        "home": c_home,
+        "away": c_away,
+    }
+
+    # --- Favorite ---
+    fav = favorite_team(home_sig, away_sig)
+    evaluation["favorite"] = {
+        "side": fav,
+        "aligned": fav == winner if fav else None,
+    }
+
+    return evaluation
+
+
+def format_postgame(home_facts, away_facts):
+    matchup = f"{away_facts['team_name']} @ {home_facts['team_name']}"
+
+    home_pts = int(home_facts["team_points"])
+    away_pts = int(away_facts["team_points"])
 
     if home_pts > away_pts:
-        scoreline = f"{home['team_name']} {home_pts} – {away_pts} {away['team_name']}"
+        scoreline = (
+            f"{home_facts['team_name']} {home_pts} – "
+            f"{away_pts} {away_facts['team_name']}"
+        )
     else:
-        scoreline = f"{away['team_name']} {away_pts} – {home_pts} {home['team_name']}"
+        scoreline = (
+            f"{away_facts['team_name']} {away_pts} – "
+            f"{home_pts} {home_facts['team_name']}"
+        )
 
-    # Matchup-level volatility
-    vol_home = home.get("pve_volatility")
-    vol_away = away.get("pve_volatility")
-    vol_avg = (
-        (vol_home + vol_away) / 2
-        if pd.notna(vol_home) and pd.notna(vol_away)
-        else None
-    )
-
-    volatility_label = (
-        "high volatility game"
-        if vol_avg is not None and vol_avg >= 0.65
-        else "low volatility game"
-        if vol_avg is not None and vol_avg <= 0.35
-        else "medium volatility game"
-    )
-
-    # Momentum trend (home perspective)
-    delta = home.get("rpmi_delta", 0.0)
-    momentum_trend = (
-        "momentum rising"
-        if delta > 0.25
-        else "momentum falling"
-        if delta < -0.25
-        else "stable form"
-    )
-
-    header = f"{matchup} {dot}\n{scoreline}"
-    body_text = f"Volatility: {volatility_label.capitalize()} | Trend: {momentum_trend.capitalize()}"
-
-    return header, body_text
+    header = f"{matchup}\n{scoreline}"
+    return header
 
 
 # --------------------------------------------------
 # Main
 # --------------------------------------------------
 def main(target_date: str = None):
-    df = pd.read_csv(METRICS_CSV)
-    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
+    facts = pd.read_csv(FACTS_CSV)
+    metrics = pd.read_csv(METRICS_CSV)
+
+    facts["game_date"] = pd.to_datetime(facts["game_date"]).dt.date
+    metrics["game_date"] = pd.to_datetime(metrics["game_date"]).dt.date
 
     if target_date:
         target = datetime.strptime(target_date, "%Y-%m-%d").date()
     else:
         target = datetime.utcnow().date() - timedelta(days=1)
 
-    games = df[df["game_date"] == target]
+    games = facts[facts["game_date"] == target]
 
     if games.empty:
         print(f"No games found for {target}.")
@@ -99,22 +158,40 @@ def main(target_date: str = None):
         if len(g) != 2:
             continue
 
-        home = g[g["home_away"] == "H"].iloc[0]
-        away = g[g["home_away"] == "A"].iloc[0]
+        home_facts = g[g["home_away"] == "H"].iloc[0]
+        away_facts = g[g["home_away"] == "A"].iloc[0]
 
-        header, body_text = format_postgame(home, away)
+        home_sig = metrics[
+            (metrics["game_id"] == game_id)
+            & (metrics["team_id"] == home_facts["team_id"])
+        ]
+        away_sig = metrics[
+            (metrics["game_id"] == game_id)
+            & (metrics["team_id"] == away_facts["team_id"])
+        ]
 
-        tweet_main, tweet_ai = compose_tweet(
-            board_name=f"{away['team_name']} @ {home['team_name']}",
-            data=pd.DataFrame([home, away]),
+        if home_sig.empty or away_sig.empty:
+            continue
+
+        home_sig = home_sig.iloc[0]
+        away_sig = away_sig.iloc[0]
+
+        evaluation = evaluate_pregame_signals(
+            home_facts, away_facts, home_sig, away_sig
+        )
+
+        header = format_postgame(home_facts, away_facts)
+
+        tweet_main, _ = compose_tweet(
+            board_name=f"{away_facts['team_name']} @ {home_facts['team_name']}",
+            data=evaluation,
             header=header,
-            body_text=body_text,
+            body_text=None,
             mode="postgame",
         )
 
         print(tweet_main)
-        print(f"\n↳ {tweet_ai}\n")
-        print("-" * 40 + "\n")
+        print("\n" + "-" * 40 + "\n")
 
 
 if __name__ == "__main__":

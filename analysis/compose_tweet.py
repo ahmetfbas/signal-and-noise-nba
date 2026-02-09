@@ -3,12 +3,12 @@ import hashlib
 from typing import Optional, Tuple
 
 from analysis.summarize_pregame_ai import summarize_board
+from analysis.summarize_postgame_ai import summarize_postgame_matchup
 
 
 # --------------------------------------------------
 # Deterministic helpers
 # --------------------------------------------------
-
 def _stable_hint(hints, seed: str) -> str:
     """
     Deterministic hint selection based on content hash.
@@ -24,7 +24,6 @@ def _stable_hint(hints, seed: str) -> str:
 # --------------------------------------------------
 # Main composer
 # --------------------------------------------------
-
 def compose_tweet(
     board_name: str,
     data,
@@ -33,13 +32,11 @@ def compose_tweet(
     mode: str = "board",
 ) -> Tuple[str, Optional[str]]:
     """
-    Compose a two-part tweet thread.
+    Compose a tweet.
 
-    Returns:
-    - tweet_main: formatted metrics / header tweet
-    - tweet_ai: optional AI commentary (None if unavailable)
-
-    mode ∈ {"board", "pregame", "postgame"}
+    For postgame:
+    - AI generates the explanatory sentence
+    - No separate postgame insight block
     """
 
     allowed_modes = {"board", "pregame", "postgame"}
@@ -47,10 +44,16 @@ def compose_tweet(
         raise ValueError(f"Invalid mode '{mode}'. Must be one of {allowed_modes}")
 
     # --------------------------------------------------
-    # AI summary (optional)
+    # AI summary (mode-aware)
     # --------------------------------------------------
+    ai_text = ""
+
     try:
-        ai_text = summarize_board(f"{mode.capitalize()} - {board_name}", data)
+        if mode == "postgame":
+            ai_text = summarize_postgame_matchup(board_name, data)
+        else:
+            ai_text = summarize_board(f"{mode.capitalize()} - {board_name}", data)
+
         ai_text = ai_text.strip()
     except Exception:
         ai_text = ""
@@ -77,12 +80,9 @@ def compose_tweet(
             "📊 Breakdown below ⤵️",
             "🗣️ Analyst view below ⤵️",
         ],
-        "postgame": [
-            "🔎 Postgame insight below ⤵️",
-            "💭 What it means below ⤵️",
-            "🧠 Takeaway below ⤵️",
-        ],
+        "postgame": [],  # ← explicitly no hints for postgame
     }
+
 
     hint_seed = f"{mode}:{board_name}:{header}"
     comment_hint = _stable_hint(hints.get(mode), hint_seed)
@@ -91,24 +91,34 @@ def compose_tweet(
     # Header & body formatting
     # --------------------------------------------------
     header_block = f"{prefix} {header}".strip()
-    body_text = body_text.strip() if body_text else ""
 
-    if body_text:
+    # For postgame, body comes ONLY from AI
+    final_body = ""
+    if mode == "postgame" and tweet_ai:
+        final_body = tweet_ai
+    elif body_text:
+        final_body = body_text.strip()
+
+    if final_body and mode != "postgame":
         max_body_len = 280 - len(header_block) - len(comment_hint) - 4
 
-        if max_body_len > 20:  # guard against pathological cases
-            body_text = textwrap.shorten(
-                body_text,
+        if max_body_len > 20:
+            final_body = textwrap.shorten(
+                final_body,
                 width=max_body_len,
                 placeholder="…",
                 break_long_words=False,
                 break_on_hyphens=False,
             )
         else:
-            body_text = ""
+            final_body = ""
 
     tweet_main = "\n".join(
-        part for part in [header_block, body_text, "", comment_hint] if part
+        part for part in [header_block, final_body, "", comment_hint] if part
     ).strip()
+
+    # For postgame we already embedded AI → do not return tweet_ai
+    if mode == "postgame":
+        return tweet_main, None
 
     return tweet_main, tweet_ai

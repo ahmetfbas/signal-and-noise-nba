@@ -21,7 +21,19 @@ def _data_hash(payload: dict) -> str:
 
 
 # ------------------------------
-# Main summarizer
+# Public API (expected by compose_tweet)
+# ------------------------------
+def summarize_board(board_name: str, signals: dict) -> str:
+    """
+    Generic entry point used by compose_tweet.
+    Currently routes to pregame summarization logic.
+    """
+
+    return summarize_pregame_matchup(board_name, signals)
+
+
+# ------------------------------
+# Pregame summarizer
 # ------------------------------
 def summarize_pregame_matchup(matchup_name: str, signals: dict) -> str:
     """

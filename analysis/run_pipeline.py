@@ -61,3 +61,6 @@ def main():
         raise FileNotFoundError("❌ Pregame environment output missing.")
 
     print("\n✅ Pipeline completed successfully!")
+
+if __name__ == "__main__":
+    main()

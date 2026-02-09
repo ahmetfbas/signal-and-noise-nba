@@ -1,0 +1,26 @@
+{
+  "New York Knicks @ Boston Celtics:3924fbe7b3c4ef7dfc6e9c4ac4440cf2e81d8a11": {
+    "summary": "The away team's victory aligned cautiously with momentum favoring them, conflicted with fatigue favoring the home team, and showed mixed signals in consistency, which was more balanced for the home side.",
+    "timestamp": "2026-02-09T17:42:43.342321",
+    "signature": "3924fbe7b3c4ef7dfc6e9c4ac4440cf2e81d8a11",
+    "matchup": "New York Knicks @ Boston Celtics"
+  },
+  "Miami Heat @ Washington Wizards:c579be06781b4a216f5b832d91fcd9f43f4ddadd": {
+    "summary": "The away team's victory aligned cautiously with their advantages in fatigue and momentum, while consistency was balanced between teams, resulting in mixed signals overall.",
+    "timestamp": "2026-02-09T17:42:45.644539",
+    "signature": "c579be06781b4a216f5b832d91fcd9f43f4ddadd",
+    "matchup": "Miami Heat @ Washington Wizards"
+  },
+  "Indiana Pacers @ Toronto Raptors:e91bef283ddc847bd811c12193745a94c52eab54": {
+    "summary": "The home team's win aligned cautiously with their advantages in fatigue and momentum, while consistency was balanced between teams, resulting in mixed signals overall.",
+    "timestamp": "2026-02-09T17:42:47.827701",
+    "signature": "e91bef283ddc847bd811c12193745a94c52eab54",
+    "matchup": "Indiana Pacers @ Toronto Raptors"
+  },
+  "LA Clippers @ Minnesota Timberwolves:9acf59aa858ec3e16e6bce073f307c2322a202da": {
+    "summary": "The away team's victory aligned cautiously with momentum but conflicted with fatigue favoring the home team, while consistency was neutral, indicating mixed signals overall.",
+    "timestamp": "2026-02-09T17:42:49.201787",
+    "signature": "9acf59aa858ec3e16e6bce073f307c2322a202da",
+    "matchup": "LA Clippers @ Minnesota Timberwolves"
+  }
+}

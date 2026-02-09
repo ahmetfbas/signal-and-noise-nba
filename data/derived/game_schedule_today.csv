@@ -1,5 +1,11 @@
 game_id,game_date,home_team_id,home_team_name,away_team_id,away_team_name,matchup
-18447575,2026-02-08,2,Boston Celtics,20,New York Knicks,NYK @ BOS
-18447576,2026-02-08,30,Washington Wizards,16,Miami Heat,MIA @ WAS
-18447577,2026-02-08,28,Toronto Raptors,12,Indiana Pacers,IND @ TOR
-18447578,2026-02-08,18,Minnesota Timberwolves,13,LA Clippers,LAC @ MIN
+18447579,2026-02-09,4,Charlotte Hornets,9,Detroit Pistons,DET @ CHA
+18447580,2026-02-09,3,Brooklyn Nets,5,Chicago Bulls,CHI @ BKN
+18447581,2026-02-09,16,Miami Heat,29,Utah Jazz,UTA @ MIA
+18447582,2026-02-09,22,Orlando Magic,17,Milwaukee Bucks,MIL @ ORL
+18447583,2026-02-09,18,Minnesota Timberwolves,1,Atlanta Hawks,ATL @ MIN
+18447584,2026-02-09,19,New Orleans Pelicans,26,Sacramento Kings,SAC @ NOP
+18447585,2026-02-09,8,Denver Nuggets,6,Cleveland Cavaliers,CLE @ DEN
+18447586,2026-02-09,10,Golden State Warriors,15,Memphis Grizzlies,MEM @ GSW
+18447587,2026-02-09,14,Los Angeles Lakers,21,Oklahoma City Thunder,OKC @ LAL
+18447588,2026-02-09,25,Portland Trail Blazers,23,Philadelphia 76ers,PHI @ POR
