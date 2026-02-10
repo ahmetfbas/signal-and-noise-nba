@@ -1,15 +1,26 @@
 def main():
     """
     Master pipeline runner for Signal & Noise NBA project.
+    Ensures both pregame (schedule) and postgame (facts + metrics) are always up to date.
     """
 
     import os
 
     # -----------------------------
-    # 1️⃣ INGEST
+    # 0️⃣ TODAY SCHEDULE (PREGAME)
+    # -----------------------------
+    from analysis.build_today_schedule import main as build_today_schedule
+    print("🗓️  Step 0 — Building today schedule...")
+    build_today_schedule()
+
+    if not os.path.exists("data/derived/game_schedule_today.csv"):
+        raise FileNotFoundError("❌ Today schedule missing — aborting pipeline.")
+
+    # -----------------------------
+    # 1️⃣ INGEST COMPLETED GAMES (POSTGAME)
     # -----------------------------
     from scripts.ingest.append_daily_games import main as ingest_games
-    print("\n🚚 Step 1 — Ingesting new games...")
+    print("\n🚚 Step 1 — Ingesting completed games...")
     ingest_games()
 
     # -----------------------------
@@ -41,7 +52,7 @@ def main():
     build_cvv()
 
     # -----------------------------
-    # 6️⃣ SEASON ARCHETYPES (NEW, REQUIRED)
+    # 6️⃣ SEASON ARCHETYPES
     # -----------------------------
     from analysis.build_archetypes import main as build_archetypes
     print("🧠 Step 6 — Building season team identities...")
@@ -51,7 +62,7 @@ def main():
         raise FileNotFoundError("❌ Archetype output missing — aborting pipeline.")
 
     # -----------------------------
-    # 7️⃣ PREGAME ENVIRONMENT (FIXED)
+    # 7️⃣ PREGAME ENVIRONMENT
     # -----------------------------
     from analysis.build_pregame_environment import main as build_environment
     print("🌍 Step 7 — Building pregame environment dataset...")
@@ -61,6 +72,7 @@ def main():
         raise FileNotFoundError("❌ Pregame environment output missing.")
 
     print("\n✅ Pipeline completed successfully!")
+
 
 if __name__ == "__main__":
     main()

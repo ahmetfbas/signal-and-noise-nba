@@ -96,7 +96,7 @@ def lookup_environment(env_df, away, home, game_date):
 # -------------------- FORMATTER --------------------
 
 def format_pregame_lens(home, away, home_record, away_record, env_row, id_map):
-    # Identity (season-level)
+    # Identity
     away_id = id_map.get(away["team_name"], "—")
     home_id = id_map.get(home["team_name"], "—")
 
@@ -124,23 +124,33 @@ def format_pregame_lens(home, away, home_record, away_record, env_row, id_map):
     )
     env_icon = environment_emoji(env_label)
 
+    # --------------------
+    # Header
+    # --------------------
     header = (
-        f"🏀 {away['team_name']} ({away_record}) "
-        f"@ {home['team_name']} ({home_record})"
+        f"🏀 Pregame Lens\n\n"
+        f"{away['team_name']} ({away_record}) @ {home['team_name']} ({home_record})\n\n"
+        f"Identity      {away_id} | {home_id}"
     )
 
-    lines = [
-        f"Identity: {away_id} | {home_id}",
-        f"Momentum: {away_m:+.2f} {momentum_emoji(away_m)} {away['team_name']} | "
-        f"{home_m:+.2f} {momentum_emoji(home_m)} {home['team_name']}",
-        f"Fatigue: {away_f:.2f} {fatigue_emoji(away_f)} {away['team_name']} | "
-        f"{home_f:.2f} {fatigue_emoji(home_f)} {home['team_name']}",
-        f"Consistency: {away_c:.2f} {consistency_emoji(away_c)} {away['team_name']} | "
-        f"{home_c:.2f} {consistency_emoji(home_c)} {home['team_name']}",
-        f"Environment: {env_label} {env_icon}",
+    # --------------------
+    # Metrics block
+    # --------------------
+    metrics = [
+        f"Momentum      {away_m:+.2f} {momentum_emoji(away_m)} | {home_m:+.2f} {momentum_emoji(home_m)}",
+        f"Fatigue       {away_f:.2f} {fatigue_emoji(away_f)} | {home_f:.2f} {fatigue_emoji(home_f)}",
+        f"Consistency   {away_c:.2f} {consistency_emoji(away_c)} | {home_c:.2f} {consistency_emoji(home_c)}",
+        f"Environment   {env_label} {env_icon}",
     ]
 
-    return header + "\n" + "\n".join(lines), {
+    body = (
+        header
+        + "\n\n"                 # ← ONE line break after Identity
+        + "\n".join(metrics)     # ← Tight metric stack
+        + "\n\n"                 # ← ONE line break before context hook
+    )
+
+    return body, {
         "identity": {"away": away_id, "home": home_id},
         "momentum": {"away": away_m, "home": home_m},
         "fatigue": {"away": away_f, "home": home_f},

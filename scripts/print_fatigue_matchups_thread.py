@@ -32,11 +32,16 @@ def travel_bucket(miles: float) -> str:
 def rest_label(days: float) -> str:
     if pd.isna(days):
         return "Unknown rest"
-    if days == 0:
-        return "Back-to-back"
+
+    days = int(days)
+
+    # NBA logic
     if days == 1:
+        return "B2B"
+    rest_days = days - 1
+    if rest_days == 1:
         return "1 day rest"
-    return f"{int(days)} days rest"
+    return f"{rest_days} days rest"
 
 
 def density_label(games_7: float) -> str:
@@ -74,16 +79,15 @@ def main():
         metrics["game_date"], errors="coerce"
     ).dt.date
 
-    # Get latest fatigue row per team
+    # Latest fatigue snapshot per team
     latest = (
         metrics.sort_values("game_date", ascending=False)
         .drop_duplicates(subset=["team_name"])
     )
 
-    # Header
-    print(f"🧵 Fatigue Matchup Watch ({today})\n")
+    # Thread header
+    print(f"🧠 Fatigue Watch\n")
 
-    # Loop matchups
     for _, g in games_today.iterrows():
         home = g["home_team_name"]
         away = g["away_team_name"]
@@ -97,7 +101,6 @@ def main():
         h = h.iloc[0]
         a = a.iloc[0]
 
-        # Build bullets
         away_lines = [
             density_label(a["games_last_7"]),
             rest_label(a["days_since_last_game"]),
@@ -118,9 +121,8 @@ def main():
         else:
             interp = "🔎 No major fatigue edge, execution likely decides."
 
-        # Print tweet (single-tweet safe)
         print(
-            f"🧠 Fatigue Watch — {away} @ {home} ({today})\n\n"
+            f"{away} @ {home} ({today})\n\n"
             f"{away}: {a['fatigue_tier']} ({a['fatigue_index']:.1f}) {fatigue_emoji(a['fatigue_tier'])}\n"
             f"• {away_lines[0]}\n"
             f"• {away_lines[1]}\n"
