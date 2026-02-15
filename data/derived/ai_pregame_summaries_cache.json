@@ -148,5 +148,23 @@
     "timestamp": "2026-02-10T14:41:17.572376",
     "signature": "82ea7b39f424faece3996643dab472a0330b466d",
     "matchup": "San Antonio Spurs @ Los Angeles Lakers"
+  },
+  "Milwaukee Bucks @ Oklahoma City Thunder:29425a53ac9a7e5f2e6fbe6283db33f997561184": {
+    "summary": "The Bucks show an unstable middle identity with moderate momentum, while the Thunder are a streak-driven contender with slightly higher momentum. Both teams have similar fatigue and consistency levels. The clean environment suggests low volatility for this matchup. Overall, the signals are fairly balanced.",
+    "timestamp": "2026-02-12T17:13:52.451882",
+    "signature": "29425a53ac9a7e5f2e6fbe6283db33f997561184",
+    "matchup": "Milwaukee Bucks @ Oklahoma City Thunder"
+  },
+  "Portland Trail Blazers @ Utah Jazz:e11d850dbad64cda01009a532cdba246f92b6473": {
+    "summary": "The Trail Blazers show an unstable middle identity with negative momentum, while the Jazz are a struggling team but with slightly positive momentum. Both teams have similar consistency and moderate fatigue levels. The clean environment suggests low external volatility. Overall, the signals provide a balanced view without a clear advantage.",
+    "timestamp": "2026-02-12T17:13:55.429473",
+    "signature": "e11d850dbad64cda01009a532cdba246f92b6473",
+    "matchup": "Portland Trail Blazers @ Utah Jazz"
+  },
+  "Dallas Mavericks @ Los Angeles Lakers:e6c963af5adc1f95ab5a6741b28fd037e992057d": {
+    "summary": "The Mavericks have a consistently poor season profile but show slight positive momentum and moderate consistency. The Lakers are a streak-driven contender currently on a negative trend with higher fatigue and lower consistency. The mixed environment suggests some volatility in this matchup.",
+    "timestamp": "2026-02-12T17:13:57.728671",
+    "signature": "e6c963af5adc1f95ab5a6741b28fd037e992057d",
+    "matchup": "Dallas Mavericks @ Los Angeles Lakers"
   }
 }

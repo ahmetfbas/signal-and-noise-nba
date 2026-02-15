@@ -1,5 +1,3 @@
-# scripts/print_fatigue_matchups_thread.py
-
 from datetime import date
 import pandas as pd
 
@@ -35,12 +33,13 @@ def rest_label(days: float) -> str:
 
     days = int(days)
 
-    # NBA logic
     if days == 1:
         return "B2B"
+
     rest_days = days - 1
     if rest_days == 1:
         return "1 day rest"
+
     return f"{rest_days} days rest"
 
 
@@ -69,6 +68,7 @@ def main():
     ).dt.date
 
     games_today = sched[sched["game_date"] == today]
+
     if games_today.empty:
         print(f"No games found for {today}.")
         return
@@ -85,10 +85,8 @@ def main():
         .drop_duplicates(subset=["team_name"])
     )
 
-    # Thread header
-    print(f"🧠 Fatigue Watch\n")
-
     for _, g in games_today.iterrows():
+
         home = g["home_team_name"]
         away = g["away_team_name"]
 
@@ -113,13 +111,18 @@ def main():
             travel_bucket(h["travel_miles"]),
         ]
 
-        # Interpretation
+        # Interpretation logic
         if a["fatigue_index"] > h["fatigue_index"] + 10:
             interp = "🔎 Away side enters noticeably more taxed."
         elif h["fatigue_index"] > a["fatigue_index"] + 10:
             interp = "🔎 Home side enters noticeably more taxed."
         else:
             interp = "🔎 No major fatigue edge, execution likely decides."
+
+        # -----------------------------
+        # PRINT BLOCK (Thread-Ready)
+        # -----------------------------
+        print("🧠 Fatigue Watch\n")
 
         print(
             f"{away} @ {home} ({today})\n\n"
@@ -133,6 +136,8 @@ def main():
             f"• {home_lines[2]}\n\n"
             f"{interp}\n"
         )
+
+        print("-" * 40 + "\n")
 
 
 if __name__ == "__main__":

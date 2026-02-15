@@ -9,13 +9,13 @@ from analysis.summarize_postgame_ai import summarize_postgame_matchup
 # --------------------------------------------------
 # Deterministic helpers
 # --------------------------------------------------
-def _stable_hint(hints, seed: str) -> str:
+def _stable_hint(hints, seed: str) -> Optional[str]:
     """
     Deterministic hint selection based on content hash.
-    Falls back safely if hints are empty.
+    Returns None if hints list is empty.
     """
     if not hints:
-        return "🗣️ Context below ⤵️"
+        return None
 
     h = int(hashlib.sha1(seed.encode("utf-8")).hexdigest(), 16)
     return hints[h % len(hints)]
@@ -37,6 +37,7 @@ def compose_tweet(
     For postgame:
     - AI generates the explanatory sentence
     - No separate postgame insight block
+    - No continuation hint
     """
 
     allowed_modes = {"board", "pregame", "postgame"}
@@ -80,12 +81,13 @@ def compose_tweet(
             "📊 Breakdown below ⤵️",
             "🗣️ Analyst view below ⤵️",
         ],
-        "postgame": [],  # ← explicitly no hints for postgame
+        "postgame": [],  # intentionally empty
     }
 
-
-    hint_seed = f"{mode}:{board_name}:{header}"
-    comment_hint = _stable_hint(hints.get(mode), hint_seed)
+    comment_hint = None
+    if hints.get(mode):
+        hint_seed = f"{mode}:{board_name}:{header}"
+        comment_hint = _stable_hint(hints.get(mode), hint_seed)
 
     # --------------------------------------------------
     # Header & body formatting
@@ -100,7 +102,7 @@ def compose_tweet(
         final_body = body_text.strip()
 
     if final_body and mode != "postgame":
-        max_body_len = 280 - len(header_block) - len(comment_hint) - 4
+        max_body_len = 280 - len(header_block) - (len(comment_hint) if comment_hint else 0) - 4
 
         if max_body_len > 20:
             final_body = textwrap.shorten(
@@ -113,9 +115,16 @@ def compose_tweet(
         else:
             final_body = ""
 
-    tweet_main = "\n".join(
-        part for part in [header_block, final_body, "", comment_hint] if part
-    ).strip()
+    tweet_parts = [header_block]
+
+    if final_body:
+        tweet_parts.append(final_body)
+
+    if comment_hint:
+        tweet_parts.append("")
+        tweet_parts.append(comment_hint)
+
+    tweet_main = "\n".join(tweet_parts).strip()
 
     # For postgame we already embedded AI → do not return tweet_ai
     if mode == "postgame":

@@ -1603,11 +1603,45 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,team_poi
 18447587,2026-02-09,21,Oklahoma City Thunder,14,Los Angeles Lakers,A,119,110
 18447588,2026-02-09,25,Portland Trail Blazers,23,Philadelphia 76ers,H,135,118
 18447588,2026-02-09,23,Philadelphia 76ers,25,Portland Trail Blazers,A,118,135
-18447589,2026-02-10,20,New York Knicks,12,Indiana Pacers,H,0,0
-18447589,2026-02-10,12,Indiana Pacers,20,New York Knicks,A,0,0
-18447590,2026-02-10,11,Houston Rockets,13,LA Clippers,H,0,0
-18447590,2026-02-10,13,LA Clippers,11,Houston Rockets,A,0,0
-18447591,2026-02-10,24,Phoenix Suns,7,Dallas Mavericks,H,0,0
-18447591,2026-02-10,7,Dallas Mavericks,24,Phoenix Suns,A,0,0
-18447592,2026-02-10,14,Los Angeles Lakers,27,San Antonio Spurs,H,0,0
-18447592,2026-02-10,27,San Antonio Spurs,14,Los Angeles Lakers,A,0,0
+18447589,2026-02-10,20,New York Knicks,12,Indiana Pacers,H,134,137
+18447589,2026-02-10,12,Indiana Pacers,20,New York Knicks,A,137,134
+18447590,2026-02-10,11,Houston Rockets,13,LA Clippers,H,102,95
+18447590,2026-02-10,13,LA Clippers,11,Houston Rockets,A,95,102
+18447591,2026-02-10,24,Phoenix Suns,7,Dallas Mavericks,H,120,111
+18447591,2026-02-10,7,Dallas Mavericks,24,Phoenix Suns,A,111,120
+18447592,2026-02-10,14,Los Angeles Lakers,27,San Antonio Spurs,H,108,136
+18447592,2026-02-10,27,San Antonio Spurs,14,Los Angeles Lakers,A,136,108
+18447593,2026-02-11,4,Charlotte Hornets,1,Atlanta Hawks,H,110,107
+18447593,2026-02-11,1,Atlanta Hawks,4,Charlotte Hornets,A,107,110
+18447594,2026-02-11,6,Cleveland Cavaliers,30,Washington Wizards,H,138,113
+18447594,2026-02-11,30,Washington Wizards,6,Cleveland Cavaliers,A,113,138
+18447595,2026-02-11,22,Orlando Magic,17,Milwaukee Bucks,H,108,116
+18447595,2026-02-11,17,Milwaukee Bucks,22,Orlando Magic,A,116,108
+18447596,2026-02-11,2,Boston Celtics,5,Chicago Bulls,H,124,105
+18447596,2026-02-11,5,Chicago Bulls,2,Boston Celtics,A,105,124
+18447597,2026-02-11,3,Brooklyn Nets,12,Indiana Pacers,H,110,115
+18447597,2026-02-11,12,Indiana Pacers,3,Brooklyn Nets,A,115,110
+18447598,2026-02-11,23,Philadelphia 76ers,20,New York Knicks,H,89,138
+18447598,2026-02-11,20,New York Knicks,23,Philadelphia 76ers,A,138,89
+18447599,2026-02-11,28,Toronto Raptors,9,Detroit Pistons,H,95,113
+18447599,2026-02-11,9,Detroit Pistons,28,Toronto Raptors,A,113,95
+18447600,2026-02-11,11,Houston Rockets,13,LA Clippers,H,102,105
+18447600,2026-02-11,13,LA Clippers,11,Houston Rockets,A,105,102
+18447601,2026-02-11,18,Minnesota Timberwolves,25,Portland Trail Blazers,H,133,109
+18447601,2026-02-11,25,Portland Trail Blazers,18,Minnesota Timberwolves,A,109,133
+18447602,2026-02-11,19,New Orleans Pelicans,16,Miami Heat,H,111,123
+18447602,2026-02-11,16,Miami Heat,19,New Orleans Pelicans,A,123,111
+18447603,2026-02-11,24,Phoenix Suns,21,Oklahoma City Thunder,H,109,136
+18447603,2026-02-11,21,Oklahoma City Thunder,24,Phoenix Suns,A,136,109
+18447604,2026-02-11,29,Utah Jazz,26,Sacramento Kings,H,121,93
+18447604,2026-02-11,26,Sacramento Kings,29,Utah Jazz,A,93,121
+18447605,2026-02-11,8,Denver Nuggets,15,Memphis Grizzlies,H,122,116
+18447605,2026-02-11,15,Memphis Grizzlies,8,Denver Nuggets,A,116,122
+18447606,2026-02-11,10,Golden State Warriors,27,San Antonio Spurs,H,113,126
+18447606,2026-02-11,27,San Antonio Spurs,10,Golden State Warriors,A,126,113
+18447607,2026-02-12,21,Oklahoma City Thunder,17,Milwaukee Bucks,H,93,110
+18447607,2026-02-12,17,Milwaukee Bucks,21,Oklahoma City Thunder,A,110,93
+18447608,2026-02-12,29,Utah Jazz,25,Portland Trail Blazers,H,119,135
+18447608,2026-02-12,25,Portland Trail Blazers,29,Utah Jazz,A,135,119
+18447609,2026-02-12,14,Los Angeles Lakers,7,Dallas Mavericks,H,124,104
+18447609,2026-02-12,7,Dallas Mavericks,14,Los Angeles Lakers,A,104,124

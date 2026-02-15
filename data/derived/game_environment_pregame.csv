@@ -1,5 +1,4 @@
 game_date,matchup,environment_risk,environment_label,drivers,load_risk,behavior_risk,matchup_risk
-2026-02-10,Dallas Mavericks @ Phoenix Suns,0.186,Clean,volatile teams,0.412,0.977,0.157
-2026-02-10,Indiana Pacers @ New York Knicks,0.294,Mixed,"fatigue load, volatile teams, mismatch",0.894,1.0,0.655
-2026-02-10,LA Clippers @ Houston Rockets,0.275,Mixed,"fatigue load, volatile teams",0.966,1.0,0.197
-2026-02-10,San Antonio Spurs @ Los Angeles Lakers,0.247,Clean,"fatigue load, volatile teams",0.696,1.0,0.389
+2026-02-12,Dallas Mavericks @ Los Angeles Lakers,0.317,Mixed,"fatigue load, volatile teams, mismatch",1.0,1.0,0.75
+2026-02-12,Milwaukee Bucks @ Oklahoma City Thunder,0.176,Clean,volatile teams,0.358,1.0,0.09
+2026-02-12,Portland Trail Blazers @ Utah Jazz,0.207,Clean,volatile teams,0.556,1.0,0.11

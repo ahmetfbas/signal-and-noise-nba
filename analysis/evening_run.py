@@ -22,8 +22,7 @@ def main():
     print("\n🌙 EVENING RUN — Pregame + Fatigue\n")
 
     run("python -m scripts.print_pregame_lens")
-    run("python -m scripts.print_fatigue_board")
-
+    run("python -m scripts.print_fatigue_matchups_thread")
     print("\n✅ Evening run completed.\n")
 
 

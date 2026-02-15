@@ -1,0 +1,191 @@
+=== PREGAME ===
+
+📅 Using schedule for 2026-02-12
+
+🏀 🏀 Pregame Lens
+
+Milwaukee Bucks (22-30) @ Oklahoma City Thunder (42-13)
+
+Identity      Unstable Middle | Streak-Driven Contender
+
+Momentum      +0.07 ➡️ | +0.13 ➡️
+Fatigue       0.44 😐 | 0.48 😐
+Consistency   0.50 🌪️ | 0.47 🌪️
+Environment   Clean 🧊
+
+💭 Context below ⤵️
+The Bucks show an unstable middle identity with moderate momentum, while the Thunder are a streak-driven contender with slightly higher momentum. Both teams have similar fatigue and consistency levels. The clean environment suggests low volatility for this matchup. Overall, the signals are fairly balanced.
+
+----------------------------------------
+
+🏀 🏀 Pregame Lens
+
+Portland Trail Blazers (26-29) @ Utah Jazz (18-37)
+
+Identity      Unstable Middle | Struggling Team
+
+Momentum      -0.18 ➡️ | +0.06 ➡️
+Fatigue       0.52 😓 | 0.58 😓
+Consistency   0.51 ⚖️ | 0.49 🌪️
+Environment   Clean 🧊
+
+📊 Breakdown below ⤵️
+The Trail Blazers show an unstable middle identity with negative momentum, while the Jazz are a struggling team but with slightly positive momentum. Both teams have similar consistency and moderate fatigue levels. The clean environment suggests low external volatility. Overall, the signals provide a balanced view without a clear advantage.
+
+----------------------------------------
+
+🏀 🏀 Pregame Lens
+
+Dallas Mavericks (19-34) @ Los Angeles Lakers (32-21)
+
+Identity      Consistently Bad | Streak-Driven Contender
+
+Momentum      +0.04 ➡️ | -0.10 ➡️
+Fatigue       0.45 😐 | 0.87 🥵
+Consistency   0.60 ⚖️ | 0.45 🌪️
+Environment   Mixed 🌫️
+
+🗣️ Analyst view below ⤵️
+The Mavericks have a consistently poor season profile but show slight positive momentum and moderate consistency. The Lakers are a streak-driven contender currently on a negative trend with higher fatigue and lower consistency. The mixed environment suggests some volatility in this matchup.
+
+----------------------------------------
+
+
+
+=== FATIGUE THREAD ===
+
+🧠 Fatigue Watch
+
+Milwaukee Bucks @ Oklahoma City Thunder (2026-02-12)
+
+Milwaukee Bucks: Critical (78.2) 🥵
+• 3 games in last 7
+• B2B
+• Moderate travel
+
+Oklahoma City Thunder: Critical (78.2) 🥵
+• 3 games in last 7
+• B2B
+• Moderate travel
+
+🔎 No major fatigue edge, execution likely decides.
+
+Portland Trail Blazers @ Utah Jazz (2026-02-12)
+
+Portland Trail Blazers: Critical (100.0) 🥵
+• 4 games in last 7
+• B2B
+• Moderate travel
+
+Utah Jazz: Critical (87.0) 🥵
+• 4 games in last 7
+• B2B
+• Low travel
+
+🔎 Away side enters noticeably more taxed.
+
+Dallas Mavericks @ Los Angeles Lakers (2026-02-12)
+
+Dallas Mavericks: Elevated (47.9) 😐
+• 3 games in last 7
+• 1 day rest
+• Low travel
+
+Los Angeles Lakers: Critical (71.1) 🥵
+• 4 games in last 7
+• 1 day rest
+• Low travel
+
+🔎 Home side enters noticeably more taxed.
+
+
+
+=== POSTGAME ===
+
+
+=== POST-GAME THREAD (2026-02-11) ===
+
+🏁 Atlanta Hawks @ Charlotte Hornets
+Charlotte Hornets 110 – 107 Atlanta Hawks
+The home team's victory aligned cautiously with their fatigue advantage but conflicted with the away team's momentum edge, while consistency was balanced and overall signals were mixed.
+
+----------------------------------------
+
+🏁 Washington Wizards @ Cleveland Cavaliers
+Cleveland Cavaliers 138 – 113 Washington Wizards
+The home team's momentum aligned cautiously with their win, fatigue favored the away team conflicting with the result, and consistency was neutral, indicating mixed signals overall.
+
+----------------------------------------
+
+🏁 Milwaukee Bucks @ Orlando Magic
+Milwaukee Bucks 116 – 108 Orlando Magic
+The away team's victory aligned cautiously with their advantages in fatigue and momentum, while consistency was balanced and neutral, indicating a mixed signal environment overall.
+
+----------------------------------------
+
+🏁 Chicago Bulls @ Boston Celtics
+Boston Celtics 124 – 105 Chicago Bulls
+The home team's victory aligned cautiously with fatigue and momentum advantages, while consistency was neutral, indicating mixed signals overall.
+
+----------------------------------------
+
+🏁 Indiana Pacers @ Brooklyn Nets
+Indiana Pacers 115 – 110 Brooklyn Nets
+The away team's victory aligned cautiously with momentum and consistency advantages, while fatigue favored the home team, creating mixed signals overall.
+
+----------------------------------------
+
+🏁 New York Knicks @ Philadelphia 76ers
+New York Knicks 138 – 89 Philadelphia 76ers
+The away team's momentum aligned cautiously with their win, while fatigue favored the home team but conflicted with the result, and consistency was balanced, indicating mixed signals overall.
+
+----------------------------------------
+
+🏁 Detroit Pistons @ Toronto Raptors
+Detroit Pistons 113 – 95 Toronto Raptors
+The away team's momentum aligned cautiously with their win despite fatigue favoring the home team, while consistency was neutral, indicating mixed signals overall in explaining the Detroit Pistons' victory over the Toronto Raptors.
+
+----------------------------------------
+
+🏁 LA Clippers @ Houston Rockets
+LA Clippers 105 – 102 Houston Rockets
+The away team's victory aligned cautiously with their edges in fatigue and momentum, while consistency was balanced with no clear advantage, indicating mixed signals overall.
+
+----------------------------------------
+
+🏁 Portland Trail Blazers @ Minnesota Timberwolves
+Minnesota Timberwolves 133 – 109 Portland Trail Blazers
+The home team's momentum aligned cautiously with their win, while fatigue favored the away team, conflicting with the result, and consistency was balanced, indicating mixed signals overall.
+
+----------------------------------------
+
+🏁 Miami Heat @ New Orleans Pelicans
+Miami Heat 123 – 111 New Orleans Pelicans
+The away team's win aligned cautiously with momentum but conflicted with fatigue, which favored the home team, while consistency was neutral, resulting in mixed signals overall.
+
+----------------------------------------
+
+🏁 Oklahoma City Thunder @ Phoenix Suns
+Oklahoma City Thunder 136 – 109 Phoenix Suns
+The away team's victory aligned cautiously with their edges in fatigue and momentum, while consistency was balanced between teams, resulting in mixed signals overall.
+
+----------------------------------------
+
+🏁 Sacramento Kings @ Utah Jazz
+Utah Jazz 121 – 93 Sacramento Kings
+The home team's win aligned cautiously with fatigue and momentum advantages, while consistency was balanced and neutral, resulting in mixed signals overall.
+
+----------------------------------------
+
+🏁 Memphis Grizzlies @ Denver Nuggets
+Denver Nuggets 122 – 116 Memphis Grizzlies
+The home team's victory aligned cautiously with their fatigue advantage, conflicted with the away team's momentum edge, and was accompanied by balanced consistency metrics, indicating mixed signals overall.
+
+----------------------------------------
+
+🏁 San Antonio Spurs @ Golden State Warriors
+San Antonio Spurs 126 – 113 Golden State Warriors
+The Spurs' win aligned cautiously with momentum favoring them, contrasted with home fatigue advantage and neutral consistency signals, indicating mixed pregame factors contributing to the outcome.
+
+----------------------------------------
+

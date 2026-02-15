@@ -22,5 +22,107 @@
     "timestamp": "2026-02-09T17:42:49.201787",
     "signature": "9acf59aa858ec3e16e6bce073f307c2322a202da",
     "matchup": "LA Clippers @ Minnesota Timberwolves"
+  },
+  "Atlanta Hawks @ Charlotte Hornets:db5107d4508767ecd5d20c0e66145bce2b0c7577": {
+    "summary": "The home team's victory aligned cautiously with their fatigue advantage but conflicted with the away team's momentum edge, while consistency was balanced and overall signals were mixed.",
+    "timestamp": "2026-02-12T17:20:34.645466",
+    "signature": "db5107d4508767ecd5d20c0e66145bce2b0c7577",
+    "matchup": "Atlanta Hawks @ Charlotte Hornets"
+  },
+  "Washington Wizards @ Cleveland Cavaliers:8b9a55fe7e3a3d38ae228078486886073e3cd3ac": {
+    "summary": "The home team's momentum aligned cautiously with their win, fatigue favored the away team conflicting with the result, and consistency was neutral, indicating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:36.355239",
+    "signature": "8b9a55fe7e3a3d38ae228078486886073e3cd3ac",
+    "matchup": "Washington Wizards @ Cleveland Cavaliers"
+  },
+  "Milwaukee Bucks @ Orlando Magic:59292cd45c3814dfef2cb6384ddfdba6f277bf0d": {
+    "summary": "The away team's victory aligned cautiously with their advantages in fatigue and momentum, while consistency was balanced and neutral, indicating a mixed signal environment overall.",
+    "timestamp": "2026-02-12T17:20:37.647322",
+    "signature": "59292cd45c3814dfef2cb6384ddfdba6f277bf0d",
+    "matchup": "Milwaukee Bucks @ Orlando Magic"
+  },
+  "Chicago Bulls @ Boston Celtics:82475ef4108d63daa8759df75080380276561df1": {
+    "summary": "The home team's victory aligned cautiously with fatigue and momentum advantages, while consistency was neutral, indicating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:38.857852",
+    "signature": "82475ef4108d63daa8759df75080380276561df1",
+    "matchup": "Chicago Bulls @ Boston Celtics"
+  },
+  "Indiana Pacers @ Brooklyn Nets:39a3061a43950d935d5ffcab43c45b64a0aa0752": {
+    "summary": "The away team's victory aligned cautiously with momentum and consistency advantages, while fatigue favored the home team, creating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:40.923834",
+    "signature": "39a3061a43950d935d5ffcab43c45b64a0aa0752",
+    "matchup": "Indiana Pacers @ Brooklyn Nets"
+  },
+  "New York Knicks @ Philadelphia 76ers:e7ea7acde13dc92f59afc2e46712c5fc2c09d6f0": {
+    "summary": "The away team's momentum aligned cautiously with their win, while fatigue favored the home team but conflicted with the result, and consistency was balanced, indicating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:42.334908",
+    "signature": "e7ea7acde13dc92f59afc2e46712c5fc2c09d6f0",
+    "matchup": "New York Knicks @ Philadelphia 76ers"
+  },
+  "Detroit Pistons @ Toronto Raptors:0325273406781786c75ddc3e22bf591041491c66": {
+    "summary": "The away team's momentum aligned cautiously with their win despite fatigue favoring the home team, while consistency was neutral, indicating mixed signals overall in explaining the Detroit Pistons' victory over the Toronto Raptors.",
+    "timestamp": "2026-02-12T17:20:43.676184",
+    "signature": "0325273406781786c75ddc3e22bf591041491c66",
+    "matchup": "Detroit Pistons @ Toronto Raptors"
+  },
+  "LA Clippers @ Houston Rockets:467b5b2a5486f39b3e3a57f7e9b94df10c51a938": {
+    "summary": "The away team's victory aligned cautiously with their edges in fatigue and momentum, while consistency was balanced with no clear advantage, indicating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:44.935874",
+    "signature": "467b5b2a5486f39b3e3a57f7e9b94df10c51a938",
+    "matchup": "LA Clippers @ Houston Rockets"
+  },
+  "Portland Trail Blazers @ Minnesota Timberwolves:aa5e629815738e3355117a7bc24386bc4b7348fc": {
+    "summary": "The home team's momentum aligned cautiously with their win, while fatigue favored the away team, conflicting with the result, and consistency was balanced, indicating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:46.159976",
+    "signature": "aa5e629815738e3355117a7bc24386bc4b7348fc",
+    "matchup": "Portland Trail Blazers @ Minnesota Timberwolves"
+  },
+  "Miami Heat @ New Orleans Pelicans:ecc91f1fed28b898acd5a3cdc48cb67cd7f7969c": {
+    "summary": "The away team's win aligned cautiously with momentum but conflicted with fatigue, which favored the home team, while consistency was neutral, resulting in mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:48.845940",
+    "signature": "ecc91f1fed28b898acd5a3cdc48cb67cd7f7969c",
+    "matchup": "Miami Heat @ New Orleans Pelicans"
+  },
+  "Oklahoma City Thunder @ Phoenix Suns:485b00210d15e4dcefe181d464dac4246fb222ed": {
+    "summary": "The away team's victory aligned cautiously with their edges in fatigue and momentum, while consistency was balanced between teams, resulting in mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:50.097740",
+    "signature": "485b00210d15e4dcefe181d464dac4246fb222ed",
+    "matchup": "Oklahoma City Thunder @ Phoenix Suns"
+  },
+  "Sacramento Kings @ Utah Jazz:1aeaa38df7a3c78f3e84f6a7d929f2b87bb8a830": {
+    "summary": "The home team's win aligned cautiously with fatigue and momentum advantages, while consistency was balanced and neutral, resulting in mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:52.164696",
+    "signature": "1aeaa38df7a3c78f3e84f6a7d929f2b87bb8a830",
+    "matchup": "Sacramento Kings @ Utah Jazz"
+  },
+  "Memphis Grizzlies @ Denver Nuggets:b6cd70c06f9da9fcb8b3f6e392d0bc978a4250da": {
+    "summary": "The home team's victory aligned cautiously with their fatigue advantage, conflicted with the away team's momentum edge, and was accompanied by balanced consistency metrics, indicating mixed signals overall.",
+    "timestamp": "2026-02-12T17:20:54.469370",
+    "signature": "b6cd70c06f9da9fcb8b3f6e392d0bc978a4250da",
+    "matchup": "Memphis Grizzlies @ Denver Nuggets"
+  },
+  "San Antonio Spurs @ Golden State Warriors:4060d7321e7973778b3ded9ff99196d1f92acf6e": {
+    "summary": "The Spurs' win aligned cautiously with momentum favoring them, contrasted with home fatigue advantage and neutral consistency signals, indicating mixed pregame factors contributing to the outcome.",
+    "timestamp": "2026-02-12T17:20:55.818874",
+    "signature": "4060d7321e7973778b3ded9ff99196d1f92acf6e",
+    "matchup": "San Antonio Spurs @ Golden State Warriors"
+  },
+  "Milwaukee Bucks @ Oklahoma City Thunder:93c5fab1aaa90ac0be739d0b649bf3f17601189c": {
+    "summary": "Fatigue was balanced and consistency showed no clear edge, but momentum favored the away team and aligned cautiously with their win, while other signals remained neutral or unclear.",
+    "timestamp": "2026-02-13T17:06:07.641896",
+    "signature": "93c5fab1aaa90ac0be739d0b649bf3f17601189c",
+    "matchup": "Milwaukee Bucks @ Oklahoma City Thunder"
+  },
+  "Portland Trail Blazers @ Utah Jazz:5d33ce09daabbeab9d709fa29018479b9c8f6e3c": {
+    "summary": "The away team's win aligned cautiously with momentum but conflicted with fatigue, which favored the home team, while consistency was balanced and offered no clear indication.",
+    "timestamp": "2026-02-13T17:06:09.691101",
+    "signature": "5d33ce09daabbeab9d709fa29018479b9c8f6e3c",
+    "matchup": "Portland Trail Blazers @ Utah Jazz"
+  },
+  "Dallas Mavericks @ Los Angeles Lakers:d300d79389c1f52ef3746f58196409dc57f22465": {
+    "summary": "The home team's win aligned cautiously with momentum but conflicted with fatigue and consistency, which favored the away team, indicating mixed signals overall.",
+    "timestamp": "2026-02-13T17:06:11.593370",
+    "signature": "d300d79389c1f52ef3746f58196409dc57f22465",
+    "matchup": "Dallas Mavericks @ Los Angeles Lakers"
   }
 }
