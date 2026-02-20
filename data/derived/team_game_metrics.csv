@@ -1645,3 +1645,41 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 18447608,2026-02-12,25,Portland Trail Blazers,29,Utah Jazz,A,16,Salt Lake City,Minneapolis,4,7,75.0,1,984.4,3,100.0,Critical
 18447609,2026-02-12,14,Los Angeles Lakers,7,Dallas Mavericks,H,20,Los Angeles,Los Angeles,4,7,75.0,2,0.0,1,71.1,Critical
 18447609,2026-02-12,7,Dallas Mavericks,14,Los Angeles Lakers,A,-20,Los Angeles,Phoenix,3,6,45.2,2,358.3,2,47.9,Elevated
+18447610,2026-02-19,4,Charlotte Hornets,11,Houston Rockets,H,-4,Charlotte,Charlotte,0,4,10.0,8,0.0,1,7.0,Low
+18447610,2026-02-19,11,Houston Rockets,4,Charlotte Hornets,A,4,Charlotte,Houston,0,4,10.0,8,925.8,3,11.0,Low
+18447611,2026-02-19,6,Cleveland Cavaliers,3,Brooklyn Nets,H,28,Cleveland,Cleveland,0,3,10.0,8,0.0,1,7.0,Low
+18447611,2026-02-19,3,Brooklyn Nets,6,Cleveland Cavaliers,A,-28,Cleveland,Brooklyn,0,4,10.0,8,405.4,2,9.0,Low
+18447612,2026-02-19,23,Philadelphia 76ers,1,Atlanta Hawks,H,-10,Philadelphia,Philadelphia,0,4,10.0,8,0.0,1,7.0,Low
+18447612,2026-02-19,1,Atlanta Hawks,23,Philadelphia 76ers,A,10,Philadelphia,Charlotte,0,4,10.0,8,447.8,2,9.0,Low
+18447613,2026-02-19,30,Washington Wizards,12,Indiana Pacers,H,7,Washington,Cleveland,0,4,10.0,8,304.7,2,9.0,Low
+18447613,2026-02-19,12,Indiana Pacers,30,Washington Wizards,A,-7,Washington,Brooklyn,0,4,10.0,8,203.3,1,7.0,Low
+18447614,2026-02-19,20,New York Knicks,9,Detroit Pistons,H,-15,New York,Philadelphia,0,4,10.0,8,85.4,1,7.0,Low
+18447614,2026-02-19,9,Detroit Pistons,20,New York Knicks,A,15,New York,Toronto,0,4,10.0,8,340.4,2,9.0,Low
+18447615,2026-02-19,5,Chicago Bulls,28,Toronto Raptors,H,-9,Chicago,Boston,0,4,10.0,8,850.6,3,11.0,Low
+18447615,2026-02-19,28,Toronto Raptors,5,Chicago Bulls,A,9,Chicago,Toronto,0,3,10.0,8,437.8,2,9.0,Low
+18447616,2026-02-19,27,San Antonio Spurs,24,Phoenix Suns,H,27,San Antonio,San Francisco,0,4,10.0,8,1488.5,3,11.0,Low
+18447616,2026-02-19,24,Phoenix Suns,27,San Antonio Spurs,A,-27,San Antonio,Phoenix,0,4,10.0,8,849.5,3,11.0,Low
+18447617,2026-02-19,10,Golden State Warriors,2,Boston Celtics,H,-11,San Francisco,San Francisco,0,4,10.0,8,0.0,1,7.0,Low
+18447617,2026-02-19,2,Boston Celtics,10,Golden State Warriors,A,11,San Francisco,Boston,0,3,10.0,8,2691.2,3,11.0,Low
+18447618,2026-02-19,26,Sacramento Kings,22,Orlando Magic,H,-37,Sacramento,Salt Lake City,0,4,10.0,8,532.1,2,9.0,Low
+18447618,2026-02-19,22,Orlando Magic,26,Sacramento Kings,A,37,Sacramento,Orlando,0,4,10.0,8,2390.8,3,11.0,Low
+18447619,2026-02-19,13,LA Clippers,8,Denver Nuggets,H,1,Los Angeles,Houston,0,4,10.0,8,1372.8,3,11.0,Low
+18447619,2026-02-19,8,Denver Nuggets,13,LA Clippers,A,-1,Los Angeles,Denver,0,3,10.0,8,830.8,3,11.0,Low
+18447620,2026-02-20,4,Charlotte Hornets,6,Cleveland Cavaliers,H,0,Charlotte,Charlotte,1,4,10.0,1,0.0,1,22.0,Low
+18447620,2026-02-20,6,Cleveland Cavaliers,4,Charlotte Hornets,A,0,Charlotte,Cleveland,1,4,10.0,1,435.7,2,32.0,Elevated
+18447621,2026-02-20,30,Washington Wizards,12,Indiana Pacers,H,0,Washington,Washington,1,4,10.0,1,0.0,1,22.0,Low
+18447621,2026-02-20,12,Indiana Pacers,30,Washington Wizards,A,0,Washington,Washington,1,5,18.8,1,0.0,1,30.8,Elevated
+18447622,2026-02-20,15,Memphis Grizzlies,29,Utah Jazz,H,0,Memphis,Denver,0,4,10.0,9,878.8,3,11.0,Low
+18447622,2026-02-20,29,Utah Jazz,15,Memphis Grizzlies,A,0,Memphis,Salt Lake City,0,4,10.0,8,1248.5,3,11.0,Low
+18447623,2026-02-20,1,Atlanta Hawks,16,Miami Heat,H,0,Atlanta,Philadelphia,1,4,10.0,1,663.0,2,32.0,Elevated
+18447623,2026-02-20,16,Miami Heat,1,Atlanta Hawks,A,0,Atlanta,New Orleans,0,4,10.0,9,424.8,2,9.0,Low
+18447624,2026-02-20,18,Minnesota Timberwolves,7,Dallas Mavericks,H,0,Minneapolis,Minneapolis,0,4,10.0,9,0.0,1,7.0,Low
+18447624,2026-02-20,7,Dallas Mavericks,18,Minnesota Timberwolves,A,0,Minneapolis,Los Angeles,0,3,10.0,8,1522.4,3,11.0,Low
+18447625,2026-02-20,19,New Orleans Pelicans,17,Milwaukee Bucks,H,0,New Orleans,New Orleans,0,3,10.0,9,0.0,1,7.0,Low
+18447625,2026-02-20,17,Milwaukee Bucks,19,New Orleans Pelicans,A,0,New Orleans,Oklahoma City,0,4,10.0,8,575.8,2,9.0,Low
+18447626,2026-02-20,21,Oklahoma City Thunder,3,Brooklyn Nets,H,0,Oklahoma City,Oklahoma City,0,4,10.0,8,0.0,1,7.0,Low
+18447626,2026-02-20,3,Brooklyn Nets,21,Oklahoma City Thunder,A,0,Oklahoma City,Cleveland,1,4,10.0,1,950.2,3,36.0,Elevated
+18447627,2026-02-20,14,Los Angeles Lakers,13,LA Clippers,H,0,Los Angeles,Los Angeles,0,4,10.0,8,0.0,1,7.0,Low
+18447627,2026-02-20,13,LA Clippers,14,Los Angeles Lakers,A,0,Los Angeles,Los Angeles,1,5,18.8,1,0.0,1,30.8,Elevated
+18447628,2026-02-20,25,Portland Trail Blazers,8,Denver Nuggets,H,0,Portland,Salt Lake City,0,5,18.8,8,633.9,2,13.4,Low
+18447628,2026-02-20,8,Denver Nuggets,25,Portland Trail Blazers,A,0,Portland,Los Angeles,1,4,10.0,1,827.1,3,36.0,Elevated

@@ -295,6 +295,26 @@ game_id,game_date,team_id,team_name,opponent_id,opponent_name,home_away,actual_m
 18447608,2026-02-12 00:00:00+00:00,29,Utah Jazz,25,Portland Trail Blazers,H,-16,Salt Lake City,Salt Lake City,4,7,75.0,1,0.0,1,87.0,Critical,2.75,-18.75,1.11,-0.2,4.5,-2.61,2.8,2.75
 18447609,2026-02-12 00:00:00+00:00,7,Dallas Mavericks,14,Los Angeles Lakers,A,-20,Los Angeles,Phoenix,3,6,45.2,2,358.3,2,47.9,Elevated,-10.8,-9.2,-8.12,-3.6,-4.5,-1.44,-17.66,-10.8
 18447609,2026-02-12 00:00:00+00:00,14,Los Angeles Lakers,7,Dallas Mavericks,H,20,Los Angeles,Los Angeles,4,7,75.0,2,0.0,1,71.1,Critical,9.91,10.09,8.12,3.6,4.5,-2.13,14.09,9.91
+18447610,2026-02-19 00:00:00+00:00,4,Charlotte Hornets,11,Houston Rockets,H,-4,Charlotte,Charlotte,0,4,10.0,8,0.0,1,7.0,Low,9.97,-13.97,8.2,1.8,4.5,-0.21,14.29,9.97
+18447610,2026-02-19 00:00:00+00:00,11,Houston Rockets,4,Charlotte Hornets,A,4,Charlotte,Houston,0,4,10.0,8,925.8,3,11.0,Low,-10.13,14.13,-8.2,-1.8,-4.5,-0.33,-14.83,-10.13
+18447611,2026-02-19 00:00:00+00:00,3,Brooklyn Nets,6,Cleveland Cavaliers,A,-28,Cleveland,Brooklyn,0,4,10.0,8,405.4,2,9.0,Low,-11.91,-16.09,-25.37,-3.53,-4.5,-0.27,-33.67,-11.91
+18447611,2026-02-19 00:00:00+00:00,6,Cleveland Cavaliers,3,Brooklyn Nets,H,28,Cleveland,Cleveland,0,3,10.0,8,0.0,1,7.0,Low,11.91,16.09,25.37,3.53,4.5,-0.21,33.19,11.91
+18447612,2026-02-19 00:00:00+00:00,1,Atlanta Hawks,23,Philadelphia 76ers,A,10,Philadelphia,Charlotte,0,4,10.0,8,447.8,2,9.0,Low,-3.13,13.13,2.17,-0.61,-4.5,-0.27,-3.2,-3.13
+18447612,2026-02-19 00:00:00+00:00,23,Philadelphia 76ers,1,Atlanta Hawks,H,-10,Philadelphia,Philadelphia,0,4,10.0,8,0.0,1,7.0,Low,2.68,-12.68,-2.17,0.61,4.5,-0.21,2.72,2.68
+18447613,2026-02-19 00:00:00+00:00,12,Indiana Pacers,30,Washington Wizards,A,-7,Washington,Brooklyn,0,4,10.0,8,203.3,1,7.0,Low,2.32,-9.32,6.79,0.27,-4.5,-0.21,2.35,2.32
+18447613,2026-02-19 00:00:00+00:00,30,Washington Wizards,12,Indiana Pacers,H,7,Washington,Cleveland,0,4,10.0,8,304.7,2,9.0,Low,-2.77,9.77,-6.79,-0.27,4.5,-0.27,-2.83,-2.77
+18447614,2026-02-19 00:00:00+00:00,9,Detroit Pistons,20,New York Knicks,A,15,New York,Toronto,0,4,10.0,8,340.4,2,9.0,Low,-6.13,21.13,-1.88,-0.11,-4.5,-0.27,-6.76,-6.13
+18447614,2026-02-19 00:00:00+00:00,20,New York Knicks,9,Detroit Pistons,H,-15,New York,Philadelphia,0,4,10.0,8,85.4,1,7.0,Low,5.76,-20.76,1.88,0.11,4.5,-0.21,6.28,5.76
+18447615,2026-02-19 00:00:00+00:00,5,Chicago Bulls,28,Toronto Raptors,H,-9,Chicago,Boston,0,4,10.0,8,850.6,3,11.0,Low,-6.55,-2.45,-9.61,-1.91,4.5,-0.33,-7.35,-6.55
+18447615,2026-02-19 00:00:00+00:00,28,Toronto Raptors,5,Chicago Bulls,A,9,Chicago,Toronto,0,3,10.0,8,437.8,2,9.0,Low,6.12,2.88,9.61,1.91,-4.5,-0.27,6.75,6.12
+18447616,2026-02-19 00:00:00+00:00,24,Phoenix Suns,27,San Antonio Spurs,A,-27,San Antonio,Phoenix,0,4,10.0,8,849.5,3,11.0,Low,-10.83,-16.17,-11.32,-1.67,-4.5,-0.33,-17.82,-10.83
+18447616,2026-02-19 00:00:00+00:00,27,San Antonio Spurs,24,Phoenix Suns,H,27,San Antonio,San Francisco,0,4,10.0,8,1488.5,3,11.0,Low,10.7,16.3,11.32,1.67,4.5,-0.33,17.16,10.7
+18447617,2026-02-19 00:00:00+00:00,2,Boston Celtics,10,Golden State Warriors,A,11,San Francisco,Boston,0,3,10.0,8,2691.2,3,11.0,Low,5.82,5.18,9.66,1.53,-4.5,-0.33,6.36,5.82
+18447617,2026-02-19 00:00:00+00:00,10,Golden State Warriors,2,Boston Celtics,H,-11,San Francisco,San Francisco,0,4,10.0,8,0.0,1,7.0,Low,-6.23,-4.77,-9.66,-1.53,4.5,-0.21,-6.9,-6.23
+18447618,2026-02-19 00:00:00+00:00,22,Orlando Magic,26,Sacramento Kings,A,37,Sacramento,Orlando,0,4,10.0,8,2390.8,3,11.0,Low,7.66,29.34,10.9,3.0,-4.5,-0.33,9.07,7.66
+18447618,2026-02-19 00:00:00+00:00,26,Sacramento Kings,22,Orlando Magic,H,-37,Sacramento,Salt Lake City,0,4,10.0,8,532.1,2,9.0,Low,-8.01,-28.99,-10.9,-3.0,4.5,-0.27,-9.67,-8.01
+18447619,2026-02-19 00:00:00+00:00,8,Denver Nuggets,13,LA Clippers,A,-1,Los Angeles,Denver,0,3,10.0,8,830.8,3,11.0,Low,-6.37,5.37,-1.33,-0.93,-4.5,-0.33,-7.1,-6.37
+18447619,2026-02-19 00:00:00+00:00,13,LA Clippers,8,Denver Nuggets,H,1,Los Angeles,Houston,0,4,10.0,8,1372.8,3,11.0,Low,5.88,-4.88,1.33,0.93,4.5,-0.33,6.44,5.88
 22500001,2025-10-21 00:00:00+00:00,1610612745,Houston Rockets,1610612760,Oklahoma City Thunder,A,-1,Oklahoma City,,0,0,10.0,5,,0,5.0,Low,-4.43,3.43,0.0,0.0,-4.5,-0.15,-4.65,-4.43
 22500001,2025-10-21 00:00:00+00:00,1610612760,Oklahoma City Thunder,1610612745,Houston Rockets,H,1,Oklahoma City,,0,0,10.0,5,,0,5.0,Low,4.17,-3.17,0.0,0.0,4.5,-0.15,4.35,4.17
 22500002,2025-10-21 00:00:00+00:00,1610612744,Golden State Warriors,1610612747,Los Angeles Lakers,A,10,Los Angeles,,0,0,10.0,5,,0,5.0,Low,-4.43,14.43,0.0,0.0,-4.5,-0.15,-4.65,-4.43

@@ -166,5 +166,59 @@
     "timestamp": "2026-02-12T17:13:57.728671",
     "signature": "e6c963af5adc1f95ab5a6741b28fd037e992057d",
     "matchup": "Dallas Mavericks @ Los Angeles Lakers"
+  },
+  "Cleveland Cavaliers @ Charlotte Hornets:1ba4bd664bb18ec79216e46e88809e4296789a12": {
+    "summary": "The Cavaliers enter as a Streak-Driven Contender with slight positive momentum, while the Hornets show an Unstable Middle identity and declining momentum. Both teams have equal fatigue, but Charlotte is more consistent game-to-game. The clean environment suggests low external volatility.",
+    "timestamp": "2026-02-20T18:54:24.469723",
+    "signature": "1ba4bd664bb18ec79216e46e88809e4296789a12",
+    "matchup": "Cleveland Cavaliers @ Charlotte Hornets"
+  },
+  "Indiana Pacers @ Washington Wizards:aea5642c636a490480254e53176d86b6bdfb0707": {
+    "summary": "Both Indiana and Washington are classified as struggling teams this season. Washington shows positive momentum recently, while Indiana's momentum is slightly negative. Fatigue levels are similar and low for both teams. The clean environment suggests low volatility for this matchup.",
+    "timestamp": "2026-02-20T18:54:26.579675",
+    "signature": "aea5642c636a490480254e53176d86b6bdfb0707",
+    "matchup": "Indiana Pacers @ Washington Wizards"
+  },
+  "Utah Jazz @ Memphis Grizzlies:80d842a9115ac276749d0926571708ced7fb06d9": {
+    "summary": "Both Utah and Memphis are identified as struggling teams with similar fatigue levels. Utah shows negative momentum while Memphis has slight positive momentum. Consistency is comparable, and the environment is mixed, indicating moderate volatility. Overall, the signals suggest a balanced but uncertain matchup.",
+    "timestamp": "2026-02-20T18:54:28.543904",
+    "signature": "80d842a9115ac276749d0926571708ced7fb06d9",
+    "matchup": "Utah Jazz @ Memphis Grizzlies"
+  },
+  "Miami Heat @ Atlanta Hawks:3c3908e60511e7ebb4732f3bd1d4257d54576441": {
+    "summary": "Both Miami and Atlanta have an unstable middle identity, showing moderate inconsistency this season. Atlanta has slightly higher positive momentum and much lower fatigue compared to Miami. Consistency is similar, with Atlanta a bit more stable. The clean environment suggests low external volatility.",
+    "timestamp": "2026-02-20T18:54:30.005753",
+    "signature": "3c3908e60511e7ebb4732f3bd1d4257d54576441",
+    "matchup": "Miami Heat @ Atlanta Hawks"
+  },
+  "Dallas Mavericks @ Minnesota Timberwolves:24b43afa38830a07ce01806849448ed7f33f66dc": {
+    "summary": "The Mavericks enter as a consistently underperforming team with slight negative momentum but higher consistency. The Timberwolves show streak-driven strength and positive momentum but with lower consistency and higher fatigue. The mixed environment suggests some volatility. These factors provide a nuanced matchup.",
+    "timestamp": "2026-02-20T18:54:33.929853",
+    "signature": "24b43afa38830a07ce01806849448ed7f33f66dc",
+    "matchup": "Dallas Mavericks @ Minnesota Timberwolves"
+  },
+  "Milwaukee Bucks @ New Orleans Pelicans:26c85febddbdc337aed34cd9076bf233ca408353": {
+    "summary": "The Bucks enter with a slightly positive momentum but carry higher fatigue, while the Pelicans show negative momentum and lower fatigue. Milwaukee's identity is unstable middle, New Orleans is struggling. Consistency is moderate for both, with a mixed environment indicating some volatility.",
+    "timestamp": "2026-02-20T18:54:35.604339",
+    "signature": "26c85febddbdc337aed34cd9076bf233ca408353",
+    "matchup": "Milwaukee Bucks @ New Orleans Pelicans"
+  },
+  "Brooklyn Nets @ Oklahoma City Thunder:bdf09607a37e49e034fac9061340f907431963e1": {
+    "summary": "The Nets enter as a struggling team with slightly better consistency than the Thunder, who are a streak-driven contender. Both teams show negative momentum and the Thunder have notably higher fatigue. The mixed environment suggests some volatility in the matchup. Overall, signals indicate a complex contest.",
+    "timestamp": "2026-02-20T18:54:37.219356",
+    "signature": "bdf09607a37e49e034fac9061340f907431963e1",
+    "matchup": "Brooklyn Nets @ Oklahoma City Thunder"
+  },
+  "LA Clippers @ Los Angeles Lakers:665a7264e209d93a392075f153924b532ffcdf3f": {
+    "summary": "The Clippers show an unstable middle identity with slightly negative momentum, while the Lakers have a streak-driven contender profile and positive momentum. The Lakers also carry higher fatigue, and both teams have similar consistency. The mixed environment suggests moderate volatility for this matchup.",
+    "timestamp": "2026-02-20T18:54:39.783791",
+    "signature": "665a7264e209d93a392075f153924b532ffcdf3f",
+    "matchup": "LA Clippers @ Los Angeles Lakers"
+  },
+  "Denver Nuggets @ Portland Trail Blazers:53048155ec8b95e3a9563ece2af9e7dcc11a3794": {
+    "summary": "Denver is a Streak-Driven Contender with moderate consistency but slightly negative momentum. Portland shows positive momentum but has higher fatigue and lower consistency, fitting an Unstable Middle profile. The Mixed environment suggests some volatility risk. Overall, signals indicate a nuanced matchup.",
+    "timestamp": "2026-02-20T18:54:41.481002",
+    "signature": "53048155ec8b95e3a9563ece2af9e7dcc11a3794",
+    "matchup": "Denver Nuggets @ Portland Trail Blazers"
   }
 }

@@ -1,1 +1,10 @@
-
+game_id,game_date,home_team_id,home_team_name,away_team_id,away_team_name,matchup
+18447620,2026-02-20,4,Charlotte Hornets,6,Cleveland Cavaliers,CLE @ CHA
+18447621,2026-02-20,30,Washington Wizards,12,Indiana Pacers,IND @ WAS
+18447622,2026-02-20,15,Memphis Grizzlies,29,Utah Jazz,UTA @ MEM
+18447623,2026-02-20,1,Atlanta Hawks,16,Miami Heat,MIA @ ATL
+18447624,2026-02-20,18,Minnesota Timberwolves,7,Dallas Mavericks,DAL @ MIN
+18447625,2026-02-20,19,New Orleans Pelicans,17,Milwaukee Bucks,MIL @ NOP
+18447626,2026-02-20,21,Oklahoma City Thunder,3,Brooklyn Nets,BKN @ OKC
+18447627,2026-02-20,14,Los Angeles Lakers,13,LA Clippers,LAC @ LAL
+18447628,2026-02-20,25,Portland Trail Blazers,8,Denver Nuggets,DEN @ POR
